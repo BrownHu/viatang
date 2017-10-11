@@ -1,0 +1,26 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden; margin-top:14px;" class="middle nobd">
+   <include file="menu" />
+  <div id="faq" style="width:798px; height:100%; overflow:hidden;" class="right brd">
+    <div style="width:788px; height:40px; line-height:40px; overflow:hidden; text-align:left; text-indent:20px;" class="nobd"><a  href="/">首页</a>&nbsp;>&nbsp;<a href="/Help/index.shtml">帮助中心</a>&nbsp;>&nbsp;{$category}</div>
+    <div style="width:760px; height:100%; overflow:hidden; padding-bottom:20px; text-align:left;" class="nobd middle">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="help_list">
+            <tbody>
+              <present name="DataList">
+                <volist name="DataList" id="vo">
+                  <tr class="li">
+                    <td><a href="/Help/detail/id/{$vo.id}.html" target="_blank">{$vo.title}</a></td>
+                  </tr>
+                </volist>
+                <else />
+                <tr class="li">
+                  <td>暂无记录</td>
+                </tr>
+              </present>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

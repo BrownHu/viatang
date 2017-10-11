@@ -1,0 +1,386 @@
+<include file="Public:iheader" />
+<style>
+.bn04{margin-left:136px; margin-top:235px;display:none; width:94px; height:31px; }
+.bn04 a{display:block; width:94px; height:31px; border:none}
+.bn04 a:hover{ text-decoration:none;}
+</style>
+<div style="width:auto; height:auto; overflow:hidden;" class="nobd" >
+  <div id="bn00" class="nobd bn00-1">
+	  <div id="bn01" class="middle nobd bn01-1">
+	  	<div id="bn02" class="left bn02">
+			<ul id="i-intro">
+				<li><span>►</span>&nbsp;PayPal 信用卡多种支付 便捷更安全</li>
+				<li><span>►</span>&nbsp;当天订单当天处理 客服响应及时 完善的售后保障</li>
+				<li><span>►</span>&nbsp;尽享商家折扣 DHL/专线/EMS/AIR最低国际运费</li>
+			</ul>
+			<a href="/Service/index.html" target="_blank" class="iservice_more" >了解更多► </a>
+		</div>
+		<div id="bn03"  class="left bn03">
+			<a href="/Demo/index.html" target="_blank" class="iservice_intro" >代购演示&nbsp;► </a>
+		</div>	
+         <div id="bn04"  class="left bn04">
+			<a href="/announce/94.html" target="_blank" ></a>
+		</div>	
+
+		<div id="rinfo" class="right" style="width:240px; height:auto; overflow:hidden;">
+				<empty name="Think.session.m_Info">
+				<ul style="display:block;width:240px;height:50px; border:none; font-family:'微软雅黑'; margin-top:18px;">
+					<li class="li-reg"><a href="/Register/index.html">免费注册</a></li>
+					<li class="li-login"><a href="/Public/login.html">登录</a></li>
+				</ul>
+				<else/>
+					<div style="width:238px;height:48px;border:1px solid #B41006; background-color:#FFFFFF;margin-top:18px;line-height:50px;">
+						<a href="/My/notice.html">短信({$Think.session.unrd_msg_count|default="0"})</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="/My/index.html">进入会员中心</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="/Public/logout.html">退出</a>
+					</div>
+				</empty>
+				<div style="height:175px;width:238px; margin-top:15px;overflow:hidden; border:1px solid #B41006;" >
+					<ul id="i_tb" style="display:block;width:100%;height:39px;">
+						<li style="width:119px;border-right:1px solid #cccccc;" class="index_tab left i_tab_hover"  onmouseover="setab(this,'dgaigou_help','tuijian');">新手指南</li>
+						<li style="width:118px;" class="left index_tab " onmouseover="setab(this,'tuijian','dgaigou_help');">最新推荐 </li>						
+					</ul>
+					<ul id="dgaigou_help" style="display:block;height:136px;width:238px; background-color:#fff; text-align:left; " class="transbox">
+						<li class="tb_li"><span class="i_span1">■</span><a href="/Freight/index.html" target="_blank">配送区域，运输方式与运费</a></li>
+						<li class="tb_li"><span class="i_span1">■</span><a href="/news/179.html" target="_blank">购物保障，代购商品出现问题怎么办</a></li>
+						<li class="tb_li"><span class="i_span1">■</span><a href="/news/127.html" target="_blank">代购流程介绍，如何代购？</a></li>
+						<li class="tb_li"><span class="i_span1">■</span><a href="/Payment/credit.html" target="_blank">有哪些支付方式，要如何付款</a></li>
+					</ul>
+					<ul id="tuijian" style="display:block;height:136px;width:238px; background-color:#fff; text-align:left;display:none;" class="transbox">
+						<volist name="fastion" id="vo">
+						<li class="tb_li"><span class="i_span">[&nbsp;{$vo.category|getFashionCategory}&nbsp;]</span><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+						</volist>
+					</ul>
+					
+				</div>
+		</div>
+	  </div>
+  </div>
+  <div style="height:30px; background:url(/img/bannerminbg.gif) repeat-x; width:auto; overflow:hidden;">
+  	<ul id="slider_img_pos" style="display:block;width:988px;" class="nobd middle">
+  		<li id="bt_01" class="left gli_on" style="cursor:pointer"></li>
+		<li id="bt_02" class="left gli_no" style="cursor:pointer"></li>
+        <li id="bt_03" class="left gli_no" style="cursor:pointer"></li>
+        <li id="bt_04" class="left gli_no" style="cursor:pointer"></li>
+  	</ul>
+  </div>
+</div>
+
+<div id="m2" style="width:988px; height:640px; margin-top:0px; overflow:hidden;" class="nobd middle">
+  <div id="m2l" style="width:679px; height:640px;" class="nobd left">  
+    <div id="service" style="width:679px; height:233px;" class="nobd mrg14">
+		<div style="width:332px; height:231px;background-color:#fff" class="left brd">
+        	<div style="height:25px; line-height:25px;color:#666;" class="mrg9">
+            	<span style="display:inline-block; margin-left:12px;" class="fnt_b left">新手指导</span>
+                <span style="display:inline-block; margin-right:15px;" class="right"><a href="{$Think.CONFIG.SITE_URL}/help/lst/cid/11.shtml" title="代购指南" target="_blank" class="fnt_gry">更多</a></span>
+            </div>
+            <div style="width:92%;height:90px; border-bottom:1px dashed #CCC;" class="middle">
+             	<img src="../Public/images/buy.gif" alt="代购中国商品与安全支付" style="margin-top:13px;" width="56" height="56" class="left">
+                <div style="width:210px; height:100%; overflow:hidden; margin-left:10px; text-align:left;" class="left">
+                	<span style="display:block;">购物与支付</span>
+                    <ul style="padding:0px; margin-top:5px; line-height:21px;" class="fnt_gry">
+                    	<li class="idx_jt"><a href="/showhelp/173.html" target="_blank" title="怎样代购中国商品" class="fnt_gry" >身在海外，怎样购买中国商品？</a></li>
+                        <li class="idx_jt"><a href="/showhelp/177.html" target="_blank"  title="唯唐代购的服务费" class="fnt_gry">唯唐代购的服务如何收费？</a></li>
+                        <li class="idx_jt"><a href="/showhelp/175.html" target="_blank" title="唯唐代购的付款方式" class="fnt_gry">我没有人民币，也可以支付吗？</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="width:92%;height:90px;" class="middle mrg14">
+            	<img src="../Public/images/bz.gif" alt="商品配送与售后" style="margin-top:13px;" width="56" height="56" class="left">
+                <div style="width:210px; height:100%; overflow:hidden; margin-left:10px; text-align:left;" class="left">
+                	<span style="display:block;">配送与售后</span>
+                    <ul style="padding:0px; margin-top:5px; line-height:21px;" class="fnt_gry">
+                    	<li class="idx_jt"><a href="/showhelp/179.html" target="_blank" title="唯唐代购服务保障" class="fnt_gry">唯唐代购服务有哪些售后保障？</a></li>
+                        <li class="idx_jt"><a href="/showhelp/181.html" target="_blank" title="集中发货好处" class="fnt_gry">集中包裹运送的好处是什么？</a></li>
+                        <li class="idx_jt"><a href="/showhelp/183.html" target="_blank" title="viatang运输方式" class="fnt_gry">有哪些运送方式可以选择？</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="width:332px; height:231px;background-color:#fff" class="right brd">
+        	<div style="height:25px; line-height:25px;color:#666; text-align:left; text-indent:15px;" class="fnt_b mrg9">服务特色</div>
+            <div class="middle srv_item">
+               <div style="background:url(../Public/images/tbl.gif) 0 0 no-repeat;" alt="订单2小时内快速处理" class="left idx_iv"></div>
+               <div class="left srv_itemd">
+                    <span>快速</span>
+                    <span class="fnt_gry">订单2小时内处理，客服响应及时</span>
+                </div>
+            </div>
+            <div class="middle srv_item">
+               <div style="background:url(../Public/images/tbl.gif) 0 -54px no-repeat;" alt="全网商品代购服务" class="left idx_iv"></div>
+               <div class="left srv_itemd">
+                    <span>便捷</span>
+                    <span class="fnt_gry">全网商品任意选， 一键提交代购及邮寄</span>
+                </div>
+            </div>
+            <div class="middle srv_item">
+               <div style="background:url(../Public/images/tbl.gif) 0 -107px no-repeat;" alt="多件商品集中打包，享国际运费最低3折起" class="left idx_iv"></div>
+               <div class="left srv_itemd">
+                    <span>省钱</span>
+                    <span class="fnt_gry">多件商品集中打包，享最低国际运费</span>
+                </div>
+            </div>
+            <div class="middle srv_item">
+               <div style="background:url(../Public/images/tbl.gif) 0 -163px no-repeat;" alt="paypal支付 多种配送方式选择 安全便捷" class="left idx_iv"></div>
+               <div class="left srv_itemd">
+                    <span>安全</span>
+                    <span class="fnt_gry">Paypal外币支付，DHL配送，完善的售后保障</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width:679px; height:55px; background-color:#fff;overflow:hidden;" class="mrg14">
+	<a target="_blank" href="/See/index.html"><img src="../Public/images/event2015.gif" alt="淘宝代购网站"  width="679" height="60" id="img_ddbn" border="0"/></a>
+    </div>
+    <div id="recent" class="idx_recent_box brd1 mrg14">
+      <div class="nobd idx_recent"> 
+      	<span style="font-weight:bold;color:#666;">最新代购</span> <span class="fnt_gry" style="padding-left:12px;">累计已代购<font color="#FF6600" id="success_count">14,325,467</font>件</span> 
+        <ul style="display:inline-block; list-style:none;  margin-top:10px; margin-right:36px;" class="right">
+          <volist name="ProductTypeList" id="vo" key="i">
+          	 <li class="<neq name="i" value="1">top_nav_fg</neq> left rent_cat" style="margin-left:10px;"><a href="/see/{$vo.id}.html" class="fnt_gry" target="_blank" >{$vo.caption}</a></li>
+          </volist>
+          <li class="top_nav_fg left rent_cat" style="margin-left:10px;"><a href="/See/index.html" class="fnt_gry" target="_blank" >更多</a></li>
+        </ul>
+      </div>
+      <div class="idx_new_order nobd">
+        <div id="idx_scrolbox" style="overflow:hidden; height:250px;">
+          <img src="../Public/images/loading.gif" alt="最新淘宝代购" style="margin-top:50px; margin-left:270px;" /><br>
+          <p style="text-align:center;">加载数据中...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="m2r" style="width:300px; height:556px;" class="nobd right mrg14">
+    <div style="width:298px; height:130px;background-color:#fff" class="brd1">
+      <div class="annouce_hd nobd"> 
+      	<span id="tlt_gg"  class="left gg_title fnt_b" ><a href="#nogo">网站公告</a></span>         
+      </div>
+      <div id="lst_gg" class="nobd gg_lst">
+        <ul>
+          <volist name="AnnounceList" id="vo" >
+            <li><a href="/announce/{$vo.id}.html" target="_blank"  <eq name="i" value="1">style="color:#dc0050"</eq> title="{$vo.title}">{$vo.title|getShortTitle=###,20,false}</a></li>
+          </volist>
+        </ul>
+      </div>     
+    </div>
+    <div style="height:127px; padding:1px; overflow:hidden;" class="nobd mrg14">
+		<a href="/Service/index.html" target="_blank"><img src="/Public/Images/assistant.gif" alt="代购流程介绍、海外华人首选代购平台" height="129" width="300" ></a>
+    </div>
+    <div id="review" class="mrg14 idx_review">
+      <div class="nobd idx_review_title"> 
+         <span id="tlt_feed" class="gg_title  gg_title_on left fnt_b"><a href="/Review/index.html" target="_blank">用户评论</a></span> 
+         <span style="display:block; margin-right:15px;" class="right"><a id="review_idx_more" href="/Review/index.html" target="_blank" class="fnt_gry">更多</a></span>
+      </div>     
+      <div id="mrlst" style="width:272px;text-align:left;" class="middle nobd">
+        <volist name="ReviewList" id="vo">
+      		<ul class="middle">
+        		<li><img src="/Uploads/pic/avatar/{$vo.user_id|getAvatar}_s.jpg" alt="用户头像"  onerror="this.src='/img/1.gif'" title="来自:{$vo.country}"></li>
+        		<li class="common_info">
+          		<h2 class="user"><span>{$vo.country}</span><em>{$vo.user_name|getSortUserName=###}</em></h2>
+          		{$vo.content|getShortTitle=###,35,true}</li>
+      		</ul>
+     	 </volist>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="didxAdBanner" style="width:988px; height:90px; display:none;" class="mrg14 middle"></div>
+
+
+<div id="m5" class="mrg14 g_w1">
+  <div id="m5left" class="nobd aleft left">
+    <div id="m5navi" style="width:690px">
+      <div class="left" style="width:150px;">
+        <h4 style="background-color:#B51005; width:150px;" class="h4">我们能为您做什么？</h4>
+      </div>
+      <div class="m5navi" style="width:528px">
+      	<div style="width:150px;margin-left:10px; line-height:38px;height:35px; text-align:left" class="left gc"><a href="/Freight/index.html" target="_blank">查看配送地区与运费说明</a></div>
+      	<div style="width:150px;margin-left:105px; line-height:38px;height:35px; text-align:left" class="left gc"><a href="/news/146.html" target="_blank">购物保障条款</a></div>
+      	<div style="width:50px; line-height:38px;height:38px;margin-right:5px;" class="nbr right"><a href="/Service/index.html" target="_blank" class="more">服务介绍&nbsp;></a></div>
+      </div>
+    </div>
+    <div style="height:9px" class="_w nobd"></div>
+    <div id="dgdes"> <img src="/img/daigou.jpg" alt="代购中国" class="nobd left" style="margin-left:12px;" />
+      <div class="nobd dginf left">
+        <div style="height:15px; margin-top:5px; overflow:hidden"><span style="font-weight:bold; font-size:12px;">代购中国商品</span></div>
+        <div class="des"> 
+          使用Paypal支付、支付宝国际信用卡支付、电汇等方式付款给唯唐代购网，我们代您付款给中国商家，并购买、验货，通过DHL、邮政等快递送到您手中<br>
+          <div class="gc">已服务<span class="rc" id="buyUserCount">700536</span>位用户</div>
+        </div>
+        <div class="nobd" style="margin-top:8px;"> <a href="/Demo/index.html" class="btn_n" target="_blank">操作演示</a><a href="/My/buy.html" class="btn_n" target="_blank">填写代购单</a> </div>
+      </div>
+    </div>
+    <div id="dgdes"> <img src="/img/zy.jpg" alt="海外代购服务介绍" class="nobd left" style="margin-left:12px;" />
+      <div class="nobd dginf left">
+        <div style="height:15px; margin-top:8px;  overflow:hidden"><span style="font-weight:bold; font-size:12px;">转寄包裹至海外&nbsp;/&nbsp;国际转运（物流服务）</span></div>
+        <div class="des" style="margin-top:5px; "> 将您自己购买或家人的包裹发送至唯唐代购，由我们为您转寄海外，享受超低运费折扣<br>
+          <div class="gc">DHL&nbsp;约<span class="rc">35折</span>&nbsp;&nbsp;&nbsp;EMS&nbsp;约<span class="rc">55折</span>&nbsp;&nbsp;&nbsp; 邮政包裹&nbsp;约<span class="rc">6折</span></div>
+        </div>
+        <div class="nobd" style="margin-top:10px;"> <a href="/Selfpurchase/buy.html" class="btn_n" target="_blank">填写发货单</a> </div>
+      </div>
+    </div>
+  </div>
+  <div id="m5right" class="nobd right">
+	<div style="height:34px;line-height:35px; border-bottom:1px solid #B51005; text-indent:18px; color:#000; overflow:hidden">
+      <div class="left">
+        <h4 style="margin-top:0px">常见问题</h4>
+      </div>
+      <span class="more"><a href="/help/lst/cid/11.shtml" target="_blank">更多问题&nbsp;></a></span> 
+    </div>   
+
+    <div id="news">
+      <ul id="news_lst">
+        <volist name="IdxHelpList" id="vo" offset="0" length="10">
+        <li><a href="/showhelp/{$vo.id}.html" title="{$vo.title}" target="_blank" >{$vo.title|getShortTitle=###,20,false}</a></li>
+        </volist>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="gshaw"></div>
+
+<div id="m6" class="g_w1 mrg14">
+  <div id="m6left" class="nobd gleft left">
+    <div id="m6navi" class="ileft">
+      <h4 style="background-color:#B51005;" class="h4">支持商家</h4>
+      <div class="m6navi nleft">
+      	<div style="width:380px;margin-left:10px; line-height:35px; text-align:left" class="left gc"><a href="/" alt="淘宝代购 代购中国商品 代购网站 海外华人代购"></a></div>
+      </div>
+    </div>
+    <div class="sites">
+    	<div class="left" style="width:32px; margin-left:3px;"><a href="javascript:void(0);" id="site-left" class="prev"></a></div>
+         <div class="site-lst left">
+    	  <ul>
+      		<li><a href="http://www.taobao.com/?refer=viatang" target="_blank" title="代购中国淘宝商品"><img alt="淘宝代购" src="/img/logo/home_219.jpg"><div>淘宝网</div></a></li>
+      		<li><a href="http://www.dangdang.com/?refer=viatang" target="_blank" title="当当网代购"><img alt="代购当当" src="/img/logo/home_59.jpg"><div>当当网</div></a></li>
+      		<li><a href="http://www.tmall.com/?refer=viatang" target="_blank" title="代购天猫商品"><img alt="天猫代购" src="/img/logo/home_220.jpg"><div>天猫</div></a></li>
+      		<li><a href="http://www.jd.com/?refer=viatang" target="_blank" title="代购京东"><img alt="京东代购" src="/img/logo/home_61.jpg"><div>京东商城</div></a></li>
+		<li><a href="http://www.51buy.com/?refer=viatang" target="_blank" title="代购易迅"><img alt="易迅代购" src="/img/logo/home_11.jpg"><div>易迅</div></a></li>
+                  <li><a href="http://www.z.cn/?refer=viatang" target="_blank" title="代购亚马逊"><img alt="亚马逊代购" src="/img/logo/home_12.jpg"><div>亚马逊</div></a></li>
+                  <li><a href="http://www.vancl.com/?refer=viatang" target="_blank" title="代购凡客诚品商品"><img alt="凡客代购" src="/img/logo/home_13.jpg"><div>凡客诚品</div></a></li>
+    	  </ul>
+        </div>
+        <div class="left" style="width:15px;"><a href="javascript:void(0);" id="site-right" class="next"></a></div>
+    </div>
+  </div>
+  
+  <div id="m6right" class="nobd right">
+  	<div style="height:35px;">
+    	<div class="_w nobd tl">
+      		<h4>常用工具</h4>      		
+    	</div>
+    </div>
+    <div style=" height:auto; margin-left:18px;" class="nobd">
+      <div style="width:200px;height:auto; overflow:hidden" class="nobd left">
+        <ul class="tool_ul">
+          <li>
+            <div class="li_tool t_trace"></div>
+            <div class="t_i"><a href="/Trace/index.html" target="_blank">包裹跟踪查询</a><br>
+              <span class="gc">DHL&nbsp;EMS&nbsp;唯唐专线等</span></div>
+          </li>
+          <li>
+            <div class="li_tool t_evl"></div>
+            <div class="t_i"><a href="/Tools/estimate.html" target="_blank">费用估算工具</a><br>
+              <span class="gc">资费运费一目了然</span></div>
+          </li>
+          <li>
+            <div class="li_tool t_fox"></div>
+            <div class="t_i"><a href="http://qq.ip138.com/hl.asp" target="_blank">汇率换算</a><br>
+              <span class="gc">外币汇率转换实时查询</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gshaw"></div>
+<div style="background:url(/img/bbg.png) repeat-x #FFFFFF; height:auto; overflow:hidden;width:auto;" class="mrg14">
+<div id="help" class="g_w1">
+  <div style="border-left:none;">
+    <span>新手指南</span>
+    <ul>
+      <li><a href="/Register/index.html" target="_blank">会员注册</a></li>
+      <li><a href="/news/127.html" target="_blank">代购流程</a></li>
+      <li><a href="/news/137.html" target="_blank">服务与费用</a></li>
+      <li><a href="/news/141.html" target="_blank">如何跟踪运单</a></li>
+      <li><a href="/news/179.html" target="_blank">购物保障</a></li>
+    </ul>
+  </div>
+  <div>
+    <span>配送说明</span>
+    <ul>
+      <li><a href="/Freight/index.html" target="_blank">运输方式和费用</a></li>
+      <li><a href="/news/142.html" target="_blank">大宗商品的运费</a></li>
+      <li><a href="/news/143.html" target="_blank">海关及税项</a></li>
+      <li><a href="/news/144.html" target="_blank">收货注意事项</a></li>
+	  <li><a href="/Fagui/index.html" target="_blank">政策法规</a></li>
+    </ul>
+  </div>
+  <div>
+    <span>付款方式</span>
+    <ul>
+      <li><a href="/Payment/paypal.html" target="_blank">Paypal支付</a></li>
+      <li><a href="/Payment/alipay.html" target="_blank">支付宝支付</a></li>
+	  <li><a href="/Payment/credit.html" target="_blank">国际信用卡</a></li>
+      <li><a href="/Payment/xianjin.shtml" target="_blank">西联汇款</a></li>
+    </ul>
+  </div>
+  <div>
+    <span>用户须知</span>
+    <ul>
+      <li><a href="/About/index/s/4.html" target="_blank">服务条款</a></li>
+      <li><a href="/About/index/s/4.html" target="_blank">服务介绍</a></li>
+      <li><a href="/About/index/s/5.html" target="_blank">隐私声明</a></li>
+	  <li><a href="/About/index/s/8.html" target="_blank">免责声明</a></li>
+    </ul>
+  </div>
+  <div>
+    <span>客户服务</span>
+    <ul>
+      <li><a href="/news/108.html" target="_blank">售后保障</a></li>
+      <li><a href="/news/109.html" target="_blank">退换货流程</a></li>
+      <li><a href="/news/133.html" target="_blank">商品的保管期限</a></li>
+      <li><a href="/My/complaint.html" target="_blank">投诉与建议</a></li>
+    </ul>
+  </div>
+  <div style="border:none; width:250px;font-family：微软雅黑;color:#555 ">
+    <div style="height:22px; width:250px; line-height:10px; font-weight:bold; font-size:21px; color:#999999; margin-top:5px; margin-left:8px; border:none">客服热线：</div>
+    <div style="height:25px; width:250px; line-height:20px; font-weight:bold; font-size:28px; color:#B51005; margin-top:5px; margin-left:10px; border:none">{$Think.CONFIG.CSR_TEL}</div>
+    <div style="height:15px; width:250px; margin-left:9px; font-size:12px; color:#999999;border:none;">工作时间：&nbsp;9:00~19:00</div>
+    <div style="height:15px; width:250px;line-height:25px; font-size:12px; color:#999999; margin-top:5px; margin-left:10px; border:none">客服邮箱：&nbsp;{$Think.CONFIG.SERVICE_MAIL}</div>
+    
+    <div style="height:15px; width:250px; line-height:25px; font-size:12px; color:#999999; margin-top:15px; margin-left:10px; padding-top:10px; margin:0px; border:none">
+    <span style="width:70px; text-indent:9px; float:left">北京时间：</span>
+    <span id="footer_date" style=" text-align:left; width:70px; text-indent:0; float:left "></span>
+    <input type="hidden" value="<php>echo time();</php>" id="Beijing_Time" /> 
+    <span id="footer_time" style="font-size: 16px;  color:#B51005; text-align:left;width:80px; text-indent:0; float:left "></span>
+    </div>
+  </div>
+</div>
+
+<script>$('#mn_home a').addClass('menu_li_on');</script>
+<div id="blink" class="middle mrg14" style="text-align:left; width:988px">
+	<span style="color:#aeadad">本站关键词：</span>
+         <a href="{$Think.CONFIG.SITE_URL}">唯唐代购</a>
+	<a href="{$Think.CONFIG.SITE_URL}">代购</a>
+	<a href="{$Think.CONFIG.SITE_URL}">淘宝代购</a>
+	<a href="{$Think.CONFIG.SITE_URL}/Help/detail/id/76.html">海外华人代购</a>
+	<a href="{$Think.CONFIG.SITE_URL}">代购中国商品</a>
+	<a href="{$Think.CONFIG.SITE_URL}">taobao代购</a>
+	<a href="{$Think.CONFIG.SITE_URL}">美国华人代购</a>
+	<a href="{$Think.CONFIG.SITE_URL}">代购服务介绍</a>
+	<a href="{$Think.CONFIG.SITE_URL}/review/index.html">加拿大淘宝</a>
+	<a href="{$Think.CONFIG.SITE_URL}">新加坡代购</a>
+
+</div>
+<script>
+function addtoCart(url){
+	$('#itemUrl').val(url);
+	$('#daigouform').attr('target','_blank');
+	$('#daigouform').submit();
+}
+</script>
+
+
+<script type="text/javascript" src="../Public/js/js.js"></script>
+<include file="Public:ibottom" />

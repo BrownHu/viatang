@@ -1,0 +1,35 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" href="../Public/Css/main.css" type="text/css" media="all" />
+</head>
+<body style="background:#fff;">
+<form  id="form1" name="form1" method='post' action="__URL__/upload/" enctype="multipart/form-data">
+  <table align="center" style="margin-top:10px;">
+    <tbody>
+      <tr>
+        <th><input name="image" id="image" type="file"/>
+        </th>
+      </tr>
+      <tr align="left" style="display:none" id="review">
+        <th>
+          <img src="" width="120" height="120" id="img_review"></th>
+      </tr>
+      <tr>
+        <th> <a href="#nogo" onClick="sendform();" style="float:left"><img src="../Public/images/btn_s_send.gif" alt="代购商品提交" ></a></th>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<script>
+ function sendform(){
+	 $('#form1').submit();
+ }
+</script>
+</BODY>
+</HTML>

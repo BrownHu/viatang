@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,淘宝代购,包裹转寄,淘宝转运,代购中国商品-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/AddItemPanel.css">
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<style>
+#preloader {
+	background-image: url(../Public/images/loading.gif);
+	width: 0px;
+	height: 0px;
+	display: inline;
+}
+#preloader1 {
+	background-image: url(../Public/images/procedure.gif);
+	width: 0px;
+	height: 0px;
+	display: inline;
+}
+#preloader2 {
+	background-image: url(../Public/images/address1.gif);
+	width: 0px;
+	height: 0px;
+	display: inline;
+}
+</style>
+</head>
+<body style="background:#fff;">
+<div style="display:none">
+  <div id="preloader"></div>
+  <div id="preloader1"></div>
+  <div id="preloader2"></div>
+</div>
+<div class="middle">
+  <div class="addpanel_procedure middle"><img src="../Public/images/procedure.gif" /></div>
+  <div class="addpanel_write middle">
+    <form action="/Selfpurchase/step2" name="frmstep1" id="frmstep1" method="post">
+      <label> 购买商品页网址</label>
+      <div class="addpanel_address">
+        <input id="itemUrl" name="itemUrl" type="text"  value="{$url}"/>
+      </div>
+      <input id="addpanel_submit" class="addpanel_tijiao" type="button" onmouseover="this.className='addpanel_tijiao_'" onmouseout="this.className='addpanel_tijiao'" />
+    </form>
+  </div>
+  <div>
+    <div id="promptInfo" class="addpanel_dhk" style="text-align:left">
+      <p>输入所有中国购物网站的商品链接地址就可以！</p>
+    </div>
+  </div>
+  <div class="addpanel_tishi" style="text-align:left">
+    <h2> 温馨提示：</h2>
+    <ul>
+      <li>我们的系统将自动抓取您想代购商品的信息，试试看吧！</li>
+      <li>我们可为您代购中国所有购物网站的商品喔！</li>
+    </ul>
+  </div>
+</div>
+<script type="text/javascript" src="../Public/js/AddItemPanel.js"></script>
+</body>
+</html>

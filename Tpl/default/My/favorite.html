@@ -1,0 +1,98 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的收藏</div>
+    <div style="width:960px; height:60px; text-indent:12px; padding-top:20px; text-align:left;" class="middle">
+      <div >商品网址:&nbsp;
+        <input style="height: 25px; padding-left: 6px;" type="text" value="" id="myUlowi_itemUrl" name="myUlowi_itemUrl" size="50">&nbsp;&nbsp;
+        <input type="button" name="button" onclick="toGetPro();" value="一键收藏" class="btn_nomal" />
+      </div>
+      <div style="margin-top:5px; text-indent:75px; color:#999;"> 输入商品网址点击"一键收藏"，立即收藏宝贝，快试试吧！ </div>
+    </div>
+    <div style="width:960px; margin-top:18px;" class="nobd middle">
+      <form action="" method="post" name="form1" id="form1">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:930px; border:1px solid #e6e6e6;">
+          <tr bgcolor="#f3f3f3" height="32" style="font-weight:bold;">
+            <td width="40" style="border-right:1px solid #e6e6e6;"><input type="checkbox" name="checkbox" checked="checked" onclick="selAll(this);"  value="0"  /></td>
+            <td width="320" style="border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">商品名称</td>
+            <td width="110" style="border-right:1px solid #e6e6e6;">单价</td>
+            <td width="80">操作</td>
+          </tr>
+          <present name="DataList">
+            <volist name="DataList" id="vo">
+              <tr height="35" >
+                <td style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><input type="checkbox" name="id[]" checked="checked" value="{$vo.id}"  onclick="unsel(this);" /></td>
+                <td align="left" style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;"><div style="text-align:left; padding:5px; width:602px;" class="left">
+                    <div style="display:inline-block; width:67px;" class="nobd left"> <img src="/Uploads/pic/product/{$vo.thumb}_s.jpg" class="product_img"/> </div>
+                    <div style="width:490px; margin-left:12px; margin-top:0px; display:inline-block;" class="left"> <a href="{$vo.url}" target="_blank">{$vo.title}</a>
+                      <h4 class="product_tips">商家：{$vo.seller}</h4>
+                    </div>
+                  </div></td>
+                <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.price|default=0}</td>
+                <td style="border-top:1px solid #e6e6e6;"><a href="/Favorite/addtocart/id/{$vo.id}.shtml">代购&nbsp;<a href="#nogo" onclick="del({$vo.id},true);">删除</a></td>
+              </tr>
+            </volist>
+            <else />
+            <tr>
+              <td colspan="4"  style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">暂无记录</td>
+            </tr>
+          </present>
+        </table>
+      </form>
+      <div style="height:27px; width:960px; margin-top:14px;" class="middle nobd">
+        <div style="width:55px;" class="left">
+          <input type="checkbox" name="checkbox" checked="checked" onclick="selAll(this);"  value="0"  />
+          全选</div>
+        <div style="width:500px; text-align:right" class="right">
+          <div style="width:120px;" class="left"><a href="#nogo" onclick="del(0,false);" class="btn_nomal">删除选中</a></div>
+          <div style="width:120px; margin-left:10px;" class="left"><a href="#nogo" class="btn_add2" onclick="addtocart();">代购选中</a></div>
+        </div>
+        <form name="form2" id="form2" method="get" action="">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function del(id,one){
+   confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+	 if(one){
+		document.form2.action = '/Favorite/delone/id/'+id+'.shtml';
+		document.form2.submit();
+	 }else{
+		 if(checkSel()){
+			document.form1.action = '/Favorite/del'+'.shtml';			
+	    	document.form1.submit();
+		 }
+	 }
+   });
+}
+
+function addtocart(){
+　if(checkSel()){
+	document.form1.action = '/Favorite/addToCartBat'+'.shtml';			
+	document.form1.submit();
+　}else{
+	alert('请选择要代购的商品');
+  }
+}
+
+function unsel(e){
+   if(e.checked == false){ 
+	 var cb =  document.getElementsByName('checkbox');
+	 cb[0].checked = false; 
+   }
+}   
+   
+function toGetPro(){
+   var pageurl = $.trim($("#myUlowi_itemUrl").val());
+   pageurl = $.base64Encode(pageurl);
+   lightboxframe('收藏商品','/Favorite/index/url/'+pageurl,540,425,true);
+}
+</script>
+<div class="gw1 middle mrg14"></div> 
+<include file="Public:bottom" />

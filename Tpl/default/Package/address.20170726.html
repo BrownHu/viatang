@@ -1,0 +1,146 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+    <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+    <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #92002d; text-align:left;" class="middle">打包运送</div>
+    <div style="width:970px; height:40px;" class="middle mrg14"><img src="../Public/images/jd4.gif" alt="唯唐代购 商品打包运送" class="middle"></div>
+    <div style="width:970px; height:100%; margin-top:14px;" class="middle nobd">
+        <div style="width:942px; height:35px; text-align:left;">确认收货人信息( 最后一步，即将完成！)</div>
+            <form action="/Package/commit.shtml" method="post" id="order_form" name="order_form">
+                <input type="hidden" name="ids" value="{$ids}" />
+                <input type="hidden" name="fee_token" value="{$fee_token|default=''}">
+                <input type="hidden" name="shipping_token" value="{$shipping_token|default=''}">
+                <input type="hidden" name="deliver_id"  id="deliver_id" value="{$deliver_id}" />
+                <input type="hidden" name="zone_id"  id="zone_id" value="{$zone_id}" />
+                <input type="hidden" name="shipping_way" value="{$shipping_way}" />
+                <input type="hidden" name="deliver_area" value="{$deliver_area}" />
+                <input type="hidden" name="weight" value="{$weight}" />
+                <input type="hidden" name="serve_rate" value="{$serve_rate}" />
+                <input type="hidden" name="insure_rate" value="{$insure_rate}" />
+                <input type="hidden" name="serve_cut" value="{$serve_cut}" />
+                <input type="hidden" name="way_id" id="way_id" value="0" />
+                <input type="hidden" name="address_id" id="address_id" value="0" />        
+        <div style="width:942px; padding-bottom:20px;" class="brd middle">
+            <table width="812" border="0" cellpadding="5" cellspacing="0"  class="nobd mrg14 middle">
+                <tr class="tr2" >
+                    <td style="padding: 10px;">
+                        <div align="left">
+                            <volist name="AddressList" id="vo">
+                                <input type="radio" value="{$vo.id}" name="u_a_id" onclick="show_other(0,{$vo.deliver_id},{$vo.id});">
+                                    {$vo.contact}&nbsp;&nbsp;{$vo.phone}&nbsp;&nbsp;{$vo.address}&nbsp;&nbsp;{$vo.city}&nbsp;&nbsp;{$vo.zip}&nbsp;&nbsp; {$vo.country}<br>
+                            </volist>
+                                <input type="radio" value="0" onclick="show_other(1,0);" name="u_a_id" >
+                                    使用其它地址&nbsp;&nbsp;(&nbsp;<span style="color:#f60;">请使用英文或寄达国家通用的语言填写</span>&nbsp;)
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr3">
+                    <td>
+                        <table width="100%;" cellspacing="0" style="display:none; background:#f7f7f7;" cellpadding="5" id="show_table">
+                            <tr height="35">
+                                <td width="75" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收货人姓名</td>
+                                <td width="605" align="left">
+                                    <input id="contact" placeholder="收货人姓名" class="buy_ipt1"  name="contact" style="width:350px; height:24px; padding-left: 8px;">
+                                </td>
+                            </tr>
+                            <tr height="35">
+                                <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国家</td>
+                                <td align="left">
+                                    <select name="u_a_select_country" id="u_a_select_country" onChange="select_country(this);">
+                                        <option value="0|0" selected>请选择</option>
+                                            <volist name="CountryList" id="vo">
+                                                <option value="{$vo.id}|{$vo.caption_en}">{$vo.caption_cn}</option>
+                                            </volist>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr height="35">
+                                <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;州&nbsp;/&nbsp;省</td>
+                                <td align="left">
+                                    <input id="province" placeholder="州/省" class="buy_ipt1" style="width:350px; height:24px; padding-left: 8px; "  name="province">
+                                </td>
+                            </tr>
+                            <tr height="35">
+                                <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;城市</td>
+                                <td align="left">
+                                    <input id="city" placeholder="城市" class="buy_ipt1" style="width:350px; height:24px; padding-left: 8px;"  name="city">
+                                </td>
+                            </tr>
+                            <tr height="35">
+                                <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮编</td>
+                                <td align="left">
+                                    <input id="zip" tabindex="6" placeholder="邮编" class="buy_ipt1" style=" height:24px; padding-left: 8px;" name="zip">
+                                </td>
+                            </tr>
+                            <tr height="35">
+                                <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话</td>
+                                <td align="left"><input id="phone" placeholder="手机号" class="buy_ipt1" style="width:350px; height:24px; padding-left: 8px;"  name="phone"></td>
+                            </tr>
+                            <tr height="35">
+                                <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址 </td>
+                                <td align="left">
+                                    <input id="address" placeholder="请填写完整的收货地址" class="buy_ipt1" style="width:550px; height:24px; padding-left: 8px;" name="address" >                            
+                                </td>
+                            </tr>  
+                            <tr height="30">
+                                <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td align="left">
+                                    地址示例：Floor 4, No.6196, South Yang Gao Road ,pudong ShangHai,China.
+                                </td>
+                            </tr>                                                                  
+                        </table>
+                        <table width="100%" cellspacing="0" cellpadding="5" border="0" style="margin-top:5px;">
+                            <tr height="35">
+                                <td width="12%" align="left">运单备注：</td>
+                                <td width="88%" align="left">
+                                    <textarea name="note" rows="5" id="note" style="width:450px;"></textarea><br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="width:938px; margin-top:14px; text-align:center;">
+		    <div style="width:400px;" class="middle">
+           		<div id="review_address" style="width:220px;" class="nobd" tag="1">	
+	           		<!--div id="review_address" class="nobd left" style="width:110px;"><a href="#nogo" onclick="review('{$shipping_templete}');" style="font-size:12px; font-weight:bold; color:#ffffff;" class="btn_send">1、预览地址</a></div-->
+    	       		<div class="nobd left" style="width:100px;"> <img src="../Public/images/jian1.gif" alt="代购提交运单"  ></div>
+                </div>
+                <div class="nobd left" style="width:110px;">
+				    <a href="#nogo" onclick="sendform();" style="font-weight:bold;color:#ffffff;" class="btn_middle">提交生成运单 </a>
+				</div>
+            </div>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script type="text/javascript" src="/s/?g=my.js"></script> 
+<script>
+var way = '{$shipping_templete}';if((way != 'air') && (way != 'ems') && (way != 'sal') && (way != 'surface') && (way != 'dhl')){ $('#review_address').hide();$('#review_address').attr('tag','0');}
+writeConfirm();	
+function review(way){ var aid = getRadioValue(document.order_form.u_a_id);
+if(aid == ''){ alert('请选择或填写您的收货地址！'); return;}else{	var width = getWindowWidth(way);
+if(aid == 0){ var contact = encodeURIComponent($('#contact').val()); contact = contact.replace(new RegExp('"',"gm"),'');
+var addr = encodeURIComponent($('#address').val());addr = addr.replace(new RegExp('"',"gm"),'');
+var astate = encodeURIComponent($('#province').val());astate = astate.replace(new RegExp('"',"gm"),'');
+var acity = encodeURIComponent($('#city').val());acity = acity.replace(new RegExp('"',"gm"),'');
+var azip = encodeURIComponent($('#zip').val());azip = azip.replace(new RegExp('"',"gm"),'');
+var aphone = encodeURIComponent($('#phone').val());aphone = aphone.replace(new RegExp('"',"gm"),'');
+var acountry =$('#country').val(); if(acountry == ''){acountry = $('#u_a_select_country').val();}
+acountry = acountry.replace(new RegExp('"',"gm"),''); acountry = encodeURIComponent(acountry);
+var address = '{"address":"' + addr + '","state":"'+ astate+'","city":"'+acity + '","contact":"' + contact + '","phone":"' + aphone +'","zip":"'+azip+'","country":"'+acountry+'"}';
+if(address != ''){ address =  $.base64Encode(address).replace(new RegExp("/","gm"),"^");			
+lightboxframe('地址预览','/Package/review/w/'+way+'/adr/'+address+'.html',width,500,true); } }else{ lightboxframe('地址预览','/Package/review/w/'+way+'/aid/'+aid+'.html',width,500,true);}}}
+function getWindowWidth(way){
+if(way == 'ems') return 975;
+if( (way == 'air') || (way == 'sal') || (way == 'surface') || (way == 'dhl') ) return 1000;
+if(way == 'sf') return  736; 
+return 1000;}
+function show_other(a,wid,aid){ if(a == 1){ $('#way_id').val('0'); $('#address_id').val('0'); $('#show_table').show(); $('#add_review').show(); }else{ $('#way_id').val(wid); $('#address_id').val(aid); $('#show_table').hide(); $('#add_review').hide();}}
+function select_country(a){var v = a.value.split("|");if(v[0] == '7' || v[0] == '17' || v[0] == '24'){ $('#country').val(''); $('#show_write_country').show();}else{ $('#country').val(v[1]);$('#show_write_country').hide();} $('#way_id').val(v[0]);}
+function sendform(){if( ($('#zone_id').val() == $('#way_id').val() ) || ($('#zone_id').val() == 5) ){ $('#order_form').submit();}else{	alert(' 您选择的收货地址与运费计算时选择的送货区域不一致!您可以点击“使用其它地址”，手工输入。');}}
+</script> 
+<include file="Public:bottom" />

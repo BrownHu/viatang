@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../Public/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="../Public/css/index.css"/>
+<script type="text/javascript" src="../Public/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../Public/js/koala.min.1.5.js"></script>
+<script type="text/javascript" src="../Public/js/clock.js"></script>
+<script type="text/javascript" src="../Public/js/top.js"></script>
+<script src="../Public/js/jQuery-easing.js" language="javascript" type="text/javascript"></script>
+<script src="../Public/js/jQuery-jcSlider.js" language="javascript" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+			$(".aa").mouseover(function(){
+					$(this).find(".wdzc:hidden").toggle(200);
+				});
+			$(".aa").mouseleave(function(){
+					$(this).find(".wdzc:visible").toggle(200);
+				});
+		});
+</script>
+<title>唯唐商城</title>
+</head>
+<body>
+<!--headerbg start-->
+<div class="headerbg">
+  <div class="header">
+    <div class="hleft"> <span class="hello">您好！游客</span> <span>请<a href="###">[登录]</a>或<a href="###">[免费注册]</a> </span> </div>
+    <ul>
+      <li><a href="###">购物车<span class="red">(0)</span></a><span>|</span></li>
+      <li><a href="###">我的唯唐</a><span>|</span></li>
+      <li><a href="###">我的送货车</a><span>|</span></li>
+      <li><a href="###">帮助中心</a><span>|</span></li>
+      <li><a href="###">服务与价格</a><span>|</span></li>
+      <li class="xl"><a href="###" class="db">常用服务工具</a>
+        <ul>
+          <li><a href="###">运算对比</a></li>
+          <li><a href="###">尺码换算</a></li>
+          <li><a href="###">汇率换算</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--headerbg end--> 
+<!--fbanner start-->
+<div class="fbanner"> <a href="###"><img src="../Public/images/index_08.jpg" /></a> </div>
+<!--fbanner end--> 
+<!--logo start-->
+<div class="logo">
+  <div class="logol"> <img src="../Public/images/index_11.png" /> </div>
+  <div class="logor">
+    <ul class="sen_ul">
+      <li class="hover"><a href="###" _fcksavedurl="javascript:void(1)">代购</a></li>
+      <li><a href="###" _fcksavedurl="javascript:void(1)">自助购</a></li>
+    </ul>
+    <div class="clear"></div>
+    <div class="sen2">
+      <form class="comment_mzjs"  method="post" action="###">
+        <input name="text" type="text" class="text" onfocus="if (value =='输入中国购物网站网址 新注册会员乐享0元服务费代购'){value =''}" onblur="if (value ==''){value='输入中国购物网站网址 新注册会员乐享0元服务费代购'}" value="输入中国购物网站网址 新注册会员乐享0元服务费代购"/>
+        <input name="submit" type="submit" class="button" value="我要代购"/>
+      </form>
+      <form class="comment_mzjs" method="post" action="###" style="display:none">
+        <input name="text" type="text" class="text" onfocus="if (value =='1输入中国购物网站网址 新注册会员乐享0元服务费代购'){value =''}" onblur="if (value ==''){value='输入中国购物网站网址 新注册会员乐享0元服务费代购'}" value="输入中国购物网站网址 新注册会员乐享0元服务费代购"/>
+        <input name="submit" type="submit" class="button" value="我的选购"/>
+      </form>
+    </div>
+    <script>
+		function $_class(name){
+		var elements = document.getElementsByTagName("*");
+		 for(b=0;b<elements.length;b++){
+		if(elements[b].className==name){
+			 return  elements[b];
+			 }
+				 }
+				}
+			//tab effects
+		var tabLis = $_class("sen_ul").getElementsByTagName("li")
+		 tabCo = $_class("sen2").getElementsByTagName("form");
+			for(i=0;i<tabLis.length;i++){
+		 (function(){
+			 var t = i;
+			 tabLis[t].onmouseover = function(){
+			 for(o=0;o<tabCo.length;o++){
+		tabCo[o].style.display = "none";
+			tabLis[o].className = "";
+				if(t==o){
+					 this.className = "hover";
+					 tabCo[o].style.display = "block";
+					}
+				   }
+			  }
+			 })()
+		}
+	</script> 
+  </div>
+</div>
+<!--logo end--> 

@@ -1,0 +1,60 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;申请提现</div>
+    <div style="width:970px; height:30px; text-indent:16px; padding-top:16px; text-align:left;">将您的唯唐代购帐户余额，退回到您的paypal帐户或银行帐户。</div>
+    <div style="width:930px; height:138px; border:1px solid #d5eeb9; background:#f3fdea; margin-top:12px;" class="middle">
+      <div style="text-align:left; text-indent:12px;margin-top:12px;">退款提现说明</div>
+      <ul style="text-align:left; padding:0px;  margin-top:5px; margin-left:0px; text-indent:12px;">
+        <li style="line-height:25px; height:30px;">1. 若您的充值时间在60天内，将可按充值原路退回。否则，退款将通过"付款"形式退还，系统将收取4%手续费。</li>
+        <li style="line-height:25px; height:30px;">2. 若您在退款时仍有订单或运单未支付，未避免您重新充值产生手续费，我们可能会终止您的申请。</li>
+        <li style="line-height:25px; height:30px;">3. 只有现金帐户才能提现、折扣帐户可用于消费，但不能用于提现。</li>
+      </ul>
+    </div>
+    <div style="width:960px; height:30px; line-height:30px; text-align:left; text-indent:60px;" class="mrg14">现金帐户余额：<span class="fnt_red fnt_b">￥{$can_refund|default=0}</span>, 折扣帐户余额：<span class="fnt_red fnt_b">￥{$rebate|default=0}</span></div>
+    <div style="width:892px; margin-top:18px; text-align:left;" class="nobd middle">
+      <form action="/Refund/commit.shtml" method="post" name="frmRefund" id="frmRefund">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:750px;">
+          <tr height="30">
+            <td width="86" style=" text-indent:12px;">提现金额：</td>
+            <td width="684"><input style="height: 25px; padding-left: 6px;" type="text" name="refund_money" type="text"  value="{$can_refund|default=0}">
+              &nbsp;，最多可提现:RMB<span class="fnt_red">{$can_refund}</span>元</td>
+          </tr>
+          <tr height="30">
+            <td width="86">&nbsp;</td>
+            <td width="684" align="left"><span style="color:#666; text-align:left; display:block; " class="left">请填写数字，须小于或等于账户预存款金额</span></td>
+          </tr>
+          <tr height="15">
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr height="60">
+            <td width="86" style="text-indent:12px;">备注：</td>
+            <td width="684"><textarea name="refund_way" id="refund_way" style="width:280px; height:100px; display:block;">请填写退款方式(如paypal原路退回,汇款至银行帐号等)</textarea></td>
+          </tr>
+          <tr height="45">
+            <td width="86">&nbsp;</td>
+            <td width="684"><a href="#nogo"  onclick="sendform();" class="btn_middle">提交退款申请</a></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function sendform(){
+	if( isEmpty(document.frmRefund.refund_money) ||  isEmpty(document.frmRefund.refund_way)){
+		alert('请输入所有项目，再提交!');
+	}else{
+		if($('#refund_way').val() == '请填写退款方式(如paypal原路退回,汇款至银行帐号等)'){
+			$('#refund_way').val('');
+		}
+		$('#frmRefund').submit();
+	}
+}
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

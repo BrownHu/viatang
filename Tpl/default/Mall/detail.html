@@ -1,0 +1,144 @@
+<include file="Public:header" />
+<include file="Mall:nav" />
+<style>
+.pg_select{display:inline-block; width:150px; background:url(../Public/images/newsselected.gif) no-repeat;}
+.pg_unselect{display:inline-block; width:150px; background:url(../Public/images/newsnotselected.gif) no-repeat;}
+.size_normal{padding:5px; height:15px; color:#000; line-height:15px; text-align:center; display:block; border:1px solid #CCC; margin:3px; cursor:pointer;}
+.detail_nrm{border:1px solid #CCC; color:#000; }
+.detail_current{border:1px solid #F00; color:#000; }
+.detail_sel{border:1px solid #F00; color:#000; }
+.detail_0{border:1px dashed #CCC; cursor:not-allowed; color:#999;}
+</style>
+<div id="m0" style="width:988px; height:100%; overflow:hidden; margin-top:8px;" class="middle nobd"></div>
+<div style="width:988px;text-align:left; height:12px;" class="mrg14 nobd middle">
+<a href="/">首页</a>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;<a href="/Mall/index.html">挑选商品</a>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;<font color="#666666">{$item.title}</font>
+<span style="display:inline-block;" class="right"><a href="/Mall/tcategory.html" target="_blank">查看全部商品分类信息>>&nbsp;&nbsp;</a></span>
+</div>	
+<div id="m1" style="width:988px;height:100%; overflow:hidden;" class="middle nobd mrg14">
+  <DIV class=main>
+    <DIV class="mainCont" style="padding-bottom:20px;">
+      <present name="item">
+    	<div style="width:768px; height:100%; overflow:hidden; line-height:30PX; text-align:left; font-size:14px; padding-left:10px;" class="brd fnt_b">{$item.title}</div>
+        <div id="info" style="height:100%; overflow:hidden; margin-bottom:20px;">
+            <div style="width:310px;" class="left">
+	        	<div class="brd mrg14" style="width:310px; height:310px; overflow:hidden"><a id="detail_img" href="/top/click/i/{$item.iid}.html" target="_blank"><script>setAimg('{$item.pic_url|base64_encode}',308,0);</script></a></div>
+                {$imglst}      
+            </div>
+            <div class="left mrg14" style="width:430px; height:100%; overflow:hidden; margin-left:35px; text-align:left;">
+            	<div><img src="../Public/images/baozhang.gif"></div>
+                <div>
+                      <div style="height:30px; line-height:30px;">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：&nbsp;<span style="font-size:22px; color:#f00;" class="fnt_b" id="d_price">{$item.price}</span>&nbsp;元</div>
+                      <div style="height:30px; line-height:30px;">运费：&nbsp;(至上海)&nbsp;{$item.express_fee|default=0.1}&nbsp;元</div>
+                      <div style="height:30px; line-height:30px;">掌柜名称：&nbsp;{$item.seller_nick}&nbsp;&nbsp;<a target="_blank" href="http://amos.im.alisoft.com/msg.aw?v=2&uid=<php>echo urlencode($item['seller_nick']);</php>&site=cntaobao&s=2&charset=utf-8" ><img border="0" src="http://amos.im.alisoft.com/online.aw?v=2&uid=<php>echo urlencode($item['seller_nick']);</php>&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息"/></a></div>
+                </div>
+                <notempty name="item.size">
+                  <div style=" border-top:1px dashed #ccc; padding-top:10px; height:100%; overflow:hidden" class="mrg14">
+                      <div style="height:20px">尺码</div>
+                      <div >
+                         <volist name="item.size" id="vo"><div class="left size_normal size_t" id="size_{$i}" onclick="setSel(this.id,1,'{$vo}');" onmouseover="on_hover(this.id,'detail_current');" onmouseout="on_out(this.id,'detail_current');" tag="0">{$vo|urldecode}</div></volist>
+                         <input type="hidden" name="sel_size" id="sel_size" value="">
+                      </div>
+                  </div>
+                </notempty>
+                <notempty name="item.color">
+                  <div style="padding-top:10px; height:100%; overflow:hidden;">
+                      <div style="height:20px;">颜色分类</div>
+                      <div>
+                          <volist name="item.color" id="vo"><div class="left size_normal color_t" id="color_{$i}"  onclick="setSel(this.id,2,'{$vo}');" onmouseover="on_hover(this.id,'detail_current');" onmouseout="on_out(this.id,'detail_current');" tag="0">{$vo|urldecode}</div></volist>
+                          <input type="hidden" name="sel_color" id="sel_color" value="">
+                      </div>
+                  </div>
+                </notempty> 
+                <div style="width:430px;" class="mrg9">
+                	购买数量:&nbsp;<input id="buy_count" type="text" style="width:50px;" name="count" value="1">&nbsp;件&nbsp;(&nbsp;库存<span id="detail_count">{$item.num}</span>件&nbsp;)
+                </div>
+                <div style="width:430px; padding-top:20px" class="mrg14">
+	                <img src="../Public/images/btn_buy.png" height="38" width="133" onclick="buy('{$item.iid}');"  style="cursor:pointer;" class="nobd">                    
+                </div>
+            </div>
+        </div>
+        <div id="pdetail" style="height:100%; overflow:hidden;">
+          <div id="newsnav" style="width:768px;">
+            <ul style="display:block; height:32px; line-height:32px; width:305px; padding:0px; margin:0px;" class="left">
+              <li id="li1" class="left pg_select"  onclick="ShowLayers1(1,2);" style="cursor:pointer">
+              	<a href="#nogo" id="dd" name="dd" class="yellowlink">&nbsp;&nbsp;&nbsp;&nbsp;宝贝描述&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              </li>
+              <li style="width:5px; height:31px;display:inline-block;border-bottom:1px solid #ff6600;" class="left"></li>
+              <li id="li2" class="left pg_unselect"  onclick="ShowLayers1(2,1);" style="cursor:pointer" >
+              	<a href="#nogo"  class="yellowlink" >评价详情</a>
+              </li>
+            </ul>
+            <div style="width:460px;border-bottom:1px solid #ff6600; height:31px;" class="left"></div>
+          </div>
+          <div id="ontent1" style="height:100%; overflow:hidden; width:760px; padding-top:15px;" class="middle">
+          	{$item.desc}
+          </div>
+          <div id="ontent2" style="width:760px;height:100%; overflow:hidden;padding-top:15px;padding-left:5px; display:none;" class="left">
+             <div id="getpling" style="width:760px; text-align:center; padding-top:20px; font-size:14px;" class="middle"><img src="__PUBLIC__/Images/icon_waiting.gif">&nbsp;评论获取中.....</div>
+             <div id="pjtitle" class="middle" style="width:760px;overflow:hidden; border-bottom:1px solid #CCC; border-top:1px solid #CCC; height:35px; background:url(../Public/images/ntbg.gif) repeat-x;">
+            	<div class="fnt_b left" style="width:560px; height:35px; line-height:35px;">评论</div>
+           	 	<div style="width:180px; height:35px; line-height:35px; text-align:left;" class="fnt_b right">评价人</div>
+          	 </div>
+             <ul style="display:block; padding:0px; margin-top:5px; width:760px; text-align:left;" class="middle" id="pllst">
+             </ul>
+             <div id="morereview" style="width:760px; text-align:right; padding-right:100px; display:none;" class="middle mrg14"><a href="{$item.detail_url}" target="_blank">更多评论...</a></div>
+          </div>
+        </div>
+      <else/>  
+      	<div style="border:#FFD57F 1px solid; text-align:left; line-height:20px; background:#FFF7E5; color:#808080;width:778px; padding-top:16px; padding-bottom:16px;">
+            	<div style="padding-left:100px;">
+				抱歉！没有找到相关的宝贝<br/>
+				温馨提示： <br/>
+				1、可能是商品已下架或被删除 <br/>
+				2、减少您的"筛选条件"进行重新搜索 <br/>
+				3、缩短或更改搜索关键字（例：将"电动滑板车"改成"滑板车"后重新搜索）<br/>
+				4、或直接去淘宝购买此商品。<a href="{$s8_url}" style="color:#F00; text-decoration:underline; font-weight:bold" target="_blank">去淘宝找找看</a>
+                </div>
+			</div>
+            <div class="mrg14" style="text-align:left; height:30px; line-height:30px; border-bottom:2px solid #900;">今日推荐</div>
+            <div id="search_result"  class="search_result">
+            <UL class="clearfix mrg14">
+            	<volist name="CatchHotData" id="vo">
+            		<LI class="product_item">
+                 		<div class="pic middle"><a href="/product/{$vo.num_iid}.html" target="_blank"><script>setAimg('{$vo.pic_url|base64_encode}',220,0);</script></a></div>
+ 			  			<div class="price middle"><STRONG>￥{$vo.price}</STRONG></div>
+              			<div style="width:220px; height:40px; line-height:18px; padding-top:5px; overflow:hidden; margin-left:14px;" class="middle">
+              	 			<a href="/product/{$vo.num_iid}.html" target="_blank">{$vo.title|getShortTitle=###,25,true}</a>
+              			</div>
+              			<div style="width:220px; height:22px; line-height:18px; margin-left:14px;  text-align:left;" class="middle" >
+              			<span style="display:inline-block; width:38px;" class="left">商家：</span><A href="/Mall/item/u/{$vo.shop_click_url|base64_encode|filterSplash}.html" style="text-decoration::none; color:#2e74d3;" target="_blank">{$vo.nick}</A><span style="display:inline-block; margin-left:10px; color:#999;">{$vo.item_location}</span>
+              			</div>
+              			<div style="height:25px; width:220px; margin-top:5px;" class="middle"><span class="mallbuy" style="display:none"><a href="#nogo" onclick="buy('http://item.taobao.com/item.htm?id={$vo.num_iid}');" style="display:block; background-color:#cc022b; color:#fff; text-align:center; width:88px; height:23px; line-height:24px;">我要代购</a></span></div>
+                	</LI>
+                </volist>
+            </ul>
+            </div>
+      </present>
+    </DIV>
+  </DIV>
+
+  <DIV class="aside" style="text-align:left;">
+    <div id="ad_1" style="height:364px;">
+         <img src="../Public/images/dgflow.gif" width="194" height="364">
+    </div>
+	<DIV id=mod_ranking class="module_product mod_ranking mrg14">
+      <H3>大家也在看</H3>
+      <DIV class="cont">
+        <OL>
+           <volist name="RelatedProducts" id="vo">            
+            <LI <lt name="i" value="4">class="top"</lt> >
+              <H4><EM>{$i}</EM><A href="/product/{$vo.num_iid}.html" target="_blank">{$vo.title}</A></H4>
+              <A class="pic" href="/product/{$vo.num_iid}.html" target="_blank"><script>setAimg('{$vo.pic_url|base64_encode}',0,0);</script></A>
+              <DIV class="meta"><STRONG>￥{$vo.price}</STRONG><SPAN>{$vo.volume}人购买</SPAN> </DIV>
+            </LI>
+          </volist>
+        </OL>
+      </DIV>
+    </DIV>
+	</DIV>
+</div>
+<script>
+function buy(id){if(id== ''){alert('系统正在维护，请稍后再试，若一直有问题，请与客服联系');	return false;}var count = $('#buy_count').val();	if(count == 0 )  count = 1;	var color = $.trim($('#sel_color').val());	var size = $.trim($('#sel_size').val());var url = '/Item/loadProduct/i/'+id;	if(color != '') {url += '/c/'+ encodeURIComponent(color);} 	if(size != '') {url += '/s/' + encodeURIComponent(size);} url += '/n/'+count;	$.get('/Public/isLogin.html', function(result) { if(parseInt(result) == 1){lightboxframe('快速代购',url,540,420,true);}else{ var call_back_url = $.trim(url).replace(new RegExp("/","gm"),",");login_min(call_back_url,560,420,0); }});}
+</script>
+<SCRIPT>var propers = eval('{$item.skus}');var plurl='{$plurl|base64_encode|filterSplash}';</SCRIPT><script type="text/javascript" src="../Public/js/detail.js"></script>
+<include file="Public:bottom" />

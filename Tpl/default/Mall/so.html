@@ -1,0 +1,173 @@
+<include file="Public:header" />
+<include file="Mall:nav" />
+<div id="m0" style="width:988px; height:100%; overflow:hidden; margin-top:8px;" class="middle nobd"></div>
+<div style="width:988px;text-align:left; height:12px;" class="mrg14 nobd middle">
+<a href="/">首页</a>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;<a href="/Mall/index.html">挑选商品</a>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;<font color="#666666">{$UlowiCurrentPath}</font>
+<span style="display:inline-block;" class="right"><a href="/Mall/tcategory.html" target="_blank">查看全部商品分类信息>>&nbsp;&nbsp;</a></span>
+</div>	
+<div id="m1" style="width:988px;height:100%; overflow:hidden;" class="middle nobd mrg14">
+  <DIV class=main>
+    <DIV class="mainCont">
+      <div  id="chlbanner" style="width:780px; height:100%; overflow:hidden;" class="nobd"></div>	
+      <DIV class="cate_wrap">
+        <DIV class=cate_inner>
+          <DIV id=filter class=inner>
+            <DIV class=cate_files>
+              <H4>价格：</H4>
+              <A   <eq name="mp" value="0">class="all current"<else/>class="all"</eq> href="?sp=0&ep=0">全部</A>
+              <DIV class=cont>
+              	<A href="?sp=1&ep=49" <eq name="mp" value="49">class="current"</eq> >49元以下</A> 
+                <A href="?sp=50&ep=99" <eq name="mp" value="99">class="current"</eq>>50-99元</A> 
+                <A href="?sp=100&ep=199" <eq name="mp" value="199">class="current"</eq>>100-199元</A> 
+                <A href="?sp=200&ep=299" <eq name="mp" value="299">class="current"</eq>>200-299元</A> 
+                <A href="?sp=300&ep=399" <eq name="mp" value="399">class="current"</eq>>300-399元</A> 
+                <A href="?sp=400&ep=499" <eq name="mp" value="499">class="current"</eq>>400-499元</A> 
+                <A href="?sp=500&ep=99999" <eq name="mp" value="99999">class="current"</eq>>500元以上</A> 
+              </DIV>
+            </DIV>
+          </DIV>
+        </DIV>
+      </DIV>
+      <DIV class=filter_tool>
+        <DIV class=tab>
+          <LABEL>排序：</LABEL>
+          <UL id="order">
+            <LI><A <eq name="sort" value="">class="current"</eq> href="{$sourl}.html"><SPAN>默认</SPAN></A></LI>
+            <LI><A <eq name="sort" value="asc">class="current"</eq> href="{$sourl}/sort/asc.html"><SPAN>价格从低到高</SPAN></A></LI>
+            <LI><A <eq name="sort" value="desc">class="current"</eq> href="{$sourl}/sort/desc.html"><SPAN>价格从高到低</SPAN></A></LI>
+          </UL>
+        </DIV>
+        <DIV class=page><SPAN>{$PageNo}/{$TotalPages}</SPAN><A <gt name="PageNo" value="1">class="pre"<else/>class="pre_disable"</gt> href="?sort={$sort}&p={$PageNo-1}{$query}">上一页</A><A class=next href="?sort={$sort}&p={$PageNo+1}{$query}">下一页</A> </DIV>
+      </DIV>
+      <DIV id="search_result" class="search_result">
+        <present name="MallSoResult">
+        <UL class="clearfix">
+          <volist name="MallSoResult" id="vo">
+            <LI class="product_item">
+              <div class="pic middle">
+              	<a href="/product/{$vo.num_iid}.html" target="_blank"><script>setAimg('{$vo.pic_url|base64_encode}',220,0);</script></a>
+              </div>
+ 			  <div class="price middle"><STRONG>￥{$vo.price}</STRONG></div>
+              <div style="width:220px; height:40px; line-height:18px; padding-top:5px; overflow:hidden; margin-left:14px;" class="middle">
+              	 <a href="/product/{$vo.num_iid}.html" target="_blank">{$vo.title|getShortTitle=###,25,true}</a>
+              </div>
+              <div style="width:220px; height:22px; line-height:18px; margin-left:14px;  text-align:left;" class="middle" >
+              	<span style="display:inline-block; width:38px;" class="left">商家：</span><A href="/Mall/item/u/{$vo.shop_click_url|base64_encode|filterSplash}.html" style="text-decoration::none; color:#2e74d3;" target="_blank">{$vo.nick}</A><span style="display:inline-block; margin-left:10px; color:#999;">{$vo.item_location}</span>
+              </div>
+              <div style="height:25px; width:220px; margin-top:5px;" class="middle"><span class="mallbuy" style="display:none"><a href="#nogo" onclick="buy('http://item.taobao.com/item.htm?id={$vo.num_iid}');" style="display:block; background-color:#cc022b; color:#fff; text-align:center; width:88px; height:23px; line-height:24px;">我要代购</a></span></div>
+            </LI>
+          </volist>
+        </UL>
+        <else/>
+        	<div style="border:#FFD57F 1px solid; text-align:left; line-height:20px; background:#FFF7E5; color:#808080;width:778px; padding-top:16px; padding-bottom:16px;">
+            	<div style="padding-left:100px;">
+				抱歉！没有找到与"<span class="h" style="color:#FF5500"><?=$q?></span>"相关的宝贝<br/>
+				温馨提示： <br/>
+				1、你可以在"全部分类"下重新搜索 <br/>
+				2、减少您的"筛选条件"进行重新搜索 <br/>
+				3、缩短或更改搜索关键字（例：将"电动滑板车"改成"滑板车"后重新搜索）<br/>
+				4、或直接去淘宝购买此商品。<a href="{$s8_url}" style="color:#F00; text-decoration:underline; font-weight:bold" target="_blank">去淘宝找找看</a>
+                </div>
+			</div>
+            <div class="mrg14" style="text-align:left; height:30px; line-height:30px; border-bottom:2px solid #900;">今日推荐</div>
+            <UL class="clearfix mrg14">
+            <volist name="CatchHotData" id="vo">
+            	<LI class="product_item">
+                 <div class="pic middle">
+              	<a href="/product/{$vo.num_iid}.html" target="_blank"><script>setAimg('{$vo.pic_url|base64_encode}',220,0);</script></a>
+              </div>
+ 			  <div class="price middle"><STRONG>￥{$vo.price}</STRONG></div>
+              <div style="width:220px; height:40px; line-height:18px; padding-top:5px; overflow:hidden; margin-left:14px;" class="middle">
+              	 <a href="/product/{$vo.num_iid}.html" target="_blank">{$vo.title|getShortTitle=###,25,true}</a>
+              </div>
+              <div style="width:220px; height:22px; line-height:18px; margin-left:14px;  text-align:left;" class="middle" >
+              	<span style="display:inline-block; width:38px;" class="left">商家：</span><A href="/Mall/item/u/{$vo.shop_click_url|base64_encode|filterSplash}.html" style="text-decoration::none; color:#2e74d3;" target="_blank">{$vo.nick}</A><span style="display:inline-block; margin-left:10px; color:#999;">{$vo.item_location}</span>
+              </div>
+              <div style="height:25px; width:220px; margin-top:5px;" class="middle"><span class="mallbuy" style="display:none"><a href="#nogo" onclick="buy('http://item.taobao.com/item.htm?id={$vo.num_iid}');" style="display:block; background-color:#cc022b; color:#fff; text-align:center; width:88px; height:23px; line-height:24px;">我要代购</a></span></div>
+                </LI>
+                </volist>
+            </ul>
+           
+        </present>
+        <div class="nobd mrg14">
+          <DIV class="digg">{$PageBar}</DIV>
+        </div>
+      </DIV>
+    </DIV>
+  </DIV>
+  <DIV class="aside" style="text-align:left;">
+  	<DIV id="mod_category" class="module_product mod_collect" style="height:100%; overflow:hidden; padding-bottom:16px;">
+      <H3>热门商品分类</H3>
+      <DIV class="cont">
+        <UL style="padding-bottom:15px;">
+           <LI class="category"><a href="/Mall/woman.html" target="_blank">精品女装</a></LI>
+           <LI class="subcategory"><a href="/cat/50010850.html" target="_blank">连衣裙</a></LI>
+           <LI class="subcategory"><a href="/cat/50000671.html" target="_blank">T恤</a></LI>
+           <LI class="subcategory"><a href="/cat/162104.html" target="_blank">衬衫</a></LI>
+           <LI class="subcategory"><a href="/cat/1622.html" target="_blank">裤子</a></LI>
+           <LI class="subcategory"><a href="/cat/162205.html" target="_blank">牛仔裤</a></LI>
+           <LI class="subcategory"><a href="/cat/1623.html" target="_blank">半身裙</a></LI>
+           <LI class="subcategory"><a href="/cat/162105.html" target="_blank">背心</a></LI>
+           <LI class="subcategory"><a href="/cat/50013196.html" target="_blank">马夹</a></LI>
+           <LI class="subcategory"><a href="/cat/162116.html" target="_blank">蕾丝衫</a></LI>
+           <LI class="subcategory"><a href="/cat/50000697.html" target="_blank">针织衫</a></LI>
+           <LI class="subcategory"><a href="/cat/50011277.html" target="_blank">短外套</a></LI>
+           <LI class="subcategory"><a href="/cat/50000852.html" target="_blank">中老年服装</a></LI>
+           <LI class="category" style="padding-top:10px;"><a href="/cat/50006843.html" target="_blank">女鞋</a></LI>
+           <LI class="subcategory"><a href="/cat/50012027.html" target="_blank">低帮鞋</a></LI>
+           <LI class="subcategory"><a href="/cat/50012825.html" target="_blank">高帮鞋</a></LI>
+           <LI class="subcategory"><a href="/cat/50012028.html" target="_blank">靴子</a></LI>
+           <LI class="subcategory"><a href="/cat/50012042.html" target="_blank">帆布鞋</a></LI>
+           <LI class="subcategory"><a href="/cat/50012032.html" target="_blank">凉鞋</a></LI>
+           <LI class="subcategory"><a href="/cat/50012033.html" target="_blank">拖鞋</a></LI>
+           <LI class="category" style="padding-top:10px;"><a href="/Mall/man.html" target="_blank">男装</a></LI>
+           <LI class="subcategory"><a href="/cat/50000436.html" target="_blank">T恤</a></LI>
+           <LI class="subcategory"><a href="/cat/50011123.html" target="_blank">衬衫</a></LI>
+           <LI class="subcategory"><a href="/cat/50010402.html" target="_blank">Polo衫</a></LI>
+           <LI class="subcategory"><a href="/cat/50011153.html" target="_blank">背心</a></LI>
+           <LI class="subcategory"><a href="/cat/50010167.html" target="_blank">牛仔裤</a></LI>
+           <LI class="subcategory"><a href="/cat/3035.html" target="_blank">休闲裤</a></LI>
+        </UL>
+      </DIV>
+    </DIV>
+    <DIV id="mod_collect" class="module_product mod_collect">
+      <H3>热推商品</H3>
+      <DIV class="cont">
+        <OL>
+           <volist name="RecommentData" id="vo">
+            <LI>
+              <H4><A href="/product/{$vo.num_iid}.html" target="_blank" title="{$vo.title}">{$vo.title|getShortTitle=###,18,false}</A></H4>
+              <A class="pic" href="/product/{$vo.num_iid}.html" target="_blank"><script>setAimg('{$vo.pic_url|base64_encode}',0,0);</script></A>
+              <DIV class="meta"><STRONG>￥{$vo.price}</STRONG></DIV>
+            </LI>
+          </volist>
+        </OL>
+      </DIV>
+    </DIV>
+    <DIV id=mod_ranking class="module_product mod_ranking">
+      <H3>销量排行榜</H3>
+      <DIV class="cont">
+        <OL>
+           <volist name="SalesMost" id="vo">            
+            <LI <lt name="i" value="4">class="top"</lt> >
+              <H4><EM>{$i}</EM><A href="/product/{$vo.num_iid}.html" target="_blank">{$vo.title}</A></H4>
+              <A class="pic" href="/product/{$vo.num_iid}.html" target="_blank"><script>setAimg('{$vo.pic_url|base64_encode}',0,0);</script></A>
+              <DIV class="meta"><STRONG>￥{$vo.price}</STRONG><SPAN>{$vo.volume}人购买</SPAN> </DIV>
+            </LI>
+          </volist>
+        </OL>
+      </DIV>
+    </DIV>    
+  </DIV>
+</div>
+<SCRIPT>
+(function($){ $('.product_item').mouseover(function(){ $(this).addClass("trigger_on");$('.mallbuy').hide();$(this).find('.mallbuy').show();});$('.product_item').mouseout(function(){ $(this).removeClass("trigger_on");$(this).find('.mallbuy').hide();});
+  var defwd = "输入您要购买的商品名称";	  var search_input = $('#kw'),form = $('#mall_search'),color = search_input.css('color');
+  search_input.focus(function(){ $(this).css('color','#000');  var val = $.trim($(this).val()); if(val == defwd) $(this).val('');}).blur(function(){  var val = $.trim($(this).val()); if(!val){ $(this).css('color',color); $(this).val(defwd); } });
+  form.submit(function(){ var val = $.trim(search_input.val()); if(!val || val == defwd) { search_input.focus(); return false; } });
+ })(jQuery);
+function goPage(){ var p =  $.trim($('#go_pg').val());  if(Number(p) > 0){  window.location.href ='/Mall/woman.html?p='+p+'&sort={$sort}'; }else{ $('#go_pg').val(''); } } 
+function buy(url){ $.get('/Public/isLogin.html', function(result) { if(parseInt(result) == 1){	fast_buy(url,true); }else{ var pageurl = $.base64Encode(url).replace(new RegExp("/","gm"),"^").replace(new RegExp("==","gm"),"@"); login_min(',Item,index,url,"'+pageurl+'"',560,420,0); }});}   
+function showTopbnr(id){ $('#'+id).fadeIn(300);} $.get('/Mall/loadTopBanner/t/7.html',function(data){ if(data!=''){ $('#m0').append(data); } });$.get('/Mall/loadChlBanner/t/5.html',function(data){ if(data!=''){ $('#chlbanner').append(data).css("padding-bottom","14px"); } });
+</SCRIPT> 
+<include file="Public:bottom" />

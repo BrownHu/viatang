@@ -1,0 +1,57 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;收货地址</div>
+    <div style="width:960px; margin-top:12px;" class="nobd middle">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:960px; border:1px solid #e6e6e6;">
+        <tr height="32" style="font-weight:bold;">
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="120" >收货人</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="90" >国家</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="90" >州/省</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="100" >城市</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">收货地址</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="80" >邮编</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="110" >电话</td>
+          <td bgcolor="#f3f3f3" width="70">操作</td>
+        </tr>
+        <present name="DataList">
+          <volist name="DataList" id="vo">
+            <tr height="30" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.contact|default="&nbsp;"}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.country|default="&nbsp;"}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.state|default="&nbsp;"}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.city|default="&nbsp;"}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left;"><div style="padding:5px;">{$vo.address|default="&nbsp;"}</div></td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.zip|default="&nbsp;"}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.phone|default="&nbsp;"}</td>
+              <td style="border-top:1px solid #e6e6e6;"><a href="#nogo" onclick="del({$vo.id})">删除</a>&nbsp;&nbsp;&nbsp;<a href="#nogo"  onclick="javascript:lightboxframe('编缉收货地址','/Address/load/id/{$vo.id}',500,380,true);" >编缉</a></td>
+            </tr>
+          </volist>
+          <else />
+          <tr height="30">
+            <td colspan="6"  style="border-top:1px solid #e6e6e6;">暂无记录</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:960px; text-align:left; text-indent:80px; margin-top:20px;" class="middle nobd">
+        <input type="button"  value="增加收货地址" onclick="javascript:lightboxframe('新增收货地址','/Address/showAdd',500,380,true);" class="btn_middle" style="cursor:pointer;">
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<form id="form1" name="form1" action="" method="get">
+</form>
+<script>
+writeConfirm();
+function del(id){
+  confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+  document.form1.action = '/Address/del/id/'+id;			
+  document.form1.submit();
+  });
+}	
+</script>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

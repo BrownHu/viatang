@@ -1,0 +1,1 @@
+ren *.php *.class.php

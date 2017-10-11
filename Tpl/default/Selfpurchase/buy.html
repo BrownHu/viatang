@@ -1,0 +1,221 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,淘宝代购,包裹转寄,淘宝转运,代购中国商品-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="/Public/Js/jQuery/Plug-in/imglazyload_simple.js"></script>
+<script src="/Public/Js/MyDate/WdatePicker.js"></script>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<link rel="stylesheet" type="text/css" href="../Public/css/AddItemPanel.css">
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script type="text/javascript">
+    function btnClsClick() {
+        $("#productUrl").removeAttr("readonly").val("");
+		$('#productName').val('');
+		$('#productPrice').val("");		
+		$('#productSendPrice').val('');
+		$('#productRemark').val('');
+        $("#proAlert").text("请将您想代购商品的详细页网址粘贴到输入框中提交!");
+        return false;
+    }
+
+    $(document).ready(function() {
+        $("#productRemark").blur(function() { if ($.trim($(this).val()).length <= 0 || $(this).val() == "请选填颜色、尺寸等要求！") $(this).attr("class", "addpanel_still").val("请选填颜色、尺寸等要求！"); }).focus(function() { if ($(this).attr("class") == "addpanel_still") $(this).select().removeAttr("class"); }).click(function() { if ($(this).val() == "请选填颜色、尺寸等要求！") $(this).val(""); });
+        $("#btnCls").click(btnClsClick);
+
+        $("#successBtn").click(function() {
+			//if ($.trim($("#productUrl").val()).length <= 0) {
+             //   alert('商品页网址不能为空');
+			//	return;
+            //}
+            if ($.trim($("#productName").val()).length <= 0) {
+                alert('商品名称不能为空');
+				return;
+            }
+            if( ($.trim($("#productNum").val()) <= 0 ) || (Number($.trim($("#productNum").val())) <1)) {
+            	$("#productNum").val('1')
+            }
+			if ($.trim($("#productRemark").val()) == "请选填颜色、尺寸等要求！") {
+				$('#productRemark').val('');
+            }			
+			
+			$('#frmstep2').submit();
+        });
+    });
+</script>
+</head>
+
+<include file="Public:header" />
+<style>
+    .input{ border: 1px solid #e1e1e1; height:32px; width:300px; text-indent:5px;}
+    .input1{ border: 1px solid #e1e1e1; height:32px; width:50px; text-indent:5px;}
+    .txt{ border:1px solid #e1e1e1; width:300px; height:80px; text-indent:5px;}
+    .form_table{ width:760px; border:none; float:left; }
+    .form_table td{ height:40px; line-height:40px; border-bottom:1px  solid #FFFFFF; padding-left:10px;}
+    .td1{width:100px; text-align:right; border-right:1px solid #FFFFFF}
+     th{ text-align:left; padding-left:5px; background-color:#eae7e7; height:30px; line-height:30px; border-right:1px solid #bfbcbc;  border-top:1px solid #bfbcbc;  border-bottom:1px solid #bfbcbc; font-weight:normal}
+    .td2{border-right:1px solid #e3e2e2}
+</style>
+
+    <div id="m4" class="w" style="  height:100%; overflow:hidden;" class="middle nobd mrg9">
+        <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height">
+	        <include file="My:menu" />
+	    </div>
+        <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+            <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; border-bottom:1px solid #B51005; text-align:left;" class="middle">当前位置：&nbsp;
+		        <a href="/My/index.shtml">我的唯唐</a>
+			      &nbsp;&nbsp;>&nbsp;&nbsp;国际转运
+		    </div>
+            <div style="width:970px; height:30px; border:1px solid #d5eeb9; background:#f3fdea; margin-top:18px; text-align:left; text-indent:10px; padding-top:5px;" class="middle">在中国购物网站下单付款，然后将商品邮寄至
+			    <a href="/Selfpurchase/index.shtml" target="_blank" class="lnk">唯一收货地址</a>
+				    ，提交购物清单后，{:C('SITE_NAME')} 即可为您验货和集中运送。
+            </div>
+            <div style="width:970px; padding-top:10px; padding-bottom:10px; background-color:#f9f9f9;" class="middle brd mrg14">
+			    <img src="../Public/images/s_i.gif" class="middle">
+			</div>
+            <div style="width:970px; text-align:left; display:none;" class="middle brd mrg14">
+                <div style="padding:1px; height:81px; background:url(../Public/images/b23.gif) repeat-x;">
+       	            <img src="../Public/images/wangzhi.jpg" alt="代购网站网址" style="margin-top:9px; margin-left:30px;" class="left">
+        	            <div class="mrg14">请输入您在其他网站购买商品的网址：</div>
+                        <div style="margin-top:5px;">
+            	            <input type="text" name="itemUrl" id="item_Url" class="left" value="" style="width:460px; border:1px solid #519020; height:23px;" />
+                            <input type="submit" value="添加" onclick="toGetPro();" id="submit" name="submit" style="margin-left:10px;" class="btn_nomal">
+                        </div>
+                </div>
+            </div>
+	    
+		
+	      <form id="frmstep2" name="frmstep2" action="/Selfpurchase/step3" method="post">
+	            <input type="hidden" name="price" id="price" value="{$product.price}">
+                <input type="hidden" name="seller" id="seller" value="{$product.seller|default='viatang'}">
+            <div style="display:none;" class="addpanel_procedure"><img src="../Public/images/procedure.gif" alt="一键填单" /> </div>
+            <div style="display:none;" class="addpanel_wangzhi">
+                <dl>
+                    <dt>购买商品页网址：</dt>
+                        <dd>
+                            <input id="productUrl" class="addpanel_normal" name="productUrl" type="text" value="{$product_url}"  />
+                        </dd>
+                </dl>
+                <div style="text-align:left; padding-left:26px; display:none;">
+                    <input type="checkbox" name="reserv_package" id="reserv_package" value="1">保留原包装&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" name="reserv_brand" id="reserv_brand" value="1">保留吊牌标签&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+	        <div style="width:970px; height:auto; overflow:hidden; border:none;  margin-top:18px; text-align:left;" class="middle">
+		        <table class="form_table middle" cellpadding="0" cellspacing="0" style="margin-top:10px">
+			        <tr>
+				        <td class="td1" style="border-top:1px solid #FFFFFF;">快递公司：</td>
+				        <td style="border-top:1px solid #FFFFFF;">
+					        <select name="shipingCompany" id="express" class="input">
+						        <option value="">请选择</option>
+						            <volist name="list" id="vo">
+						        <option value="{$vo.caption}">{$vo.caption}</option>
+						            </volist>
+					        </select>
+				        </td>
+			        </tr>
+			        <tr>
+				        <td  class="td1">快递单号：</td>
+				        <td>
+						    <input type="text" name="traceNo" id="traceNo" value="" class="input" />
+					    </td>
+			        </tr>
+                    <tr>
+				        <td  class="td1">商品名称：</td>
+				        <td>
+						    <input type="text" name="title" id="title" value="" class="input" />
+					    </td>
+			        </tr>
+			        <tr>
+				        <td  class="td1">发货日期：</td>
+				        <td>
+						    <input name="express_date" id="express_date" type="text" class="input" onFocus="WdatePicker({isShowClear:false,readOnly:true})"/>
+						</td>
+			        </tr>
+			        <tr>
+				        <td  class="td1">购买数量：</td>
+                        <td>
+						    <input id="productNum" name="productNum" type="text" class="input1" value="1" maxlength="6" >
+						</td>
+			        </tr>
+			        <tr>
+				        <td  class="td1">备注：</td>
+				        <td>
+						    <textarea class="input" style="width:400px;height: 60px;" name="productRemark" id="productRemark" cols="45" rows="3" placeholder=""></textarea>
+						</td>
+			        </tr>
+			        <tr>
+				        <td colspan="2">
+					        <div class="expresse" style="margin: 10px 0; width:519px">
+					            <a style="display:none;" class="expSubmit" href="javascript:void(0);">提交</a>
+					                <input type="submit" value="提交" style="width:80px;height: 30px; color:#FFFFFF; background-color:#DF3A2C; margin-left:200px; border:none;"  >
+					            <a href="javascript:void(0)" id="btnCls">[清空]</a> 
+					        </div>					
+				        </td>
+			        </tr>
+		        </table>
+
+	        </div>
+	
+          </form>
+	
+         
+        </div>
+    </div>
+<script>
+    $('.expSubmit').click(function(){
+	    if($('#transForm #express').val()==''){
+		    alert('请选址快递公司');
+		    return;
+	    }
+	    if($('#transForm #express_no').val()==''){
+		    alert('请填写快递单号');
+		    return;
+	    }
+	    if($('#transForm #express_date').val()==''){
+		    alert('请填写发货日期');
+		    return;
+	    }
+
+	    $('#transForm').submit();
+    });
+</script>
+
+<script>
+    writeConfirm();
+    function toGetPro(){  
+	    var pageurl = $("#item_Url").val();  
+	    //if (pageurl == '') { 
+		    //alert('   请输入您自助购的商品网址！');
+	    //}else{
+		    pageurl = $.base64Encode(pageurl).replace('/','^').replace('==','@'); 
+		    lightboxframe('自助购','/Selfpurchase/step1/url/'+pageurl,540,425,true);
+	    //}
+    } 
+
+    function unsel(e){
+        if(e.checked == false){ 
+	    var cb =  document.getElementsByName('checkbox');
+	    cb[0].checked = false; 
+        }
+    }
+
+    function del(){
+	    if(checkSel()){
+		    confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+		    $('#frmcart').attr('action','/Selfpurchase/del');
+		    $('#frmcart').submit();
+		    });		 
+	    }
+    }
+    function checkout(){
+	    if(checkSel()){
+	        $('#frmcart').attr('action','/Selfpurchase/checkout');
+	        $('#frmcart').submit();
+        }else{
+	        alert('请选择商品,再提交!');
+        }
+    }
+</script>
+<include file="Public:bottom" />

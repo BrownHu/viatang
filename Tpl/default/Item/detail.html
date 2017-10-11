@@ -1,0 +1,638 @@
+<script type="text/javascript" src="/Public/Js/jQuery/Plug-in/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js?skin=default"></script> 
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Js/skins/default.css">
+<div>
+<div class="w item">
+			<div class="pinfo">
+				<div class="pic">
+					<div class="preview">
+						<img src="<notempty name="product.title">{$product.image}<else/>/img/cpbigbg.jpg</notempty>" onerror="this.src='/img/cpbigbg.jpg'" width="400" height="400" alt="" id="imgshow">
+						<div style="left: 267px; top: 0px; display: none;" id="winSelector"></div>
+					</div>
+					<div class="pic-list">
+						<div class="bd">
+							<a class="prev" href="javascript:void(0);"><i></i></a>
+							<a class="next" href="javascript:void(0);"><i></i></a>
+							<div class="mlist" style="text-align:left">
+								<ul>
+                                   <volist name="product.img_list" id="vo" >  
+									<li>
+										<a href="javascript:void(0);">
+											<img src="{$vo}">
+										</a>
+									</li>
+                                    </volist>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="bigView" style="width: 470px; height: 420px; top: 0px; left: 440px; display: none;">
+						<img width="800" height="800" alt="" src="{$product.image}" style="left: -330px; top: -152px;">
+					</div>
+				</div>
+				<div class="info">
+					<div class="ct" style="text-align:left">
+                        <form action="{:U('Item/step3')}" method="post" name="frmCart" id="frmCart">
+							<input type="hidden" name="image" value="{$product.image}">
+						<ul>
+
+							<li><span class="dt">商品网址</span><input type="text" id="productUrl" name="productUrl" value="<notempty name="product.url">{$product.url}<else/>{$product_url}</notempty>" style="width:378px;height:16px; padding:5px; border-radius:3px; border:1px solid #BDBDBD;"></li>
+							<empty name="product.title">
+								<li>
+									<span class="dt"> </span><span class="red">该网站不支持自动抓取或网络延时，请补全以下信息</span>
+								</li>
+							</empty>
+
+							<li><span class="dt">商品名称</span><input type="text" id="productName"  name="productName" value="{$product.title}" style="width:378px;height:16px; padding:5px; border-radius:3px; border:1px solid #BDBDBD;"/></li>
+							<li><span class="dt">商家名称</span><input type="text" id="seller"  name="seller" value="{$product.seller}" style="width:378px;height:16px; padding:5px; border-radius:3px; border:1px solid #BDBDBD;"/></li>
+							<li>
+								<div class="priceinfo">
+									<p><span class="dt">价格</span><span style="color:#b51005;" class="dd price">{$product.reserve_price}</span></p>
+									<p><span class="dt">促销价</span><span class="dd discount">
+                                    	<span id="tip_price" style="font-size:14px;display:none; font-weight:normal;"> <img src="/Public/Images/icon_waiting.gif" style="width:32px; height:32px;">正在获取优惠价格</span>
+                                        <input type="text" name="productPrice" id="p_price" style="width:120px; height:16px; padding:5px; border-radius:3px; border:1px solid #BDBDBD;" value="<php>if($_price_i == 'n'){echo $product['price'];}else{echo $_price_i;}</php>" />
+                                       </span>
+									   <span id="tip_youhui" style="display:none">价格如有优惠，可修改 <a target="_blank" style="color:#06c; font-size:12px; font-weight:normal" href="{$product.url}">点击查看商品详情</a></span>
+                                    </p>
+									<p><span class="dt">国内运费</span><span class="dd discount">
+										<input  type="text" id="productSendPrice"  name="productSendPrice" value="{$product.shipping_fee}" class="fee" style="width:120px; height:16px; padding:5px; border-radius:3px; border:1px solid #BDBDBD;"/></span>
+                                         <span>到<strong>上海</strong>的运费，如运费有优惠，可修改</span>
+                                        </p>
+								</div>
+							</li>
+							<li>
+								<span class="dt">来源商家</span><a href="{$product.url}" target="_blank"><span class="dd red">{$product.from_cn}</span></a>
+							</li>
+							<li style="display:none;">
+								<span class="dt">优惠活动</span><span class="dd"><img src="/img/zfys/mian.png" alt="" width="17">新用户24小时内下单免服务费</span>
+                            </li>
+							<li>
+								<span class="dt">配送区域</span><span class="dd">全球，由(唯唐代购发货并提供验货保障）</span>
+							</li>
+                            <style>
+								.noselect{border:2px solid #f00; overflow:hidden; margin-bottom:3px; padding-top:3px; margin-top:0px; padding-bottom:3px;}
+								.doselect{border:none; margin-bottom:3px; padding-bottom:0px;}
+								.skuselecterr{padding:2px 8px;background-color:red;color:#ffffff;height:20px;display:none;clear:both;text-align:center;width:120px;font-weight:bold;font-size:14px;}
+							</style>
+                            <php>
+						  	  $i = 1;
+                              
+						  	  foreach($product['props'] as $cap=>$prop){
+						    </php>
+                            <span class="dg-prop-value" id="prop-cat-{$i}" tag="{$vo.cap}" style="display:none"></span>
+							<li style="display:block">
+								<span class="dt left" id="dg-prop-cap-{$i}" style="width:65px; display:inline-block">{$cap}:</span>
+								<span class="dd color" style="width:350px; display:inline-block; float:left">
+                                   <volist name="prop" id="sub" key="j">
+									<a href="javascript:void(0);" title="{$sub.val|trim}"
+                                     class="prop-item prop-item-{$i}" 
+                                     onclick="checkStock('{$sub.sku_id}','prop-item-{$i}-{$j}');set_select('{$i}','prop-item-{$i}-{$j}');buildProp('prop-item-{$i}-{$j}'); getpromprice('prop-item-{$i}-{$j}');" 
+                                     id="prop-item-{$i}-{$j}" tag="{$sub.sku_id}" skuid="{$sub.sid}" noset="off">
+                                     	<notempty name="sub.img">
+                                        	<img src="{$sub.img}" style="width:32px; height:32px; " title="{$sub.val|trim}">
+                                         <else/>
+                                         {$sub.val|trim}   
+                                        </notempty>
+                                        
+                                     </a>
+
+                                   </volist>
+								</span>
+							</li>
+                            <php>$i++;}</php>
+							
+							<li style="display:block; margin-top:10px;">
+								<span class="dt">数量</span>
+								<span class="dd amount">
+                                	<a href="javascript:void(0);" class="btn-reduce">-</a>
+                    	    		<input type="text" class="num" id="num"  name="productNum"  onblur="if(this.value.length<=0) this.value=1;" value="1"/>
+                    	    		<a href="javascript:void(0);" class="btn-add">+</a>
+								</span>
+							</li>
+							<li style="display:block; margin-top:10px;">
+								<span class="dt">商品备注</span>
+								<span class="dd">
+									<textarea style="width:310px; border:1px solid #BDBDBD; height:60px; font-size:12px; " name="productRemark" id="product_remark" class="addpanel_still">例如：颜色、尺寸等信息</textarea>
+									</span>
+							</li>
+							<li> <input type="button" onclick="setbutton();" id="btn_submit" value="加入购物车" class="buy" style="border:none; cursor:pointer"></li>
+						</ul>
+                        </form>
+					</div>
+				</div>
+				<div class="other" style="display:none;">
+					<h3>看了又看</h3>
+					<ul id="see_also_block">
+                    	<volist name="shop_prodcut" id="rel_product">
+						<li>
+							<a href="/i/{$rel_product.id}.html" target="_blank"><img src="http://g-search1.alicdn.com/img/bao/uploaded/{$rel_product.img}"></a>
+						</li>
+                        </volist>
+					</ul>
+					<a href="list.html" target="_blank" class="more" style="display:none">查看更多</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="pdetails">
+				<div class="left">
+					<div class="mt">
+						<h2>推荐</h2>
+					</div>
+					<div class="mc">
+						
+                        <ul>
+                            <volist name="recomment_prodcut" id="vo">
+							<li>
+								<div class="img">
+									<a href="/i/{$vo.num_iid}.html" target="_blank">
+										<img width="160" height="160" src="{$vo.pict_url}">
+									</a>
+								</div>
+								<div class="name" style="text-align:left"><a href="/i/{$vo.num_iid}.html" target="_blank">{$vo.title|getShortTitle=###,25,true}</a>
+								</div>
+							</li>
+						  </volist>	
+						</ul>
+					 
+					</div>				
+				</div>
+				<div class="pro-details tab">
+					<div class="hd">
+						<ul>
+							<li class="on">商品详情</li>
+							
+							<li>支付&配送</li>
+							<li>服务承诺</li>
+						</ul>
+					</div>
+					<div class="bd">
+						<ul class="pro-introduction">
+							<li>
+								<div class="details">
+									{$product.des}
+								</div>
+							</li>
+						</ul>
+					
+						<ul class="pro-pay">
+							<li>
+								<div style="text-align:left">								
+                                <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td height="50" valign="bottom"><strong>● 支付</strong></td>
+    </tr>
+    <tr>
+      <td height="40">支持国际信用卡与其他付款方式：</td>
+    </tr>
+    <tr>
+      <td height="50" valign="top"><img src="/Public/Images/item/PayPal-1.jpg" alt="" width="72" height="34" /> <img src="/Public/Images/item/visa-2.jpg" alt="" width="72" height="34" /> <img src="/Public/Images/item/mastercard-3.jpg" alt="" width="72" height="34" /> <img src="/Public/Images/item/JCB-4.jpg" alt="" width="72" height="34" /> <img src="/Public/Images/item/caifutong-5.jpg" alt="" width="72" height="34" /> <img src="/Public/Images/item/zhifubao-6.jpg" alt="" width="72" height="34" /> <img src="/Public/Images/item/weixin-7.jpg" alt="" width="72" height="34" /></td>
+    </tr>
+    <tr>
+      <td height="50" valign="bottom"><strong>● 配送</strong></td>
+    </tr>
+    <tr>
+      <td height="40">唯唐代购与DHL、EMS、UPS等全球知名快递公司合作，支持全球194个国家商品配送服务，最快三天送达提供最超值的配送价格与服务</td>
+    </tr>
+    <tr>
+      <td height="50" valign="top"><img src="/Public/Images/item/youzheng-1.jpg" alt="" width="90" height="34" /> <img src="/Public/Images/item/ems-2.jpg" alt="" width="90" height="34" /> <img src="/Public/Images/item/dhl-3.jpg" alt="" width="90" height="34" /> <img src="/Public/Images/item/air-4.jpg" alt="" width="90" height="34" /> <img src="/Public/Images/item/zhuanxian-5.jpg" alt="" width="90" height="34" /> <img src="/Public/Images/item/ups-6.jpg" alt="" width="90" height="34" /> <img src="/Public/Images/item/tnt-7.jpg" alt="" width="90" height="34" /></td>
+    </tr>
+  </tbody>
+</table>
+							</li>
+						</ul>
+						<ul class="customer">
+							<li>
+								<div style="text-align:left">
+									<table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td height="50" valign="bottom"><div><strong>● 限时达服务</strong><img src="/img/zfys/shandian.png" alt="" width="28" height="28"></div>
+    </tr>
+    <tr>
+      <td><p>使用限时达服务，逾期未到，每逾期一天，赔偿国际运费的5%。超过10天未到达，国际运费全额退还。</p></td>
+    </tr>
+    <tr>
+      <td height="50" valign="bottom"><p><strong>● 商品破损</strong></p></td>
+    </tr>
+    <tr>
+      <td><p>在运输过程中出现破损，唯唐代购给予赔偿或免费退换货。</p></td>
+    </tr>
+    <tr>
+      <td height="50" valign="bottom"><p><strong>● 关税</strong></p></td>
+    </tr>
+    <tr>
+      <td><p>在唯唐代购购物，只有约千分之三的包裹会产生关税。</p></td>
+    </tr>
+    <tr>
+      <td height="50" valign="bottom"><p><strong>● 商品遗失</strong></p></td>
+    </tr>
+    <tr>
+      <td><p>我们在产品包装上已经做了充足的预处理（包括使用5AA级纸箱，专用充气袋等处理），几乎不会发生遗失的情况。</p>
+        <p>如若遗失，我们最终将给予全额退款或免费重发的服务，确保购物安全。</p></td>
+    </tr>
+    <tr>
+      <td height="50" valign="bottom"><p><strong>● 商品颜色/尺码问题</strong></p></td>
+    </tr>
+    <tr>
+      <td>若因供货商未按买家要求购买，所产出的货不对板等问题，我们将为您全额退款或免费重新发货。</td>
+    </tr>
+  </tbody>
+</table>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			    <div class="clear"></div>
+			</div>
+		</div>
+<!--script src="/item/price_json.html"></script--> 
+    
+<script type="text/javascript">
+//var skus='{$product.sku_json}'; //注意用单引号，JSON格式为双引号
+//var sku_obj = JSON.parse(skus);
+window.price_str ='{$product.price_json}';
+window.price_obj =  (new Function("return " + price_str))();  
+//var prop_count = {$prop_count};
+
+<eq name="prop_count" value="1">
+   window.is_one_item = true;
+<else/>
+   window.is_one_item = false;
+</eq>
+
+
+//设置当前属性的库存
+function checkStock(props,id){
+	//return ;
+	var noset =$('#'+id).attr('noset');
+	if(noset == 'on'){
+		return;
+	}
+	
+	var _prop = '';
+	var _n_prop='';
+	var _p1=-1;
+	var _p2 =-1;
+  	for(var i=0; i<price_obj.length; i++) {
+		_prop = price_obj[i].pv; 
+		_p1 = _prop.indexOf(props);
+		_p2 = _prop.indexOf(';');
+		if( (_p1>=0)   ){   //即propertis 中含有此属性,如:"12666666:13432432432;16444444:82233434"中含有12666666:13432432432
+			if(_p1==0){
+				_n_prop = _prop.substr(props.length+1);	
+			}else{
+				_n_prop = _prop.substr(0,_p2);
+			}
+			if(price_obj[i].quantity ==0){
+				setProp(_n_prop,true);
+			}else{
+				setProp(_n_prop,false);
+			}
+		}	
+	}
+}
+
+/*关联套餐价格  */
+function getpromprice(id){
+	var noset =$('#'+id).attr('noset');
+	if(noset == 'on'){
+		return;
+	}
+	
+  var props = '';
+  var sku_id = '';
+  
+  //取出所有选中项的tag,拼接SKU中的 propertis, 例:{"propertis":"12666666:13432432432;16444444:82233434","price":39,"quantity":1,"sku_id":3103011304042}
+  $('.prop-item-on').each(function(){
+  	 props = props + ';'+$(this).attr('tag');
+	 sku_id = $(this).attr('skuid');
+  });
+ 
+  props = props.substr(1);//去掉左边第一个;
+  var _p = props.indexOf(';');// 同时选中两个以上时才确定查找价格
+
+  //alert(props);
+  //checkStock(props);
+
+  if( (_p >0) || is_one_item){
+  	for(var i=0; i<price_obj.length; i++) {  
+	  if( (price_obj[i].pv == props)  && (price_obj[i].quantity > 0 ) ){
+		$('#p_price').val(price_obj[i].price);
+		break;
+	  }
+    } 
+	
+  }
+
+}   
+
+
+//数量为0的属性置为不可选
+function setProp(_prop,flag){
+	$('.prop-item').each(function(){
+		if($(this).attr('tag') == _prop){
+			if(flag){
+				$(this).css({'color':'#ccc','cursor':'not-allowed'});
+				$(this).attr('noset','on');
+				$(this).removeClass('prop-item-on').removeClass("selected");
+			}else{
+				$(this).css({'color':'#000','cursor':'default'});
+				$(this).attr('noset','off');
+			}
+		}
+	});
+}
+
+//还原属性
+function resetProp(){
+	$('.prop-item').each(function(){
+		$(this).css({'color':'#000','cursor':'default'});
+		$(this).attr('noset','off');
+	});
+}
+
+function set_select(type,id){
+	var noset =$('#'+id).attr('noset');
+	if(noset == 'on'){
+		return;
+	}else{
+
+		if($('#'+id).hasClass('prop-item-on')){
+			$('#'+id).removeClass('prop-item-on').removeClass('selected');	
+		}else{
+			$('.prop-item-'+type).removeClass('prop-item-on').removeClass('selected');
+			$('#'+id).addClass('prop-item-on').addClass("selected");
+			$('#prop-cat-'+type).empty().html($('#dg-prop-cap-'+type).html() + $('#'+id).html());
+		}
+	}
+	
+	//resetProp();
+}
+
+
+$('title').html('{$title}');
+$('meta[name=keywords]').attr('content','{$keywords}');
+$('meta[name=description]').attr('content','{$description}');
+
+
+function showInfo(info){
+	art.dialog({title:'购物车',content: info,time: 5});
+}
+		
+function complete(data){		
+    if (data.status == '1'){
+			$('#global_cart_count').html(data.info);
+			loadCartInfo();
+			var str = '<div style="width:300px;color: #00539A;text-align: center;">成功添加至购物车</div>';
+			str += '<div style="width:300px;text-align: center;">购物车共<span style="color:red;" class="red">'+data.info+'</span>件商品</div>';
+			str += '<div style="width:300px;text-align: center;"><a href="/Cart/index.html"><img src="/Ulowi/Tpl/default/Public/images/btn_gwc.gif"></a>&nbsp;&nbsp;或&nbsp;&nbsp;<a class="red" href="/Mall/index.html">继续购物</a></div>';
+			art.dialog({title:'购物车',content: str,time: 10});
+	}else{
+			art.dialog({title:'购物车',content: data.info,time: 5});
+		}
+
+	$('#btn_submit').val('添加到购物车').attr('disabled',"");	
+}
+	
+$('#frmCart').ajaxForm({
+  success: complete,
+  dataType: 'json'
+});
+	
+
+
+function buildProp(id){
+	var noset =$('#'+id).attr('noset');
+	if(noset == 'on'){
+		return;
+	}
+	
+	var remark = '';
+  	$('.dg-prop-value').each(function(){
+		var img = $(this).find('img').first();
+	
+		if(img.length != 0){
+		  remark = $(img).attr('title')  + '， ' + remark;
+		}else if ($(this).html() != '') {
+	   	  remark = $.trim($(this).html()) + '， ' + remark;
+	 	  remark=remark.replace(/[\r\n]/g,"");//去除换行
+	   	  remark=remark.replace(/\ +/g,"");//去除空格 .replace(/\ +/g,"");
+    	}		
+  	});
+	
+	$('#product_remark').val($.trim(remark));
+
+}
+
+function setbutton(){
+	if($(".color").length>0){
+		var flag = true;
+		var str = '';
+		var cur_id = '';
+		var test_continue = true;
+		$('.color').each(function(){
+			if( ( $(this).find('.selected').length!=1 )  && test_continue){
+				flag = false;
+				str += $(this).parent().find('.dt').html();
+				str = str.replace(':','')
+				cur_id = $(this).parent().find('.dt').attr('id');
+				$('#'+cur_id + '-block').addClass('noselect');
+				test_continue = false;
+				$('#'+cur_id + '-tip').empty().html('*请选择'+str).show();
+				$('#'+cur_id + '-block').removeClass('doselect').addClass('noselect');
+			}
+		});
+		if(!flag){
+			//alert('请选择'+str);
+			return;
+		}
+	}
+	$.get('/Public/isLogin.html', function(result) { 
+		if(parseInt(result) == 1){
+			$('#btn_submit').val('正在提交...').attr("disabled","disabled");
+			$('#frmCart').submit();
+		}else{
+			login_min(',Item,index,url',560,420,0);
+		}		
+	});
+}
+
+
+
+
+</script>
+        
+<eq name="prop_count" value="1">
+<script type="text/javascript">
+$(document).ready(function(){ 
+
+   $('.prop-item').each(function(){
+	 var props = $(this).attr('tag');
+						
+	 var _prop = '';
+	 var _p1=-1;
+	 for(var i=0; i<price_obj.length; i++) {
+		 _prop = price_obj[i].pv; 
+		_p1 = _prop.indexOf(props);
+		if( (_p1>=0)  && (price_obj[i].quantity ==0) ){
+			 $(this).hide();
+		}	
+	 }
+						
+	});
+});	
+</script>
+</eq>
+                
+<script type="text/javascript">
+			$(document).ready(function() {
+				$('#frmCart').ajaxForm({
+  					success: complete,
+  					dataType: 'json'
+				});
+	
+				$(document).attr("title","{$product.title}");
+				
+				$.ajax({
+					url:'/item/active_price.html?url={$active_price_url}',
+					type:'post',  
+     				cache:false,  
+    				dataType:'text',
+					success:function(result) {
+						if(result != ''){
+							$("#p_price").val(result).show();
+						}
+						$("#p_price").show();
+						$("#tip_price").hide();
+						$("#tip_youhui").show();
+					},
+					error : function() { 
+						$("#tip_price").hide();
+						$("#tip_youhui").show();
+						$("#p_price").show() 
+					}
+				});
+				
+				//小图菜单列表
+				$(".pic-list").slide({
+					mainCell: ".bd ul",
+					effect: "left",
+					autoPlay: false,
+					autoPage: true,
+					vis: 5,
+					prevCell: ".prev",
+					nextCell: ".next"
+				});
+				//商品详情Tab
+				jQuery(".pro-details").slide();
+				//切换图片
+				$(".pic-list .mlist img").each(function() {
+					$(this).bind("mouseover", function() {
+						$("#imgshow").attr("src", $(this).attr("src"));
+						$("#bigView img").attr("src", $(this).attr("src"));
+					});
+				});
+				//数量
+				$(".btn-add").click(function() {
+					computeNum($(this), "add");
+				});
+				$(".btn-reduce").click(function() {
+					computeNum($(this), "reduce");
+				});
+				$("#num").change(function() {
+					computeNum($(this), "");
+				});
+
+				function computeNum(obj, isPlus) {
+					var txtNum = (isPlus == "" ? obj : obj.siblings("#num"));
+					var n = parseInt(txtNum.val());
+					var sum = 0;
+					if (isPlus != undefined && isPlus == "add" && n <= 9999) {
+						n++;
+					} else if (isPlus != undefined && isPlus == "reduce" && n > 1) {
+						n--;
+					}
+					if (n > 9999) {
+						n = 9999;
+					}
+					if (n < 1) {
+						n = 1;
+					}
+					txtNum.val(n); //云购次数
+					sum = parseInt($("#price").html()) * n;
+					$("#total").html(sum);
+				}
+			
+			});
+			
+
+		</script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				//大视窗看图
+				function mouseOver2(e) {
+					if ($("#winSelector").css("display") == "none") {
+						$("#winSelector,#bigView").show();
+					}
+					$("#winSelector").css(fixedPosition(e));
+					e.stopPropagation(); //阻止冒泡
+				}
+
+				function mouseOut2(e) {
+					if ($("#winSelector").css("display") != "none") {
+						$("#winSelector,#bigView").hide();
+					}
+					e.stopPropagation();
+				}
+				$("#imgshow").mouseover(mouseOver2); //中图事件
+				$("#imgshow,#winSelector").mousemove(mouseOver2).mouseout(mouseOut2); //选择器事件	
+				var $divWidth = $("#winSelector").width(); //选择器宽度
+				var $divHeight = $("#winSelector").height(); //选择器高度
+				var $imgWidth = $("#imgshow").width(); //中图宽度
+				var $imgHeight = $("#imgshow").height(); //中图高度
+				var $viewImgWidth = $viewImgHeight = $height = null; //IE加载 后才能得到 大图宽度 大图高度 大图视窗高度
+				$("#bigView").scrollLeft(0).scrollTop(0);
+
+				function fixedPosition(e) {
+					if (e == null) {
+						return;
+					}
+					var $imgLeft = $("#imgshow").offset().left; //中图左边距
+					var $imgTop = $("#imgshow").offset().top; //中图上边距
+					X = e.pageX - $imgLeft - $divWidth / 2;
+					Y = e.pageY - $imgTop - $divHeight / 2;
+					X = X < 0 ? 0 : X;
+					Y = Y < 0 ? 0 : Y;
+					X = X + $divWidth > $imgWidth ? $imgWidth - $divWidth : X;
+					Y = Y + $divHeight > $imgHeight ? $imgHeight - $divHeight : Y;
+					if ($viewImgWidth == null) {
+						$viewImgWidth = $("#bigView img").outerWidth();
+						$viewImgHeight = $("#bigView img").height();
+						if ($viewImgWidth < 200 ||
+							$viewImgHeight < 200) {
+							$viewImgWidth = $viewImgHeight = 800;
+						}
+						$height = $divHeight * $viewImgHeight / $imgHeight;
+						$("#bigView").width($divWidth * $viewImgWidth / $imgWidth);
+						$("#bigView").height($height);
+					}
+					var scrollX = X * $viewImgWidth / $imgWidth;
+					var scrollY = Y * $viewImgHeight / $imgHeight;
+					$("#bigView img").css({
+						"left": scrollX * -1,
+						"top": scrollY * -1
+					});
+					$("#bigView").css({
+						"top": 0,
+						"left": $(".preview").width() + 140
+					});
+					return {
+						left: X,
+						top: Y
+					};
+				}
+			});
+		</script>

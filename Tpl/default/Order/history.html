@@ -1,0 +1,203 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的订单</div>
+    <form action="/Order/addtocart.shtml" name="form2" id="form2" method="post">
+    <input type="hidden" name="return_url" value="My:order">
+    <div id="tab_title" style="width:959px; height:55px; margin-top:18px;" class="middle nobd">
+
+      <div style="height:35px; margin-top:-1px; width:960px; text-align:left; background:#f9f9f9;" class="brd middle">
+        <table cellpadding="0" cellspacing="0" border="0" style="margin-top:6px; width:960px;" class="left">
+          <tr>
+            <td align="center" style="width:225px;">商品ID</td>
+            <td align="center" style="width:887px;">商品名称</td>
+            <td style="width:120px;">单价(￥)</td>
+            <td style="width:119px;">数量</td>
+            <td style="width:188px;">单件重量(g)</td>
+            <td style="width:160px;">状态</td>
+            <td style="width:121px;"><div>操作<input type="checkbox" name="checkbox"  id="checkbox"  onclick="selAll(this);"/></div></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="width:960px;" class="nobd middle">
+      <php> $count = count($DataList);
+        $order_total = 0;
+        $order_shipping = 0;
+        if($count > 0){
+        $need_package = false;//是否需要打包
+        for($i=0; $i<$count; $i++){ if(($i==0) || ( $DataList[$i]['order_id'] <> $DataList[$i-1]['order_id'] ) ){ </php>
+      <div style="height:12px; width:960px;" class="middle nobd"></div>
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:962px; border:1px solid #e6e6e6;" class="middle">
+        <tr>
+          <td colspan="7" bgcolor="#f3f3f3" height="28"><div style="width:960px; text-align:left; text-indent:10px;" class="left">订单编号:DD{$Think.session.m_id}-
+              <php>echo $DataList[$i]['order_id'];</php>
+              &nbsp;&nbsp;&nbsp;&nbsp;提交时间:
+              <php>echo date('Y-m-d',$DataList[$i]['create_time']);</php> &nbsp;&nbsp;&nbsp;&nbsp;
+              卖家： <php>echo $DataList[$i]['seller'];</php>&nbsp;&nbsp;&nbsp;&nbsp;<b>运费：</b><span>￥<php>echo $DataList[$i]['shipping_fee'];</php></span>
+            </div>
+          </td>
+        </tr>
+        <php>}</php>
+        <tr height="100" >
+          <td width="90" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;">P<php>echo $DataList[$i]['id'];</php></td>
+          <td align="left" width="310" style="border-top:1px solid #e6e6e6;"><div style="text-align:left; padding:5px;" class="left">
+              <div style="display:inline-block; width:68px;" class="nobd left"> <img src="/Uploads/pic/product/<php>echo $DataList[$i]['thumb']</php>_s.jpg" onerror="this.src='../Public/images/noimg80.gif';" alt="代购商品" class="product_img"/> </div>
+              <div style="width:279px; margin-left:8px; display:inline-block;" class="left nobd"> 
+                <a href="<php>echo $DataList[$i]['url']</php>" target="_blank" class="lnk"><php>echo $DataList[$i]['title']</php></a>
+                <php>if($DataList[$i]['custmer_note'] != ''){</php>
+                    <br><h4 class="product_tips"><b>备注</b>:<php>echo $DataList[$i]['custmer_note']; if($DataList[$i]['status'] == 1){</php>&nbsp;<a href="#nogo" onclick="modifynote(<php>echo $DataList[$i]['id']</php>)" class="btn_n2">修改备注</a><php>}</php></h4>
+                <php>}else if($DataList[$i]['status'] == 1){</php>
+                   <h4 class="product_tips"><a href="#nogo" onclick="modifynote(<php>echo $DataList[$i]['id']</php>)" class="btn_n2">添加备注</a></h4>
+                <php>}</php>
+                <php>if($DataList[$i]['reason'] != ''){</php>
+                   <br><span style="color:#f60;"><b>提醒</b>:<php>echo $DataList[$i]['reason'];</php></span>&nbsp;&nbsp;
+                   <php>if($DataList[$i]['tip_tag'] == 0){</php>
+                      <a href="#nogo" onclick="<php>echo 'javascript:send_note('. $DataList[$i]['order_id']. ',' . $DataList[$i]['id'] .',' . $DataList[$i]['buyer_id'] . ');';</php>" class="btn_n2">回复</a>
+                <php>}}</php>
+              </div>
+            </div></td>
+          <td width="50" style="border-top:1px solid #e6e6e6;"><php>echo $DataList[$i]['price1']</php></td>
+          <td width="40" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><php>echo $DataList[$i]['amount']</php></td>
+          <td width="60" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><php>if($DataList[$i]['weight'] > 0){ echo $DataList[$i]['weight'];}else{ echo '-';}</php></td>
+          <td width="80" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><php>echo $productStaAry[$DataList[$i]['status']];</php></td>
+          <td width="60" style="border-top:1px solid #e6e6e6; text-align:center;">&nbsp;
+            <php> switch ($DataList[$i]['status']){
+                case 1 :                                  
+                case 7 :
+                case 8 :
+                case 9 : </php><a href="#nogo" onclick="javascript:cancle(<php>echo $DataList[$i]['id']</php>)" class="btn_nomal" >退单</a><php>break;                                  
+                case 11 : </php>
+                           <a href="#nogo" onclick="javascript:del(<php>echo $DataList[$i]['id']</php>);" class="btn_nomal">删除</a>
+                       <php>break;
+                case 13 : </php>
+                        <php>if( ((($DataList[$i]['order_id'] != $DataList[$i+1]['order_id']) && ($i<$count)) || ($i == $count) ) && ($DataList[$i]['supplement_id'] > 0) ){</php>
+                           <a href="#nogo" onclick="javascript:showbk(<php>echo $DataList[$i]['id']</php>);"><img src="../Public/images/btn_bk.png" alt="查看代购详情"  border="0"></a>
+                        <php>}</php>
+                        <php>break;
+                case 12 :</php><php> 
+                          echo '<input type="checkbox" name="id[]" id="id[]"  value="'. $DataList[$i]['id']. '"  />';
+                          $need_package = true;
+                          break;
+                default : echo '&nbsp;'; break;
+                } </php>
+         </td>
+        </tr>
+        <php>if( ((($DataList[$i]['order_id'] != $DataList[$i+1]['order_id']) && ($i<$count)) || ($i == $count))  && ($DataList[$i]['status'] == 13) && ($DataList[$i]['supplement_id'] >0)){</php>
+        <tr id="bk_<php>echo $DataList[$i]['id']</php>" style="display:none;">
+          <td colspan="7" style="border-top:1px solid #e6e6e6; text-align:left; padding-left:15px;padding-top:5px; padding-bottom:5px;">
+          	<div style="padding:2px;">补款金额：￥<span class="red_font">
+              <php>echo $DataList[$i]['supplement_fee']</php>
+              </span></div>
+            <div style="padding:2px;">补款原因：
+              <span class="red_font">
+              	<php>echo $DataList[$i]['reason']</php>
+              </span>
+            </div>
+            <div style="padding-top:2px;">
+            	<a href="#nogo" onclick="supplement(<php>echo $DataList[$i]['id'].','.$DataList[$i]['supplement_fee']</php>);" class="btn_nomal" style="float:left">同意补款</a>&nbsp; &nbsp; &nbsp; &nbsp; <a href="#nogo" class="btn_nomal" onclick="denysuplemment(<php>echo $DataList[$i]['id']</php>);" >拒绝</a>
+            </div>
+           </td>
+        </tr>
+        <php>}</php>
+        <php>if( $DataList[$i]['order_id'] != $DataList[$i+1]['order_id'] ){</php>
+      </table>
+      <php>}</php>
+      <php>}</php>
+      <div style="width:970px; border:none; text-align:right; margin-top:15px; padding-right:20px;">
+        <php>echo "<div class='digg'>$page</div>";</php>
+      </div>
+      <php>if($need_package){</php>
+      <div style="width:960px; border:none; text-align:right; padding-top:5px; padding-bottom:20px;" class="middle">
+      	<span style="display:inline-block; margin-right:20px;"><a href="/Selfpurchase/cart.shtml" class="lnk">查看我的送货车</a></span>
+      	<a href="#nogo" onclick="package();" class="btn_big">将选中商品放入送货车</a>
+      </div>
+      <php>}</php>
+      <php>}else{</php>
+       <div style="width:960px;height:30px; line-height:30px;" class="middle brd4">暂无记录</div>
+      <php>}</php>
+    </div>
+     </form>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/Css/confirm.css">
+<form id="form1" name="form1" action="" method="get">
+</form>
+<script>
+writeConfirm();
+function cancle(id){
+	confirm('  确定退单操作?等值金额将返还.',function () {
+		$('#form1').attr('action','/Order/cancle/id/'+id+'.shtml');
+		$('#form1').submit();
+	});
+}
+
+function del(id){
+		confirm('  确定删除操作?该商品将被删除,等值金额将返还.',function () {
+		document.form1.action = '/Order/del/id/'+id+'.shtml';			
+		document.form1.submit();
+		});
+}
+
+function supplement(id,money){
+	confirm('  您同意补款'+money+'元吗？补款成功后，本订单即可正常订购',function () {
+		document.form1.action = '/Order/supplement/id/'+id+'.shtml';			
+		document.form1.submit();
+		});
+}
+
+function denysuplemment(id){
+	 confirm('  放弃补款，商品将自动变为无效状态，您可申请退单',function () {
+		document.form1.action = '/Order/denysup/id/'+id+'.html';			
+		document.form1.submit();
+	});	
+}
+
+//修改订单备注
+function modifynote(id){
+	lightboxframe('修改备注,商品ID:'+id,'/Order/load/id/'+id+'.shtml',300,150);
+}
+
+function showbk(id){
+	var bk_id = 'bk_'+id;
+	showdiv(bk_id);
+}
+
+function package(){
+	if(checkSel()){
+		$('#form2').submit();
+	}else{
+	   alert('  请勾选需要放入送货车的商品,再提交! 若有疑问请及时与在线客服联系。');
+	}
+}
+	
+function send_note(oid,pid,bid){
+	lightboxframe('联系客服','/Consultation/ordadd/oid/'+oid+'/pid/'+pid+'/bid/'+bid+'.shtml',500,280,true);
+}
+
+function showstatus(status){
+	if(status == 0){
+	   window.location.href = '/My/order.shtml';
+	}
+	if(status == 1){
+	   window.location.href = '/Order/wcl.shtml';
+	}
+	if(status == 2){
+	   window.location.href = '/Order/clz.shtml';
+	}
+	if(status == 3){
+	   window.location.href = '/Order/ydg.shtml';
+	}
+	if(status == 4){
+	   window.location.href = '/Order/ydh.shtml';
+	}
+	if(status == 5){
+	   window.location.href = '/Order/yrk.shtml';
+	}
+}	
+
+</script>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

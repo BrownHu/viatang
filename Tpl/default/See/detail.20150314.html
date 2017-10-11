@@ -1,0 +1,212 @@
+<include file="Public:header" />
+<script type="text/javascript" src="/Public/Js/jQuery/Plug-in/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js?skin=default"></script>
+<div style="width:auto;height:auto;overflow:hidden;background-color:#fafafa;padding-top:25px;padding-bottom:25px;">
+<script>$('#mn_browse a').addClass('menu_li_on');</script>
+<style>.cat_current{background-color:#fb3c67;} .cat_current a{color:#fff;}</style>
+<link rel="stylesheet" type="text/css" href="../Public/css/book.css">
+<div id="m0" style="width:988px; height:100%; vertical-align:middle; overflow:hidden;" class="middle nobd">
+  <div style="width:986px; height:35px; line-height:35px;overflow:hidden; font-size:14px;background-color:#fff" class="middle brd">
+    	<ul style="padding:0px; margin:0px;">
+        	<li style="width:120px;" <eq name="category" value="0"> class="left cat_current"<else/>class="left"</eq>><a href="/See/index.html">最新代购</a></li>
+            <volist name="ProductTypeList" id="vo">
+            	<li style="width:95px; border-left:1px solid #e3e3e3;" <eq name="category" value="$vo['id']"> class="left cat_current"<else/>class="left"</eq>><a href="/See/s/c/{$vo.id}.html" >{$vo.caption}</a></li>
+            </volist>
+        </ul>
+  </div>
+</div>
+<div id="m1" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:988px; margin:0px; height:auto;" class="nobd">
+    <div id="m1l" style="width:707px; padding-bottom:30px;background-color:#fff" class="left bbrd"> 
+      <!--商品信息-->
+      <div id="info" style="height:100%; overflow:hidden; width:678px; margin-top:14px; text-align:left;" class="nobd middle">
+        <div id="p_pic" style="width:280px; height:100%; overflow:hidden;" class="left nobd"><img id="pro_phos"  src="../Public/images/grey.gif" lazy="y" original="http://img.{$Think.CONFIG.DOMAIN}/product/{$entity.thumb}_b.jpg" alt="淘宝最新代购商品"  errorimg="{$entity.image}" onload="loadImg(this.id,320,430)" class="nobd "/></div>
+        <div style="width:379px; height:310px; margin-left:10px;" class="nobd right">
+          <div style="height:210px; width:379px;">
+            <div id="p_title" style="width:360px; line-height:18px; font-size:14px;">
+            	<a href="{$entity.url}" class="lnk" target="_blank">{$entity.title}</a>&nbsp;&nbsp;<span class="fnt_gry" style="font-size:11px;">{$entity.create_time|date="m月d日 H:i",###}</span>
+            </div>
+            <div id="p_price" style="width:379px; height:50px; line-height:50px; vertical-align:middle;" class="nobd fnt_gry">价格：￥{$entity.price1|number_format=###,'2'}</div>
+            <div style="width:379px; height:100%; overflow:hidden;">
+              <div style="width:90px;" class="left nobd"><img src="../Public/images/like_it.gif" alt="代购喜欢商品" width="90" height="36" style="cursor:pointer;" onclick="javascript:toGetPro('{$entity.url}');" /></div>
+              <div id="like_{$entity.id}" style="color:#e4007f; font-size:32px; font-weight:bold; text-indent:12px; width:90px;" class="left nobd">&nbsp;&nbsp;</div>
+              <div id="go_buy" style="width:133px; text-align:right;" class="left nobd">
+               	<img src="../Public/images/btn_buy.png" alt="我要代购" height="38" width="133" onclick="addtoCart('{$entity.url}');"  style="cursor:pointer;" class="nobd">                    
+              </div>
+            </div>
+          </div>
+          <div id="p_like" style="width:379px; height:100px;" class="nobd">
+            <div style="width:379px; height:25px;" class="fnt_gry nobd"><present name="LikeList">他们喜欢这个宝贝</present></div>
+            <div style="width:379px; height:75px; text-align:left;" class="nobd"> 
+              <present name="LikeList">
+                <volist name="LikeList" id="vo">
+                    <img src="http://img.viatang.com/avatar/{$vo.user_id|getAvatar}_m.jpg" onerror="this.src='../Public/images/1.gif'" alt="代购商品图片信息" class="browse_like_u_img"> 
+                </volist>
+              </present>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--分享-->
+      <div id="share_tag" style="width:678px; height:28px; margin-top:14px;" class="nobd middle">
+        <div id="tag" style="width:300px; text-align:left;" class="nobd left"><span class="fnt_grn" style="display:none">时尚元素：</span><span class="fnt_pnk" style="display:none">雷丝 秋冬 透明</span></div>
+        <div id="ckepop" class="right nobd">
+            <div style="width:85px; border-right:1px solid #999; margin-right:20px;" class="left nobd"><span class="fnt_pnk fnt_b">{$entity.review_count}</span><span class="fnt_gry">&nbsp;评论</span></div>
+            <span class="jiathis_txt">分享到：</span>
+            <a class="jiathis_button_qzone"></a>
+            <a class="jiathis_button_tsina"></a>
+            <a class="jiathis_button_tqq"></a>
+            <a class="jiathis_button_renren"></a>
+            <a class="jiathis_button_kaixin001"></a>
+            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        </div>
+      </div>
+      
+      <!--发表评论-->
+      <div id="review" class="nobd middle d_s_r">
+        <div style="height:30px; width:638px; line-height:30px; vertical-align:middle; text-align:right;" class="nobd middle"><span style="display:inline-block;" class="left">我来点评</span>还可以输入&nbsp;<span id="left_count" class="fnt_gry fnt_b">140</span>&nbsp;个汉字</div>        
+        <div style="width:638px; height:43px;" class="nobd middle">
+          <form action="/Like/commit" name="form1" id="form1" method="post">
+          <input type="hidden" name="pid" value="{$entity.id}">
+          <textarea id="content" name="content" class="review_textarea"></textarea>
+          </form>
+        </div>
+        <div style="width:638px; height:35px; margin-top:14px;" class="nobd middle">        
+          <div style="height:28px; width:60px;" class="nobd right">
+            <input type="button" name="submit" value="评论"  onclick="sendata();" class="bws_btn">
+          </div>
+        </div>
+      </div>
+      
+      <!--评论列表-->
+      <div id="review_lst" style="width:678px; margin-top:14px;" class="nobd middle">
+        <present name="ReviewList">
+          <volist name="ReviewList" id="vo">
+            <div class="middle d_review">
+              <div style="width:32px; height:32px;" class="left nobd"> <img src="http://img.{$Think.CONFIG.DOMAIN}/avatar/{$vo.user_id|getAvatar}_m.jpg" onerror="this.src='../Public/images/0.gif'" alt="代购会员头像信息"  style="width:32px; height:32px; border:1px solid #f0f0f0;"> </div>
+              <div style="width:630px; padding-left:10px; margin:0px; text-align:left; " class="left nobd">
+                <div style="height:15px;" class="s_browse middle">
+                  <div style="width:300px; text-align:left;" class="left fnt_grn">{$vo.user_name}</div>
+                  <div class="right s_browse_time">{$vo.create_at|date="Y-m-d",###}</div>
+                </div>
+                <div style="color:#666; text-align:left;" class="s_browse middle">{$vo.content}</div>
+              </div>
+            </div>
+          </volist>
+        <else /> 
+        	<div style="height:50px; line-height:50px;" class="nobd middle fnt_gry">还没有人评论过，你来当第一个吧！</div>
+        </present>
+      </div>
+    </div>
+    <div id="m1r" style="width:250px;height:100%; background-color:#fff;padding-top:5px; padding-bottom:10px; overflow:hidden;" class="right brd">
+      <!--她最被喜欢的宝贝-->
+      <div style="width:240px; margin-left:6px; height:100%; overflow:hidden; margin-top:20px;" class="nobd">
+        <div  <present name="LikeOrder">style="width:240px; height:40px; line-height:40px; vertical-align:middle; text-align:left; padding-left:5px;"<else /> style="display:none;" </present> class="fnt14 fnt_dr fnt_b">她最被喜欢的宝贝</div>
+        <div style="width:238px; height:100%; overflow:hidden; padding-top:2px;" class="nobd">
+ 		  <present name="LikeOrder">
+            <volist name="LikeOrder" id="vo">
+              <div class="nobd left dlt_like_ord"> 
+                 <a href="/show/{$vo.id}.html" target="_blank"> <img src="../Public/images/grey.gif" lazy="y" original="http://img.viatang.com/product/{$vo.thumb}_b.jpg" errorimg="{$vo.image}"  alt="{$vo.title}"  style="width:70px; height:70px;" class="nobd"> </a>
+              </div>
+            </volist>
+          </present>
+          <div style="width:238px; height:2px;" class="nobd"></div>
+        </div>
+      </div>
+	
+      <!--广告-->
+      <div  style="width:240px; margin-left:5px;  border-top:1px dashed #CCC;margin-top:20px; padding-top:20px;" class="nobd">
+		<a target="_blank" href="http://union.dangdang.com/transfer.php?from=P-288795&ad_type=30&sys_id=1&backurl=http%3A%2F%2Funion.dangdang.com%2Fddimg%2Furl%3Fid%3D84"><img src="http://union.dangdang.com/ddimg?id=84"  alt=" " border="0"/></a>
+      </div>
+    </div>
+  </div>
+</div>
+<form action="/Favorite/dofav" method="post" id="frmFav">
+	<input type="hidden" name="url" value="{$entity.url}">
+    <input type="hidden" name="title" value="{$entity.title}">
+    <input type="hidden" name="img" value="{$entity.thumb}">
+ 	<input type="hidden" name="price" value="{$entity.price1}">
+</form>
+<script>
+function complete(data){
+	if (data.status == '1'){
+		art.dialog({title:'收藏',content: '已成功加入收藏夹! 5秒后自动关闭<br> <br> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/My/favorite.html" target="_blank">查看收藏</a>',time: 5});
+	}else{
+		art.dialog({title:'收藏',content: '收藏失败，请稍后再试',time: 2});
+	}
+}
+
+$('#frmFav').ajaxForm({
+ success: complete,
+  dataType: 'json'
+});
+
+function buy(url){ $.get('/Public/isLogin.html', function(result) { if(parseInt(result) == 1){ fast_buy(url,true); }else{ var pageurl = $.base64Encode(url).replace(new RegExp("/","gm"),"^").replace(new RegExp("==","gm"),"@");  login_min(',Item,index,url,'+pageurl,560,420,0); } });	}
+function like(pid){ $.get('/Public/isLogin.html', function(result) { if(parseInt(result) == 1){ dolike(pid);  }else{ login_min(',Like,like,pid,'+ pid,0,0,1); var like_count =  $('#like_'+pid).html();if(like_count != ''){ like_count = parseInt(like_count) + 1; }else{like_count = 1;} $('#like_'+pid).html(like_count);} });	}
+function dolike(pid){ $.get('/Like/like/pid/'+pid, function(data) { if(data != '') {  $('#like_'+pid).html(data); }});} function sendata(){ $.get('/Public/isLogin.html', function(result) {if( parseInt(result) == 1 ){ $('#form1').submit();}else{login_min('null',0,0,1);} });}
+$(document).ready( function(){ $("#content").bind("click",showNum).bind("keyup", showNum);}); var showNum = function(){ var num = this.value.length; var left = 140 - num;  if(left >= 0){ $("#left_count").html(left);  }else{ var value = this.value; var subst = value.substring(0,140); $("#content").val(subst); }}
+function addtoCart(url){
+	$('#itemUrl').val(url);
+	$('#daigouform').attr('target','_blank');
+	$('#daigouform').submit();
+}
+function toGetPro(){
+   $('#frmFav').submit();
+}
+</script>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+<div style="overflow:hidden; margin-top:14px; width:988px;" class="middle">
+  <div style="height:30px; line-height:30px; text-align:left; text-indent:20px;font-size:14px; color:#8cb736;" class="mrg14 fnt_b">您可能还喜欢</div>
+  <div style="height:100%; overflow:hidden;" class="imagewall middle nobd clearfix">
+    <volist name="MoreList" id="main_vo" key="n">
+      <div class="col{$n} clear_in share_col" >
+        <foreach name="main_vo" item="vo" >  
+           <div class="i_w_f" id="{$vo.id}"> 
+            <div class="hd_1"></div>
+            <div class="bd">
+                  <ul class="pic" style="padding:0px; margin:0px;">
+                      <li>
+                        <a href="/show/{$vo.id}.html" target="_blank" style="width:200px;">
+                          <img src="../Public/images/grey.gif" lazy="y" original="http://img.viatang.com/product/{$vo.thumb}_b.jpg" onerror="this.src='{$vo.image}';"  width="200"  />
+                        </a>
+                        <span class="p"><span>￥{$vo.price1}</span><i>&nbsp;</i></span>
+                      </li>
+                  </ul>
+                  <div class="favorite" style="margin-top:10px;">
+                    <a href="#nogo" onclick="like({$vo.id})" class="favaImg"> </a>
+                    <div class="favDiv"><a class="favCount SHARE_FAV_COUNT" href="#nogo" onclick="like({$vo.id});" id="like_{$vo.id}" >{$vo.like_count|default='0'}</a><i></i></div>
+                    <a target="_blank" href="/show/{$vo.id}.html" class="creply">{$vo.review_count|default='0'}评论</a>
+                  </div>
+            </div> 
+            <div style="margin-top:0px;border-left:1px solid #e3e3e3;border-right:1px solid #e3e3e3;" class="middle">
+               <div class="tk_own clearfix">
+                  <p><a href="/show/{$vo.id}.html" target="_blank">{$vo.title}</a></p>
+               </div>             		  
+            </div>
+            <div class="who_share" >
+                 <notempty name="vo['ProductReview']">
+                      <volist name="vo['ProductReview']" id="sub_vo">
+                          <div class="ws_bd">
+                              <img class="icard avt fl left" src="/Uploads/pic/avatar/{$vo.user_id|getAvatar}_m.jpg" onerror="this.src='../Public/images/0.gif'" alt="会员头像信息" width="24" height="24">
+                              <div class="left bws_r_txt" ><span class="fnt_pnk">{$sub_vo.user_name}</span>&nbsp;:&nbsp;{$sub_vo.content}</div>
+                          </div>	
+                      </volist>
+                      <div class="mre_bd">
+                           <a href="/show/{$vo.id}.html" target="_blank" class="middle" style="text-align:center;">{$vo.review_count|default='0'}&nbsp;条评论...</a>						 
+                      </div>		
+                      <div class="ws_ft"></div>			
+                 <else/>				
+                   <div class="emp_ft"></div>
+                 </notempty>
+            </div>		  
+          </div>  	  
+          </foreach>
+      </div>
+    </volist>  	
+  </div>   
+</div>
+
+</div>
+
+<include file="Public:bottom" />

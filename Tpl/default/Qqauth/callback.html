@@ -1,0 +1,57 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<link href="http://qzonestyle.gtimg.cn/qzone_v6/proj_qlogin/qlogin.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body style="background:#FFF">
+<div id="append"></div>
+<div class="page_login">
+
+<div class="lay_top">
+  <div class="lay_top_inner">
+    <h1 class="logo text_hide">QQ登录</h1>
+    <div class="lat_top_other"><!--lat_top_defined--> 
+      <a href="http://connect.qq.com/qqlogin" target="_blank" title="什么是QQ登录" class="help"><i class="icon_help_white"></i>什么是QQ登录?</a> </div>
+  </div>
+</div>
+
+
+<div class="lay_main">
+  <div class="lay_login_form">
+    <p class="login_tip">用QQ帐号登录<a href="http://www.viatang.com.com" target="_blank">唯唐网</a>，一键通行更轻松</p>
+    <div class="login_wrap" id="login" style="height: 233px; width: 284px;"> 
+      <!--快速登录框-->
+      <div id="qlogin" style="display:block;">
+        <div class="ajax rtninfo" align="center" style="margin-top:50px;"> <img src="../Public/images/loading.gif" alt="唯唐代购 代购中国" align="middle" /><br>
+   			 正在登录,请稍等... 
+        </div>
+      </div>
+      <div id="web_login" style="display:none;"> 
+        <!-- ptlogin --> 
+      </div>
+      
+    </div>
+  </div>
+  <div class="lay_pic" id="img_link"></div>
+</div>
+<!-- @footer -->
+
+<div class="lay_footer">
+</div>
+</div>
+
+<script>
+var return_url = '{$return_url}';
+var status = '{$QQState}';
+var code = '{$QQAuthCode}';
+$.get('/qqauth/ajaxLogin'+'/r/'+return_url+'.html',function(gourl){
+	 window.location.href = gourl;
+	//$('#web_login').empty().html(gourl).show();
+});
+</script>
+</BODY>
+</HTML>

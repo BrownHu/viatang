@@ -1,0 +1,159 @@
+<include file="Public:header" />
+<style>
+.hstep {
+	margin: 0 auto;
+	width: 980px;
+	height: 23px;
+}
+.mzbox {
+	margin: 0 auto;
+	width: 980px;
+	display: table;
+	border: 1px solid #e6e6e6;
+	margin-bottom: 10px;
+	zoom: 1;
+}
+.mzbox_in {
+	border: 3px solid #f6f6f6;
+	text-align: left;
+	background: #fff;
+	line-height: 190%;
+	padding: 30px 60px;
+	font-family: verdana;
+	zoom: 1;
+	position: relative
+}
+.mzbox_in h1 {
+	font: 600 18px "微软雅黑", "黑体", arial;
+	color: #2c7eaf;
+	margin-bottom: 15px;
+}
+.mzbox_in ul {
+	margin-bottom: 10px
+}
+.mzbox_in h2 {
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 35px;
+	color: #474747
+}
+.mzbox_in li {
+	line-height: 24px;
+}
+.mzbox_in li span {
+	color: #cc0000
+}
+.mzbox_in ul li a {
+	margin-right: 15px;
+	color: #464646
+}
+.mzbox_in ul li img {
+	margin: 5px 15px 0 0
+}
+.mzbox_in hr {
+	height: 1px;
+	color: #CCC
+}
+.linkdiv {
+	height: 150px
+}
+.linkdiv h3 {
+	color: #2c7eaf
+}
+.linkdiv textarea {
+	width: 423px;
+}
+.linkdiv .cL {
+	float: left;
+	width: 423px;
+	margin-right: 30px
+}
+.linkdiv .cR {
+	float: right;
+}
+.linkdiv .cR li, .linkdiv .cL li {
+	line-height: 32px;
+}
+.btn1 {
+	background: url(../Public/images/ls-bg.gif) repeat-x;
+	padding: 4px 10px;
+	border: none;
+	color: #FFF;
+	cursor: pointer
+}
+.btnof {
+	background: url(../Public/images/ls-h.gif) repeat-x;
+	padding: 4px 10px;
+	border: none;
+	color: #FFF;
+	cursor: pointer
+}
+.ttitle {
+	font-size: 14px;
+	color: #2C7EAF;
+}
+</style>
+<div id="m1" style="width:988px; height:100%; overflow:hidden; border:none; margin-top:14px;" class="middle nobd">
+  <div style="width:976px; height:100%; text-align:left; text-indent:20px; padding-top:20px; margin-top:0px; overflow:hidden;" class="middle bbrd">
+    <h1 style="margin-bottom:10px;"><span style="font-size:18px;font-weight:700;line-height:30px;color:#2c7eaf;text-shadow:0 1px 0 #fff"> 意见反馈</span> </h1>
+    <p style="margin-bottom:5px;"> 您的意见将被用于提升唯唐代购的用户体验,若遇到需要及时解答的问题，请到 <a href="/Help/index.shtml">帮助中心</a> </p>
+    <form id="form1" name="form1" method="post" action="/Feedback/commit.shtml">
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr style="display:none">
+            <td height="30" colspan="2" bgcolor="#F6F6F6">&nbsp;&nbsp; <span class="ttitle">1、选择问题所属产品类别</span></td>
+          </tr>
+          <tr  style="display:none">
+            <td width="3%" height="40" align="right">&nbsp;</td>
+            <td width="97%"><input type="radio" name="category" value="1" checked="checked">
+              <label> 用户中心 </label>
+              <input type="radio" name="category" value="2">
+              <label> 包裹管理 </label>
+              <input type="radio" name="category" value="3">
+              <label> 充值方式 </label>
+              <input type="radio" name="category" value="4">
+              <label> 订单操作 </label>
+              <input type="radio" name="category" value="5">
+              <label> 其他 </label></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="2" bgcolor="#F6F6F6">&nbsp;&nbsp; <span class="ttitle">1、详细描述您的意见、建议、问题等.</span></td>
+          </tr>
+          <tr>
+            <td height="150" align="right"><p>&nbsp; </p></td>
+            <td><textarea name="content" id="content"  cols="60" rows="8" onchange="filter(this.value);"></textarea>
+              <span id="contentMsg" style="color: red"></span></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="2" bgcolor="#F6F6F6">&nbsp;&nbsp; <span class="ttitle">2、请留下您的邮箱或电话，以便我们改进后第一时间通知您。</span></td>
+          </tr>
+          <tr>
+            <td height="40" align="right">&nbsp;</td>
+            <td><input type="text" class="buy_ipt1" name="contact" id="contact" maxlength="50"  value="">
+              <span id="contactMsg" style="color: red"></span></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="2" bgcolor="#F6F6F6">&nbsp;&nbsp; <span class="ttitle">验证码：&nbsp;&nbsp;</span><input id="verify"class="buy_ipt1" size="10" maxlength="10"  name="verify">&nbsp;&nbsp;<IMG id=ImgValidCode style="CURSOR: pointer"  src="/Public/verify.shtml"  BORDER="0" align="absmiddle" onClick="this.src=this.src+'?'" title="点击刷新"/></td>
+          </tr>
+          <tr>
+            <td height="50">&nbsp;</td>
+            <td align="center"><input id="confirm"  type="submit" value="提交" name="confirm">
+              &nbsp;&nbsp;&nbsp;
+              <input name="reset" type="reset"  value="重置"></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
+<script>
+function filter(str){
+	$.get('__URL__/filter_check/s/'+str,function(data){
+			if(data == '1'){
+				$('#contentMsg').html('请遵守互联网行为规范的要求');
+				$('#content').html('');
+			}
+		});
+}
+</script> 
+<include file="Public:bottom" /> 

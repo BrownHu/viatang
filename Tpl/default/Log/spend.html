@@ -1,0 +1,194 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;财务记录</div>
+    <div style="width:770px; margin-top:18px;" class="nobd middle">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;">
+        <tr height="28" style="font-weight:bold;">
+          <td style="border-right:1px solid #e6e6e6; background:#f3f3f3;" width="180" >时间</td>
+          <td style="border-right:1px solid #e6e6e6; background:#f3f3f3;" width="100">收入(￥)</td>
+          <td style="border-right:1px solid #e6e6e6; background:#f3f3f3;" width="100">支出(￥)</td>
+          <td style="border-right:1px solid #e6e6e6; background:#f3f3f3;" width="120">现金余额&nbsp;/&nbsp;折扣余额</td>
+          <td bgcolor="#f3f3f3">备注</td>
+        </tr>
+        <present name="DataList">
+          <volist name="DataList" id="vo">
+            <tr height="25" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+              <switch name="vo.type_id">
+                <case value="101">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;"><gt name="vo.money"  value="0">{$vo.money|abs=###|number_format=###,2}<else/>{$vo.rebate|abs=###|number_format=###,2}</gt></td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="102">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="103">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="104">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="105">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="106">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="107">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="108">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="201">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}
+                  </td>
+                </case>
+                <case value="202">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="203">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="204">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="301">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="302">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="303">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="304">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="305">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="306">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="307">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case> 
+                <case value="308">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>                                
+                <case value="403">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="404">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="405">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="406">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="407">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="408">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.rebate}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case>
+                <case value="501">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="502">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td astyle="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="503">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="504">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+                <case value="505">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+				<case value="506">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case>
+				<case value="507">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|abs=###|number_format=###,2}</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                </case> 
+				<case value="508">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case> 
+				<case value="509">
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">&nbsp;</td>
+                  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">-{$vo.money|abs=###|number_format=###,2}</td>
+                </case> 
+              </switch>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money_after}&nbsp;<span class="fnt_pnk">/</span>&nbsp;{$vo.rebate_after}</td>
+              <td style="border-top:1px solid #e6e6e6;text-indent:10px;" align="left" >
+              	{$vo.type_id|getSpendType}
+                <switch name="vo.type_id">
+                	<case value="201">，<a href="/Order/detail/t/1/id/{$vo.order_id}.shtml" target="_blank" class="lnk">订单:DD{$Think.session.m_id}-{$vo.order_id}</a><gt name="vo.rebate"  value="0">
+                         <br>&nbsp;&nbsp;&nbsp;已抵扣服务费：-{$vo.rebate|abs=###|number_format=###,2}
+                     </gt></case>
+                    <case value="202">，<a href="/Order/detail/t/0/id/{$vo.product_id}.shtml" target="_blank" class="lnk">商品:P{$vo.product_id}</a></case>
+                    <case value="301">，<a href="/Package/detail/id/{$vo.product_id}.shtml" target="_blank" class="lnk">运单:YD{$Think.session.m_id}-{$vo.product_id}</a></case>
+                    <case value="302">，<a href="/Package/detail/id/{$vo.product_id}.shtml" target="_blank" class="lnk">运单:YD{$Think.session.m_id}-{$vo.product_id}</a></case>
+                    <case value="303">，<a href="/Package/detail/id/{$vo.product_id}.shtml" target="_blank" class="lnk">运单:YD{$Think.session.m_id}-{$vo.product_id}</a></case>
+                    <case value="306">，<a href="/Alipayagent/detail/id/{$vo.order_id}.shtml" class="lnk">详情</a></case>
+                    <case value="307">，<a href="/Package/detail/id/{$vo.product_id}.shtml" target="_blank" class="lnk">运单:YD{$Think.session.m_id}-{$vo.product_id}</a></case>
+                    <case value="308">，<a href="/Alipayagent/detail/id/{$vo.order_id}.shtml" class="lnk">详情</a></case>
+                    <case value="408">，消费{$vo.point}积分，<a href="/My/point.shtml" target="_blank" class="lnk">积分记录</a></case>
+                    <case value="501">，<a href="/Refund/detail/id/{$vo.order_id}.shtml" target="_blank" class="lnk">详情</a></case>
+                </switch>
+              </td>
+            </tr>
+          </volist>
+          <else />
+          <tr>
+            <td colspan="5" align="center">暂无记录</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:770px;" class="middle nobd"></div>
+      <div style="width:770px; text-align:center;" class="digg">{$page}</div>
+      <div style="height:12px; width:770px;" class="middle nobd"></div>
+    </div>
+  </div>
+</div>
+<include file="Public:bottom" />

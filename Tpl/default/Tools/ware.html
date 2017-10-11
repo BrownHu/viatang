@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>入库扫描</title>
+<load href="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js" />
+<load href="__PUBLIC__/Js/common.js" />
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/Plug-in/jquery.form.js"></script>
+</head>
+
+<body onLoad="document.form1.product_id.focus()">
+<script> 
+function complete(result){
+	if(result.status == '1'){
+		var html =  result.data['product_id'] + ' -> '+result.data['store_no'] ;			
+		$('#result').html(html);
+		$('#product_id').focus();
+	}else{
+		$('#result').html('扫描出错！');
+	}	
+}
+
+$('#form1').ajaxForm({
+   success: complete,
+   dataType: 'json'
+});	    
+</script>
+<table align="center">
+  <form  action="/Tools/doware" name="form1" id="form1" method="post" >
+    <tr style="height:30px;">
+      <td style="width:100px;">商品编码</td>
+      <td style="width:200px;"><input type="text" name="product_id" id="product_id"  style="height:20px; font-weight:bold;"></td>
+    </tr>
+    <tr style="height:30px;">
+      <td>库位号</td>
+      <td><input type="text" name="store_no" id="store_no" style="height:20px; font-weight:bold;" ></td>
+    </tr>
+    <tr style="height:30px;">
+      <td>固定库位</td>
+      <td><input type="checkbox" id="gdkw"  /></td>
+    </tr>
+    <tr style="height:30px; display:none">
+      <td>&nbsp;</td>
+      <td><input type="submit" name="button1" id="button1" value="提交"></td>
+    </tr>
+  </form>
+  <tr >
+    <td colspan="2" style="height:50px; padding-top:10px;"><div id="result" style="font-size:22px; font-weight:bold; color:#f60; text-align:center">-</div></td>
+  </tr>
+</table>
+<script>
+	$('#product_id').focus();
+	
+	$("#product_id").keydown(function(e) { 
+	      var value = $.trim($("#product_id").val());
+	      if ((e.keyCode == 13)) {
+			   if(value.length ==7){			
+				 if( $('#gdkw').attr("checked") && ($.trim($("#store_no").val())  != '')){
+					$('#form1').submit();
+					$("#product_id").val('');
+					$('#product_id').focus();
+				 }else{
+			 		$('#store_no').focus(); 
+				 }
+			   }else{
+			   	 $('#sound').click();
+				 $("#product_id").val('');
+					$('#product_id').focus();
+			   }
+			 return false; 
+			 
+		} 
+	});
+	$("#store_no").keydown(function(e) {
+	 var val1 = $.trim($("#store_no").val());
+	 if ((e.keyCode == 13) && (val1.length >=4) ) { 
+	   if ($.trim($("#product_id").val())  != ''){		   
+		   if (val1.length <=7){
+ 				$('#form1').submit();
+		
+				$("#product_id").val('');
+				$("#store_no").val('');
+				$('#product_id').focus();
+		   }else{
+		   		$('#sound').click();
+				$("#store_no").val('');
+				$('#store_no').focus(); 
+		   }
+	   }
+		
+		return false; 
+	 }
+ });
+</script>
+</body>
+</html>

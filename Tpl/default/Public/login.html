@@ -1,0 +1,80 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../Public/images/favicon.ico" alt="唯唐代购">
+<title>用户登录-专为海外华人代购、留学生代购中国商品，全球专业淘宝代购平台--viatang.com</title>
+<meta name="keywords" content="{$keywords|default='代购用户登录,代购免费注册,代购免服务费,代购中国商品,淘宝代购,华人代购,美国代购,加拿大代购,新加坡代购,图书代购,特产代购,服装代购'}" />
+<meta name="description" content="{$description|default='登录唯唐代购用户，体验一站式代购淘宝、当当、亚马逊、京东等全网商品，享最低国际运费3折.'}" />
+<link rel="stylesheet" type="text/css" href="/s/?g=g.css">
+<script type="text/javascript" src="/s/?g=g.js"></script>
+</head>
+<body style="background:url(/img/login_bg.jpg) center 0px no-repeat;font-size:14px;"alt="会员注册页">
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<style>.input-txt{border:1px solid #BDBDBD; height:30px; text-indent:5px; line-height:30px;width:234px; border-radius:3px;}.input-txt:hover{border-color:#83b900}</style>
+<div style="width:976px;height:65px;margin-top:20px;overflow-hidden;" class="nobd middle"><a href="/"><img src="/img/logo_lg.png" class="nobd left" alt="唯唐代购"></a></div>
+<div id="m1" style="width:976px; height:363px; margin-top:50px;" class="nobd middle">
+  <div style="width:605px; height:363px; margin-top:1px; margin-left:1px; " class="nobd left">
+    <div style="text-align:left;font-size:30px;color:#768263;text-indent:88px;font-family:'微软雅黑';">用户登录</div>	
+    <div style="margin-top:16px; width:380px;" class="middle">	 
+      <ul style="margin:0px; padding:0px;" class="middle">
+        <FORM id="frmLogin" name="frmLogin" action="/Public/check.html" method="post">
+          <input type="hidden" name="return_url" value="{$RETURN_URL}">
+          <li class="login_item">
+          	<div style="width:102px;line-height:30px;text-align:right;" class="left">
+          		用户名或邮箱：
+			</div>
+            <input type="text" id="u_userName" name="u_userName" value=""  class="input-txt">
+          </li>
+          <li class="login_item" style="margin-top:5px">
+          	<div style="width:102px;line-height:30px;text-align:right;" class="left">登录密码：</div>
+            <input type="password" id="u_userPw" name="u_userPw" value=""  class="input-txt">
+            <input type="hidden" id="u_userPw1" name="u_userPw1" value="">
+          </li>
+          <li class="login_item" style="margin-top:5px">
+            <div style="width:102px;line-height:30px;text-align:right;" class="left">
+              验证码：
+            </div>
+            <div style="width:180px; overflow:hidden;" class="left">
+                <input type="text" id="verify" name="verify" value="" maxlength="4" style="width:156px; border:1px solid #BDBDBD; border-radius:3px; text-indent:5px; line-height:30px; height:30px;">       
+            </div>
+            <div style="width:40px; margin-left:12px;" class="left">
+              <img id="ImgValidCode" alt="唯唐代购验证码" style="cursor: pointer;margin-top:5px"  src="__URL__/verify/"  class="nobd" onClick="this.src=this.src+'?'" /> 
+            </div>
+          </li>
+        </FORM>
+        <li class="login_item">
+          <div style="width:87px; height:35px; margin-left:102px;" class="nobd left">
+            <img src="../Public/images/login_btn3.png"alt="立即登录" id="btn_login" onClick="sendform();" style="cursor:pointer;" class="nobd">
+          </div>
+          <div style="width:160px; padding-top:10px; ; margin-left:200px;" class="nobd left"><a href="/Register/password.html" style="font-size:12px;color:#B50E05">忘记密码 立即找回</a></div>
+        </li>
+        <li class="login_item" style="font-size:12px;color:#585858;text-indent:43px;">您还可以用以下方式登录：
+	  <br><a href="#nogo" onClick="toQzoneLogin('{$RETURN_URL}');"><img src="../Public/images/bt_blue_24X24.png" title="QQ登录" class="nobd" style="margin-top:0px;margin-left:51px; padding:2px;"></a>
+               <a href="/wechat/login.html" target="_blank"><img src="../Public/images/icon24_appwx_logo.png" title="微信登录" style="padding: 2px;"></a></li>
+        </ul>
+        </div>    
+       </div>
+  <div style="width:240px; height:289px; margin-top:1px; margin-left:0px; margin-top:1px; padding-left:20px;border-left:1px solid #e0e2e3;" class="nobd right">
+    <p style="text-align:left; text-indent:20px; font-family:'微软雅黑;Microsoft YaHei'; font-size:30px;color:#768263; margin-top:0spx;">注册</p>
+    <p style="width:260px; text-align:left; text-indent:20px;line-height:18px;">还没有账号？ </p>
+    <p style="margin-top:10px;"><a href="/Register/index.shtml"><img src="/img/login_reg_icon.png" alt="立即免费注册" style="margin-left:20px;"  class="nobd left"></a></p>
+   </div>
+</div>
+<div style="width:976px; height:50px; margin-top:96px;color:#999999;font-size:12px;" class="nobd middle">©Copyright ©2013-2015 唯唐代购! Inc. All rights reserved.
+      <a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" target="_blank" style="color:#999999;">沪ICP备14050218号-2</a></div>
+</div>
+
+<script>
+writeConfirm();
+function sendform(){  $('#frmLogin').submit();}
+function pass(){  var input_pass = $('#u_userPw1').val(); input_pass = $.trim(input_pass); if(input_pass != ''){  var newpass = $.md5(input_pass); $('#u_userPw').val(newpass); }}
+$("#u_userName").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#u_userName").val())  != '')) { $('#u_userPw1').focus(); return false; } });
+$("#u_userPw").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#u_userPw").val())  != '')) { $('#verify').focus(); return false; } });
+$("#verify").keydown(function(e) { if ((e.keyCode == 13 ) && ($.trim($("#verify").val())  != '')) {sendform(); return false; } });
+function toQzoneLogin(return_url){	 window.location.href='/Qqauth/login/r/'+return_url+'.html';} 
+</script> 
+</body>
+</html>

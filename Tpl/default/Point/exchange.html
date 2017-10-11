@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/s/?g=g.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=g.css">
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<title>积分兑换</title>
+</head>
+<body>
+<form id="frmPoint" action="/Point/commit.shtml" method="post">
+  <div id="point_exchage" style="width:300px; height:100px;" class="middle">
+    <div style="width:100%; height:30px; line-height:30px; vertical-align:middle; overflow:hidden; margin-top:10px;">
+      <div style="height:30px; width:150px;" class="left">积分:&nbsp;
+        <input  type="text" name="point" id="point" style="width:100px;" value="{$point}" />
+      </div>
+      <div style="height:30px; width:80px;" class="left">
+        <input type="button" name="button1" value="确认兑换" class="btn_nomal"  onclick="pointExchange();"  style="cursor:pointer;" />
+      </div>
+    </div>
+    <div style="width:98%; border-top:1px dashed #999; height:40px; margin-top:10px; padding:5px; text-align:left;" class="fnt_lgt_gry">
+      <span class="fnt_b">积分兑规则说明：</span><br>
+      每200积分兑换1元人民币,兑换的金额将充值到您的折扣帐户，可以用于消费，但不能提现。
+    </div>
+  </div>
+</form>
+<script>
+writeConfirm();
+function pointExchange(){
+  if($('#point').val() != ''){
+	  $('#frmPoint').submit();
+  }else{
+	  alert('请输入正确的积分才可以兑换!');
+  }
+}
+</script>
+</body>
+</html>

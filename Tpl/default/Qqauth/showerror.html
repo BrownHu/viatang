@@ -1,0 +1,127 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="/s/?g=g.js"></script>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=g.css">
+<script>
+function complete(result){ 		
+  if (result.status == 1){
+	  window.location.href='/';
+	  //window.close();
+	  //closelightbox(true);	  
+  }else{ 
+  	$('#error_tip').html(result.info);
+  }
+}
+</script>
+</head>
+<body>
+<div id="head_t" style="width:988px;height:62px; margin-top:14px;" class="middle">
+  <div id="logo" style="overflow:hidden; margin-top:5px;" class="left nobd"><a href="/"><img src="/img/logo_reg.png" alt="唯唐代购 代购中国商品" class="nobd left" style="margin-left:15px;"></a></div>
+ 
+</div>
+<div style="width:530px; height:363px; margin-top:20px;" class="nobd middle">
+    
+    <div style="height:40px; line-height:50px; text-align:left; text-indent:60px; font-weight:bold; color:#6C0; font-family:Arial, Helvetica, sans-serif; font-size:14px;">还差最后一步就完成了！加油哦！</div>
+
+    <div id="error_tip" style="height:20px; line-height:20px; text-align:left; font-weight:bold; text-indent:20px; color:#f60; line-height:30px;"></div>	
+    <div  id="qq" style="margin-top:10px; margin-left:20px; width:500px; padding:10px; padding-left:20px; " class="brd middle">
+      <div style="height:50px;text-align:left; font-weight:bold; text-indent:20px; line-height:30px;">完善帐号信息，便于我们更好地为您服务</div>	
+      <ul class="middle">
+        <script>$('#formqq').ajaxForm({ success: complete, dataType: 'json' }); </script>
+        <form action="/Qqauth/registerAsQq.html" method="post" id="formqq" name="formqq">
+          <input type="hidden" name="nick" value="{$QQUserInfo.nickname}">
+          <input type="hidden" name="openid" value="{$openid}">
+          <li class="login_item" >
+            您正在使用 <span style="color:#f60;">{$QQUserInfo.nickname}</span> 登录唯唐代购.
+          </li>   
+		  <li class="login_item" style="display:none;">
+            <div style="width:70px;" class="left">QQ号码:</div>
+            <div style="222px;" class="left">
+              <input type="texr" name="qq"  id="qqid" value="10000" onFocus="lightit('qq_id');" onBlur="grayit('qq_id','请输入您的qq号码');setemail();" style="width:220px;">
+            </div>
+            <div id="qq_id" style="text-indent:12px; color:#999">请输入您的QQ号码</div>
+          </li>   
+          <li class="login_item">
+            <div style="width:70px;" class="left">电子邮箱(Email)：</div>
+            <div style="222px;" class="left">
+              <input type="text" name="email" id="qqemail" onBlur="checkMail();" onFocus="resetTip('qq_mail');" value="" style="width:220px;">
+            </div>
+            <div id="qq_mail" style="text-indent:12px; color:#999">用于接收订单提醒</div>
+          </li>                             
+          <li class="login_item">
+            <div style="width:70px;" class="left">验证码:</div>
+            <div style="width:156px;" class="left">
+              <input type="text" id="verify" name="verify" value="" maxlength="4" onFocus="lightit('verfiy_tip');" onBlur="grayit('verfiy_tip','请输入左图中的4位数字');" style="width:156px;">
+            </div>
+            <div  style="margin-left:12px; width:55px;" class="left"> <img id="ImgValidCode" style="cursor: pointer;"  src="/Public/verify/"  class="nobd" onClick="this.src=this.src+'?'" /></div>
+            <div id="verfiy_tip" style="width:150px; margin-left:12px; color:#999" class="left">请输入左图中的4位数字</div>
+          </li>
+        </form>
+        <li class="login_item" >
+          <div style="width:87px; height:35px; margin-left:70px;" class="nobd left"><img src="../img/reg_icon.png" alt="立即注册唯唐代购网站，提供淘宝商品代购" width="158" height="40px;" onClick="checkform();" style="cursor:pointer;" class="nobd"></div>         
+        </li>
+        
+      </ul>
+    </div>
+
+  </div>
+<script>
+function checkform(){ 
+  if( ($.trim($('#qqemail').val()) == '') || !isEmail(document.formqq.qqemail) ){ 
+	  $('#qq_mail').html('<font color="red">请填写正确的Email地址！</font>');
+  }else {   
+	  if( ($('#qqid').val() == '') ){ 
+		  $('#qq_id').html('<font color="red">请输QQ号码！</font>'); 
+	  }else{ 
+		 $('#formqq').submit();
+	  }
+  }
+}
+function pass(){  var input_pass = $('#password1').val();  if(input_pass != ''){ var newpass = $.md5(input_pass); $('#password').val(newpass); }}
+function sendform(){
+	pass();
+	$('#form1').submit();
+}
+function setemail(){ var qq = $('#qqid').val(); var email = qq + '@qq.com'; if (qq != ''){ $('#qqemail').val(email);}}
+function checkMail(){
+	if( ! isEmpty(document.formqq.email) ){
+		if(!isEmail( document.formqq.email)){
+			$('#qq_mail').html('<font color="red">邮箱格式不正确!</font>');
+		}else{
+			var email = $('#qqemail').attr('value'); 
+			$.get('/Ajax/isExists/mail/'+email + '/act/mail', function(data) {
+				if(data == '1'){ 
+					$('#qq_mail').html('<font color="red">该邮箱已经被注册过！</font>');
+				}else{ 
+					$('#qq_mail').html('<font color="green">恭喜您，该邮箱可以注册!</font>');
+				}
+			});
+		}
+	}else{
+		$('#qq_mail').css('color','#999');
+		$('#qq_mail').html('用于接收订单通知');
+	}
+}
+function showpanl(id){
+	if(id == 'qq'){
+		$('#qq').show();
+		$('#ulowi').hide();
+	}else{
+		$('#qq').hide();
+		$('#ulowi').show();
+	}
+}
+function lightit(id){ $('#'+id).css('color','red');}function grayit(id,val){ $('#'+id).css('color','#999'); $('#'+id).html(val);}
+function checkEmail(){if( ! isEmpty(document.form1.email)){ if(!isEmail( document.form1.email)){ $('#u_mail').html('<font color="red">邮箱格式不正确!</font>');}else{ var email = $('#email').attr('value'); $.get('/Ajax/isExists/mail/'+email + '/act/mail', function(data) {if(data == '1'){ $('#u_mail').html('<font color="red">该邮箱已经被注册过！</font>');}else{ $('#u_mail').html('<font color="green">恭喜您，该邮箱可以注册!</font>');}});}}else{ $('#u_mail').css('color','#999');$('#u_mail').html('用于接收订单通知，修改密码等');}}
+function resetTip(act){ $('#'+act).css('color','red');$('#'+act).html('填写常用邮箱，方便我们与您联系');}
+$("#email").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#email").val())  != '')) { $('#password1').focus(); return false; } });$("#password1").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#password1").val())  != '')) { $('#password2').focus(); return false; } });
+$("#password2").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#password2").val())  != '')) { $('#verify').focus(); return false; } });$("#verify").keydown(function(e) { if ((e.keyCode == 13 ) && ($.trim($("#verify").val())  != '')) {checkform(); return false; } });
+</script> 
+<div style="width:976px; height:50px; margin-top:20px;color:#999999;font-size:12px;" class="nobd middle">©Copyright ©2014 唯唐代购! Inc. All rights reserved.</div>
+
+</BODY>
+</HTML>

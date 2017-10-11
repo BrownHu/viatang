@@ -1,0 +1,41 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>代购 － 代购淘宝 全球直邮 代购当当 代购中国商品</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/ThickBox/thickbox.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/Js/ThickBox/thickbox.css" />
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script>
+	function sendform(){
+		if( isEmpty(document.send_help.help_title)  ||  isEmpty(document.send_help.help_content) ){
+			$('#error_msg').html('&nbsp;请填写所有项后，再提交!');
+			$('#error_msg').show();
+		}else{
+			$('#send_help').submit();
+		}
+	}
+	
+	function hidemsg(){
+	  $('#error_msg').hide();
+	}
+</script>
+</head>
+<body style="background:#fff;">
+<div class="consultation_send float_left" style="text-align:left">
+<div style="text-align:center; width:480px; border-bottom:dashed 1px; padding-bottom:5px; font-weight:bold; font-size:12px;" class="middle">{$entity.title}</div>
+<div style="width:480px; height:195px; padding-left:20px; padding-right:20px; margin-top:10px; font-size:12px;" class="middle">{$entity.msg}</div>
+<div style="width:460px; padding-left:20px; border-top:solid 1px; margin-top:5px; text-align:center" class="middle">
+<a href="#nogo" onClick="javascript:closelightbox(true);"><img src="../Public/images/btn_ok.png" alt="代购商品信息确认" style="margin-top:10px;"></a>&nbsp;&nbsp;&nbsp;<a href="#nogo" onClick="javascript:reply();"><img src="../Public/images/btn_rpy.png" border="0" style="margin-top:10px;"></a>
+</div>
+</div>
+<script>
+function reply(){
+	lightboxframe('回复通知','/Consultation/add',500,260,true);
+}
+</script>
+</body>
+</html>

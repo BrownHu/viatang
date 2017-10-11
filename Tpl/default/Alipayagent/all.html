@@ -1,0 +1,75 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;代充值记录</div>
+    <div id="tab_title" style="width:770px; height:25px; margin-top:18px;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:306px; height:25px;" class="left nobd">
+        <li class="active1">全部记录</li>
+        <li class="normal1"><a href="/Alipayagent/ycz.shtml">已充值</a></li>
+        <li class="normal1"><a href="/Alipayagent/wcl.shtml">未处理</a></li>
+      </ul>
+      <div style="width:444px; height:24px; border-bottom:1px solid #e4e4e4" class="left"></div>
+    </div>
+    <div style="width:770px;" class="nobd middle mrg14">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;">
+        <tr height="28" style="font-weight:bold;">
+		  <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="100" >操作号</td>        
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="150" >时间</td>
+           <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="80">充值金额</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="80">手续费</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="200">支付宝帐号</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="80">状态</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;">操作</td>
+        </tr>
+        <present name="DataList">
+          <volist name="DataList" id="vo">
+            <tr height="25" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">DC{$Think.session.m_id}{$vo.id}</td>
+			  <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.create_at|date="Y-m-d H:i:s",###}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|number_format=###,2}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.service_fee|number_format=###,2}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.alipay_account}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">
+              <switch name="vo.status">
+                <case value="0">未处理</case>
+                <case value="1">处理中</case>
+                <case value="2">已完成</case>
+                <case value="3">已撤销</case>
+              </switch>
+              </td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">
+              <switch name="vo.status">
+                <case value="0"><a href="#nogo" onclick="cancle({$vo.id});" class="lnk">撤销申请</a></case>
+                <case value="1">-</case>
+                <case value="2">-</case>
+                <case value="3">-</case>
+              </switch>
+              </td>
+            </tr>
+          </volist>
+          <else/>
+          <tr height="25">
+            <td colspan="6" style="border-top:1px solid #e6e6e6;" align="center">暂无数据</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:770px;" class="middle nobd">{$page}</div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<form id="form1" name="form1" action="" method="get">
+</form>
+<script>
+writeConfirm();
+function cancle(id){
+	confirm('  确定撤销代充申请吗,等值金额将返还.',function () {
+	document.form1.action = '/Alipayagent/cancle/id/'+id;			
+	document.form1.submit();
+	});
+}		
+</script> 
+<include file="Public:bottom" />

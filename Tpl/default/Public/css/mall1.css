@@ -1,0 +1,272 @@
+H2 {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	PADDING-TOP: 0px
+}
+.business_list .business {
+	BACKGROUND: url(../images/mall/t012ab390cb332b34a0.png) no-repeat
+}
+.business_list LI SPAN {
+	BACKGROUND: url(../images/mall/t016771882d66b595bb.png) no-repeat
+}
+.business_list {
+	BORDER-RIGHT: #faba8c 1px solid;
+	BORDER-TOP: #faba8c 1px solid;
+	BACKGROUND: #fff7eb;
+	FLOAT: left;
+	BORDER-LEFT: #faba8c 1px solid;
+	WIDTH: 175px;
+	BORDER-BOTTOM: #faba8c 1px solid;
+	HEIGHT: 394px;
+	text-align:left;
+}
+.business_list H2 {
+	PADDING-LEFT: 12px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 14px;
+	BACKGROUND: #fbdcac;
+	COLOR: #bb0000;
+	LINE-HEIGHT: 29px;
+	HEIGHT: 29px
+}
+.business_list .business {
+	BACKGROUND-POSITION: 0px -320px;
+	DISPLAY: inline-block;
+	VERTICAL-ALIGN: middle;
+	WIDTH: 24px;
+	HEIGHT: 24px
+}
+.business_list UL {
+	CLEAR: both;
+	BORDER-TOP: #faba8c 1px solid;
+	MARGIN-TOP: -1px
+}
+.business_list LI {
+	CLEAR: both;
+	Z-INDEX: 11;
+	FLOAT: left;
+	WIDTH: 100%;
+	LINE-HEIGHT: 30px;
+	POSITION: relative;
+	HEIGHT: 30px
+}
+.business_list LI .item {
+	PADDING-RIGHT: 0px;
+	DISPLAY: block;
+	PADDING-LEFT: 38px;
+	FONT-SIZE: 14px;
+	BACKGROUND: url(../images/mall/t0187ad4a9a94f212eb.png) repeat-x 50% -182px;
+	PADDING-BOTTOM: 1px;
+	MARGIN: 0px 8px;
+	COLOR: #333;
+	PADDING-TOP: 1px;
+	HEIGHT: 28px
+}
+.business_list LI .item:hover {
+	TEXT-DECORATION: none
+}
+.business_list LI SPAN {
+	DISPLAY: block;
+	Z-INDEX: 11;
+	LEFT: 12px;
+	VERTICAL-ALIGN: middle;
+	WIDTH: 24px;
+	POSITION: absolute;
+	TOP: 3px;
+	HEIGHT: 24px
+}
+.business_list .taobao {
+	BACKGROUND-POSITION: 0px 0px
+}
+.business_list .discount {
+	BACKGROUND-POSITION: 0px -24px
+}
+.business_list .digital {
+	BACKGROUND-POSITION: 0px -47px
+}
+.business_list .lux {
+	BACKGROUND-POSITION: 0px -72px
+}
+.business_list .clothing {
+	BACKGROUND-POSITION: 0px -96px
+}
+.business_list .appliances {
+	BACKGROUND-POSITION: 0px -120px
+}
+.business_list .skinCare {
+	BACKGROUND-POSITION: 0px -145px
+}
+.business_list .health {
+	BACKGROUND-POSITION: 0px -192px
+}
+.business_list .tuan {
+	BACKGROUND-POSITION: 0px -168px
+}
+.business_list .baby {
+	BACKGROUND-POSITION: 0px -215px
+}
+.business_list .other {
+	BACKGROUND-POSITION: 0px -240px
+}
+.business_list .hover_trigger .item {
+	BORDER-RIGHT: #d5964a 0px solid;
+	PADDING-RIGHT: 0px;
+	BORDER-TOP: #d5964a 1px solid;
+	PADDING-LEFT: 38px;
+	FONT-WEIGHT: bold;
+	Z-INDEX: 10;
+	BACKGROUND: #fbdcac;
+	PADDING-BOTTOM: 0px;
+	BORDER-LEFT: #d5964a 1px solid;
+	WIDTH: 129px;
+	COLOR: #bb0000;
+	MARGIN-RIGHT: 0px;
+	PADDING-TOP: 0px;
+	BORDER-BOTTOM: #d5964a 0px solid;
+	POSITION: relative;
+	HEIGHT: 29px;
+	TEXT-DECORATION: none
+}
+.business_list .hover_trigger .item SPAN {
+	moz-transform: rotate(-10deg);
+	webkit-transform: rotate(-10deg)
+}
+.business_list .hover_trigger .taobao {
+	BACKGROUND-POSITION: -24px 0px
+}
+.business_list .hover_trigger .discount {
+	BACKGROUND-POSITION: -24px -24px
+}
+.business_list .hover_trigger .digital {
+	BACKGROUND-POSITION: -24px -47px
+}
+.business_list .hover_trigger .lux {
+	BACKGROUND-POSITION: -24px -72px
+}
+.business_list .hover_trigger .clothing {
+	BACKGROUND-POSITION: -24px -96px
+}
+.business_list .hover_trigger .appliances {
+	BACKGROUND-POSITION: -24px -120px
+}
+.business_list .hover_trigger .skinCare {
+	BACKGROUND-POSITION: -24px -145px
+}
+.business_list .hover_trigger .health {
+	BACKGROUND-POSITION: -24px -192px
+}
+.business_list .hover_trigger .tuan {
+	BACKGROUND-POSITION: -24px -168px
+}
+.business_list .hover_trigger .baby {
+	BACKGROUND-POSITION: -24px -215px
+}
+.business_list .hover_trigger .other {
+	BACKGROUND-POSITION: -24px -240px
+}
+.business_list .hover_trigger .pop_recomment {
+	DISPLAY: block
+}
+.business_list .all {
+	PADDING-RIGHT: 12px;
+	DISPLAY: block;
+	PADDING-LEFT: 12px;
+	PADDING-BOTTOM: 0px;
+	COLOR: #bb0000;
+	LINE-HEIGHT: 36px;
+	PADDING-TOP: 0px
+}
+.hot_search .hover_trigger A {
+	BACKGROUND: url(../images/mall/t01d2f8e623fa5f5cee.png) no-repeat
+}
+.famous_list .hover_trigger {
+	Z-INDEX: 5
+}
+.famous_list .hover_trigger .promotion_info {
+	BORDER-RIGHT: #d5964a 1px solid;
+	PADDING-RIGHT: 8px;
+	BORDER-TOP: #d5964a 1px solid;
+	DISPLAY: block;
+	PADDING-LEFT: 8px;
+	Z-INDEX: 6;
+	BACKGROUND: #fbdcac;
+	LEFT: 86px;
+	PADDING-BOTTOM: 8px;
+	BORDER-LEFT: #d5964a 1px solid;
+	WIDTH: 106px;
+	BOTTOM: -42px;
+	PADDING-TOP: 8px;
+	BORDER-BOTTOM: #d5964a 1px solid;
+	POSITION: absolute
+}
+.famous_list .hover_trigger .pic {
+	BORDER-RIGHT: #bb0000 2px solid;
+	BORDER-TOP: #bb0000 2px solid;
+	LEFT: -2px;
+	BORDER-LEFT: #bb0000 2px solid;
+	WIDTH: 110px;
+	BORDER-BOTTOM: #bb0000 2px solid;
+	POSITION: relative;
+	TOP: -2px;
+	HEIGHT: 56px
+}
+.famous_list .hover_trigger .promotion_info_l {
+	LEFT: -86px
+}
+.category_wrap .hover_trigger {
+	BORDER-RIGHT: #d49649 1px solid;
+	BORDER-TOP: #d49649 1px solid;
+	PADDING-LEFT: 75px;
+	Z-INDEX: 10;
+	LEFT: -2px;
+	MARGIN: 0px -3px -1px 0px;
+	BORDER-LEFT: #d49649 1px solid;
+	WIDTH: 309px;
+	BORDER-BOTTOM: #d49649 1px solid;
+	TOP: -1px;
+	HEIGHT: 78px
+}
+.category_wrap .hover_trigger H3 {
+	DISPLAY: block;
+	BACKGROUND: #fcdcad;
+	LEFT: 1px;
+	TOP: 0px
+}
+.category_wrap .hover_trigger H3 SPAN {
+	DISPLAY: block
+}
+.category_wrap .hover_trigger H3 A {
+	COLOR: #c40001
+}
+.hot_search .hover_trigger {
+	FONT-WEIGHT: bold;
+	HEIGHT: 137px
+}
+.hot_search .hover_trigger A {
+	BACKGROUND-POSITION: 0px -454px;
+	COLOR: #bb0000
+}
+.hot_search .hover_trigger A:hover {
+	TEXT-DECORATION: none
+}
+.hot_search .hover_trigger IMG {
+	BORDER-RIGHT: #dbdbdb 0px solid;
+	BORDER-TOP: #dbdbdb 1px solid;
+	DISPLAY: block;
+	MARGIN: 0px auto;
+	BORDER-LEFT: #dbdbdb 0px solid;
+	WIDTH: 208px;
+	BORDER-BOTTOM: #dbdbdb 1px solid;
+	HEIGHT: 106px
+}
+.mode_product .hover_trigger .pic {
+	BORDER-LEFT-COLOR: #ff0000;
+	BORDER-BOTTOM-COLOR: #ff0000;
+	BORDER-TOP-COLOR: #ff0000;
+	BORDER-RIGHT-COLOR: #ff0000
+}
+.mode_product .hover_trigger H3 A {
+	COLOR: #ff0000
+}

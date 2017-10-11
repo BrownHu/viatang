@@ -1,0 +1,30 @@
+.tr2 {border-top:1px solid #000;color:#666;height:35px}
+.tr3 {background:#fff;color:#666}
+.list td {background:#fff;border-bottom:1px solid #e7e7e7}
+.list .td3 {background:#eee;border-bottom:0px solid #ddd;color:#999}
+.list .td4 {background:#fff;border-top:1px solid #7DA5D8;color:#666}
+.fetion_top {FONT-FAMILY: "微软雅黑"; HEIGHT: 25px}
+.fetion_top UL { display:block; padding:0px;}
+.fetion_top UL LI {	FLOAT: left}
+.fetion_top UL LI A {TEXT-ALIGN: center; LINE-HEIGHT: 25px; WIDTH: 72px; DISPLAY: inline-block; BACKGROUND: url(../images/down_nav_bg.jpg) no-repeat; HEIGHT: 25px; COLOR: #ff3d71; MARGIN-LEFT: 5px; FONT-SIZE: 14px; FONT-WEIGHT: bold}
+.fetion_top UL LI A:hover {	BACKGROUND: url(../images/down_nav_cur_bg.jpg) no-repeat; COLOR: #fff; TEXT-DECORATION: none}
+.fetion_top .hovered {	BACKGROUND: url(../images/down_nav_cur_bg.jpg) no-repeat; COLOR: #fff; TEXT-DECORATION: none}
+
+.slide{ WIDTH: 929px;  BACKGROUND: url(../images/main_bg.jpg) no-repeat; HEIGHT: 446px; PADDING-TOP: 20px}
+.slide_box {POSITION: relative; WIDTH: 890px; HEIGHT: 425px; OVERFLOW: hidden}
+.slide_box I {Z-INDEX: 2; POSITION: absolute; WIDTH: 30px; DISPLAY: block; HEIGHT: 36px; CURSOR: pointer}
+.slide_box .arr_l {BACKGROUND: url(../images/intopic_arrow_l.png) no-repeat; TOP: 188px; LEFT: -4px}
+.slide_box .arr_r {BACKGROUND: url(../images/intopic_arrow_r.png) no-repeat; TOP: 188px; RIGHT: -4px}
+.slide_con {Z-INDEX: 1; POSITION: absolute; WIDTH: 5000px}
+.slide_con A {WIDTH: 890px; DISPLAY: block; FLOAT: left; HEIGHT: 425px}
+.slide_box UL {Z-INDEX: 2; POSITION: absolute; BOTTOM: 20px; RIGHT: 20px}
+.slide_box UL LI {TEXT-ALIGN: center; FILTER: alpha(opacity=70); LINE-HEIGHT: 29px; WIDTH: 30px; BACKGROUND: url(../images/num_bg3.gif) no-repeat; FLOAT: left; HEIGHT: 29px; COLOR: #ff3d6a; FONT-SIZE: 16px; CURSOR: pointer; FONT-WEIGHT: bold; MARGIN-RIGHT: 8px; -moz-opacity: 0.7; opacity: 0.7; -khtml-opacity: 0.7}
+.slide_box UL LI.num_cur {	FILTER: alpha(opacity=100); BACKGROUND: url(../images/num_cur_bg3.gif) no-repeat; COLOR: #fff; -moz-opacity: 1; opacity: 1; -khtml-opacity: 1}
+
+.topic_list LI {FONT-FAMILY: "微软雅黑";	MARGIN: 0px 15px 25px 0px; WIDTH: 462px; DISPLAY: inline; FLOAT: left}
+.topic_list LI H3 {	MARGIN-BOTTOM: 8px; FONT-SIZE: 20px; FONT-WEIGHT: normal; color:#333333;}
+.topic_list LI H3 SPAN {COLOR: #fb0054}
+.topic_list LI DT {	BORDER-BOTTOM: #e5e0e1 1px solid; BORDER-LEFT: #e5e0e1 1px solid; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; MARGIN-BOTTOM: 10px; BACKGROUND: #fff; BORDER-TOP: #e5e0e1 1px solid; BORDER-RIGHT: #e5e0e1 1px solid; PADDING-TOP: 5px}
+.topic_list LI DT IMG {	VERTICAL-ALIGN: bottom}
+.topic_list LI DD {	FONT-SIZE: 14px;color:#333333;}
+.topic_list LI DD A {	COLOR: #333333}

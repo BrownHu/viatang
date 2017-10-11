@@ -1,0 +1,276 @@
+<include file="Public:header" />
+<script type="text/javascript">
+$(function() {
+    var e = function(n, b) {
+        if (n.length > b) {
+            return n.substring(0, b - 2) + "..."
+        }
+        return n
+    };
+    $.getJSON("/Recomment/index?r=" + Math.random(),
+    function(n) {
+        var b = $("<ul></ul>");
+        $("#Slider").empty().append(b);
+        $.each(n,
+        function(o, p) {
+            b.append('<li><div class="detailed"><div class="pic"><a href=" ' + p.u + '" target="_blank" ><img alt="' + p.n + '" src="' + p.p + '" /></a></div><div class="info"><h2><a href="' + p.u + '" target="_blank">' + e(p.n, 40) + "</a></h2><dl><dd><b>￥" + p.m.toFixed(2) + "</b><span>" + p.d + '</span></dd><dd class="i_bj" >代购信息：<i>' + p.un + "</i>购买于" + p.s + '</dd></dl></div></div><div class="concise"><p><a href="/See/?type=' + p.c + "#" + p.id + '">' + e(p.n, 25) + "</a></p><span>" + p.d + "</span></div></li>")
+        }); (function(v, x) {
+            var w = true;
+            var u = b;
+            var o = 0;
+            var p;
+            var t = 1;
+            var y = u.find(".concise:eq(0)").outerHeight();
+            u.scrollTop(0);
+            u.children().each(function() {
+                o += $(this).outerHeight()
+            });
+            u.append(u.html());
+            var q = u.find("li:eq(1)");
+            $(q).find(".detailed").show();
+            $(q).find(".concise").hide();
+            var z = function() {
+                var s = u.scrollTop();
+                if (s >= o) {
+                    q = u.find("li:eq(0)");
+                    u.find(".detailed").hide();
+                    $(q).find(".detailed").show();
+                    $(q).find(".concise").hide()
+                }
+                u.scrollTop((s >= o ? 0 : s) + t);
+                if (u.scrollTop() % y == 0) {
+                    r()
+                }
+            };
+            function r() {
+                t = 0;
+                if (w) {
+                    setTimeout(function() {
+                        $(q).find(".concise").show();
+                        q = $(q).next("li:first");
+                        if (!q) {
+                            q = u.find("li:first")
+                        }
+                        u.find(".detailed").hide();
+                        $(q).find(".detailed").show();
+                        $(q).find(".concise").hide();
+                        w = true;
+                        t = 1
+                    },
+                    x)
+                }
+                w = false
+            }
+            u.find("li").mouseover(function() {
+                u.find(".detailed").hide();
+                $(this).find(".detailed").show();
+                $(this).find(".concise").hide();
+                clearInterval(p)
+            });
+            u.find("li").mouseout(function() {
+                u.find(".detailed").hide();
+                $(this).find(".concise").show();
+                $(q).find(".detailed").show();
+                $(q).find(".concise").hide();
+                p = setInterval(z, v)
+            });
+            p = setInterval(z, v)
+        })(30, 3000)
+    })
+});
+</script>
+<style type="text/css">
+body {
+	margin:0px auto;
+	padding: 0px;
+	text-align: center;
+	font-size:12px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#7c7c7c;
+	background:#fff;
+}
+.see_list1 {
+	overflow:hidden;
+}
+.see_list1 ul {
+	margin-top:2px;
+	float:left;
+	width:373px;
+	overflow:hidden;
+	height:200px;
+}
+.see_list1 ul li {
+	float:left;
+	width:362px;
+}
+#__01 tr td div p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+</style>
+<style>
+.li {
+	line-height:22px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.par_site {
+	line-height:25px;
+}
+</style>
+
+<div>
+  <table width="100%"  style="margin-top:0">
+    <tr>
+      <td style="background:url(../Public/advertise/ad1_bg.png) repeat-x; border:none;"><table border="0" width="930" align="center" cellpadding="0" cellspacing="0" id="__">
+          <tr>
+            <td colspan="3"><table width="200" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td><img src="../Public/advertise/sp_03.png"></td>
+                  <td><img src="../Public/advertise/sp_04.png"></td>
+                  <td><img src="../Public/advertise/sp_05.png"></td>
+                </tr>
+                <tr>
+                  <td><img src="../Public/advertise/sp_07.png"></td>
+                  <td><img src="../Public/advertise/sp_08.png"></td>
+                  <td><img src="../Public/advertise/sp_09.png"></td>
+                </tr>
+                <tr>
+                  <td><img src="../Public/advertise/sp_10.png" border="0" usemap="#Map4"></td>
+                  <td><img src="../Public/advertise/sp_11.png"></td>
+                  <td><img src="../Public/advertise/sp_12.png"></td>
+                </tr>
+                <tr>
+                  <td><img src="../Public/advertise/sp_13.png" border="0" usemap="#Map"></td>
+                  <td><img src="../Public/advertise/sp_14.png"></td>
+                  <td><img src="../Public/advertise/sp_15.png"></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td height="15" colspan="3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3" style="border:1px solid #d9d9d9;" valign="top"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr style="background:url(../Public/advertise/t1.png) repeat-x; height:48px;">
+                  <td align="left"><img src="../Public/advertise/ad_19.png"></td>
+                  <td align="left"><img src="../Public/advertise/ad_20.png"></td>
+                  <td align="left"><img src="../Public/advertise/ad_21.png"></td>
+                </tr>
+                <tr>
+                  <td style="border-right:1px solid #d9d9d9; border-top:1px solid #d9d9d9;"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td><img src="../Public/advertise/ad_22.png" width="368" height="49" alt=""></td>
+                      </tr>
+                      <tr>
+                        <td><img src="../Public/advertise/ad_25.png" width="368" height="44" alt=""></td>
+                      </tr>
+                      <tr>
+                        <td><img src="../Public/advertise/ad_27.png" width="368" height="46" alt=""></td>
+                      </tr>
+                      <tr>
+                        <td><img src="../Public/advertise/ad_29.png" width="368" height="45" alt=""></td>
+                      </tr>
+                      <tr>
+                        <td><img src="../Public/advertise/ad_31.png" width="368" height="54" alt=""></td>
+                      </tr>
+                    </table></td>
+                  <td style="border-right:1px solid #d9d9d9; border-top:1px solid #d9d9d9;" width="373"><div class="see_list1" id="Slider">
+                      <div class="seeLoading"> <img src="../Public/images/loading.gif" alt="数据加载中..." />
+                        <p> 数据加载中...</p>
+                      </div>
+                      <ul style="display:none;">
+                      </ul>
+                    </div></td>
+                  <td style="border-top:1px solid #d9d9d9;" width="194"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td><a href="http://www.ulowi.net/Register/index.shtml" target="_blank" title="免费注册"><img src="../Public/advertise/ad_24.png" title="免费注册" width="198" height="59" border="0"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="http://www.ulowi.net/Demo/index.shtml" target="_blank"><img src="../Public/advertise/ad_26.png" alt="代购演示" title="代购演示" width="198" height="58" border="0"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="http://www.ulowi.net/News/detail/id/145.shtml" target="_blank"><img src="../Public/advertise/ad_28.png" alt="省钱攻略" width="198" height="58" border="0" title="省钱攻略"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="http://www.ulowi.net/News/detail/id/146.shtml" target="_blank"><img src="../Public/advertise/ad_30.png" alt="" width="198" height="63" border="0"></a></td>
+                      </tr>
+                    </table></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td height="15" colspan="3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3"><div style="border:none; height:auto; width:100%;">
+                <div style="float:left; border: 1px solid #d9d9d9; width:430px; height:160px; background:url(../Public/advertise/ad_101.png) no-repeat;">
+                  <div class="fenglei" style="margin-top:45px; margin-left:2px; width:410px;"> <span class="par_site" style="font-weight:100;">淘宝</span> <span class="par_site"  style="font-weight:100;">拍拍</span> <span class="par_site"  style="font-weight:100;">易趣</span> <span class="par_site"  style="font-weight:100;">当当</span> <span class="par_site"  style="font-weight:100;">卓越</span> <span class="par_site"  style="font-weight:100;">麦考林</span> <span class="par_site"  style="font-weight:100;">凡客诚品</span> <span class="par_site"  style="font-weight:100;">京东商城</span> <span class="par_site"  style="font-weight:100;">时尚起义</span> <span class="par_site"  style="font-weight:100;">上海药房</span> <span class="par_site"  style="font-weight:100;">好乐买</span> <span class="par_site"  style="font-weight:100;">新蛋</span> <span class="par_site"  style="font-weight:100;">红孩子</span> <span  class="par_site" style="font-weight:100;">99书城</span> <span class="par_site"  style="font-weight:100;">1号店</span> <span class="par_site"  style="font-weight:100;">走秀网</span> </div>
+                </div>
+                <div style="float:right;border:1px solid #d9d9d9; width:500px; height:160px; background:url(../Public/advertise/ad_102.png) no-repeat; text-align:left;">
+                  <ul style="margin-top:40px; margin-left:22px;">
+                    <li class="li"><span style="color:#f60;">EMS普通(约4～10个工作日)</span>&nbsp;&nbsp;&nbsp;&nbsp;首重500克(114元起)&nbsp;&nbsp;&nbsp;续重500克(31元起)</li>
+                    <li class="li"><span style="color:#f60;">SAL水陆联运(1月左右)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首重1000克(99元起)&nbsp;&nbsp;&nbsp;续重1000克(42.1元起)</li>
+                    <li class="li"><span style="color:#f60;">AIR普快(约8～20个工作日)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首重100克(14元起)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;续重100克(12元起)</li>
+                    <li class="li"><span style="color:#f60;">DHL(3～5个工作日)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首重500克(165元起)&nbsp;&nbsp;&nbsp;续重100克(44元起)</li>
+                  </ul>
+                  <ul style="float:left; margin-top:5px; margin-left:22px;">
+                    <li style="font-size:9px; font-family:Arial, Helvetica, sans-serif; color:#999;">依据不同地区海关及邮政处理效率，实际运送时间略有差异</li>
+                  </ul>
+                </div>
+              </div></td>
+          </tr>
+          <tr>
+            <td height="15" colspan="3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3" style="border:1px solid #d9d9d9; background:url(../Public/advertise/ad_58.png) no-repeat;" align="center"><table width="867" border="0" cellspacing="0" cellpadding="0" style="margin-top:45px; margin-bottom:15px;">
+                <tr>
+                  <td><img src="../Public/advertise/showStep_01.png"></td>
+                  <td><img src="../Public/advertise/showStep_02.png"></td>
+                  <td><img src="../Public/advertise/showStep_03.png"></td>
+                  <td><img src="../Public/advertise/showStep_04.png"></td>
+                  <td><img src="../Public/advertise/showStep_05.png"></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td height="15" colspan="3">&nbsp;</td>
+          </tr>
+          <tr  style="background:#f2f2f2;">
+            <td height="120" colspan="3" align="center"><a href="http://www.ulowi.net/Register/index.shtml" target="_self"><img src="../Public/advertise/ad_70.png" border="0"></a></td>
+          </tr>
+          <tr>
+            <td height="21" colspan="3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3">&nbsp;</td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+  <div style="display:none; float:right;"> <a href="javascript:void(window.open('http://support.ulowi.net/chat.php?en=','','width=590,height=610,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))"> <img id="chat_button_image" src="http://support.ulowi.net/image.php?id=11&amp;type=overlay" width="64" height="73" border="0" alt="Live Help"> </a> </div>
+  <map name="Map2" id="Map2">
+    <area shape="rect" coords="155,52,346,61" href="http://www.ulowi.net/Register/index.shtml" target="_self" alt="" />
+  </map>
+  <map name="Map3" id="Map3">
+    <area shape="rect" coords="0,3,15,18" href="http://www.ulowi.net/Register/index.shtml" target="_self" />
+  </map>
+  <script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-23144052-1']);_gaq.push(['_setDomainName','.ulowi.net']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s)})();</script>
+  <div id="livezilla_tracking" style="display:none"></div>
+  <script type="text/javascript">
+var script = document.createElement("script");
+script.type="text/javascript";
+var src = "http://support.ulowi.net/server.php?request=track&output=jcrpt&fbpos=12&fbml=0&fbmt=0&fbmr=50&fbmb=0&fbw=32&fbh=112&nse="+Math.random();
+setTimeout("script.src=src;document.getElementById('livezilla_tracking').appendChild(script)",1);
+</script>
+  <noscript>
+  <img src="http://support.ulowi.net/server.php?request=track&amp;output=nojcrpt&amp;fbpos=12&amp;fbml=0&amp;fbmt=0&amp;fbmr=50&amp;fbmb=0&amp;fbw=32&amp;fbh=112" width="0" height="0" style="visibility:hidden;" alt="">
+  </noscript>
+  <map name="Map" id="Map">
+    <area shape="rect" coords="153,1,358,32" href="http://www.ulowi.net/Register/index.shtml" target="_self" />
+  </map>
+  <map name="Map4" id="Map4">
+    <area shape="rect" coords="152,76,355,96" href="http://www.ulowi.net/Register/index.shtml" target="_self" />
+  </map>
+</div>
+<include file="Public:bottom" />

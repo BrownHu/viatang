@@ -1,0 +1,59 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script type="text/javascript" src="/Public/Js/jQuery/jquery-1.4.4.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/s/?g=i.css">
+<title>唯唐代购-全球最专业海外华人代购,留学生代购中国商品网站-viatang.com</title>
+{$Think.session.uc_synlogin}
+</head>
+<body>
+<div style="width:100%; background-color:#f4f4f4; border-bottom:1px solid #e5e5e5;">
+  <div style="width:988px; height:28px; overflow:hidden;" class="nobd middle">
+    <div class="left nobd welcom" style="text-align:left;">
+      <empty name="Think.session.m_Info">
+         <span class="fnt_gry">亲，欢迎来&nbsp;viatang</span>&nbsp;&nbsp;&nbsp;&nbsp;[ &nbsp;&nbsp;<span style="display:inline-block; margin-right:8px;"><a href="/Public/login/go/{$Think.session.return_url}.html" style="color:#dc0050">请登录</a></span>|<span style="display:inline-block;margin-left:8px;"><a href="/Register/index.html"  style="color:#dc0050">免费注册</a></span>&nbsp;&nbsp;]
+      <else />
+          欢迎您，{$Think.session.m_Info.login_name}&nbsp;<a href="/Public/logout.html">[&nbsp;退出&nbsp;]</a>&nbsp; <a href="/My/notice.html" style="background:url(../Public/images/unRd3.gif) left top no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新短信<span style="color:#ff0000">({$Think.session.unrd_msg_count|default="0"})</span></a>
+      </empty>
+    </div>
+    <div id="top_nav" class="top_nav">
+      <ul style="float:right;">
+        <li style="width:260px; text-align:right; padding-right:10px;"><a href="/Cart/index.html" style="color:#dc0050;">购物车中有&nbsp;<span class="fnt_b">{$Think.session.ulowi_shoping_cart_count|default="0"}</span>&nbsp;件商品</a><a href="/Cart/index.html"><span class="hcheck_out">去结算</span></a></li>
+        <li class="top_nav_fg" id="MyAccount" onMouseOver="showMenu('MyAccount','aMyMenu');" onMouseOut="hideMenu('aMyMenu');"><a href="/My/index.html" ><span class="arrow_down_1">我的唯唐</span></a></li>
+        <li class="top_nav_fg"><a href="/Selfpurchase/cart.html">我的送货车</a></li>
+        <li class="top_nav_fg"><a href="/help/index.html">帮助中心</a></li>
+        <li class="top_nav_fg" id="Tools" onMouseOver="showMenu('Tools','ToolsMenu')" onMouseOut="hideMenu('ToolsMenu')"><span class="arrow_down_1" style="color:#000;">常用工具</span></li>
+      </ul>
+    </div>
+    <div id="aMyMenu" class="nav_menu">
+      <ul onMouseOver="showMenu('MyAccount','aMyMenu')" onMouseOut="hideMenu('aMyMenu')" class="nav_menu_ul">
+        <li id="nav_cp" class="nav_menu_li" ><a href="/My/index.html">我的唯唐</a></li>
+        <li id="nav_ord" class="nav_menu_li" ><a href="/My/order.html">我的订单</a></li>
+        <li id="nav_shp" class="nav_menu_li" ><a href="/My/parcel.html">我的运单</a></li>
+        <li id="nav_pay" class="nav_menu_li" ><a href="/Pay/paypal.html">帐户充值</a></li>
+        <li id="nav_fav" class="nav_menu_li" ><a href="/My/favorite.html">我的收藏</a></li>
+      </ul>
+    </div>
+    <div id="ToolsMenu" class="nav_menu">
+      <ul onMouseOver="showMenu('Tools','ToolsMenu')" onMouseOut="hideMenu('ToolsMenu')" class="nav_menu_ul">
+        <li id="nav_trace" class="nav_menu_li"><a href="/Trace/index.html" target="_blank">包裹跟踪查询</a></li>
+        <li id="nav_guess" class="nav_menu_li"><a href="/Tools/estimate.html" target="_blank">费用估算工具</a></li>
+        <li id="nav_rule" class="nav_menu_li"><a href="/Tools/measure.html" target="_blank">尺码换算</a></li>
+        <li id="nav_forex" class="nav_menu_li"><a href="http://app.baidu.com/baeforex/forex.html?v=1.00" target="_blank">汇率计算</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<include file="Public:search" />
+
+<div style="width:988px; height:28px; overflow:hidden;" class="nobd middle mrg9">
+	<form action="/Public/goUrl" id="form1" name="form1" method="post">
+   		<input type="hidden" name="url" value="{$return_url}">
+	</form>
+	<script>$('#form1').submit();</script>
+    登录成功，正在跳转...	
+</div>	
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

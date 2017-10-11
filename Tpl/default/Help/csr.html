@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>唯唐代购-viatang.com</title>
+<meta name="keywords" content="代购,海外华人代购,唯唐代购,代购中国商品,淘宝代购,美国华人代购,美国淘宝,海外淘宝,加拿大淘宝,澳洲淘宝,海外淘宝支付,新加坡代购,留学生代购,化妆品代购,图书代购,特产代购,服装代购" />
+<meta name="description" content="唯唐代购-全球最专业的海外华人代购、留学生代购中国商品网站，专为海外华人代购淘宝、亚马逊、京东等中国购物网站商品，提供图书、特产、生活用品等多种商品代购，支持paypal、支付宝等多种支付方式.唯唐代购目前在美国、英国、新加坡、澳洲、加拿大等全球范围内的华人代购和留学生代购市场中都有着超好的口碑." />
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<SCRIPT src="js/jquery.js" type=text/javascript></SCRIPT>
+<SCRIPT src="js/jquery.masonry.min.js" type=text/javascript></SCRIPT>
+<SCRIPT src="js/jquery.lazyload.js" type=text/javascript></SCRIPT>
+<SCRIPT src="js/global.js" type=text/javascript></SCRIPT>
+<script type="text/javascript">
+function on_hover(id,cls){ $('#'+id).addClass(cls);}
+function on_out(id,cls){ $('#'+id).removeClass(cls);}
+</script>
+</head>
+<body>
+<div style="width:988px; height:33px;" class="nobd middle">
+  <div id="top_nav" style="float:right; width:460px; height:100%;">
+    <ul style="float:right;">
+      <li><a href="#" target="_blank">购物车<font color="#e4007f">(0)</font></a></li>
+      <li class="top_nav_fg" id="MyAccount" onMouseOver="showMenu('MyAccount','aMyMenu');" onMouseOut="hideMenu('aMyMenu');"><a href="#" target="_blank"><span style="color:#e4007f;" class="arrow_down">我的唯唐</span></a></li>
+      <li class="top_nav_fg"><a href="review.html" target="_blank">互动反馈</a></li>
+      <li class="top_nav_fg"><a href="#" target="_blank">帮助中心</a></li>
+      <li class="top_nav_fg" id="Tools"  onMouseOver="showMenu('Tools','ToolsMenu')" onMouseOut="hideMenu('ToolsMenu')"><span class="arrow_down_1">常用工具</span></li>
+    </ul>
+  </div>
+  <div id="aMyMenu" class="nav_menu">
+    <ul onMouseOver="showMenu('MyAccount','aMyMenu')" onMouseOut="hideMenu('aMyMenu')" class="nav_menu_ul">
+      <li class="nav_menu_li"><a href="/My/order.shtml">我的订单</a></li>
+      <li class="nav_menu_li"><a href="/My/parcel.shtml">我的运单</a></li>
+      <li class="nav_menu_li"><a href="/Pay/paypal.shtml">在线充值</a></li>
+      <li class="nav_menu_li"><a href="/My/favorite.shtml">我的收藏</a></li>
+    </ul>
+  </div>
+  <div id="ToolsMenu" class="nav_menu">
+    <ul onMouseOver="showMenu('Tools','ToolsMenu')" onMouseOut="hideMenu('ToolsMenu')" class="nav_menu_ul">
+      <li class="nav_menu_li"><a href="/Trace/indes.shtml" target="_blank">包裹跟踪</a></li>
+      <li class="nav_menu_li"><a href="/Tools/estimate.shtml" target="_blank">费用估算</a></li>
+      <li class="nav_menu_li"><a href="/Tools/measure.shtml" target="_blank">尺码换算</a></li>
+      <li class="nav_menu_li"><a href="http://app.baidu.com/baeforex/forex.html?v=1.00" target="_blank">汇率计算</a></li>
+    </ul>
+  </div>
+</div>
+<!--top-->
+<div id="head_t" style="width:988px;height:68px; margin-top:0px;" class="middle nobd">
+  <div id="logo" style="overflow:hidden;" class="left nobd"><img src="images/logo.png" alt="唯唐代购"  height="68" width="226" class="nobd"></div>
+  <div style="width:627px; height:38px; margin-top:30px; overflow:hidden; " class="right nobd">
+    <div style="width:556px; height:38px; background:#e7e7e6;  overflow:hidden;" class="left nobd">
+      <div style="width:469px; margin-left:4px; margin-top:4px;" class="left nobd">
+        <input id="url" name="url" type="text" value="请输入商品网址" class="yjtd_input fnt_lgt_gry left"  onfocus="if(this.value == '请输入商品网址'){this.value='';$('#url').css('color','#000');}" onblur="if(this.value == ''){this.value = '请输入商品网址';$('#url').css('color','#cecfd1');}else{ $('#url').css('color','#000');}">
+      </div>
+      <div style="margin-left:0px; margin-top:4px; cursor:pointer;" class="nobd left"> <img src="images/btn_yjtd.png" alt="提交代购" class="nobd left"> </div>
+    </div>
+    <div style="width:71px;" class="nobd right"> <span class="yjtd_help fnt_gry">填单帮助</span> <span class="yjtd_help fnt_gry">挑选商品</span> </div>
+  </div>
+</div>
+<div id="nav" style="height:33px; width:988px; margin-top:14px;" class="middle nobd">
+  <div style="width:1px; height:33px; background:url(images/tl.png) 0 0 no-repeat;" class="left"></div>
+  <div id="menu" style="height:33px;background:url(images/navbg.png) repeat-x;" class="left">
+    <div style="width:802px;" class="nobd left">
+      <ul class="menu_ul nobd">
+        <li id="mn_home" class="menu_li" style="width:92px;" onmouseover="on_hover(this.id,'menu_hover');" onmouseout="on_out(this.id,'menu_hover');"><a href="index.html" >首&nbsp;&nbsp;页</a></li>
+        <li class="menu_li_fg"></li>
+        <li id="mn_browse" class="menu_li" style="width:92px;" onmouseover="on_hover(this.id,'menu_hover');" onmouseout="on_out(this.id,'menu_hover');"><a href="see.html">浏览宝贝</a></li>
+        <li class="menu_li_fg"></li>
+        <li id="mn_service" class="menu_li" style="width:122px;" onmouseover="on_hover(this.id,'menu_hover');" onmouseout="on_out(this.id,'menu_hover');"><a href="service.html">服务特色</a></li>
+        <li class="menu_li_fg"></li>
+      </ul>
+    </div>
+    <div style="width:184px;background:url(images/menu_r_bg.png) repeat-x;" class="nobd left">
+      <ul class="menu_ul">
+        <li class="menu_li_r_fg"></li>
+        <li class="menu_li_r" style="width:90px;"><a href="/">商品目录</a></li>
+        <li class="menu_li_r_fg"></li>
+        <li class="menu_li_r" style="width:90px;"><a href="free.html">免邮商家</a></li>
+      </ul>
+    </div>
+    <div style="width:1px; height:33px; background:url(images/tr.png) 0 0 no-repeat;" class="right"></div>
+  </div>
+</div>
+<div id="m1" style="width:988px; height:100%; overflow:hidden; margin-top:14px;" class="nobd middle">
+  <div style="width:988px; height:10px; overflow:hidden; border:none; margin-top:0px;" class="nobd"> <img src="images/pos.png" alt="代购图标" ;style="margin-left:245px;" class="nobd left"> </div>
+  <div style="width:976px; height:180px;" class="bbrd"><img src="images/csr_hd.png" alt="客服服务" width="974" height="178" class="nobd middle" style="margin-top:1px;"></div>
+</div>
+
+<div id="m2" style="width:988px; height:187px; margin-top:14px; padding-bottom:20px; background:#f1f8fe;" class="nobd middle">
+	<div style="width:303px; height:157px; margin-left:18px; margin-top:22px; background:#fff;" class="left brd">
+    	<div style="width:303px; height:40px; line-height:40px; text-align:left; text-indent:10px; color:#236fba; " class="fnt_b">新手指南</div>
+        <div style="width:283px; height:67px; text-align:left; line-height:20px;" class="nobd middle">
+        	当您初次使用唯唐代购网时，遇到到疑问请点击下面的按钮与客服联系（包括：注册、忘记密码、如何充值、代购流程、会员等级、配送范围及运费等）
+        </div>
+        <div style="width:283px; height:40px; line-height:40px;" class="nobd middle">
+        	<input type="button" name="button" value="新手在线咨询" style="background:#236fba; height:25px; line-height:25px; color:#fff; border:1px solid #073e74;">
+        </div>
+    </div>
+    
+    <div style="width:303px; height:157px; margin-left:18px; margin-top:22px; background:#fff;" class="left brd">
+    	<div style="width:303px; height:40px; line-height:40px; text-align:left; text-indent:10px; color:#236fba; " class="fnt_b">成功下单后</div>
+        <div style="width:283px; height:67px; text-align:left; line-height:20px;" class="nobd middle">
+        	订购中的商品问题（订单），运送的包裹问题（运单），请点击下面的按钮进行咨询
+        </div>
+        <div style="width:283px; height:40px; line-height:40px;" class="nobd middle">
+        	<input type="button" name="button" value="订单、包裹咨询" style="background:#236fba; height:25px; line-height:25px; color:#fff; border:1px solid #073e74;">
+        </div>
+    </div>
+    
+    <div style="width:303px; height:157px; margin-left:18px; margin-top:22px; background:#fff;" class="left brd">
+    	<div style="width:303px; height:40px; line-height:40px; text-align:left; text-indent:10px; color:#236fba; " class="fnt_b">售后问题</div>
+        <div style="width:283px; height:67px; text-align:left; line-height:20px;" class="nobd middle">
+        	收到的商品、包裹问题，退款问题，意见与投诉，赔偿（可能根据您的实际情况需提供相应的证明信息，上传图片资料等）
+        </div>
+        <div style="width:283px; height:40px; line-height:40px;" class="nobd middle">
+        	<input type="button" name="button" value="售后处理咨询" style="background:#236fba; height:25px; line-height:25px; color:#fff; border:1px solid #073e74;">
+        </div>
+    </div>    
+</div>
+
+<div id="m4" style="width:988px; height:134px; margin-top:14px;" class="middle nobd">
+	<div id="faq" style="width:650px; height:122px;" class="left bbrd">
+    	<div style="width:650px; height:40px; line-height:40px; overflow:hidden;">
+        	<span style="display:inline-block; width:120px;text-align:left; text-indent:20px;" class="left fnt_b">常见问题</span>
+            <span style="display:inline-block; width:80px;" class="right fnt_gry">更多</span>
+        </div>
+        <div id="csr_faq" style="width:650px; height:82px; overflow:hidden;" class="nobd middle">
+        	<ul>
+            	<li><a href="#">唯唐代购能够代购的商品范围?</a></li>
+                <li><a href="#">为什么要代购?</a></li>
+                <li><a href="#">我下单了为什么不用填写收货地址?</a></li>
+                <li><a href="#">我下单了为什么不用填写收货地址?</a></li>
+                <li><a href="#">代购怎么付款?我不知道怎么付？什么时候付？</a></li>
+            </ul>
+        </div>
+    </div>
+    <div style="width:291px;height:122px;" class="bbrd right">
+    <div style="margin-top:20px;" class="nobd"><a href="#"><img src="images/tprice.png" alt="运输方式对比"  class="nobd middle"></a></div>
+        <div style="margin-top:23px;" class="nobd"><a href="#"><img src="images/tgushuan.png" alt="国际运费估算"  class="nobd middle"></a></div>
+    </div>
+</div>
+
+<div id="m3" style="width:988px; height:96px; margin-top:14px;" class="nobd middle">
+  <div style="height:28px; line-height:25px; font-weight:bold; text-align:left; text-indent:12px;">合作伙伴</div>
+  <div style="height:66px; width:986px; background:url(images/bg_huoban.png) repeat-x;" class="middle brd"> <img src="images/huoban.png" alt="代购底部图标" class="nobd left"> </div>
+</div>
+<div id="help" style="width:988px; height:170px; margin-top:14px; background:#ededed;" class="nobd middle">
+  <div class="middle" style="width:976px;">
+    <div style="width:110px;" class="hlp_block hlp_brd left nobd" >
+      <div class="hlp_p">新手指南</div>
+      <ul class="ul_help middle">
+        <li class="hlp_li"><a href="#" target="_blank">如何跟踪运单</a></a></li>
+        <li class="hlp_li"><a href="#" target="_blank">代购费用怎么算</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">如何付款</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">网站代购流程</a></li>
+      </ul>
+    </div>
+    <div style="width:110px;" class="hlp_block hlp_brd left nobd" >
+      <div  class="hlp_p">配送说明</div>
+      <ul class="ul_help middle">
+        <li class="hlp_li"><a href="#" target="_blank">运输方式和费用</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">大宗商品的运费</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">海关及税项</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">收货注意事项</a></li>
+      </ul>
+    </div>
+    <div style="width:110px;" class="hlp_block hlp_brd left nobd" >
+      <div class="hlp_p">付款方式</div>
+      <ul class="ul_help middle">
+        <li class="hlp_li"><a href="#" target="_blank">国际信用卡</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">Paypal支付</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">国内银行卡</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">其它付款方式</a></li>
+      </ul>
+    </div>
+    <div style="width:110px;" class="hlp_block  hlp_brd left nobd" >
+      <div  class="hlp_p">操作指南</div>
+      <ul class="ul_help middle">
+        <li class="hlp_li"><a href="#" target="_blank">挑选商品</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">如何生成订单</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">查询商品状态</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">代购操作演示</a></li>
+      </ul>
+    </div>
+    <div style="width:110px;" class="hlp_block hlp_brd left nobd" >
+      <div  class="hlp_p">售后服务</div>
+      <ul class="ul_help middle">
+        <li class="hlp_li"><a href="#" target="_blank">退换货政策</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">退换货流程</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">商品的保管期限</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">如何退款</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">投诉与建议</a></li>
+      </ul>
+    </div>
+    <div style="width:110px;" class="hlp_block hlp_brd left nobd" >
+      <div  class="hlp_p">关于唯唐</div>
+      <ul class="ul_help middle">
+        <li class="hlp_li"><a href="#" target="_blank">了解唯唐网</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">联系我们</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">商家合作</a></li>
+        <li class="hlp_li"><a href="#" target="_blank">隐私申明</a></li>
+      </ul>
+    </div>
+    <div style="width:156px;" class="hlp_block  left nobd" >
+      <div><img src="images/support.png" class="nobd middle"></div>
+      <ul class="middle" style="width:150px; padding:0px; margin:0px;">
+        <li class="hlp_li">工作时间：周一&nbsp;至&nbsp;周日</li>
+        <li class="hlp_li" style="text-indent:50px;">(9:00-19:00)</li>
+        <li class="hlp_li">客服邮箱：</li>
+        <li class="hlp_li" style="text-indent:22px;">service@viatang.com</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="copyright" style="margin-top:14px; width:988px; height:90px; border-top:1px solid #dddddd;" class="middle">
+  <div id="top_nav" style="width:560px; height:32px; margin-top:8px;" class="middle">
+    <ul class="middle">
+      <li><a href="#" target="_blank">关于唯唐</a></li>
+      <li class="top_nav_fg"><a href="#" target="_blank">联系我们</a></li>
+      <li class="top_nav_fg"><a href="#" target="_blank">加入我们</a></li>
+      <li class="top_nav_fg"><a href="#" target="_blank">商家合作</a></li>
+      <li class="top_nav_fg"><a href="#" target="_blank">友情链接</a></li>
+      <li class="top_nav_fg"><a href="#" target="_blank">免责声明</a></li>
+      <li class="top_nav_fg"><a href="#" target="_blank">隐私声明</a></li>
+    </ul>
+  </div>
+  <div style="text-align:center;">Copyright ©2014 唯唐代购! Inc. All rights reserved.</div>
+</div>
+</body>
+</html>

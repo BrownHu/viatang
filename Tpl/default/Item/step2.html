@@ -1,0 +1,16 @@
+<include file="Public:header" />
+<div id="product_result" class="w middle" style="margin-top:20px;">
+    <div style="text-align:center; padding-top:100px;  height:200px; font-size:18px; font-weight:bold; border:1px solid #999; background-color:#F5F5F5 " class="w">
+	<img src="/Public/Images/icon_waiting.gif" id="loding_img">&nbsp;&nbsp;正在加载商品详情，请稍等...
+    </div>
+</div> 
+<script>
+$(document).ready(function(){
+	var page_url = '{$itemUrl}';
+	$.get(page_url,function(result){
+		$('#product_result').empty().html(result).css;
+	});
+});
+</script>       
+<include file="Public:bottom" />
+		

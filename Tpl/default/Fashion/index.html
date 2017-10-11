@@ -1,0 +1,54 @@
+<include file="Public:header" />
+<script>$('#mn_fashion a').addClass('menu_li_on');</script>
+<link  rel="stylesheet"  href="../Public/css/fashion.css"  type="text/css" />
+<div style="background-color:#f3f1f2; padding-bottom:20px;padding-top:14px">
+  <include file="nav"/>	
+  <div style="width:986px; background-color:#fff; padding-top:15px;" class="middle">
+  <div id="m1" style="width:988px; height:100%; overflow:hidden; " class="nobd middle mrg14">
+    <DIV class="slide middle">
+      <DIV class="slide_box middle"> <I class="arr_l"></I> <I class="arr_r"></I>
+        <UL id="scrolid" class="num"><LI>1</LI></UL>
+        <DIV id="header_banner" class="slide_con clearfix">
+			<A href="/Fashion/topic/s/xiaoqingxin.html" target=_blank><img src="../Public/images/grey.gif" lazy="y" original="http://pub.{$Think.CONFIG.DOMAIN}/fashion/fcmcp20120424195256.jpg" width=890 height=425></A>
+        </DIV>
+      </DIV>
+    </DIV>
+  </div>
+  <div id="m2" style="width:970px; height:100%; overflow:hidden; padding-bottom:20px; padding-left:30px;" class="nobd middle">
+    <UL class=topic_list style="text-align:left"">
+    <volist name="DataList" id="vo">	
+       <LI>
+        <H3><SPAN>『{$vo.category|getFashionCategory}』</SPAN>{$vo.title}</H3>
+        <DL>
+          <DT><A href="{$vo.url}" target=_blank><img src="../Public/images/grey.gif" lazy="y" original="http://pub.{$Think.CONFIG.DOMAIN}/fashion/{$vo.img}.jpg" width=450 height=200></A> </DT>
+          <DD   style="LINE-HEIGHT: 18px; WIDTH: 460px; HEIGHT: 54px; OVERFLOW: hidden">
+          	{$vo.content} <A href="{$vo.url}" target=_blank>[详情]</A> 
+          </DD>
+        </DL>
+      </LI>
+    </volist> 
+    </UL>
+  </div>
+  <div class="digg" style="padding-bottom:20px;">{$page}</div>
+</div>
+</div>
+<script>
+$('#header_banner').append('<A href="/Fashion/topic/s/shirtscontrol.html" target=_blank><img src="http://pub.{$Think.CONFIG.DOMAIN}/fashion/lqqin20120423171806.jpg" width=890 height=425></A>'); 
+$('#header_banner').append('<A href="/Fashion/topic/s/shizhuangzhou.html" target=_blank><img src="http://pub.{$Think.CONFIG.DOMAIN}/fashion/shizhuangzhou/szz_02.jpg" width=890 height=425></A>'); 
+$('#header_banner').append('<A href="/Fashion/topic/s/titanic.html" target=_blank><img src="http://pub.{$Think.CONFIG.DOMAIN}/fashion/btsgd20120419184813.jpg" width=890 height=425></A>'); 
+$('#header_banner').append('<A href="/Fashion/topic/s/followfilm.html" target=_blank><img src="http://pub.{$Think.CONFIG.DOMAIN}/fashion/tlzcg20120416185611.jpg" width=890 height=425></A>'); 
+</script>
+<SCRIPT>
+var $img=$('.slide_con');var $page=$('.slide_con > a').length;var imgWidth=890;var speed=3500,time=500;var num=0;$('.num li:eq(0)').addClass("num_cur");
+if(!$img.is(":animated")){	$("i.arr_r").click(function(){time=500;clearInterval(auto);auto=setInterval(autoScroll,speed);num++;if(num==$page){num=0;}animateScroll();	});	
+	$("i.arr_l").click(function(){time=500;clearInterval(auto);	auto=setInterval(autoScroll,speed);	num--;if(num<0){num=$page-1;}animateScroll();});	
+	function animateScroll(){var left_width = num*imgWidth;	$('.num li:eq('+num+')').addClass('num_cur').siblings().removeClass("num_cur");	$img.animate({left:-left_width+"px"},time);	}
+	function autoScroll(){num++; if(num==$page){num=0;}	animateScroll()	}
+	auto=setInterval(autoScroll,speed);	$('.num li').each(function(){ $(this).mouseover(function(){	clearInterval(auto);$(this).addClass("num_cur").siblings().removeClass("num_cur");
+	var index=$(this).index();var left_width = index*imgWidth;$img.stop(true).animate({left:-left_width+"px"},time);num=index;})
+    .mouseout(function(){auto=setInterval(autoScroll,speed);});	});
+	$img.mouseover(function(){clearInterval(auto);})
+	.mouseout(function(){auto=setInterval(autoScroll,speed);})}
+$('#scrolid').append('<LI>2</LI><LI>3</LI><LI>4</LI><LI>5</LI>');
+</SCRIPT> 
+<include file="Public:bottom" />

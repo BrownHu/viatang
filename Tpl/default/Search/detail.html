@@ -1,0 +1,238 @@
+<include file="Public:header" />
+<script type="text/javascript" src="/Public/Js/jQuery/Plug-in/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js?skin=default"></script> 
+<link rel="stylesheet" type="text/css" href="/s/?g=m.css">
+<script type="text/javascript">
+    $(document).ready(function() {
+		if($("#productRemark").val() != "请选填颜色、尺寸等要求！"){ $("#productRemark").removeAttr('class');}
+        $("#productRemark").blur(function() { 
+			if ($.trim($(this).val()).length <= 0 || $(this).val() == "请选填颜色、尺寸等要求！") 
+				$(this).attr("class", "addpanel_still").val("请选填颜色、尺寸等要求！"); }).focus(function() { 
+				if ($(this).attr("class") == "addpanel_still") $(this).select().removeAttr("class"); }).click(function() { if ($(this).val() == "请选填颜色、尺寸等要求！") $(this).val(""); });
+        
+		$('.Buy_NumLeft').click(
+			function(){
+				if (parseInt($('#productNum').val()) > 1 ){
+					$('#productNum').val( parseInt($('#productNum').val()) - 1 );
+				}
+			});
+		$('.Buy_NumRight').click(
+			function(){				
+					$('#productNum').val( parseInt($('#productNum').val()) + 1 );				
+			}); 
+    });
+	
+	function set_main_pic(pic,domain){
+		var main_pic = '';
+		if(domain == 'taobao'){
+		 	main_pic = pic.replace(new RegExp("_50x50.jpg","gm"),"_400x400.jpg");			
+		}else if(domain == 'tmall'){
+			main_pic = pic.replace(new RegExp("_60x60q90.jpg","gm"),"_430x430q90.jpg");
+		}else{
+			main_pic = pic;
+		}
+		
+		$('#main_pic').attr('src',main_pic);
+	}
+	
+	function set_select(type,id){
+		$('.prop-item-'+type).removeClass('prop-item-on');
+		$('#'+id).addClass('prop-item-on');
+		
+		//设置已选中属性
+		$('#prop-cat-'+type).empty().html($('#dg-prop-cap-'+type).html() + $('#'+id).html());
+	}
+</script>
+<style>
+ .prop-item{display:inline-block; padding-left:5px;padding-right:5px; line-height:25px; height:25px;  margin-top:8px; margin-bottom:5px; margin-right:10px;}
+ .prop-item:hover, .product-img-lst:hover{border:1px solid #43ad07; cursor:pointer;}
+ .prop-item-on{border:1px solid #f60; background:url(/img/sel_bg.png) right bottom no-repeat;}
+ .product-img-lst{margin-top:5px; width:40px; height:40px; border:1px solid #e7e7e7}
+ .btn_car{border:none; width:136px; height:40px; color:#fff; background:url(/img/item_car.png) -135px -1px no-repeat; cursor:pointer; }
+ .btn_car:hover{border:none; width:136px; height:40px; color:#fff; background:url(/img/item_car.png) -135px -45px no-repeat; }
+ .btn_add_car{border:none; margin-top:15px; width:142px; height:40px; color:#fff; background:url(/img/item_car.png) -284px 0px no-repeat; cursor:pointer; }
+ .btn_add_car:hover{ background:url(/img/item_car.png) -284px -44px no-repeat;}
+ .input-text{ text-indent:10px;}
+ #productNum,.pro_count{text-align:center;width:25px;border-left:none;border-right:none;border-top:1px solid #cacaca;border-bottom:1px solid #cacaca; height:20px;ime-mode: disabled;float:left;}
+ .Buy_NumLeft,.Buy_NumLeft1, .Buy_NumRight,.Buy_NumRight1{display:inline-block;  border:1px solid #cacaca;
+  height:22px; line-height20px; width:20px; float:left; background:url(/img/item_car.png) no-repeat; }
+  .Buy_NumLeft, .Buy_NumLeft1{ background-position :-85px -6px;}
+  .Buy_NumRight,.Buy_NumRight1{ background-position :-104px -6px;}
+  .item-span{padding-right:10px;color:#f60; font-weight:bold;}
+  
+  .li_1{border-bottom:1px dotted #ddd; padding-bottom:5px; overflow:hidden;}
+  .div1{background-color:#f4f4f4; height:34px;line-height:34px;}
+  .div2{width:75px; margin-left:10px;color:#757575;font-size:14px;text-align:left;}
+  .dvi3{width:82px;  margin-left:15px;color:#757575;font-size:12px;text-align:right;}
+</style>
+<div style="width:100%; height:auto; overflow:hidden; background-color:#f3f3f3; padding-bottom:15px;padding-top:15px;">
+	<div style="width:988px; height:auto; overflow:hidden; border:none;" class="middle">
+    	<div id="product_info" style="width:761px;height:auto; overflow:hidden; background-color:#fff" class="left brd">
+        	<div style="height:42px; line-height:42px; text-align:left; color:#878787; padding-left:15px; border-bottom:1px solid #e7e7e7">
+            	您的位置：&nbsp;<a href="/" style="color:#71a8cf; text-decoration:underline">首页</a>&nbsp;>&nbsp;一键代购 
+            </div>
+            <div style="width:710px; height:auto; overflow:hidden; margin-top:10px;" class="middle nobd">
+			    
+			<form action="{:U('Item/step3')}" method="post" name="frmCart" id="frmCart">
+				<input type="hidden" name="productPrice" id="p_price" value="{$product.price}">
+            	<input type="hidden" name="productUrl" value="{$product.url}">
+				<input type="hidden" name="productName" value="{$product.title}">
+				<input type="hidden" name="seller" value="{$product.seller}">
+				<input type="hidden" name="image" value="{$product.image}">
+				<input type="hidden" name="prop" id="sel_prop" value="">
+				<input type="hidden" id="product_remark" name="productRemark" value="">
+	
+				<div style="height:50px; line-height:50px; font-size:14px; font-weight:bold; border-bottom:1px dashed #e7e7e7;">{$product.title|getShortTitle=###,25,true}</div>
+                <div id="p_pro" style="height:auto; width:100%; overflow:hidden; margin-top:15px;">
+                	<div id="p_img" style="width:252px; height:auto; overflow:hidden;" class="left nobd">
+                    	<div style="width:250px; height:250px; overflow:hidden" class="brd">
+						   <img id="main_pic" src='/Public/Images/grey.gif' lazy='y' original="{$product.image}"  style="width:250px; height:250px;" onerror="this.src='../Public/images/noimg80.gif';" >
+						   <img id="main_pic_an" src="{$product.image}"  style="width:16px; height:16px; display:none;">
+                        </div>
+                        <div style="width:252px;height:auto; overflow:hidden; margin-top:10px;" class="nobd">
+                        	<ul>
+        						<volist name="product.img_list" id="vo" > 
+                                <li>
+                                	<img src="{$vo}" style="margin-right:8px;" class="product-img-lst left" onclick="set_main_pic('{$vo}','{$product.from_en}');" onMouseOver="set_main_pic('{$vo}','{$product.from_en}');"  /> 
+                                </li>    
+                                </volist>
+      						</ul>
+                        </div>
+                    </div>
+                    <div style="widht:434px; height:auto; overflow:hidden;" class="nobd right">
+                       <ul style="display:block; width:434px; ">
+                          <li style="display:block; width:434px; overflow:hidden; height:32px; line-height:32px;" >
+                             <div style="width:60px; text-align:right; color:#878787; " class="left">商品价格：</div>
+                             <div style="width:314px;padding-left:8px; text-align:left;color:#ff6600;font-weight:bold;" class="left">￥{$product.price}</div>
+                          </li>
+                          <li style="display:block; width:434px;overflow:hidden; height:32px; line-height:32px;" >
+                             <div style="width:60px; text-align:right; color:#878787" class="left">商家名称：</div>
+                             <div style="width:314px;padding-left:8px; text-indent:8px; text-align:left; background:url(/img/tip_bg.png) 10px 8px no-repeat" class="left">
+                             	<a href="#" style="color:#FFF">{$product.from_cn}</a>&nbsp;&nbsp;&nbsp;
+                                <a href="{$product.shop_url}" style="color:#71a8cf; text-decoration:underline" target="_blank">{$product.seller}</a>
+                             </div>
+                          </li>
+                          <volist name="product.props" id="vo" key="i">
+                          <php>if($vo['cap'] != '天猫分期'){</php>
+                          <span class="dg-prop-value" id="prop-cat-{$i}" tag="{$vo.cap}" style="display:none"></span>
+                          <li style="display:block; width:434px; overflow:hidden; line-height:32px;" >
+              				<div style="width:60px; height:32px;  text-align:right; color:#878787" class="left" id="dg-prop-cap-{$i}">{$vo.cap}：</div> 
+                			<div style="width:314px;padding-left:8px; text-align:left;color:#000" class="left">
+                            	<volist name="vo.items" id="sub" key="j">
+                    				 <span class="brd prop-item prop-item-{$i}" id="prop-item-{$i}-{$j}" onclick="set_select('{$i}','prop-item-{$i}-{$j}');buildProp();" >{$sub|trim}</span>
+                  				</volist>
+                  			</div>
+             			  </li>
+                          <php>}</php>
+            			  </volist>
+                          
+                          <li style="display:block; width:434px; overflow:hidden; height:32px; line-height:32px;" >
+                             <div style="width:60px; text-align:right; color:#878787" class="left">商品数量：</div>
+                             <div style="width:314px;padding-left:8px; padding-top:5px; text-align:left;color:#ff6600" class="left">
+								<a href="javascript:void(0);" class="Buy_NumLeft">&nbsp;</a>
+									<input id="productNum"  name="productNum" onblur="if(this.value.length<=0) this.value=1;" type="text" value="1" maxlength="6" onkeyup="value=value.replace(/[^\d]/g,'');" />
+                                <a href="javascript:void(0);" class="Buy_NumRight">&nbsp;</a> 
+                             </div>
+                          </li>
+                          
+                          <li style="display:block; width:434px; overflow:hidden; height:40px; line-height:40px;" >
+                             <div style="width:60px; text-align:right; color:#878787" class="left">国内运费：</div>
+                             <div style="width:314px;padding-left:8px; text-align:left;color:#ff6600" class="left">
+                             	<input id="productSendPrice"  name="productSendPrice" type="text" value="{$product.shipping_fee}"  style="border:1px solid #cacaca;  height:22px; line-height:22px;" class="input-text" />
+                				<span>RMB</span>
+                             </div>
+                          </li>
+                          
+                          <li style="display:block; width:434px; overflow:hidden; line-height:40px;" >
+                             <div style="width:60px; text-align:right; color:#878787" class="left">备注：</div>
+                             <div style="width:314px;padding-left:8px; text-align:left; padding-bottom:10px;" class="left">
+									<textarea class="addpanel_still" id="productRemark" name="productRemark" style="width:310px; border:1px solid #dbdbdb; height:60px; font-size:12px; ">请选填颜色、尺寸等要求！</textarea>
+                             </div>
+                          </li>
+						  <li>
+						  	<input type="submit" name="btn1" onclick="setbutton();" id="btn_submit" class="btn_car"  value="添加到购物车">
+						  </li>
+                       </ul>
+                    </div>
+                </div>
+            </div>
+			</form>
+			
+            <div style="height:38px; width:710px; overflow:hidden;" class="mrg14 middle nobd">
+            	<div style="width:129px; height:38px;" class="left">
+                	<div style="width:129px; height:4px; background:url(/img/item_car.png) 0 -76px no-repeat;"></div>
+                    <div style="width:128px; height:32px;line-height:32px;border-left:1px solid #dddddd;border-right:1px solid #dddddd;">商品详情</div>
+                </div>
+                <div style="height:36px; border-bottom:1px solid #dddddd; width:581px;" class="left"></div>
+            </div>
+           
+           <div style="width:710px; height:auto; overflow:hidden" class="mrg14 middle">
+           		<script type="text/javascript" src="{$product.des}"></script> 
+    			<script>document.write(desc);</script>
+           </div>
+        </div>
+        
+        <div id="cart_info" style="width:210px; height:auto; padding-bottom:4px; overflow:hidden; border:none;  " class="right">
+        	 <img src="../Public/images/dgflow.gif"  class="right">
+        </div>
+	</div>
+</div>
+<script>
+function complete(data){		
+    if (data.status == '1'){
+		$('#global_cart_count').html(data.info);
+	    
+		art.dialog({title:'购物车',content: '已成功加入购物车! 2秒后自动关闭',time: 2});
+				
+	}
+	$('#btn_submit').val('添加到购物车').attr('disabled',"");	
+}
+	
+$('#frmCart').ajaxForm({
+  success: complete,
+  dataType: 'json'
+});
+
+function MoveBox() {
+		var divTop = $('#main_pic').offset().top;
+		var divLeft = $('#main_pic').offset().left;
+		$('#main_pic_an').css({ "position": "absolute", 
+							    "z-index": "500", 
+								"left": divLeft + "px", 
+								"top": divTop + "px" }).fadeTo(0, 1).show();
+								
+		$('#main_pic_an').animate({ 
+			"left": ($("#global_cart_count").offset().left - $("#global_cart_count").width()) + "px", 
+			"top": ($(document).scrollTop() + 30) + "px", "width": "40px", "height": "40px" }, 
+			500, 
+			function () {
+				$('#main_pic_an').animate({ 
+					"left": $("#global_cart_count").offset().left + "px", 
+					"top": $("#global_cart_count").offset().top + "px" }, 500).fadeTo(0, 0.1).hide(0);
+			}
+		);		
+}
+	
+function buildProp(){
+	var remark = '';
+  	$('.dg-prop-value').each(function(){
+		if ($(this).html() != '') {
+	   	  remark = $(this).html() + '， ' + remark;
+    	}		
+  	});
+	$('#productRemark').val(remark);
+}	
+
+function setbutton(){
+	$.get('/Public/isLogin.html', function(result) { 
+		if(parseInt(result) == 1){
+			$('#btn_submit').val('正在提交...').attr("disabled","disabled");
+			MoveBox();
+		}else{				
+			login_min(',Item,index,url',560,420,0);
+		}		
+	});		
+}
+
+</script>
+<include file="Public:bottom" />

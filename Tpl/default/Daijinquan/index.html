@@ -1,0 +1,65 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;礼券/积分
+</div>
+    <if condition="$showApply eq true">
+    <div style="width:770px; height:auto; overflow:hidden; padding-top:18px; text-align:left;" class="middle">
+      <form name="form2" action="/Daijinquan/apply.html" method="post" id="form2">
+            <div style="width:176px; height:203px; padding-left:3px; padding-top:2px; background-color:#fff; border:1px solid #f6cc94;">
+            	<div style="background:url(/img/discount.jpg) no-repeat; width:172px; border:1px solid #fff; height:199px;">
+                	<div style="height:25px; margin-top:72px; text-indent:65px; z-index:100;">
+                    	<php>
+                        	if($voucher['use_type'] == 1){echo '可抵扣订单服务费';}else{echo '可抵扣运单服务费';}
+                        </php>
+                    </div>
+                    <div style="height:25px; margin-top:25px; text-indent:38px; font-size:50px; color:#ef900e">{$voucher.mianzhi|number_format=###,0}</div>
+                    <div style="height:25px; margin-top:28px; text-indent:75px; font-size:12px; color:#575654">{$voucher.term|date="Y-m-d",###}</div>
+                </div>
+            </div>
+            <input type="submit"  value="领取代金券" name="lingqu" style="background:url(/img/se_sub_but_m.png) no-repeat; width:98px; height:38px; border:none; margin-top:5px; color:#fff;" id="lingqu" />
+            <input type="hidden" value="{$voucher.id}" name="type_id"/>
+      </form>
+    </div>
+    </if>
+    <div style="width:770px; margin-top:18px;" class="nobd middle">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;">
+        <tr height="28" style="font-weight:bold;">
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="180">识别号</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;" width="70">面值(￥)</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;">用途</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="60">状态</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="140">备注</td>
+          <td bgcolor="#f3f3f3"  width="120">有效期</td>
+        </tr>
+        <present name="DataList">
+          <volist name="DataList" id="vo">
+            <tr height="25" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.code}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">{$vo.mianzhi}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">
+               		<if condition="($vo.use_type eq 1)">订单低扣服务费</if>
+                    <if condition="($vo.use_type eq 2)">运单低扣服务费</if>
+              </td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;"><php>if($vo['state']==1)echo '<span style="color:#0f0">有效</span>';else echo '<span style="color:#f60">已用</span>';</php></td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">
+              	<if condition="$vo.use_amount gt 0">
+                	需消费满&nbsp;<span style="color:#f60">{$vo.use_amount}</span>使用
+                <else/>
+                </if>
+              </td>
+              <td style="border-top:1px solid #e6e6e6;">{$vo.term|date="Y-m-d",###}</td>
+            </tr>
+          </volist>
+          <else />
+          <tr height="25">
+            <td colspan="6"  style="border-top:1px solid #e6e6e6;">暂无记录</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:770px;" class="middle nobd">{$page}</div>
+    </div>
+  </div>
+</div>
+<include file="Public:bottom" />

@@ -1,0 +1,57 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,留学生代购中国商品网站-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script>
+	function sendform(){
+		if( isEmpty(document.send_help.help_title)  ||  isEmpty(document.send_help.help_content) ){
+			$('#error_msg').html('&nbsp;请填写所有项后，再提交!');
+			$('#error_msg').show();
+		}else{
+			$('#send_help').submit();
+		}
+	}
+	
+	function hidemsg(){
+	  $('#error_msg').hide();
+	}
+</script>
+</head>
+<body style="background:#fff;">
+<div class="consultation_send float_left" style="text-align:left">
+    <form action="/Consultation/commit" method="post" id="send_help" name="send_help">
+      <input type="hidden"  name="pid" value="{$pid|default=0}">
+      <table width="480" border="0" align="center" cellpadding="3" cellspacing="1">
+        <tbody>
+          <tr>
+            <td style="font-size:14px" colspan="2" align="center"><span id="error_msg" style="color:#f60;"></span></td>
+          </tr>
+          <tr>
+            <td style="font-size:14px" align="right">用户:</td>
+            <td style="font-size:14px">{$Think.session.m_Info.login_name}</td>
+          </tr>
+          <tr>
+            <td width="100" style="font-size:14px" align="right">标题:</td>
+            <td ><input name="help_title" type="text" value="{$note_caption}" class="buy_ipt1" id="help_title" onMouseOver="this.className='buy_ipt2';" onMouseOut="this.className='buy_ipt1';" onBlur="this.className='buy_ipt1';" onFocus="this.className='buy_ipt2';hidemsg();" style="width:400px;"></td>
+          </tr>
+          <tr>
+            <td style="font-size:14px" valign="top" align="right">内容:</td>
+            <td><textarea name="help_content" style="width:400px;height:100px;" class="buy_ipt3" id="help_content" onMouseOver="this.className='buy_ipt4';" onMouseOut="this.className='buy_ipt3';" onBlur="this.className='buy_ipt3';" onFocus="this.className='buy_ipt4';hidemsg();"></textarea>
+              <br>
+              <font color="#666666" style="font-size:12px;">附上注册用户名，商品ID、名称，包裹ID等，将能更有效的得到处理。</font></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input type="button" class="btn_send" onClick="javascript:sendform();" value="提交"></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+</div>
+</body>
+</html>

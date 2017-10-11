@@ -1,0 +1,194 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:1000px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:970px; height:30px; text-indent:12px; padding-top:10px; font-size: 15px; border-bottom:1px solid #B51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;帐户充值</div>
+    <div style="width:970px; height:118px; border:1px solid #d5eeb9; background:#f3fdea; margin-top:18px;" class="middle">
+      <div style="text-align:left; text-indent:12px;margin-top:12px;">人民币帐户充值</div>
+      <ul style="display:block; margin-top:5px; text-align:left; padding:0px; margin-left:0px; text-indent:12px;">
+        <li style="line-height:30px; height:30px;">1. 为了确保您的帐户及购物安全，请填写下面信息。{:C('SITE_NAME')}绝不会向任何第三方披露用户个人信息。</li>
+        <li style="line-height:30px; height:30px;">2. 在您使用国外信用卡充值购物时，为保证交易安全，需由您（持卡人）持本人护照签收。</li>
+      </ul>
+    </div>
+    <div id="tab_title" style="width:970px; height:25px; margin-top:18px;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:408px; height:25px;" class="left nobd">
+        <li class="normal1" onclick="javascript:showpay(1);">Paypal充值</li>
+        <li class="normal1" onclick="javascript:showpay(2);">支付宝充值</li>
+        <li class="normal1" onclick="javascript:showpay(3);">微信充值</li>
+        <li class="active1">网银转账</li>
+      </ul>
+      <div style="width:444px; height:24px; border-bottom:1px solid #e4e4e4" class="left"></div>
+    </div>
+    <div style="width:970px;" class="middle nobd">
+    <form action="/Payoffline/commit.html" name="otherpay" id="otherpay" method="post">
+      <div style="width:960px; height:70px; margin-top:30px;" class="middle">
+        <div style="text-align:left; width:742px; line-height:20px; text-indent:12px;" class="left"> <b>温馨提示：</b><br>
+          &nbsp;&nbsp;&nbsp;无论您使用的是何种货币账户，均以人民币折算。 </div>
+      </div>
+      <div style="width:750px; text-align:left; text-indent:12px;" class="nobd middle">
+        <p style="padding-bottom: 10px;">邮箱地址：
+          <input style="height: 25px; padding-left: 6px;" name="email" id="pay_email" value="" />
+          &nbsp;<span style="color:#bfbfbf;">(请填写您的常用邮箱地址，以便我们把相关结果发送至您的邮箱。)</span></p>
+        <p style="padding-bottom: 10px;">充值日期：
+          <input style="height: 25px; padding-left: 6px;" name="date" id="pay_date" onclick="new Calendar().show(this);" readonly="readonly"  value="{$today}" />
+          &nbsp; </p>
+        <p>您的充值方式：
+          <input type="radio" name="payment_way" value="1" checked="checked" onclick="bank_pay();">
+          海外电汇&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="payment_way" value="2" onclick="west_union();">
+          西联汇款</p>
+      </div>
+      <div style="width:740px; border:1px solid #e6e6e6; height:290px; margin-top:12px;" class="middle">
+        <ul style="padding:8px; margin-top:12px; text-align:left; line-height:30px; display:block;  background:#f3f3f3; width:660px; border:1px  dotted #e6e6e6;" class="middle">
+          <li id="bank_tip">1. 先通过银行等方式办理电汇。<a href="/Payment/bank.shtml" target="_blank"><span style="color:#B51005;">汇到哪儿？</span></a></li>
+          <li id="west_union_tip" style="display:none">1. 先到就近的西联汇款代理网点办理汇款。<a href="/Payment/xianjin.shtml" target="_blank"><span style="color:#B51005;">汇到哪儿？</span></a></li>
+          <li>2. 汇款后请在此提供以下相关信息，以便我们核实及为您手动充值！</li>
+        </ul>
+        <table id="bank_pay" cellpadding="0" cellspacing="0" style="width:676px; text-align:left; padding-top: 16px;" class="nobd middle">
+          <tr height="35">
+            <td width="112">汇款金额：</td>
+            <td width="227"><input style="height: 25px; padding-left: 6px;" type="text" name="money_bank" id="money_bank" value="" />
+              &nbsp;(金额)</td>
+            <td width="335"><input style="height: 25px; padding-left: 6px;" type="text" name="currency_bank" id="currency_bank" value="">
+              &nbsp;(币种)</td>
+          </tr>
+          <tr height="20">
+            <td colspan="3" valign="top"><span style="color:#666; display:block; text-indent:113px;">指您汇款的实际付款金额及币种，而不是扣除手续费后折算的金额哦。</span></td>
+          </tr>
+          <tr height="35">
+            <td>汇款银行名称：</td>
+            <td colspan="2"><input style="height: 25px; padding-left: 6px;" type="text" size="58" name="bank" id="bank" value="" /></td>
+          </tr>
+          <tr  height="35">
+            <td>汇款人姓名：</td>
+            <td><input type="text" style="height: 25px; padding-left: 6px;" name="name_bank" id="name_bank" value="" />
+              &nbsp;(名字)</td>
+            <td><input type="text" style="height: 25px; padding-left: 6px;" name="lastname_bank" id="lastname_bank" value="">
+              &nbsp;(姓氏)</td>
+          </tr>
+          <tr height="35">
+            <td >汇入银行名称：</td>
+            <td colspan="2"><input style="height: 25px; padding-left: 6px;" type="text" size="58" name="receive_bank" id="receive_bank" value="" /></td>
+          </tr>
+        </table>
+        <table id="west_union" cellpadding="0" cellspacing="0" style="width:676px; text-align:left;display:none;" class="nobd middle">
+          <tr height="35">
+            <td colspan="3"><span style="color:#f09;">注：该充值方式适合500美元以上、4000rmb以上较大金额的充值。</span></td>
+          </tr>
+          <tr height="35">
+            <td width="113">汇款金额：</td>
+            <td width="226"><input style="height: 25px; padding-left: 6px;" type="text" name="money_west_union" id="money_west_union" value="" />
+              &nbsp;(金额)</td>
+            <td width="335"><input style="height: 25px; padding-left: 6px;" type="text" name="currency_west_union" id="currency_west_union" value="">
+              &nbsp;(币种)</td>
+          </tr>
+          <tr height="20">
+            <td colspan="3" valign="top"><span style="color:#666; display:block; text-indent:113px;">指您汇款的实际付款金额及币种，而不是扣除手续费后折算的金额哦。</span></td>
+          </tr>
+          <tr height="35">
+            <td >汇款国家/地区：</td>
+            <td colspan="2"><input style="height: 25px; padding-left: 6px;" type="text" size="58" name="country" id="country" value="" /></td>
+          </tr>
+          <tr height="35">
+            <td >汇款人姓名：</td>
+            <td><input style="height: 25px; padding-left: 6px;" type="text" name="name_west_union" id="name_west_union" value="" />
+              &nbsp;(名字)</td>
+            <td><input style="height: 25px; padding-left: 6px;" type="text" name="lastname_west_union" id="lastname_west_union" value="">
+              &nbsp;(姓氏)</td>
+          </tr>
+          <tr height="35">
+            <td>mtcn号码：</td>
+            <td colspan="2"><input style="height: 25px; padding-left: 6px;" type="text" size="58" name="mtcn" id="mtcn" value="" /></td>
+          </tr>
+        </table>
+      </div>
+      </form>
+      <div style="text-align:center; margin-top:5px;" class="nobd"><input type="button" name="buttone" value="提交充值" onclick="sendform();" style="cursor:pointer;" class="btn_middle" /></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Js/calendar.js"></script>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function west_union(){	
+	$('#bank_pay').hide();
+	$('#bank_tip').hide();
+	$('#west_union_tip').show();
+	$('#west_union').show();
+}
+function bank_pay(){
+	$('#west_union_tip').hide();
+	$('#west_union').hide();	
+	$('#bank_tip').show();	
+	$('#bank_pay').show();
+}
+
+function showpay(status){
+	if(status == 1){
+	   window.location.href = '/Pay/paypal.shtml';
+	}
+	if(status == 2){
+	   window.location.href = '/Pay/alipay.shtml';
+	}
+	if(status == 3){
+	   window.location.href = '/Pay/wepay.shtml';
+	}
+	if(status == 4){
+	   window.location.href = '/Pay/other.shtml';
+	}
+}
+function sendform(){
+	if(isEmail(document.otherpay.email) == false){
+		alert('请填写正确的Email地址');
+		return false;
+	}
+	
+	var type = getRadioValue(document.otherpay.payment_way);	
+    if( type == 1){
+		if(isEmpty(document.otherpay.money_bank,'') || (isNumber(document.otherpay.money_bank,'') == false) ){
+			alert('请填写正确的金额，金额应全部为数字');
+			return false;
+		}
+		if (isEmpty(document.otherpay.currency_bank,'')){
+			alert('请填写汇款时使用币种');
+			return false;
+		}
+		
+		if (isEmpty(document.otherpay.bank,'') || isEmpty(document.otherpay.name_bank,'') || isEmpty(document.otherpay.lastname_bank,'') ){
+			alert('请填写汇款的银行、汇款人姓名等信息');
+			return false;
+		}
+		
+		if (isEmpty(document.otherpay.receive_bank,'')){
+			alert('请填写汇入银行名称');
+			return false;
+		}
+		
+		$('#otherpay').submit();
+	}else if(type == 2){
+			if(isEmpty(document.otherpay.money_west_union,'') || (isNumber(document.otherpay.money_west_union,'') == false) ){
+			alert('请填写正确的金额，金额应全部为数字');
+			return false;
+		}
+		if (isEmpty(document.otherpay.currency_west_union,'')){
+			alert('请填写汇款时使用币种');
+			return false;
+		}
+		
+		if (isEmpty(document.otherpay.country,'') || isEmpty(document.otherpay.name_west_union,'') || isEmpty(document.otherpay.lastname_west_union,'') ){
+			alert('请填写汇款的地区、汇款人姓名等信息');
+			return false;
+		}
+		
+		if (isEmpty(document.otherpay.mtcn,'') || (isNumber(document.otherpay.mtcn,'') == false)){
+			alert('请填写正确 MTCN 号码，应为10位数字');
+			return false;
+		}
+		$('#otherpay').submit();	
+	}
+}
+</script> 
+<include file="Public:bottom" />

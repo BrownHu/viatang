@@ -1,0 +1,80 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" Content="zh-CN" /> 
+<link rel="shortcut icon" href="../Public/images/favicon.ico" alt="唯唐代购">
+<title>{:C('TITLE')} </title>
+<meta name="keywords" content="{:C('KEYWORDS')}" />
+<meta name="description" content="{:C('DESCRIPTION')}" />
+<script type="text/javascript" src="/s/?g=i.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=i.css">
+<meta property="qc:admins" content="5560406137661141676375" />
+</head>
+<body>
+<div id="lanrentuku" style="height:80px; width:100%; background-color:#FCD965; display:none; overflow:hidden " class="nobd"><a href="../tg/sd.html" target="_blank">
+  <img src="../Public/images/dingbubanner.jpg" alt="代购中国商品促销活动" width="988" height="72" border="0"  class="middle"></a>
+ </div>
+<div class="block_top">
+  <div style="width:988px; height:30px; overflow:hidden;" class="nobd middle">
+    <div class="left nobd welcom block_t" style="text-align:left;">
+      <empty name="Think.session.m_Info">
+         您好！游客&nbsp;请&nbsp;&nbsp;&nbsp<span style="display:inline-block;"><a href="/Public/login/go/{$Think.session.return_url}.html" >登录</a></span>&nbsp;&nbsp;&nbsp; <span style="display:inline-block;"><a href="/wechat/login.html" target="_blank" >微信登录</a></span>&nbsp&nbsp&nbsp;<span style="display:inline-block;"><a href="/Register/index.html" >免费注册</a></span>&nbsp;
+      <else />
+          欢迎您，{$Think.session.m_Info.login_name}&nbsp;<a href="/Public/logout.html">&nbsp;退出&nbsp;</a>&nbsp; <a href="/My/consultation.shtml" style="background:url(../Public/images/unRd3.gif) left top no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新消息(<span style="color:#f60">{$Think.session.unrd_msg_count|default="0"}</span>)</a>
+      </empty>
+    </div>
+    <div id="top_nav" class="top_nav block_t">
+      <ul style="float:right;">
+        <li id="MyAccount" onMouseOver="showMenu('MyAccount','aMyMenu');" onMouseOut="hideMenu('aMyMenu');"><a href="/My/index.html" style="color:#bbbbbb" ><span class="arrow_down_1">我的唯唐</span></a></li>        
+        <li class="top_nav_fg"><a href="/Cart/index.shtml">代购购物车(<span class="my_red">{$Think.session.ulowi_shoping_cart_count|default="0"}</span>)</a></li>
+		<li class="top_nav_fg"><a href="/review/index.html">用户评论</a></li>
+        <li class="top_nav_fg"><a href="/help/index.html">帮助中心</a></li>
+        <li class="top_nav_fg"><a href="http://tb.53kf.com/webCompany.php?arg=10067534&style=1" target="_blank">在线客服</a></li>
+        <li class="top_nav_fg" id="Tools" onMouseOver="showMenu('Tools','ToolsMenu')" onMouseOut="hideMenu('ToolsMenu')"><span class="arrow_down_1" style="color:#bbbbbb;">常用工具</span></li>
+      </ul>
+    </div>
+    <div id="aMyMenu" class="nav_menu">
+      <ul onMouseOver="showMenu('MyAccount','aMyMenu')" onMouseOut="hideMenu('aMyMenu')" class="nav_menu_ul">
+        <li id="nav_cp" class="nav_menu_li" ><a href="/My/index.html">我的唯唐</a></li>
+        <li id="nav_ord" class="nav_menu_li" ><a href="/My/order.html">我的订单</a></li>
+        <li id="nav_shp" class="nav_menu_li" ><a href="/My/parcel.html">我的运单</a></li>
+        <li id="nav_pay" class="nav_menu_li" ><a href="/Pay/paypal.html">帐户充值</a></li>
+        <li id="nav_fav" class="nav_menu_li" ><a href="/My/favorite.html">我的收藏</a></li>
+      </ul>
+    </div>
+    <div id="ToolsMenu" class="nav_menu">
+      <ul onMouseOver="showMenu('Tools','ToolsMenu')" onMouseOut="hideMenu('ToolsMenu')" class="nav_menu_ul">
+        <li id="nav_trace" class="nav_menu_li"><a href="/Trace/index.html" target="_blank">包裹跟踪</a></li>
+        <li id="nav_guess" class="nav_menu_li"><a href="/Tools/estimate.html" target="_blank">费用估算</a></li>
+        <li id="nav_rule" class="nav_menu_li"><a href="/Tools/measure.html" target="_blank">尺码换算</a></li>
+        <li id="nav_forex" class="nav_menu_li"><a href="http://qq.ip138.com/hl.asp" target="_blank">汇率计算</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<include file="Public:search" />
+<div style="width:auto;height:9px;overflow:hidden;background-color:#fff">
+</div>
+<div style="width:100%; height:52px; overflow:hidden; background:url(../Public/images/top_bj.jpg);" alt="唯唐代购" class="nobd">
+  <div id="nav" class="middle nobd" style="height:52px; width:988px;">
+    <div id="menu" class="left" style="height:52px;">
+        <ul class="menu_ul nobd"> 
+          <li id="mn_home"><a href="/">首页</a></li>   
+          <li id="mn_service"><a href="/Service/index.html">代购</a></li>
+          <li id="mn_zhuanyun"><a href="/Service/buy.html">国际转运</a></li>   
+          <li id="mn_browse"><a href="/See/index.html">最新代购</a></li>
+          <li id="mn_yunfei"><a href="/Freight/index.html">国际运费</a></li>
+          <li id="mn_pinglun"><a href="/Review/index.html">用户评论</a></li>
+          <li id="mn_zixun"><a href="/Article/index.html" >购物资讯</a></li>		  
+          <li style="width:2px;"></li>
+        </ul>
+    </div>
+	<div style="width:238px;text-indent:5px;line-height:35px;  text-align:left;margin-top:11px;height:35px;" class="right transbox">
+		<img src="/img/car.png" alt="购物车商品"style="margin-top:2px;" class="left" />
+		<div style="width:132px;" class="left">购物车共有<span  id="global_cart_count" style="color:#ff3300;padding:2px;">{$Think.session.ulowi_shoping_cart_count|default="0"}</span>样商品</div>
+		<a href="/cart/index.html"><img src="/img/js.png" style="margin-top:7px;" class="left" alt="购物车结算"></a>
+	</div>	  
+  </div>
+</div>

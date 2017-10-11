@@ -1,0 +1,57 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;提现记录</div>
+    <div id="tab_title" style="width:770px; height:25px; margin-top:18px;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:306px; height:25px;" class="left nobd">
+        <li class="normal1"><a href="/Refund/all.shtml">全部状态</a></li>
+        <li class="normal1"><a href="/Refund/lst.shtml">已处理退款</a></li>
+        <li class="active1">处理中退款</li>
+      </ul>
+      <div style="width:444px; height:24px; border-bottom:1px solid #e4e4e4" class="left";></div>
+    </div>
+    <div style="width:770px; margin-top:14px;" class="nobd middle">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;">
+        <tr height="28" style="font-weight:bold;">
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="150" >时间</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="100">申请金额(￥)</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="100">余额(￥)</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;">申请备注</td>
+          <td bgcolor="#f3f3f3" width="100">操作</td>
+        </tr>
+        <present name="list">
+          <volist name="list" id="vo">
+            <tr height="25" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|number_format=###,2}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.balance|default=0.00}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.way}</td>
+              <td style="border-top:1px solid #e6e6e6;"><a href="#nogo" onclick="del('{$vo.id}')" class="lnk">撤销</a></td>
+            </tr>
+          </volist>
+          <else/>
+          <tr>
+            <td colspan="5" align="center" height="30"  style="border-top:1px solid #e6e6e6;">暂无记录</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:770px;" class="middle nobd digg">{$page}</div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<form id="form1" name="form1" action="" method="get">
+</form>
+<script>
+writeConfirm();
+function del(id){
+	confirm('  确定删除操作?该商品将被删除,等值金额将返还.',function () {
+	document.form1.action = '/Refund/del/id/'+id;			
+	document.form1.submit();
+	});
+}		
+</script> 
+<include file="Public:bottom" />

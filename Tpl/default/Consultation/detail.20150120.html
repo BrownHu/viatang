@@ -1,0 +1,127 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden; margin-top:14px;" class="middle nobd">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的信箱</div>
+    <div id="tab_title" style="width:770px; height:25px; margin-top:18px;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:204px; height:25px;" class="left nobd">
+        <li class="normal1"><a href="/My/notice.shtml">系统通知</a></li>
+        <li class="active1"><a href="/My/consultation.shtml">我的咨询</a></li>
+      </ul>
+      <div style="width:546px; height:24px; border-bottom:1px solid #e4e4e4; text-align:right;" class="left";>&nbsp;&nbsp;&nbsp;</div>
+    </div>
+    <div style="width:770px; text-align:left;" class="mrg14 middle"><a href="#nogo" onclick="javascript:lightboxframe('我要咨询','/Consultation/add',500,280,true);" class="btn_add" >提交咨询</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/My/consultation.shtml" class="lnk">返回咨询列表</a></div>
+    <div style="width:770px; margin-top:14px; padding-bottom:20px;" class="nobd middle">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;">
+          <tr height="28" style="font-weight:bold;">
+            <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; width:150px;">&nbsp;</td>
+            <td style="text-align:left; text-indent:12px;">问题：{$entity.title}</td>            
+          </tr>
+          <tr>
+            <td bgcolor="#f3f3f3" style="border-top:2px solid #e6e6e6;border-right:1px solid #e6e6e6;">
+                <div style="padding:10px;">
+            	<img src="/Uploads/pic/avatar/{$entity.user_id|getAvatar}_m.jpg" onerror="this.src='../Public/images/1.gif'" alt="代购会员头像" width=70 height=70  /><br><br>
+                {$entity.user_name}<br>
+                </div>
+            </td>
+            <td style="border-top:2px solid #e6e6e6" valign="top">
+            	<div style="text-align:left; width:96%; height:25px; border-bottom:1px dashed #e6e6e6;" class="middle mrg14">
+                	<span class="fnt_red left">楼主</span>&nbsp;&nbsp;&nbsp;&nbsp;发表于：{$entity.create_at|date="Y-m-d H:i:s",###}
+                    <span style="display:block" class="right">1楼</span>
+                </div>
+          <notempty name="product">
+           <div style="width:96%; text-align:left; background:#fdfedf; "  class="middle mrg9">
+        	<div style="width:51px; height:51px; margin-left:5px; margin-top:5px;" class="left">
+        			<img src="/Uploads/pic/product/{$product.thumb}_s.jpg"  onerror="this.src='../Public/images/noimg80.gif';" alt="代购商品图片" style="height:50px;width:50px;border:1px solid #ccc"/>
+        	</div>
+        	<div style="width:500px; float:left; margin-left:10px;margin-top:5px;" >
+        		<p><a href="{$product.url}"  target="_blank">{$product.title}</a> &nbsp; &nbsp; &nbsp;<span style="color:#f00">
+        		订单状态:</span>&nbsp; 
+        		<switch name="product['status']">
+        			<case value="2">处理中</case>
+        			<case value="3">已订购</case>
+        			<case value="4">已到货</case>
+        			<case value="5">已打包</case>
+        			<case value="6"><span style="font-weight:bold; color:#f60;">已退单</span></case>
+        			<case value="7"><span style="font-weight:bold; color:#f60;">无货</span></case>
+        			<case value="8"><span style="font-weight:bold; color:#f60;">暂时缺货</span></case>
+        			<case value="9"><span style="font-weight:bold; color:#f60;">无效</span></case>
+        			<case value="10"><span style="font-weight:bold; color:#f60;">退换货处理中</span></case>
+        			<case value="11"><span style="font-weight:bold; color:#f60;">已退货</span></case>
+        			<case value="12">已入库</case>
+        			<case value="13"><span style="font-weight:bold; color:#f60;">补款处理中</span></case>
+        			<case value="14">二检完成</case>
+        			<case value="15">超期订单</case>
+        			<case value="16">作废订单</case>
+        			<case value="17">已加入送货车</case>
+        		</switch>
+        	  </p>
+        		<notempty name="product['custmer_note']"><p><span style="color:#f00">我的要求:</span>&nbsp;{$product.custmer_note}</p></notempty>
+        		<notempty name="product['reason']"><p><span style="color:#f00">订单提醒：</span>&nbsp;{$product.reason}</p></notempty>
+        	</div>
+        </div>
+        </notempty>
+                <div style="width:96%; text-align:left; " class="middle mrg9">{$entity.content}</div>
+             </td>
+          </tr>
+          <volist name="DataList" id="vo">
+            <tr>
+              <td bgcolor="#f3f3f3" style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">
+                <div style="padding:10px;">
+                  <img src="/Uploads/pic/avatar/{$vo.user_id|getAvatar}_m.jpg" onerror="this.src='../Public/images/1.gif'" alt="代购会员头像" width=70 height=70  /><br><br>
+                  <eq name="vo.user_type" value="2">客服</eq><br>
+                </div>
+              </td>
+              <td style="border-top:1px solid #e6e6e6;" valign="top">
+				<div style="text-align:left; width:96%; height:25px;border-bottom:1px dashed #e6e6e6;" class="middle mrg14">
+                	<span class="fnt_red">{$vo.user_name}</span>&nbsp;&nbsp;&nbsp;&nbsp;发表于：{$vo.create_at|date="Y-m-d H:i:s",###}
+                    <span style="display:block;" class="right">{$i+1}楼</span>
+                </div>
+                <div style="width:96%; text-align:left;" class="middle mrg9">{$vo.content|htmlspecialchars_decode=###}</div>              
+              </td>
+            </tr>
+          </volist>
+        </table>
+        <div class="div" style="text-align:right;">{$page}</div>
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; text-align:left;" class="mrg14">
+          <tr><td><input type="button" name="button" value="提交新咨询" class="btn_middle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="/My/consultation.shtml" class="lnk" >返回咨询列表</a></span></td></tr>
+        </table>  
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;" class="mrg14">
+          <tr>
+            <td bgcolor="#f3f3f3" style="border-right:1px solid #e6e6e6; width:150px;">
+                <div style="padding:10px;">
+            	<img src="/Uploads/pic/avatar/{$entity.user_id|getAvatar}_m.jpg" onerror="this.src='../Public/images/1.gif'" alt="代购会员头像" width=70 height=70  /><br><br>
+                <br>
+                </div>
+            </td>
+            <td valign="top">         
+               <form action="__URL__/reply.shtml" method="post" name="frmReply" id="frmReply">
+                  <input type="hidden" name="cid" id="cid" value="{$entity.id}">
+                  <div style="width:96%; height:100%; overflow:hidden;  text-align:left;" class="middle mrg14">
+                      <textarea name="content" id="icontent"  style="width:600px; height:100px;"></textarea>
+                  </div>
+                  <div style="height:25px; width:590px;padding-bottom:14px; text-align:left" class="mrg14 middle">
+                  	<input type="button" name="button" class="btn_nomal" onclick="sendform();"  value="回复">
+                  </div>
+              </form>  
+            </td>
+          </tr>
+        </table>  
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function sendform(){
+	var content = $('#icontent').val();
+	if(content == ''){
+		alert('  请填写内容再提交哦！');
+	}else{
+		$('#frmReply').submit();
+	}
+}
+</script>
+<include file="Public:bottom" />

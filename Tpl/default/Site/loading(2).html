@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../Public/css/base-min.css" charset="utf-8" rel="stylesheet">
+<title>正在前往……</title>
+<style>
+html {
+	height:100%;
+}
+body {
+	height:100%;
+	text-align:center;
+	background:transparent;
+}
+.center_div {
+	display:inline-block;
+	zoom:1;
+*display:inline;
+	vertical-align:middle;
+	width:200px;
+	padding:10px;
+}
+.hiddenDiv {
+	height:100%;
+	overflow:hidden;
+	display:inline-block;
+	width:1px;
+	overflow:hidden;
+	margin-left:-1px;
+	zoom:1;
+*display:inline;
+*margin-top:-1px;
+	_margin-top:0;
+	vertical-align:middle;
+}
+.loading_logo {
+	margin:18px 0 10px 0;
+}
+.loading_block {
+	background:url(../Public/images/load_bg.gif) left top no-repeat;
+	width:506px;
+	height:207px;
+}
+.loading_onclick {
+	text-align:right;
+	padding:38px 25px 0 0
+}
+</style>
+</ head>
+<body>
+<div class="center_div loading_block">
+  <div class="loading_logo" style="width:210px; height:59px;"><img src="/Uploads/pic/logo/{$entity.logo}" alt="前往{$entity.caption}"></div>
+  <div class="loading_bar"><img src="/Ulowi/tpl/default/Public/images/going.gif" alt="代购商品加载" width="220" height="19">
+    <p>正在前往{$entity.caption}，请稍后……</p>
+  </div>
+  <div class="loading_onclick">如果您的浏览器没有跳转,请点<a href="{$entity.url}">这里</a></div>
+</div>
+<div class="hiddenDiv">
+<script>
+	setTimeout("window.location='{$entity.url}'",2000);
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<include file="Public:header" />
+<div id="m4" style="height:100%; overflow:hidden;" class="w middle nobd mrg9">
+  <div style="width:186px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; border-bottom:1px solid #92002d; text-align:left;" class="middle">提交运单&nbsp;-&nbsp;打包运送</div>
+     <div style="width:970px; height:30px;" class="middle mrg14"><img src="../Public/images/jd4.gif" alt="唯唐代购 包裹运送" class="middle"></div>
+     <div style="width:970px; height:100%; vertical-align:middle; overflow:hidden; margin-top:18px;" class="middle nobd">
+      <table border="0"  style="width:970px;" cellpadding="0" cellspacing="0">
+        <tr height="30">
+          <td style="width:470px;" class="parcel_hd_middle">商品名称</td>
+          <td style="width:100px;"  class="parcel_hd_middle">重量(g)</td>
+          <td style="width:100px;" class="parcel_hd_middle">数量</td>
+          <td style="width:100px;"  class="parcel_hd_right">类别</td>
+        </tr>
+        <tbody>
+          <present name="DataList">
+            <volist name="DataList" id="vo">
+              <tr height="32">
+                <td align="left" class="parcel_lst_middle">
+                	<div style="width:95%; padding:5px;" class="left" ><a href="{$vo.url}" target="_blank" class="lnk">{$vo.title}</a></div>
+                </td>
+                <td class="parcel_lst_middle">{$vo.total_weight|default="-"}</td>
+                <td class="parcel_lst_middle">{$vo.count}</td>
+                <td class="parcel_lst_right">
+                	<switch name="vo.type">
+                    	<case value="1">代购</case>
+                        <case value="2">自助购</case>
+                    </switch>
+                </td>
+              </tr>
+            </volist>
+            <else />
+            <tr  height="32">
+              <td colspan="4" class="parcel_lst_right">无内容</td>
+            </tr>
+          </present>
+        </tbody>
+      </table>
+    </div>
+    <php>$total = $weight_total + $package_weight;</php>
+    <div style="width:970px; height:100%;  overflow:hidden;" class="middle nobd mrg14">
+      <form action="/Package/way.shtml" method="post" name="order_form">
+        <input type="hidden" name="ids" value="{$ids}">
+        <table border="0" width="770" cellpadding="0" cellspacing="0">
+          <tbody>
+            <gt name="total" value="10000">
+            <tr>
+              <td colspan="2">
+              	<div class="tixing3" style="text-align:left; line-height:25px;">
+             		<img src="../Public/images/icon_d.gif" alt="包裹信息提醒" width="24" height="20" align="absmiddle" />&nbsp;
+              	</div>
+              </td>
+            </tr>
+            </gt>          
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <tr>
+              <td>
+              <gt name="total" value="0">
+              <div style="text-align:left;">包裹总重量:<strong>{$weight_total + $package_weight}</strong>g = 商品总重量:<strong>{$weight_total}</strong>g &nbsp;+&nbsp;包装重量约为:<strong>{$package_weight}</strong>g(商品总重量*0.1)<br></div>
+              <else/>
+              	<div style="text-align:left; color:#B51005">商品重量有误请联系客服为您处理</div>
+              </gt>
+              </td>
+              <td>
+                <div align="right">
+                  <a href="/Selfpurchase/cart.shtml" class="lnk" style="display:inline-block; margin-right:20px;">上一步</a>
+                  <gt name="total" value="0">
+                  <input name="button" type="submit" id="button" value="下一步,选择送货方式" class="btn_big">
+                  </gt>
+                </div>
+               </td>
+            </tr>
+            <tr>
+              <td colspan="2">&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<include file="Public:bottom" />

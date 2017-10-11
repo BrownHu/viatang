@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,淘宝代购,包裹转寄,淘宝转运,代购中国商品-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/AddItemPanel.css">
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+</head>
+<body style="background:#fff;">
+<div style="text-align:center">
+  <div class="addpanel_procedure"><img src="../Public/images/procedure.gif" /> </div>
+  <div class="addpanel_succeed" style="text-align:left">
+    <h2> 恭喜！商品已经成功提交！</h2>
+    <p>页面将在 <span id="lseconds" style="color:blue;font-weight:bold">3</span> 秒后自动关闭,如果不想等待,直接点击 <A HREF="#nogo" onclick="javascript:closelightbox(true);" style="color:red">这里</A> 跳转</p>
+  </div>
+  <div class="addpanel_last" style="text-align:left">
+    <div class="addpanel_img"> <a href="{$product.url}" target="_blank"> <img id="p3_img" src="{$product.img}" alt="" onerror="this.src='../Public/images/noimg80.gif'" /></a></div>
+    <div class="addpanel_show">
+      <div id="p3_proName"><a href="{$product.url}" target="_blank">{$product.title}</a></div>
+      <ul style="display:block; margin:0; padding:0;">
+        <li>购买数量：<span id="p3_num">{$product.count}</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="addpanel_lastnav"> 
+  	<a href="#nogo" onclick="javascript:closelightbox(true);">关闭</a> 
+  </div>
+</div>
+<script language="JavaScript" type="text/javascript">
+var sec = 3;
+timerID = setInterval("count()",1000);
+function count() {
+	if( sec > 0){
+    	lseconds.innerHTML = sec--;
+	}else{
+		closelightbox(true);;
+	}
+}
+</Script>
+</body>
+</html>

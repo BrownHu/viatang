@@ -1,0 +1,22 @@
+<include file="Public:header" />
+<div id="m1" style="width:988px; height:176px; overflow:hidden; margin-top:9px;" class="nobd middle"></div>
+<div id="m2" style="width:988px; height:100%; overflow:hidden; margin-top:14px;" class="nobd middle">
+  <include file="menu" />
+  <script>$('#pay_2').addClass('about_on');</script>
+  <div style="width:780px; height:100%; overflow:hidden; margin-top:0px; text-align:left;" class="nobd right">
+    <div class="about_title fnt14">我有Paypal账户</div>
+    <div class="about_content">如果您有国外信用卡或借记卡，请选择Paypal平台充值。无须注册账户，且支持更广泛的信用卡和借记卡。</div>
+    <div class="about_content" style="margin-top:10px;">
+    <img src="../Public/images/payment/paypal.gif"><br>
+	&nbsp;如果您拥有Paypal账户，请选择使用"Paypal"充值，进入Paypal页面后，登陆您的账户按提示操作即可。Paypal为买家及卖家均提供良好的交易保障（国际信用卡也可在跳转至Paypal页面后，直接在左侧直接填写信用卡信息，无需注册直接使用Paypal）
+	,paypal支持带有下面标识的银行卡。<br><br>
+     <img src="../Public/images/paypal_supportcard.png"> 
+    <p><a href="http://www.paypal.com" target="_blank" class="fnt_red" style="text-decoration:underline" >了解Paypal</a></p>
+    paypal公司网站为: <a href="http://www.paypal.com" target="_blank" style="text-decoration:underline">http://www.paypal.com</a> <br>
+    <img src="../Public/images/payment/paypallogin.jpg"><br>
+    <p>Paypal账户支付为及时到账。</p>
+    </div>
+  </div>
+</div>
+<script>function bshow(id){ $('#'+id).fadeIn(300);} $('#m1').append('<img id="topbanner" src="../Public/images/grey.gif" lazy="y"  original="../Public/images/payment.png" alt="代购淘宝商品 支持外币支付" width="988" height="176" style="display:none" onload="bshow(this.id);" class="nobd">');</script>
+<include file="Public:bottom" />

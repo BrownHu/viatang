@@ -1,0 +1,26 @@
+<?php
+return array(
+'package_load_error' => '读取商品数据出错,无法提交打包,检查后重试！若仍然有问题请即时联系我们的客服!',
+'package_load_shipping_fail' =>'读取配送数据出错,无法提交打包,检查后重试！若仍然有问题请即时联系我们的客服!',
+'package_op_error'	=> '非法操作！',
+'package_submit_fail'=>'提交运单失败，数据异常，请稍后重试，若问题一直出现请联系客服！',	
+'package_over_limit'=>'对不起，您的包裹总重量超过该运输方式的限重无法发货，请分包发货！',
+'package_not_enough'=>'对不起，您的帐户余额不足，您可以充值后重新提交！',	
+'package_zone_error'=>'对不起，送货地区有误，请重试!',	
+'package_address_error'=>'对不起，收货地址信息不完整，请补全后重新提交!',
+'package_fee_error'=>'对不起，验证包裹费用时有误 ，请稍后重试!',
+'package_data_error'=>'对不起，数据验证失败，请稍后重试!',	
+'package_submit_error'=>'提交打包出错，请检查后重试，若仍然有问题请即时联系我们的客服!',
+'package_start_price'=>'(起重价格)',	
+'package_fee'=>'即， 起重价 + 续重价格 * 续重单位 ，续重单位=(包裹总重量 - 起重重量) / 续重重量',	
+'package_confirm'=>'用户确认收货',	
+'package_decode_fail'=>'打包时解密费用密文出错',	
+'package_op_fail'=>'操作失败!',
+'package_confirm_return'=>'确认收货，折扣返还',	
+'package_user_submit'=>'用户提交打包',	
+'package_user_cancel'=>'用户撤销包裹,包裹id:',	
+'package_cancel_return'=>'撤销包裹返款',	
+'package_cal_result'=>'计算结果',	
+'package_parameter_error'=>'参数不正确',																									
+);
+?>

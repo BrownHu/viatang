@@ -1,0 +1,64 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; overflow:hidden;" class="right bbrd ulowi_min_height">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;修改邮箱</div>
+    <div style="width:960px; height:30px; text-align:left; text-indent:12px; margin-top:18px;" class="middle">为了保障您账户的安全，邮箱的部分信息作了隐藏显示。</div>
+    <div style="width:910px; border:1px solid #e6e6e6; margin-top:18px;" class="nobd middle">
+      <form action="/Profile/updateMail" method="post" id="infoUpdate" name="infoUpdate">
+        <table border="0"  cellpadding="0" cellspacing="0" class="middle" style="width:710px; margin-top:18px; padding-bottom:12px;">
+          <tr height="35">
+            <td width="95" align="left">当前邮箱：</td>
+            <td align="left">{$email}</td>
+          </tr>
+          <tr height="35">
+            <td align="left">设定新邮箱：</td>
+            <td align="left"><input type="text" name="n_email"  id="n_email" value="" style="width:210px;" />
+              &nbsp;&nbsp;</td>
+          </tr>
+          <tr height="35">
+            <td align="left">确认新邮箱：</td>
+            <td align="left"><input type="text" name="n_email_1"  id="n_email_1"  value=""  style="width:210px;" />
+              &nbsp;&nbsp;</td>
+          </tr>
+          <tr height="35">
+            <td align="left">我的密码：</td>
+            <td align="left"><input name="pw" type="password" id="pw" value=""  style="width:210px;" />
+              &nbsp;&nbsp;<span style="color:#a4a3a3">请您输入网站的登录密码</span></td>
+          </tr>
+          <tr height="35">
+            <td align="left">&nbsp;</td>
+            <td align="left">&nbsp;</td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div style="height:12px; width:960px; text-indent:80px; text-align:left; margin-top:16px;" class="middle nobd">
+      <input type="button" name="submit"   onclick="javascript:sendform();" class="btn_middle"  value="提交修改">
+      &nbsp;&nbsp;&nbsp;&nbsp;</div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+var o_email = '{$Think.session.m_Info.email}';
+function sendform(){
+  if(isEmpty(document.infoUpdate.n_email) || isEmpty(document.infoUpdate.pw) || isEmpty(document.infoUpdate.n_email_1)){
+	  alert('请输入所有项目后，再提交!');
+  }else{
+	  if($('#n_email').attr('value') !=  $('#n_email_1').attr('value')){
+		  alert('您两次输入的邮箱不一样!');
+	  }else{
+		  if(o_email == $('#n_email').attr('value')){
+			  alert('您输入的新邮箱和旧邮箱一样!');
+		  }else{
+			  $('#pw').val($('#pw').attr('value'));
+			  $('#infoUpdate').submit();
+		  }
+	  }
+  }
+}
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

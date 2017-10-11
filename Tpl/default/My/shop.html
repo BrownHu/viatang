@@ -1,0 +1,91 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的收藏</div>
+    <div style="width:970px; height:65px; text-indent:12px; padding-top:18px;  text-align:left;" class="middle">
+      <form action="/Favorite/addSite" name="form1" id="form1" method="post">
+        <input type="hidden" name="id" id="siteid" value="0">
+        <div >店辅名称:&nbsp;
+          <input style="height: 25px; padding-left: 6px;" type="text" value="" name="caption" id="sitecaption" size="50">
+        </div>
+        <div style="margin-top:15px;"> 网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:&nbsp;
+          <input style="height: 25px; padding-left: 6px;" type="text" value="" name="url" id="siteurl" size="70">&nbsp;&nbsp;
+          <input type="button" name="button" value="提交" onclick="sendform();" class="btn_nomal" style="cursor:pointer;" />
+        </div>
+      </form>
+    </div>
+    <div style="width:960px; margin-top:18px;" class="nobd middle">
+      <form action="/Favorite/delsitebat" method="post"  name="form3" id="form3">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:960px; border:1px solid #e6e6e6;">
+          <tr height="32" bgcolor="#f3f3f3">
+            <td align="center" width="40" style="border-right:1px solid #e6e6e6;"><input type="checkbox" name="checkbox"  checked="checked" onclick="selAll(this);" value="0"  /></td>
+            <td align="left"  style="border-right:1px solid #e6e6e6;"><div style="text-indent:12px; font-weight:bold;">店辅名称</div></td>
+            <td align="center" width="100"><div style="font-weight:bold;">操作</div></td>
+          </tr>
+          <present name="DataList">
+            <volist name="DataList" id="vo">
+              <tr height="30" >
+                <td align="center" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><input type="checkbox"  name="id[]" checked="checked" value="{$vo.id}"  onclick="unsel(this);"   /></td>
+                <td align="left" style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;"><div style="text-indent:12px;"> <a href="{$vo.url}" target="_blank">{$vo.caption}</a> </div></td>
+                <td style="border-top:1px solid #e6e6e6;">&nbsp; <a href="#nogo" onclick="del({$vo.id},true)">删除</a>&nbsp; <a href="#nogo" onclick="edit({$vo.id},'{$vo.caption}','{$vo.url}');">编缉</a></td>
+              </tr>
+            </volist>
+            <else />
+            <tr height="30">
+              <td colspan="3"  style="border-top:1px solid #e6e6e6;">暂无记录</td>
+            </tr>
+          </present>
+        </table>
+      </form>
+      <div style="height:25px; width:960px; padding-top:18px;" class="middle nobd">
+        <div style="width:65px;" class="left">
+          <input type="checkbox" name="checkbox" checked="checked" onclick="selAll(this);"  value="0"  />
+          全选</div>
+        <div style="width:500px; text-align:left" class="left"><a href="#nogo" onclick="del(0,false);" class="btn_middle">删除选中</a></div>
+        <form action="" method="get" id="form2" name="form2">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function sendform(){
+	if( isEmpty(document.form1.caption) ||  isEmpty(document.form1.url)){
+		alert('请填写店辅名称和网址');
+	}else{
+		$('#form1').submit();
+	}
+}
+
+function edit(id,caption,url){
+	$('#siteid').val(id);
+	$('#sitecaption').val(caption);
+	$('#siteurl').val(url);
+}
+
+function del(id,one){
+   confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+	 if(one){
+		document.form2.action = '/Favorite/delsite/id/'+id+'.shtml';
+		document.form2.submit();
+	 }else{
+		 if(checkSel()){
+	    	document.form3.submit();
+		 }
+	 }
+   });
+}
+
+function unsel(e){
+   if(e.checked == false){ 
+	 var cb =  document.getElementsByName('checkbox');
+	 cb[0].checked = false; 
+   }
+}      
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

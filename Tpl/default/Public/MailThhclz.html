@@ -1,0 +1,96 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Viatang.唯唐代购</title>
+<style type="text/css">
+body, td, th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #000;
+}
+.foot{color:#7a7f89; font-size:14px}
+.td{border-bottom:1px solid #a0a0a0;border-right:1px solid #a0a0a0;}
+.td_right{border-bottom:1px solid #a0a0a0;}
+</style>
+</head>
+<body>
+<table width="780" border="0" align="center" cellpadding="0" cellspacing="0" style="border:none;">
+  <tr>
+    <td><div style="border:none; float:left"><img src="http://www.viatang.com/Public/Images/ord_logo.png"></div>
+      <div style="float:right"><img src="http://www.viatang.com/Public/Images/ord_tel.png" style="border:none; margin-top:10px;"></div></td>
+  </tr>
+  <tr style="height:10px;">
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><table width="780" border="0" align="center" cellpadding="0" cellspacing="0" style="border:1px solid #dcdfe5;">
+        <tr>
+          <td><table width="750" border="0" align="center" cellpadding="0" cellspacing="0" style="line-height:22px;">
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><strong>亲爱的 <span style="color:#ff0000;">{$to}</span></strong></td>
+              </tr>
+              <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您好！您提交的商品(ID：{$product_id}),由于以下原因，我们正在联系卖家退/换货.您可以在“<a href="http://www.viatang.com/My/index.shtml" target="_blank">我的唯唐</a>”中查看订单详情.<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，这表明实际到货商品与订购商品有少许差异但可能并不影响使用.如果您接受此商品或要求退货，请您在<a href="http://www.viatang.com/Public/login.shtml" target="_blank">登录</a>后点击帐户中心左侧&quot;<a href="http://www.viatang.com/My/consultation.shtml">我的咨询</a>&quot;告知，我们将按照您的要求处理.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为减少因时间因素导致的无法退换，如果在2个工作日内没有收到您的消息，我们会先安排退/换货.请不要担心.</td>
+              </tr>
+              <tr>
+                <td><div style="height:20px; margin-bottom:0">订单商品明细:</div></td>
+              </tr>
+              <tr>
+                <td><table width="750" border="0" align="center" cellpadding="0" cellspacing="0" style="border-left:1px solid #a0a0a0;border-top:1px solid #a0a0a0;border-right:1px solid #a0a0a0; margin-top:15px;">
+                  <tr style="background-color:#d2d2d2;">
+                    <td width="100" align="center" class="td"><strong>商品ID</strong></td>
+                    <td width="538" class="td"><strong>&nbsp;&nbsp;&nbsp;&nbsp;商品名称</strong></td>
+                    <td width="100" align="center" class="td_right"><strong>&nbsp;状态</strong></td>
+                  </tr>
+                  <volist name="DataList" id="vo">
+                  <tr>
+                    <td align="center" class="td">&nbsp;{$vo.id}</td>
+                    <td class="td">&nbsp;{$vo.title}</td>
+                    <td align="center" class="td_right">&nbsp;退换货处理中</td>
+                  </tr>
+                  </volist>
+                </table></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td bgcolor="#dcdfe5"><div style="color:#dcdfe5; margin-top:7px; margin-bottom:5px; ">
+                <table width="780" border="0" align="center" cellpadding="0" cellspacing="0" style="line-height:22px; ">
+              <tr>
+                <td width="25" align="center" valign="middle"><img src="http://www.viatang.com/Public/Images/point.gif" width="2" height="11" /></td>
+                <td width="755"><span style="color:#7a7f89; font-size:12px">此信由唯唐代购系统发出，系统不接收回信.</span></td>
+              </tr>
+              <tr>
+                <td width="25" align="center" valign="middle"><img src="http://www.viatang.com/Public/Images/point.gif" width="2" height="11" /></td>
+                <td><span style="color:#7a7f89; font-size:12px">如果您今后不想再收到来自唯唐代购的此类电子邮件请<a href="http://www.viatang.com/My/ordertip.shtml" target="_blank" style="text-decoration:none;"><span style="color:#ff0000;">点击此处退订</span></a></span></td>
+              </tr>
+              <tr>
+               <td width="25" align="center" valign="middle"><img src="http://www.viatang.com/Public/Images/point.gif" width="2" height="11" /></td>
+                <td><span style="color:#7a7f89; font-size:12px">其它任何问题欢迎您邮件咨询(<strong>service@viatang.com</strong>)或致电唯唐代购客服热线：+86-21-64768060</span></td>
+              </tr>
+              <tr>
+               <td width="25" align="center" valign="middle"><img src="http://www.viatang.com/Public/Images/point.gif" width="2" height="11" /></td>
+                <td><span style="color:#7a7f89; font-size:12px">您还可以在工作时间登录唯唐代购首页（www.viatang.com）联系在线客服，工作人员将第一时间为您解答.我们的工作时间：9:00-19:00</span></td>
+              </tr>
+              <tr>
+                <td width="25" align="center" valign="middle"><img src="http://www.viatang.com/Public/Images/point.gif" width="2" height="11" /></td>
+                <td><span style="color:#7a7f89; font-size:12px">如有问题也请访问<a href="http://www.viatang.com/Help/index.shtml" target="_blank" style="text-decoration:none;"><span style="color:#ff0000; ">帮助中心</span></a></span></td>
+              </tr>
+              
+            </table>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</body>
+</html>

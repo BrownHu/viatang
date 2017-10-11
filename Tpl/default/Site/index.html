@@ -1,0 +1,137 @@
+<include file="Public:header" />
+<script>
+	$('#menu_site').addClass('current');
+</script>
+<style>
+.popTip{position:absolute; z-index:200; display:none; width:300px; height:120px; left:450px; top:400px; background-color:#fff; border:2px solid #3e86ba;}
+.des_img{border: 1px solid #c5d3e0;
+	float:left;
+	padding:0px;
+	height:42px;
+	width:78px;}
+</style>
+<div id="main" style="width:100%">
+  <div id="free_site" class="middle brd" style="height:230px; width:984px; ">
+    <div id="free_site_h" class="free_site_h"></div>
+    <div id="site_table">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="site_logo">
+          <volist name="recomment_site" id="vo" offset="0" length='8'>
+            <td ><a href="/Site/go/i/{$vo.id}.shtml" target="_blank" onclick="trace({$vo.id});" title="{$vo.caption}"><img src="/Uploads/pic/logo/{$vo.logo}" /></a></td>
+          </volist>
+        </tr>
+        <tr height="43">
+          <volist name="recomment_site" id="vo" offset="0" length='8'>
+            <td ><a href="/Site/go/i/{$vo.id}.shtml" target="_blank" onclick="trace({$vo.id});" title="{$vo.caption}">{$vo.caption}</a></td>
+          </volist>
+        </tr>
+        <tr class="site_logo">
+          <volist name="recomment_site" id="vo" offset="8" length='8'>
+            <td><a href="/Site/go/i/{$vo.id}.shtml" target="_blank" onclick="trace({$vo.id});" title="{$vo.caption}"><img src="/Uploads/pic/logo/{$vo.logo}" /></a></td>
+          </volist>
+        </tr>
+        <tr height="43">
+          <volist name="recomment_site" id="vo" offset="8" length='8'>
+            <td ><a href="/Site/go/i/{$vo.id}.shtml" target="_blank" onclick="trace({$vo.id});" title="{$vo.caption}">{$vo.caption}</a></td>
+          </volist>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div style="height:auto; width:984px; border:none; margin-top:13px;" class="middle" >
+    <div style="height:auto; width:680px; border:none" class="float_left">
+      <div class="brd site_fenlei">
+        <div class="site_fenlei_h"></div>
+        <div class="condition_body">
+          <div class="fenglei"><span><a href="/Site/s/c/0.shtml">
+            <eq name="typ" value="0">
+            <font color="#f60">
+            </eq>
+            显示全部
+            <eq name="typ" value="0">
+            </font>
+            </eq>
+            </a></span></div>
+          <volist name="CategoryList" id="vo">
+            <div class="fenglei"><span><a href="/Site/s/c/{$vo.id}.shtml">
+              <eq name="typ" value="$vo['id']">
+              <font color="#f60">
+              </eq>
+              {$vo.caption}
+              <eq name="typ" value="$vo['id']">
+              </font>
+              </eq>
+              </a></span></div>
+          </volist>
+        </div>
+      </div>
+      <div id="site_list" style="width:678px; height:auto;min-height:620px; margin-top:13px;" class="brd float_left look">
+        <div id="site_list_h" class="site_list_h"></div>
+        <div class="sj_logo" style="margin:0px; padding-left:0px;">
+          <present name="SiteList">
+            <div class="middle">
+              <ul style="text-align:center" class="middle">
+                <volist name="SiteList" id="vo">
+                  <li> <a href="/Site/go/i/{$vo.id}.shtml" target="_blank" title="{$vo.caption}" onclick="trace({$vo.id});"> <img class="recommd_site_1_img" src="/Uploads/pic/logo/{$vo.logo}" id="img_logo_{$vo.id}"  onmouseover="setCurrent(this.id);" onmouseout="removeCurrent(this.id)"/><span><br>
+                    {$vo.caption|getShortTitle=###,8,false}</span> </a> </li>
+                </volist>
+              </ul>
+            </div>
+            <div style="margin-bottom:20px; margin-top:20px; width:100%; text-align:center">
+              <div class="digg">{$page}</div>
+            </div>
+            <else/>
+            <div style="margin-top:50px;">暂无数据</div>
+          </present>
+        </div>
+      </div>
+    </div>
+    <div class="float_left brd hot_sider look">
+      <div id="hot_h" class="hot_h"></div>
+      <div class="raning_sj">
+        <ul>
+          <volist name="ShopList" id="vo">
+            <li>
+              <elt name="i" value="3"><span>{$i}</span>
+                <else/>
+                <b>{$i}</b></elt>
+              <a href="{$vo.url}" target="_blank" title="{$vo.caption}">{$vo.caption}</a><i><img src="../Public/images/level/x10.gif" alt="代购评分" ></i></li>
+          </volist>
+        </ul>
+        <div id="site_des" class="popTip" onmouseout="hideTip();">
+        	<div style="width:100%; height:30px; background-color:#CCC">标题</div>
+            <div id="des_img" style="width:120px; float:left; margin-top:5px; margin-left:5px;">
+            	
+        	<img  id="img_detail" src="" class="des_img">
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function setCurrent(id){
+	$('#'+id).removeClass('recommd_site_1_img');
+	$('#'+id).addClass('recommd_site_1_hover');
+}
+function removeCurrent(id){
+	$('#'+id).removeClass('recommd_site_1_hover');
+	$('#'+id).addClass('recommd_site_1_img');
+}
+function showHot(id,src){
+	var offset = $('#'+id).offset();	
+	$('#img_detail').attr('src',src);	
+	$('#site_des').css('left',offset.left);
+	$('#site_des').css('top',offset.top);
+	$('#site_des').show();
+}
+function hideTip(){
+	$('#site_des').hide();
+}
+
+//访问统计
+function trace(id){
+	$.get('/Site/trace/id/'+id,function(data){});
+}
+</script> 
+<include file="Public:footer" />

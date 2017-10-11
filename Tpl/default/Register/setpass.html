@@ -1,0 +1,48 @@
+<include file="Public:header" />
+<include file="Mall:nav" />
+<div style="width:988px; text-align:left;height:30px; line-height:30px; font-size:18px;font-family:微软雅黑" class="middle">设置新密码</div>
+<div id="m1" style="width:976px; height:363px;" class="bbrd middle mrg9">
+  <div style="width:660px; height:363px; margin-top:1px; margin-left:1px; " class="nobd left">
+    <div style="margin-top:50px; margin-left:60px; width:600px;" class="nobd">
+    <form action="/Register/passcommit.shtml" method="post" name="find_pw" id="find_pw">
+      <input type="hidden" name="uid" value="{$uid}">	
+      <input type="hidden" name="login_name" value="{$login_name}">	
+      <input type="hidden" name="token" value="{$ulowi_token}">	
+      <ul class="middle">
+      	<li class="login_item"><span style="color:#f00" class="fnt_b">{$login_name}</span>,&nbsp;您正在通过系统找回密码！</li>
+        <li class="login_item">
+          <div style="width:80px;" class="left">输入新密码:</div>
+          <div style="222px;" class="left">
+            <input type="password" name="password" id="password"   value="" style="width:220px;" >
+          </div>
+          <div id="u_nick" style="text-indent:12px; color:#999"></div>
+        </li>
+        <li class="login_item">
+          <div style="width:80px;" class="left">验证码:</div>
+          <div style="width:156px;" class="left">
+             <input type="text" id="verify" name="verify" value="" maxlength="4" style="width:156px;">
+          </div>
+          <div style="width:50px; margin-left:12px;" class="left">
+              <div align="left"><img id="ImgValidCode" style="cursor: pointer;"  src="/Public/verify/"  class="nobd" onClick="this.src=this.src+'?'" /> </div>
+            </div>
+        </li>
+        </form>
+        <li class="login_item">
+        	<div style="width:87px; line-height:100%; margin-left:50px;" class="nobd left"><a href="#nogo"  onclick="sendform();" class="btn_send">下一步</a></div>
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+  <div style="width:300x; height:279px; margin-top:1px; margin-left:0px; margin-top:22px; border-left:1px solid #e0e2e3;" class="nobd left">
+    <div id="gg_lst" style="background:url(../Public/images/regbg.png) no-repeat; width:277px; height:215px; margin-top:6px; padding-top:58px;" class="nobd middle">
+      <p style="margin-top:36px;">已经有唯唐代购帐户，<a href="/Public/login.shtml" class="btn_n2">立即登录</a></p>
+    </div>
+  </div>
+</div>
+<script>function sendform(){ $('#find_pw').submit();}
+$("#password").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#password").val())  != '')) { $('#verify').focus(); return false; } });
+$("#verify").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#verify").val())  != '')) { sendform(); return false; } });
+</script>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

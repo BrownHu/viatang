@@ -1,0 +1,65 @@
+<include file="Public:header" />
+<script>$('#mn_pinglun a').addClass('menu_li_on');</script>
+<div id="m1" style="width:988px; height:100%; overflow:hidden;" class="nobd middle mrg9">
+  <div style="width:988px; height:176px; background:#FAEBE4;" class="middle nobd">
+    <div style="width:619px; height:174px; margin-top:1px; margin-left:1px;" class="nobd left">
+      <div style="width:619px; height:109px;"><img src="../Public/images/grey.gif" lazy="y"  original="../Public/images/review_1.png" alt="唯唐代购会员评价"  class="nobd left" style="margin-top:26px; margin-left:28px;"></div>
+      <div style="width:585px; height:45px;" class="right banner"><a href="/Register/index.shtml">立即免费注册</a></div>
+    </div>
+    <div style="width:355px; height:174px; background:#FAEBE4; margin-top:1px; margin-left:0px;" class="nobd right"><img src="../Public/images/grey.gif" lazy="y"  original="../Public/images/manyi.png" alt="多件商品集中运送 享最低国际运费" width="296" height="153" style="margin-top:21px;" class="nobd left"></div>
+  </div>
+</div>
+<div id="m2" style="width:988px; height:100%; overflow:hidden; margin-top:14px; " class="nobd middle">
+  <!--过滤条件-->
+  <div style="width:243px; height:100%; overflow:hidden;" class="left nobd">
+    <div id="review_condition" style="width:231px; height:100%; overflow:hidden;" class="bbrd left">
+      <div id="country" style="width:200px; height:100%; overflow:hidden; padding-bottom:30px;" class="nobd middle">
+        <div  style="height:30px; line-height:30px; margin-top:5px; text-align:left;" class="nobd fnt_b">国家地区</div>
+        <ul>
+          <li><a href="/Review/index.shtml" <eq name="zid" value="0">style="color:#f60"</eq>>全部(All)</a></li>
+          <volist name="CountryList" id="vo">
+              <li><a href="/Review/condition/z/{$vo.id}/w/{$wid|default=0}.shtml" <eq name="vo.id" value="$zid">style="color:#f60"</eq>>{$vo.caption_cn}({$vo.caption_en})</a></li>
+          </volist>
+        </ul>
+        <div  style="height:30px; line-height:30px; margin-top:5px; text-align:left;" class="nobd fnt_b">运输方式</div>
+        <ul>
+          <li><a href="/Review/condition/w/0/z/{$zid}.shtml" <eq name="wid" value="0">style="color:#f60"</eq>>全部运输方式</a></li>
+          <php>foreach($WayList as $key=>$value){</php><li><a href="/Review/condition/w/<php>echo $key</php>/z/<php>echo $zid;</php>.shtml" <php>if($key == $wid){</php>style="color:#f60"<php>}</php>><php>echo $value;</php></a></li><php>}</php> 
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div style="width:727px; height:100%; overflow:hidden; padding-bottom:30px;" class="brd right">
+    <div style="width:727px; height:40px; line-height:40px; overflow:hidden; text-align:left; text-indent:18px;" class="nobd fnt14 fnt_b">用户评价</div>
+    <present name="list">
+       <div>
+         <volist name="list" id="vo">
+            <div class="review_show" style="padding-bottom:20px;">
+              <dl class="left imgface" style="padding-bottom:20px;">
+                <img src="/Uploads/pic/avatar/{$vo.user_id|getAvatar}_m.jpg" onerror="this.src='../Public/images/1.gif'" alt="代购会员头像" width=70 height=70  /><br>
+                {$vo.user_name|getSortUserName=###}<br>
+                {$vo.country}<br>
+              </dl>
+              <dl class="left review_content">
+                <p class="review_info"><span class="right" >运输方式:{$vo.way_name}</span>{$vo.create_time|date="Y-m-d",###}发表</p>
+                <p class="review_conmain">{$vo.content}</p>
+                <notempty  name="vo.reply_content">
+                  <p class="review_replay"><span class="review_jt"><em></em></span><b>唯唐回复：</b><br>{$vo.reply_content}</p>
+                </notempty> 
+              </dl>
+              <dl class="clear">
+              </dl>
+            </div>
+        </volist>
+      </div>
+      <div style="margin-bottom:20px; margin-top:20px; width:100%; text-align:center"><div class="digg">{$page}</div></div> 
+    <else />
+    	<div style="width:200px; margin-top:50px; line-height:50px;" class="middle">暂无点评，等您来做第一个吧!</div>
+    </present> 
+  </div>
+</div>
+<script>function goPage(){ var p =  $.trim($('#go_pg').val()); if(Number(p) > 0){ var url = '__SELF__';if(url.indexOf('p=') >=0 ){ var url1 = url.substr(0,url.indexOf('p='));var url2 = url.substr(url.indexOf('p=')+2,url.length); if(url2.indexOf('&')>=0){ url = url1 + url2.substr(url2.indexOf('&')+1,url2.length); }else{ url = url1;}}
+if(url.indexOf('?') < 0){ url = url + '?'} window.location.href = url+'p='+p; }else{ $('#go_pg').val('');}}</script>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" /> 

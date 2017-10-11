@@ -1,0 +1,41 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我要代购</div>
+    <div class="fill middle" style="text-align:left; margin-top:12px;">
+      <div class="circuit middle" style="text-align:left"> <img src="../Public/images/donghua.gif" alt="代购步骤"> </div>
+      <div id="fillshopingStep1" style="width:960px; margin-top:40px;" class="middle">
+        <div class="write">
+          <label> 购买商品页网址：</label>
+		  <form action="/Item/step2.html" method="post" id="daigou_form">
+          <div class="address">
+            <input id="myUlowi_itemUrl" name="itemUrl" type="text" value="">
+          </div>
+          <input id="toGetProBtn11" onclick="toGetPro()" class="tijiao" name="" type="button" onmouseover="this.className='tijiao_'" onmouseout="this.className='tijiao'">
+          </form>
+		</div>
+        <div class="dhk left" id="itemUrlTip" style="text-align:left;">
+          <p id="url_tip">请将您想代购商品的<span>详细页网址</span>粘贴到输入框中提交！<br>如：http://item.taobao.com/item.htm?id=5934554602</p>
+        </div>
+        <div class="dg_tishi left" style="text-align:left; width:946px;">
+          <h2> 温馨提示：</h2>
+          <ul>
+            <li>我们的系统将自动抓取您想代购商品的信息，试试看吧！</li>
+            <li>我们可为您代购中国所有购物网站的商品喔！</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>function toGetPro(){ var pageurl = $.trim($("#myUlowi_itemUrl").val());  if (pageurl.length <= 0) { $("#url_tip").html("请输入您想代购商品的详细页网址！"); }else{ 
+		$('#itemUrl').val(pageurl);
+		$('#frm_daigou_result').attr('target','_blank');
+		$('#daigouform').submit();
+		$("#myUlowi_itemUrl").val('');
+//$('#daigou_form').submit();
+
+}} </script>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

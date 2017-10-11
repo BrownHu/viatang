@@ -1,0 +1,29 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden; margin-top:14px;" class="middle nobd">
+  <include file="menu" />
+  <div id="faq" style="width:798px; height:100%; overflow:hidden;" class="right brd">
+    <div style="width:788px; height:40px; line-height:40px; overflow:hidden; text-align:left; text-indent:20px;" class="nobd"><a  href="/">首页</a>&nbsp;>&nbsp;<a href="/Help/index.shtml">帮助中心</a>&nbsp;>&nbsp;正文</div>
+    <div style="width:760px; height:100%; overflow:hidden; padding-bottom:20px;" class="nobd middle">
+		<p style="display:inline-block; height:30px; line-height:30px; overflow:hidden; border-bottom:1px dashed #999; width:100%;" class="middle">{$entity.title}</p>
+        <div style="margin-top:10px; line-height:20px; text-align:left; text-indent:20px; padding-bottom:20px; border-bottom:1px dashed #999;">
+          {$entity.content}
+        </div>
+        <div style="margin-top:10px; text-align:left;" class="nobd">
+        	<p class="fnt_b">相关问题</p>
+            <div id="csr_faq" style="width:100%; height:100%; overflow:hidden;" class="nobd">
+            	<ul>
+                <present name="relayList">
+                  <volist name="relayList" id="vo">
+                    <li><a href="/Help/detail/id/{$vo.id}.html">{$vo.title}</a></li>
+                  </volist>
+                <else/>
+               		<li>暂无记录</li>
+                </present>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

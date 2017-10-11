@@ -1,0 +1,128 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:1000px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:970px; height:30px; text-indent:12px; padding-top:10px; font-size: 15px; border-bottom:1px solid #B51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;在线充值</div>
+    <div style="width:970px; height:118px; border:1px solid #d5eeb9; background:#f3fdea; margin-top:18px;" class="middle">
+      <div style="text-align:left; text-indent:12px;margin-top:12px;">人民币帐户充值</div>
+      <ul style="display:block; margin-top:5px; text-align:left; padding:0px; margin-left:0px; text-indent:12px;">
+        <li style="line-height:30px; height:30px;">1. 为了确保您的帐户及购物安全，请填写下面信息。{:C('SITE_NAME')}绝不会向任何第三方披露用户个人信息。</li>
+        <li style="line-height:30px; height:30px;">2. 在您使用国外信用卡充值购物时，为保证交易安全，需由您（持卡人）持本人护照签收。</li>
+      </ul>
+    </div>
+    <div id="tab_title" style="width:970px; height:25px; margin-top:18px;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:306px; height:25px;" class="left nobd">
+        <li class="normal1" onclick="javascript:showpay(1);">Paypal充值</li>
+        <li class="active1">支付宝充值</li>
+        <li class="normal1" onclick="javascript:showpay(3);" style="display:none;">IPS充值</li>
+        <li class="normal1" onclick="javascript:showpay(4);">网银转账</li>
+      </ul>
+      <div style="width:444px; height:24px; border-bottom:1px solid #e4e4e4" class="left"></div>
+    </div>
+    <div style="width:970px;" class="middle nobd">
+      <div style="width:742px; height:80px; margin-top:30px;" class="middle">
+        <div class="logo_size alipay_logo"></div>
+        <div style="text-align:left; width:600px; line-height:20px;" class="left"> <b>支付宝</b>&nbsp;(<a href="http://www.alipay.com" target="_blank">http://www.alipay.com</a>)<br>
+          阿里巴巴集团旗下，支付宝(中国)网络技术有限公司。支持60多种国内银行卡，支付操作简单便利。</div>
+      </div>
+      <div style="width:760px; border:1px solid #e6e6e6; height:180px;" class="middle">
+        <div style="text-align:left; text-indent:70px; padding-top:12px; padding-bottom:5px;"><b>请填选您要充值的金额$:</b></div>
+        <form name="alipayment" action="/Alipay/commit" method="post" target="_blank">
+          <input type="hidden" name="payer_uid" value="{$uid|default=0}">
+          <input type="hidden" name="payer_un"  value="{$un|default=''}">
+          <input type="hidden" name="pay_bank" value="directPay">
+          <input type="hidden" name="aliorder" value="{:C('SITE_NAME')}支付宝充值">
+          <input type="hidden" name="alibody" value="账户{$un|default=Think.session.m_Info.login_name}代购费用">
+          <input type="hidden" name="cz_money" id="cz_money" value="50.00">
+          <table border="0" cellpadding="0" cellspacing="0" style="width:600px;" class="middle">
+            <tr height="30">
+              <td align="left" class="pay_tb_wd"><input checked="checked" name="alipayPrice" type="radio" value="50.00" onclick="show_real_money(this);eninput('disabled');">
+                ￥50.00</td>
+              <td align="left" class="pay_tb_wd"><input name="alipayPrice" type="radio" value="100.00" onclick="show_real_money(this);eninput('disabled');">
+                ￥100.00</td>
+              <td align="left" class="pay_tb_wd"><input name="alipayPrice" type="radio" value="200.00" onclick="show_real_money(this);eninput('disabled');">
+                ￥200.00</td>
+              <td align="left" class="pay_tb_wd"><input name="alipayPrice" type="radio" value="500.00" onclick="show_real_money(this);eninput('disabled');">
+                ￥500.00</td>
+            </tr>
+            <tr height="30">
+              <td align="left" class="pay_tb_wd"><input name="alipayPrice" type="radio" value="1000.00" onclick="show_real_money(this);eninput('disabled');">
+                ￥1000.00</td>
+              <td align="left" class="pay_tb_wd"><input name="alipayPrice" type="radio" value="2000.00" onclick="show_real_money(this);eninput('disabled');">
+                ￥2000.00</td>
+              <td colspan="2" align="left"><input name="alipayPrice" type="radio" value="0.00" id="ppOther" onclick="show_real_money(this);eninput('');">
+                其他金额:￥
+                <input onfocus="if(Number(this.value)==0){this.value='';}" style="border:1px solid #036;" disabled="disabled" onkeyup="value=value.replace(/[^\d\.]/g,'');show_real_money(this)" onchange="formate_money();" value="" name="alimoney" type="text"  id="alimoney" size="10"></td>
+            </tr>
+            <tr height="30">
+              <td align="left" colspan="4" ><p>实际到账约为:<span id="show_money" style="color:red; font-weight:bold; font-size:16px; font-family:Verdana,"></span>元人民币(手续费为{:C('alipay_fee')}%)</p></td>
+            </tr>
+            <tr>
+              <td colspan="4"><div style="height:40px;"><a onclick="send_data()" style="cursor:pointer" title="点击后，页面将安全跳转至Paypal网站"> <img src="../Public/images/btn_next.gif" align="absmiddle"></a> </div></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div style="width:970px; margin-top:25px; text-align:left" class="middle">
+        <p style="line-height:20px;"><b>我没有支付宝账户，但有网银，可以使用吗？ </b><br>
+          答：可以。只要您拥有开通网上支付功能的银行卡或信用卡都可使用此方式充值，只需按照页面提示填写相关信息即可。 </p>
+      </div>
+      <div class="middle"><img src="../Public/images/b_pay.gif" alt="唯唐代购 安心支付" /></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function show_real_money(a){
+	var input_money = a.value*1;
+	$('#cz_money').val(input_money);
+	input_money = input_money - (input_money * 1.2) / 100;	
+	input_money = FormatNumber(input_money,2);
+	document.getElementById('show_money').innerHTML = input_money;
+}
+
+function showpay(status){
+	if(status == 1){
+	   window.location.href = '/Pay/paypal.shtml';
+	}
+	if(status == 2){
+	   window.location.href = '/Pay/alipay.shtml';
+	}
+	if(status == 3){
+	   window.location.href = '/Pay/ips.shtml';
+	}
+	if(status == 4){
+	   window.location.href = '/Pay/other.shtml';
+	}
+}
+
+show_real_money(document.getElementById('cz_money'));
+
+function eninput(t){	
+	$('#alimoney').attr('disabled',t);
+	$('#alimoney').val('');
+}
+
+//提交数据
+function send_data(){
+	if(document.getElementById('cz_money').value == ''){
+		alert('  错误！请填输充值金额后，再提交。');
+	}else{
+	   if (Number(document.getElementById('cz_money').value) < 0.01) {
+			alert("  错误！付款金额金额最小是0.01，请检查后重新提交。");
+	   }else{ 
+			document.alipayment.submit();
+	   }
+	}
+}
+
+function formate_money(){
+	var money = $('#alimoney').val();
+	money = FormatNumber(money,2);
+	$('#alimoney').val(money);
+}	
+</script> 
+<include file="Public:bottom" />

@@ -1,0 +1,19 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="/s/?g=g.js"></script>
+<link rel="stylesheet" href="/s/?g=g.css" type="text/css" media="all" />
+</head>
+<body>
+<div style="width:300px" class="middle nobd">
+  <form action="/Order/note" id="form1"  name="form1" method="post">
+    <input type="hidden" name="id" value="{$product.id}">
+    <textarea name="note" id="note" style="width:300px; height:100px; display:block;" >{$product.custmer_note}</textarea>
+    <div style="width:300px; margin-top:8px;"><input type="submit" name="submit" value="提交" class="btn_nomal" ><input type="button" onClick="closelightbox(false);" value="取消" class="btn_n2" style="margin-left:10px;"></div>
+  </form>
+</div>
+</BODY>
+</HTML>

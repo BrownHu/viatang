@@ -1,0 +1,84 @@
+<include file="Public:header" />
+<div id="m4" class="w" style="  height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:1000px; height:100%; overflow:hidden;" class="right bbrd ulowi_min_height">
+    <div style="width:970px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;在线充值</div>
+    <div style="width:970px; height:97px; border:1px solid #d5eeb9; background:#f3fdea; margin-top:18px;" class="middle">
+      <div style="text-align:left; text-indent:12px;margin-top:12px;">人民币帐户充值</div>
+      <ul style="display:block; margin-top:5px; text-align:left; padding:0px; margin-left:0px; text-indent:12px;">
+        <li style="line-height:25px; height:22px;">1. 为了确保您的帐户及购物安全，请填写下面信息。唯唐代购绝不会向任何第三方披露用户个人信息。</li>
+        <li style="line-height:25px; height:22px;">2. 在您使用国外信用卡充值购物时，为保证交易安全，需由您（持卡人）持本人护照签收。</li>
+      </ul>
+    </div>
+    <div id="tab_title" style="width:970px; height:25px; margin-top:18px;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:408px; height:25px;" class="left nobd">
+        <li class="normal1" onclick="javascript:showpay(1);">Paypal充值</li>
+        <li class="normal1" onclick="javascript:showpay(2);">支付宝充值</li>
+        <li class="active1">IPS充值</li>
+        <li class="normal1" onclick="javascript:showpay(4);">线下充值</li>
+      </ul>
+      <div style="width:342px; height:24px; border-bottom:1px solid #e4e4e4" class="left";></div>
+    </div>
+    <div style="width:970px;" class="middle nobd">
+      <div style="width:742px; height:80px; margin-top:30px;" class="middle">
+        <div class="logo_size ips_logo"></div>
+        <div style="text-align:left; width:600px; line-height:20px;" class="left"> <b>环迅支付</b>&nbsp;(<a href="http://www.ips.com.cn" target="_blank">http://www.ips.com.cn</a>)<br>
+          环迅支付是中国领先的电子支付企业，让网上支付随需而至 应"付"自如。</div>
+      </div>
+      <div style="width:970px; border:4px solid #e6e6e6; height:180px;" class="middle">
+        <div style="text-align:left; text-indent:70px; padding-top:12px; padding-bottom:5px;"><b>请填选您要充值的金额$:</b></div>
+        <table border="0" cellpadding="0" cellspacing="0" style="width:600px;" class="middle">
+          <tr height="30">
+            <td align="left" class="pay_tb_wd"><input checked="checked" name="PayPalPrice" type="radio" value="10.00" onclick="show_real_money(this);eninput('disabled');">
+              ￥50.00</td>
+            <td align="left" class="pay_tb_wd"><input name="PayPalPrice" type="radio" value="20.00" onclick="show_real_money(this);eninput('disabled');">
+              ￥100.00</td>
+            <td align="left" class="pay_tb_wd"><input name="PayPalPrice" type="radio" value="50.00" onclick="show_real_money(this);eninput('disabled');">
+              ￥200.00</td>
+            <td align="left" class="pay_tb_wd"><input name="PayPalPrice" type="radio" value="100.00" onclick="show_real_money(this);eninput('disabled');">
+              ￥500.00</td>
+          </tr>
+          <tr height="30">
+            <td align="left" class="pay_tb_wd"><input name="PayPalPrice" type="radio" value="200.00" onclick="show_real_money(this);eninput('disabled');">
+              ￥1000.00</td>
+            <td align="left" class="pay_tb_wd"><input name="PayPalPrice" type="radio" value="500.00" onclick="show_real_money(this);eninput('disabled');">
+              ￥2000.00</td>
+            <td colspan="2" align="left"><input name="PayPalPrice" type="radio" value="0.00" id="ppOther" onclick="show_real_money(this);eninput('');">
+              其他金额:￥
+              <input name="money" type="text" style="border:1px solid #bfbfbf;" disabled="disabled" id="money"  onfocus="if(Number(this.value)==0){this.value='';}" onkeyup="value=value.replace(/[^\d\.]/g,'');show_real_money(this)" size="10"></td>
+          </tr>
+          <tr height="30">
+            <td align="left" colspan="4" ><p>实际到账约为:650<span id="show_money" style="color:red; font-weight:bold; font-size:16px; font-family:Verdana,"></span>元人民币(手续费为3.4%+0.3$)，当前汇率约为<span style="color:red">1：.56</span></p></td>
+          </tr>
+        </table>
+        <div style="height:40px;"><a onclick="send_paypal()" style="cursor:pointer" title="点击后，页面将安全跳转至Paypal网站"> <img src="../Public/images/btn_next.gif" align="absmiddle"></a> </div>
+      </div>
+      <div style="width:970px; margin-top:25px; text-align:left" class="middle">
+        <p style="line-height:20px;"><b>我没有IPS账户，但有网银，可以使用吗？ </b><br>
+          答：可以。只要您拥有开通网上支付功能的银行卡或信用卡都可使用此方式充值，只需按照页面提示填写相关信息即可。 </p>
+      </div>
+      <div class="middle"><img src="../Public/images/b_pay.gif" alt="唯唐代购 安心支付" /></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function showpay(status){
+	if(status == 1){
+	   window.location.href = '/Pay/paypal.shtml';
+	}
+	if(status == 2){
+	   window.location.href = '/Pay/alipay.shtml';
+	}
+	if(status == 3){
+	   window.location.href = '/Pay/ips.shtml';
+	}
+	if(status == 4){
+	   window.location.href = '/Pay/other.shtml';
+	}
+}	
+</script> 
+<include file="Public:bottom" />

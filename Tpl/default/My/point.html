@@ -1,0 +1,43 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #B51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;积分记录</div>
+    <div style="width:970px; height:30px; text-indent:12px; padding-top:18px; text-align:left;" class="middle">
+      <ul style="display:block; width:734px; padding:0px; margin:0px;" class="middle">
+        <li style="width:200px; display:block;" class="left"><a href="#" target="_blank">积分有什么用？</a></li>
+        <li style="width:200px; display:block;" class="left"><a href="#" target="_blank">会员相关积分与等级 ？</a></li>
+        <li style="width:200px; display:block;" class="left"><a href="#nogo" onclick="lightboxframe('积分兑换','/Point/exchange.shtml',300,100,true);" class="btn_add2" style="text-align:center;">积分兑换</a></li>
+      </ul>
+    </div>
+    <div style="width:970px; margin-top:18px;" class="nobd middle">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;">
+        <tr height="28" style="font-weight:bold;">
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="180">积分日期</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">积分变化记录</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="120">积分</td>
+        </tr>
+        <present name="DataList">
+          <volist name="DataList" id="vo">
+            <tr height="25" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">{$vo.remark|default="-"}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.point}</td>
+            </tr>
+          </volist>
+          <tr height="25">
+            <td colspan="2"  style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:right;">合计&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center"  style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$sum_point}</td>
+          </tr>
+          <else />
+          <tr height="25">
+            <td colspan="3"  style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">暂无记录</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:970px;" class="middle nobd">{$page}</div>
+    </div>
+  </div>
+</div>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

@@ -1,0 +1,85 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="/s/?g=m.css">
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/Plug-in/smohan.fixednav.js"></script>
+<style>
+.promo-box {BORDER-BOTTOM: #dbdbdb 1px solid; BORDER-LEFT: #dbdbdb 1px solid; PADDING-BOTTOM: 20px; MARGIN-TOP: -1px; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; BORDER-TOP: #dbdbdb 1px solid; BORDER-RIGHT: #dbdbdb 1px solid; PADDING-TOP: 20px}
+.promo-cont {BORDER-BOTTOM: #dbdbdb 1px solid; POSITION: relative; BORDER-LEFT: #dbdbdb 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; MARGIN-BOTTOM: 20px; OVERFLOW: hidden; BORDER-TOP: #dbdbdb 1px solid; BORDER-RIGHT: #dbdbdb 1px solid; PADDING-TOP: 10px; _zoom: 1}
+.promo-cont .needcount {WIDTH: 290px; DISPLAY: block; FLOAT: left; MARGIN-RIGHT: 20px}
+.promo-cont A {COLOR: #2e74d3; FONT-SIZE: 14px}
+.promo-cont DL {WIDTH: 406px; FLOAT: left; OVERFLOW: hidden}
+.promo-cont DL DT {BORDER-BOTTOM: #dbdbdb 1px dashed; LINE-HEIGHT: 34px; MARGIN-BOTTOM: 10px; HEIGHT: 34px; OVERFLOW: hidden}
+.promo-cont DL P {LINE-HEIGHT: 20px; MARGIN-BOTTOM: 8px; OVERFLOW: hidden}
+.promo-cont DL P.overh_one {HEIGHT: 20px}
+.promo-cont DL P.overh_thr {}
+.promo-cont .ico_pro {POSITION: absolute; WIDTH: 41px; BACKGROUND-POSITION: 0px 0px; HEIGHT: 41px; TOP: -1px; RIGHT: -1px}
+.no_result {PADDING-BOTTOM: 30px; PADDING-LEFT: 150px; PADDING-RIGHT: 0px; PADDING-TOP: 30px}
+.no_cont {MARGIN: 0px auto; PADDING-LEFT: 60px; BACKGROUND: url(../Public/images/result_none.png) no-repeat 0px 0px; COLOR: #666}
+.no_cont .no_conthd {MARGIN-BOTTOM: 20px; COLOR: #666; FONT-SIZE: 14px; FONT-WEIGHT: bold}
+.no_cont .no_conthd STRONG {MARGIN: 0px 3px; COLOR: #ff0000}
+.no_cont DL {LINE-HEIGHT: 22px}
+</style>
+<script>$('#mn_zixun a').addClass('menu_li_on');</script>
+<div style="width:auto;height:auto;overflow:hidden;background-color:#eeeeee;padding-bottom:14px;">
+<div id="m1" style="width:988px;height:auto; overflow:hidden;" class="middle nobd mrg14">
+  <DIV class=main>
+    <DIV class="mainCont">
+      <DIV class="cate_wrap">
+			<ul>
+				<li>今日推荐</li>
+				<li>9.9包邮</li>
+				<li>牛B堂</li>
+			</ul>
+      </DIV>
+
+      <DIV id="search_result" style="text-align:left; background-color:#fff;" class="promo-box">
+        <notempty name="DataList">
+          <volist name="DataList" id="vo">
+            <DIV class=promo-cont>
+                <A class="needcount" href="/go/{$vo.url|base64_encode|filterSplash}.html" target=_blank tag="1842"><IMG src="../Public/images/grey.gif" lazy="y" alt="唯唐代购促销活动"  original="/Uploads/pic/product/{$vo.img}_m.jpg"></A> 
+                <DL>
+                    <DT><A class="needcount" href="/go/{$vo.url|base64_encode|filterSplash}.html"  target=_blank tag="1842">{$vo.title}</A></DT>
+                    <DD>
+                        <P class=overh_one><STRONG>活动时间：</STRONG>{$vo.start|date="Y-m-d",###}到{$vo.end|date="Y-m-d",###}</P>
+                        <P class=overh_thr><STRONG>活动简介：</STRONG>{$vo.description}</P>
+                    </DD>
+                </DL>
+            </DIV>
+          </volist>
+        <else/>  
+          <DIV class=no_result>
+            <DIV class=no_cont>
+              <P class=no_conthd>很抱歉，当前筛选条件下没有促销活动。</P>
+              <DL>
+                <DT>建议您：</DT>
+                <DD>1、选择其他分类进行筛选；</DD>
+                <DD>2、收藏页面下次再来看看；</DD>
+                <DD>3、<A href="http://weibo.com/viatang" target=_blank><IMG src="../Public/images/weibo.gif" alt="微博关注唯唐代购促销"  width=16 height=16></A>关注我们的官方微博获得促销信息；</DD>
+              </DL>
+            </DIV>
+          </DIV>
+        </notempty>
+        <div class="nobd mrg14">
+		   <DIV class="digg">{$page}</DIV>
+        </div>
+      </DIV>
+    </DIV>
+  </DIV>
+  
+  <DIV class="aside" style="text-align:left;">
+    <DIV class="hot_search" style="width:98%;">
+      <div class="uhd" style="padding-left:10px;">热门活动</div>
+      <DIV class="list" id="hot_search" style="text-align:left" >
+        <UL><volist name="CampaignList" id="vo"> <LI <eq name="i" value="1">class="hover_trigger"</eq> ><A href="/go/{$vo.url|base64_encode|filterSplash}.html" target="_blank">{$vo.title}<IMG  src="/Uploads/pic/product/{$vo.img}_m.jpg"></A></LI></volist></UL>
+      </DIV>
+    </DIV>
+	<div class="mrg14">
+	 <iframe marginwidth='0' marginheight='0' hspace='0' frameborder='0' scrolling='no' src='http://p.yiqifa.com/servlet/handleImpr?sid=99ad2fed40b370ca&pid=76385&wid=430866&vid=76288&cid=5543&lid=64331&euid=' width='240' height='250' ></iframe>
+    </div>
+  </DIV>
+</div>
+</div>
+<SCRIPT>
+(function($){  $('#mynav').smohanfixednav(0,999);   $('.hot_search li').hover(function(){ $(this).siblings().removeClass('hover_trigger'); $(this).addClass('hover_trigger'); });})(jQuery);
+function goPage(){ var p =  $.trim($('#go_pg').val()); if(Number(p) > 0){ window.location.href ='/Mall/index.html?p='+p+'&sort={$sort}'; }else{ $('#go_pg').val('');}}
+function buy(url){ $.get('/Public/isLogin.html', function(result) { if(parseInt(result) == 1){	fast_buy(url,true); }else{ var pageurl = $.base64Encode(url); login_min(',Item,index,url,"'+pageurl+'"',560,420,0); }});} </SCRIPT> 
+<include file="Public:bottom" />

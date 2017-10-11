@@ -1,0 +1,30 @@
+<include file="Public:header" />
+<div id="m4" class="w" style="  height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #B51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;自助购</div>
+    <div style="text-align:left; text-indent:12px;margin-top:22px; font-size:16px;" class="fnt_b">唯一收货地址</div>
+    <div style="text-align:left; text-indent:12px;" class="mrg9">您在中国购物网站进行购物时，请使用以下地址提交运单。</div>
+    <div style="width:970px; height:118px; border:1px solid #d5eeb9; background:#f3fdea; margin-top:18px; font-size:14px;" class="middle">
+      <div style="text-align:left; text-indent:12px;margin-top:12px;" class="fnt_b">{$Think.session.m_name}&nbsp;的自助购唯一收货地址</div>
+      <ul style="display:block; margin-top:8px; text-align:left; padding:0px; margin-left:0px;  text-indent:12px;">
+        <li style="line-height:30px; height:30px;">收件人：{:C('SELF_PURCHASE_CONTACT')}<span class="fnt_red">{$Think.session.m_id}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>手机：13166374395</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话：{:C('SELF_PURCHASE_TEL')}</li>
+        <li style="line-height:30px; height:30px;">地&nbsp;&nbsp;&nbsp;址：{:C('SELF_PURCHASE_ADDRESS')}</li>
+      </ul>
+    </div>
+	
+    <div class="tixing3 middle" style="text-align:left; line-height:30px; width:960px; margin-top:14px;">
+    	<img src="../Public/images/icon_d.gif" alt="国际转运订单收货地址提醒" width="24" height="20" align="absmiddle" />&nbsp;<b>友情提醒</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;1、请不要发平邮和到付包裹，由于平邮需到邮局领取包裹，3天内不领取邮局将收取滞纳金，{:C('SITE_NAME')}会拒收任何平邮和到付包裹。<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2、请不要提交海关限制出口和邮政禁邮物品，否则可能会被邮政退包或被海关没收物品，对于私自邮寄违禁物品我们将不负责哦。
+    </div>
+                    
+    <div style="width:970px; text-align:left; font-size:14px; margin-top:30px;" class="middle nobd">
+	   <div>收货地址实例：</div>
+       <div><img src="../Public/images/smp.gif" alt="唯唐代购国际转运收货地址"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<include file="Public:bottom" />

@@ -1,0 +1,212 @@
+<include file="Public:header" />
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<style type="text/css">
+.freight table {
+	border-collapse: collapse;
+	border: none;
+	width: 650px;	
+}
+.freight td {
+	border: solid #e3e3e3 1px;
+	height:25px;
+}
+.fangkuang {
+	width:150px;
+	font-size:14px;
+	padding:3px;
+	border:#e3e3e3 solid 1px;
+	background:#fff;
+}
+.freight_btn {
+	background:url(../Public/images/btn.gif) no-repeat 0 0;
+	height:24px;
+	width:60px;
+	border:none;
+	color:#fff;
+	cursor:pointer;
+	font-size:12px;
+}
+.ts {
+	width:135px;
+	background:#fffbf4;
+	color:#999;
+	float:left;
+	margin:15px -1000px -1000px 0;
+	position:relative;
+	padding:6px 10px;
+	line-height:22px;
+	left:0;
+}
+</style>
+  <div id="free_site" class="middle bbrd mrg9" style="height:100%; width:976px; vertical-align:middle; overflow:hidden;">
+    <div style="margin-top:10px;margin-left:20px; height:30px; width:976px; border:none; text-align:left" >您所在的位置:&nbsp;&nbsp;<a href="/">首页</a>&nbsp;>&nbsp;<a href="/Help/index.shtml">帮助中心</a>&nbsp;>&nbsp;费用估算工具</div>
+    <div class="express_main middle" style="text-align:left">
+      <div id="freight_left" style="width:690px; padding-bottom:30px;  text-align:center" class="left freight nobd estimate_min_height">
+        <div id="result">
+          <table style="margin-left:25px;" class="left">
+            <thead>
+              <tr style="background-color:#fffbf4; color:#cb1108;">
+                <td>运输方式</td>
+                <!--td>商品金额</td-->
+                <td>报关费</td>
+                <!--td>服务费</td-->
+                <td>运费</td>
+                <!--td>总计</td-->
+              </tr>
+            </thead>
+            <present name="result">
+             <volist name="result" id="entity">	
+              <tr>
+                <td>{$entity.way_cn}</td>
+                <!--td>￥{$entity.product_fee}</td-->
+                <td>￥{$entity.custom}</td>
+                <!--td>￥{$entity.service_fee}</td-->
+                <td>￥{$entity.shipping_fee}</td>
+                <!--td><span style="color:#f60">￥{$entity.total}</span><br></td-->
+              </tr>
+              </volist>
+              <else/>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            </present>
+          </table>
+        </div>
+        <div class="left" style="margin-left:25px;margin-top:8px; line-height:25px; height:60px;margin-bottom:20px; width:650px; text-align:left; border-bottom:1px dashed #ccc;">
+          以上估算结果仅供参考，具体以实际费用为准<br>
+          注：viatang 这里估算和显示的金额全部是用人民币表示的。
+        </div>
+        <present name="PriceList">
+          <div style="text-align:left; margin-bottom:2px; width:650px; margin-left:25px; float:left;"><b>{$caption}</b>&nbsp;运费价目明细表</div>
+        </present>
+        <div id="price" style="margin-top:5px; margin-left:25px; margin-bottom:20px;" class="left">
+          <table class="left">
+            <thead>
+              <tr style="background-color:#fffbf4; color:#cb1108;">
+                <td>运输方式</td>
+                <td>首重重量</td>
+                <td>首重价格</td>
+                <td>续重重量</td>
+                <td>续重价格</td>
+                <td>限重(kg)</td>
+              </tr>
+            </thead>
+            <present name="PriceList">
+              <volist name="PriceList" id="vo">
+                <tr>
+                  <td>{$vo.shipping_way}</td>
+                  <td>{$vo.start_weight}克</td>
+                  <td>{$vo.start_price}￥</td>
+                  <td>{$vo.continue_weight}克</td>
+                  <td>{$vo.continue_price}￥</td>
+                  <td>{$vo.limit_weight}&nbsp;</td>
+                </tr>
+              </volist>
+              <else/>
+              <tr>
+                <td>-</td>
+                <td>克</td>
+                <td>￥</td>
+                <td>克</td>
+                <td>￥</td>
+                <td>-</td>
+              </tr>
+            </present>
+          </table>
+        </div>
+      </div>
+      <div id="freight_right"  style="width:280px; margin-left:0px; height:100px;border:none; text-align:left" class="left">
+        <table border="0" cellpadding="0" cellspacing="0" width="280" style="margin-left:1px;">
+          <tr height="20">
+            <td colspan="2" valign="top"><span style="font-size:14px; font-weight:bold; color:#f60;">费用估算</span></td>
+          </tr>
+          <tr height="30">
+            <td width="70">寄达地区：</td>
+            <td><select name="zone" id="freight_zone">
+                <option value="0">请选择</option>
+                <volist name="ZoneList" id="vo">
+                  <option value="{$vo.id}">{$vo.caption_cn}({$vo.caption_en})</option>
+                </volist>
+              </select></td>
+          </tr>
+          <tr height="20">
+            <td>&nbsp;</td>
+            <td><span>温馨提示：</span>
+              <div id="westEou" class="ts" style="display: none;border:1px solid #f0e3ca;" onmouseout="$('#westEou').hide();" onmouseover="$('#eastSou').hide();$('#westEou').show()"> 奥地利/比利时/丹麦/卢森堡/摩纳哥/芬兰/意大利/西班牙/希腊/土耳其/葡萄牙/挪威/瑞典/瑞士/马耳他/*冰岛(EMS例外) </div>
+              <a href="javascript:void(0);" onmouseout="$('#westEou').hide();" onmouseover="$('#eastSou').hide();$('#westEou').show()"> 西欧</a>
+              <div id="eastSou" class="ts" style="display: none; border:1px solid #f0e3ca;" onmouseout="$('#eastSou').hide();" onmouseover="$('#westEou').hide();$('#eastSou').show()"> 马来西亚/新加坡/泰国/越南/柬埔寨/菲律宾/印度尼西亚/日本/韩国/蒙古/朝鲜/中国香港/中国澳门/中国台湾 </div>
+              <a href="javascript:void(0);" onmouseout="$('#eastSou').hide();" onmouseover="$('#westEou').hide();$('#eastSou').show()"> 亚洲</a></td>
+          </tr>
+          <tr height="30" style="display:none">
+            <td>寄达方式：</td>
+            <td><span id="f_way">
+              <select name="way" id="freight_way">
+                <option value="0">请选择</option>
+              </select>
+              </span></td>
+          </tr>
+          <tr height="30" style="display:none">
+            <td>商品总价:</td>
+            <td><input type="text" name="amount" id="freight_amount" value="1"  class="fangkuang" />
+              &nbsp;(元)</td>
+          </tr>
+          <tr height="30">
+            <td>商品重量：</td>
+            <td><input type="text" name="weight" id="freight_weight" value="1000"   class="fangkuang"/>
+              &nbsp;(克)</td>
+          </tr>
+          <tr height="35">
+            <td>&nbsp;</td>
+            <td><input type="button" onclick="compute();" name="freight_button" class="freight_btn" value="计算运费"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+<form action="__URL__/estimate.shtml" method="post" name="form1" id="form1">
+  <input type="hidden" name="zone" value="0">
+  <input type="hidden" name="way" value="0">
+  <input type="hidden" name="amount" value="0">
+  <input type="hidden" name="weight" value="0">
+  <input type="hidden" name="caption" value="">
+</form>
+<script>
+writeConfirm();
+function compute(){
+	var gon = true;
+	if( ($('#freight_zone').val() == 0) ){
+		alert('  请选择寄达地区后，重新计算!');
+		gon = false;
+	}
+	
+	if(($('#freight_amount').val() == '') || ($('#freight_weight').val() == '')){
+		alert('  请填写商品总价和商品重量后，重新计算!');
+		gon = false;
+	}else{
+		if((Number($('#freight_amount').val()) <= 0) || (Number($('#freight_weight').val()) <= 0)){
+			alert('  商品总价和商品重量填写不正确，重新填写后再计算!');
+			gon = false;
+		}
+	}
+	
+	if(gon){
+		document.form1.zone.value = $('#freight_zone').val();
+		document.form1.way.value = $('#freight_way').val();
+		document.form1.amount.value = $('#freight_amount').val();
+		document.form1.weight.value = $('#freight_weight').val();
+		document.form1.caption.value = $("#freight_zone").find("option:selected").text();	
+		$('#form1').submit();	
+	}
+}
+
+function way(){
+		var zone_id = $('#freight_zone').val();
+	    $.get('__URL__/way/id/'+zone_id, function(data) {
+				$('#f_way').html(data);
+	    	});	
+}
+</script> 
+<include file="Public:bottom" />

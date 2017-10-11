@@ -1,0 +1,47 @@
+<include file="Public:header" />
+<style type="text/css">
+.rd {
+	color: #F00;
+}
+.bl {
+	color: #4780ac;
+}
+</style>
+<script language="javascript">	
+	function showMenu(p,id){
+		var offset = $('#'+p).offset();	
+		$('#'+id).css('left',offset.left - 10);
+		$('#'+id).css('top',-1);
+		$('#'+id).show();
+	}
+	
+	function hideMenu(id){
+		$('#'+id).hide();
+	}
+</script>
+<div style="height:230px; width:976px;" class="middle bbrd mrg14">
+  <div class="ajax rtninfo middle" style="padding-top:20px;">
+    <div class="ajaxbg">
+      <h4 style="height:30px;">{$msgTitle}</h4>
+      <present name="message" >
+        <p style="height:30px;">{$message}</p>
+      </present>
+      <present name="error" >
+        <p style="height:30px;"><font color="red">{$error}</font></p>
+      </present>
+      <p><span id="lseconds" style="color:blue;font-weight:bold">{$waitSecond}</span> 秒后自动跳转,如果不想等待,直接点击 <A HREF="{$jumpUrl}" style="color:red">这里</A> 跳转</p>
+    </div>
+  </div>
+</div>
+<script language="JavaScript" type="text/javascript">
+var sec = '{$waitSecond}';
+timerID = setInterval("count()",1000);
+function count() {
+	if( sec > 0){
+    	lseconds.innerHTML = sec--;
+	}else{
+		 window.location.href = "{$jumpUrl}";
+	}
+}
+</Script>
+<include file="Public:bottom" />

@@ -1,0 +1,81 @@
+<include file="Public:header" />
+<div id="m4" class="w" style=" height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的订单</div>
+    <div style="width:960px; height:38px;" class="middle mrg14"><img src="../Public/images/jd3.gif" alt="代购流程 我的订单" class="middle"></div>
+    <div id="tab_title" style="width:959px; height:55px; margin-top:18px;" class="middle nobd">
+      <ul style="margin:0px; padding:0px; display:block; width:960px; height:25px;" class="middle nobd">
+        <li class="normal1" onclick="javascript:showstatus(0)">所有状态</li>
+        <li class="normal1" onclick="javascript:showstatus(1)">等待审核</li>
+        <li class="active1" onclick="javascript:showstatus(2)">处理中</li>
+        <li class="normal1" onclick="javascript:showstatus(3)">已订购</li>
+        <li class="normal1" onclick="javascript:showstatus(4)">已到货</li>
+        <li class="normal1" onclick="javascript:showstatus(5)">已入库</li>
+      </ul>
+      <div style="height:35px; margin-top:-1px; width:960px; text-align:left; background:#f9f9f9;" class="brd middle">
+        <table cellpadding="0" cellspacing="0" border="0" style="margin-top:6px; width:960px;" class="left">
+          <tr>
+            <td align="center" style="width:255px;">商品ID</td>
+            <td align="center" style="width:887px;">商品名称</td>
+            <td style="width:120px;">单价(￥)</td>
+            <td style="width:119px;">数量</td>
+            <td style="width:188px;">单件重量(g)</td>
+            <td style="width:160px;">状态</td>
+            <td style="width:121px;">操作</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="width:960px;" class="nobd middle">
+      <php> $count = count($DataList);
+        $order_total = 0;
+        $order_shipping = 0;
+        if($count > 0){
+        $need_package = false;//是否需要打包
+        for($i=0; $i<$count; $i++){
+                if(($i==0) || ( $DataList[$i]['order_id'] != $DataList[$i-1]['order_id'] ) ){ </php>
+      <div style="height:12px; width:960px;" class="middle nobd"></div>
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:962px; border:1px solid #e6e6e6;">
+        <tr>
+          <td colspan="7" bgcolor="#f3f3f3" height="28">
+            <div style="width:960px; text-align:left; text-indent:10px;" class="left">订单编号:DD{$Think.session.m_id}-
+              <php>echo $DataList[$i]['order_id'];</php>&nbsp;&nbsp;&nbsp;&nbsp;提交时间:<php>echo date('Y-m-d',$DataList[$i]['create_time']);</php>&nbsp;&nbsp;&nbsp;&nbsp;
+               卖家：<a href="#"><php>echo $DataList[$i]['seller'];</php></a>&nbsp;&nbsp;&nbsp;&nbsp;<b>运费：</b><span class="fnt_red">￥<php>echo $DataList[$i]['shipping_fee'];</php></span>
+            </div>
+		  </td>
+        </tr>
+        <php>}</php>
+        <tr height="100" >
+          <td width="90" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;">P<php>echo $DataList[$i]['id'];</php></td>
+          <td align="left" width="310" style="border-top:1px solid #e6e6e6;"><div style="text-align:left; padding:5px;" class="left">
+              <div style="display:inline-block; width:68px;" class="nobd left"> <img src="/Uploads/pic/product/<php>echo $DataList[$i]['thumb']</php>_s.jpg" onerror="this.src='../Public/images/noimg80.gif';" alt="代购商品信息" class="product_img"/> </div>
+              <div style="width:279px; margin-left:8px; display:inline-block;" class="left nobd"> <a href="<php>echo $DataList[$i]['url']</php>" target="_blank" class="lnk">
+                <php>echo $DataList[$i]['title']</php>
+                </a>
+                <h4 class="product_tips">
+                  <php>echo $DataList[$i]['custmer_note'];</php>
+                </h4>
+              </div>
+            </div></td>
+          <td width="50" style="border-top:1px solid #e6e6e6;"><php>echo $DataList[$i]['price1']</php></td>
+          <td width="40" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><php>echo $DataList[$i]['amount']</php></td>
+          <td width="60" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><php>if($DataList[$i]['weight'] > 0){ echo $DataList[$i]['weight'];}else{ echo '-';}</php></td>
+          <td width="80" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6; text-align:center;">处理中</td>
+          <td width="60" style="border-top:1px solid #e6e6e6;">&nbsp;</td>
+        </tr>
+        <php>if( $DataList[$i]['order_id'] != $DataList[$i+1]['order_id'] ){</php>
+      </table>
+      <php>}</php>
+      <php>}</php>
+      <div style="width:960px; border:none; text-align:right; margin-top:15px; padding-right:20px;">
+        <php>echo "<div class='digg'>$page</div>";</php>
+      </div>
+      <php>}else{</php>
+      	<div style="width:960px;height:30px; line-height:30px;" class="middle brd4">暂无记录</div>
+      <php>}</php>
+    </div>
+  </div>
+</div>
+<script>function showstatus(status){if(status == 0){ window.location.href = '/My/order.shtml';}if(status == 1){   window.location.href = '/Order/wcl.shtml';}if(status == 2){   window.location.href = '/Order/clz.shtml';}if(status == 3){   window.location.href = '/Order/ydg.shtml';}if(status == 4){   window.location.href = '/Order/ydh.shtml';}if(status == 5){  window.location.href = '/Order/yrk.shtml';}}</script> 
+<include file="Public:bottom" />

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:C('SITE_NAME')}</title>
+<script type="text/javascript" src="/s/?g=g.js"></script>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=g.css">
+<script>
+function complete(result){	
+  if (result.status == '1'){
+	  $('#m4').hide();
+	  lightbox_resize(300,100);
+	  $('#login_result').show();
+	  setTimeout("closelightbox(false);",2000)
+	  //var pageurl = $('#call_url').val();	
+	  //var tb_w = $('#tb_w').val();
+	  //var tb_h = $('#tb_h').val();
+	  //var tb_f = $('#tb_f').val();
+	  //var is_ulowi = $('#is_ulowi').val();
+      //if( (parseInt(tb_w) > 0 ) && (parseInt(tb_h) > 0)  && (is_ulowi == 1)){ lightbox_resize(tb_w,tb_h); }	  	  
+	 // if ($.trim(pageurl) != '' &&  $.trim(pageurl) != 'null'){ window.location = pageurl;}	  	  
+	  //if(parseInt(tb_f) >0){
+		   
+	  	//closelightbox(false);
+	  //}	  
+  }else{ 
+  	$('#error_tip').html(result.info);  
+  }
+}
+$('#u_userPw').val('');
+</script>
+</head>
+<body>
+<div id="m4" style="width:532px; height:160px;margin-top:28px;" class="nobd middle">
+  <div style="width:320px; margin-left:18px; margin-top:0px;" class="left nobd">
+    <script>$('#frmLogin').ajaxForm({ success: complete, dataType: 'json' }); </script>
+    <div id="error_tip" style="height:20px;" class="fnt_red"></div>
+    <ul style="margin:0px; padding:0px;" class="middle">
+    <form id="frmLogin" name="frmLogin" action="/Public/check.shtml" method="post">
+    <input type="hidden" name="return_url" value="{$RETURN_URL}">
+    <input type="hidden" name="auto_login" id="frm_auto_login" value="0">
+    <input type="hidden" name="ajax" value="1">
+    <input type="hidden" id="call_url" name="call_url" value='{$url}'>
+    <input type="hidden" id="tb_w" name="tb_w" value="{$tb_w|default=0}">
+    <input type="hidden" id="tb_h" name="tb_h" value="{$tb_h|default=0}">
+    <input type="hidden" id="tb_f" name="tb_f" value="{$tb_f|default=0}">
+    <input type="hidden" id="is_ulowi" name="is_ulowi" value="{$is_ulowi}">
+      <li class="login_item_m">电子邮件：
+        <input type="text" name="u_userName" id="u_userName" value="" style="width:220px;"  >
+      </li>
+      <li class="login_item_m">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
+        <input type="password"  name="u_userPw" id="u_userPw" value="" onfocus="restTip();"  style="width:220px;">
+        <input type="hidden" id="u_userPw1" name="u_userPw1" value="">
+      </li>
+      <li class="login_item_m">
+        <div style="width:64px;" class="left">验&nbsp;证&nbsp;码：&nbsp;&nbsp;&nbsp;</div>
+        <div style="82px;" class="left">
+          <input type="text" id="verify" name="verify" value="" onfocus="restTip();" maxlength="4" style="width:80px;">
+        </div>
+        <div style="width:50px; margin-left:12px;" class="left"><IMG id="ImgValidCode" style="CURSOR: pointer"  src="__URL__/verify/"  BORDER="0" align="absmiddle" onClick="this.src=this.src+'?'"/></div>
+      </li>
+      </form>
+      <li class="login_item_m" style="margin-top:10px;"><img src="../Public/images/login_btn.png" alt="登录"  style="margin-left:70px; cursor:pointer;" onclick="sendform();"  style="width:81px; height:26px;" class="nobd left" ><span style="display:inline-block; margin-left:10px; margin-top:3px;" class="left fnt_gry"><a href="/Register/password.shtml" tabindex="1" target="_blank">忘记密码 找回密码</a></span></li>      
+    </ul>
+    
+  </div>
+  <div style="width:170px; height:160px;border-left:1px solid #e0e2e3;" class="left">
+    <div style="text-align:left; text-indent:26px;">还没有唯唐代购帐户？</div>
+    <div style="text-align:left; text-indent:26px; margin-top:8px;"><a href="/Register/index.shtml" onClick="closelightbox(false);" target="_blank"><img src="../Public/images/book_regist.png" alt="免费注册"  style="border:none"></a></div>
+  </div>
+</div>
+<div id="login_result" style="display:none; padding-top:30px; font-size:16px;">
+	登录成功!
+</div>
+<script>
+function sendform(){ $('#frmLogin').submit(); }
+function restTip(){ $('#error_tip').html('');} function EncryptPsw(){ var pass = $.md5($('#u_userPw1').val()); $('#u_userPw').val(pass);}
+function pass(){  var input_pass = $('#u_userPw1').val();  if(input_pass != ''){ var newpass = $.md5(input_pass); $('#u_userPw').val(newpass); }}
+$("#u_userName").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#u_userName").val())  != '')) { $('#u_userPw1').focus(); return false; } });
+$("#u_userPw").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#u_userPw").val())  != '')) { $('#verify').focus(); return false; } });
+$("#verify").keydown(function(e) { if ((e.keyCode == 13 ) && ($.trim($("#verify").val())  != '')) {sendform(); return false; } });
+ </script>
+</body>
+</html>

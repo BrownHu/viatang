@@ -1,0 +1,73 @@
+<include file="Public:header" />
+<div id="m4" class="w" style=" height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的订单</div>
+    <div id="tab_title" style="width:959px; height:55px; margin-top:18px;" class="middle nobd">
+      <div style="height:35px; margin-top:-1px; width:960px; text-align:left; background:#f9f9f9;" class="brd middle">
+        <table cellpadding="0" cellspacing="0" border="0" style=" width:960px;" class="left">
+          <tr height="100">
+            <td align="center" style="width:255px; border-right:1px solid #e6e6e6;">商品ID</td>
+            <td align="center" style="width:887px; border-right:1px solid #e6e6e6;">商品名称</td>
+            <td style="width:120px; border-right:1px solid #e6e6e6;">&nbsp;单价(￥)</td>
+            <td style="width:119px; border-right:1px solid #e6e6e6;">&nbsp;数量</td>
+            <td style="width:160px; border-right:1px solid #e6e6e6;">&nbsp;状态</td>
+            <td style="width:121px;">&nbsp;小计</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="width:960px;" class="nobd middle">
+      <php> $count = count($DataList);
+        $order_total = 0;
+        $order_shipping = 0;
+        if($count > 0){
+
+        for($i=0; $i<$count; $i++){
+                if(($i==0) || ( $DataList[$i]['seller'] != $DataList[$i-1]['seller'] ) ){ </php>
+      <div style="height:12px; width:960px;" class="middle nobd"></div>
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:970px; border:1px solid #e6e6e6;">
+        <tr>
+          <td colspan="6" bgcolor="#f3f3f3" height="28">
+            <div style="width:960px; padding-top:2px; padding-bottom:2px; text-align:left; text-indent:10px;" class="left">订单编号:DD{$Think.session.m_id}-
+              <php>echo $DataList[$i]['order_id'];</php>&nbsp;&nbsp;&nbsp;&nbsp;提交时间:<php>echo date('Y-m-d',$DataList[$i]['create_time']);</php>&nbsp;&nbsp;&nbsp;&nbsp;
+               卖家：<a href="#"><php>echo $DataList[$i]['seller'];</php></a>&nbsp;&nbsp;&nbsp;&nbsp;
+               <br>&nbsp;&nbsp;&nbsp;订单总金额:{$order.total}&nbsp;=&nbsp;商品总金额:{$order.product_fee}&nbsp;+&nbsp;运费：<span class="fnt_red">￥{$order.shipping_fee}</span>&nbsp;+&nbsp;订单服务费:{$order.service_fee}&nbsp;- &nbsp;抵扣:<font color="#3399FF">{$order.ticket_amount|default=0}</font>
+               <notempty name="same_order_count">
+               	<br>&nbsp;&nbsp;&nbsp;存在同订单商品：{$same_order_count}
+               </notempty>
+            </div>
+		  </td>
+        </tr>
+        <php>}</php>
+        <tr height="100" >
+          <td width="90" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;">P<php>echo $DataList[$i]['id'];</php></td>
+          <td align="left" width="310" style="border-top:1px solid #e6e6e6;"><div style="text-align:left; padding:5px;" class="left">
+              <div style="display:inline-block; width:68px;" class="nobd left"> <img src="/Uploads/pic/product/<php>echo $DataList[$i]['thumb']</php>_s.jpg" onerror="this.src='../Public/images/noimg80.gif';" alt="代购商品信息" class="product_img"/> </div>
+              <div style="width:279px; margin-left:8px; display:inline-block;" class="left nobd"> <a href="<php>echo $DataList[$i]['url']</php>" target="_blank" class="lnk">
+                <php>echo $DataList[$i]['title']</php>
+                </a>
+                <h4 class="product_tips">
+                  <php>echo $DataList[$i]['custmer_note'];</php>
+                </h4>
+              </div>
+            </div></td>
+          <td width="50" style="border-top:1px solid #e6e6e6;"><php>echo $DataList[$i]['price1']</php></td>
+          <td width="40" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6;"><php>echo $DataList[$i]['amount'];</php></td>
+          <td width="80" style="border-top:1px solid #e6e6e6; border-right:1px solid #e6e6e6; text-align:center;"><php>echo $productStaAry[$DataList[$i]['status']];</php></td>
+          <td width="60" style="border-top:1px solid #e6e6e6;">&nbsp;<php>echo $DataList[$i]['total']-$DataList[$i]['service_fee'];</php></td>
+        </tr>
+        <php>if( $DataList[$i]['order_id'] != $DataList[$i+1]['order_id'] ){</php>
+      </table>
+      <php>}</php>
+      <php>}</php>
+      <div style="width:960px; border:none; text-align:right; margin-top:15px; padding-right:20px;">
+        <php>echo "<div class='digg'>$page</div>";</php>
+      </div>
+      <php>}else{</php>
+      	<div style="width:960px;height:30px; line-height:30px;" class="middle brd4">暂无记录</div>
+      <php>}</php>
+    </div>
+  </div>
+</div>
+<include file="Public:bottom" />

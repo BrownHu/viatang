@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,留学生代购中国商品网站-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/AddItemPanel.css">
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#productRemark").blur(function() { if ($.trim($(this).val()).length <= 0 || $(this).val() == "请选填颜色、尺寸等要求！") $(this).attr("class", "addpanel_still").val("请选填颜色、尺寸等要求！"); }).focus(function() { if ($(this).attr("class") == "addpanel_still") $(this).select().removeAttr("class"); }).click(function() { if ($(this).val() == "请选填颜色、尺寸等要求！") $(this).val(""); });
+
+        $("#successBtn").click(function() {
+			if ($.trim($("#productUrl").val()).length <= 0) {
+                alert('商品页网址不能为空');
+				return;
+            }
+            if ($.trim($("#productName").val()).length <= 0) {
+                alert('商品名称不能为空');
+				return;
+            }
+            if ($.trim($("#productPrice").val()).length <= 0) {
+				alert('请填写商品价格');
+                return;
+            }
+            if ($.trim($("#productSendPrice").val()).length <= 0) {
+				alert('请填写运费');
+                return;
+            }
+			if ($.trim($("#productRemark").val()) == "请选填颜色、尺寸等要求！") {
+				$('#productRemark').val('');
+            }			
+			
+			$('#frmstep2').submit();
+        });
+    });
+</script>
+</head>
+<body style="background:#fff;">
+<div style="text-align:center">
+<form action="/Cart/update" id="frmstep2" name="frmstep2" method="post">
+<input type="hidden" name="id" id="id" value="{$vo.id}">
+<div class="addpanel_procedure"><img src="../Public/images/procedure.gif" alt="一键填单" /> </div>
+<div class="addpanel_wangzhi">
+  <dl>
+    <dt>购买商品页网址：</dt>
+    <dd>
+      <input id="productUrl" class="addpanel_normal" name="productUrl" type="text" value="{$vo.url}" />
+    </dd>
+  </dl>
+  <div style="text-align:left; padding-left:26px;">
+     <input type="checkbox" name="reserv_package" id="reserv_package" value="1" <eq name="vo.reserv_package" value="1">checked="checked"</eq> >保留原包装&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="checkbox" name="reserv_brand" id="reserv_brand" value="1"  <eq name="vo.reserv_brand" value="1">checked="checked"</eq> >保留吊牌标签&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="checkbox" name="is_emergency" id="is_emergency" value="1" <eq name="vo.is_emergency" value="1">checked="checked"</eq> >限时折扣
+  </div>
+</div>
+<div class="addpanel_data">
+  <table>
+    <tr>
+      <td class="addpanel_zuo"> 商品名称： </td>
+      <td colspan="2"><input class="addpanel_k" id="productName" name="productName" type="text" value="{$vo.title}" /></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 商品价格： </td>
+      <td><input class="" maxlength="7" id="productPrice" name="productPrice" type="text" value="{$vo.price}" onkeyup="value=value.replace(/[^\d\.]/g,'');" />
+        <span>RMB</span></td>
+      <td rowspan="3" align="right"><img src="/Uploads/pic/product/{$vo.thumb}_b.jpg"  style="width:100px; height:100px;" onerror="this.src='../Public/images/noimg80.gif';"alt="商品图片"  /></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 国内运费： </td>
+      <td><input id="productSendPrice"  name="productSendPrice" type="text" value="{$vo.shipping_fee|default=0}" title="请按实际运费进行修改" />
+        <span>RMB</span></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 购买数量： </td>
+      <td><input id="productNum" name="productNum" onblur="if(this.value.length<=0) this.value=1;" type="text" value="{$vo.amount}" maxlength="6" onkeyup="value=value.replace(/[^\d]/g,'');" />
+        <a id="numAdd" href="#" title="增加数量" onclick="$('#productNum').val(parseInt($('#productNum').val())+1);"></a> <a id="numMis" class="addpanel_jian" href="javascript:void('0')" title="减少数量" onclick="var tb=$('#productNum'); parseInt(tb.val())<2?1:tb.val(parseInt(tb.val())-1);"></a></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 商品备注： </td>
+      <td colspan="2"><textarea class="addpanel_still" id="productRemark" name="productRemark" cols="" rows="">{$vo.note}</textarea></td>
+    </tr>
+  </table>
+</div>
+<div class="addpanel_go">
+  <input  class="addpanel_next" id="successBtn" name="" type="button" onmouseover="this.className='addpanel_next_'" onmouseout="this.className='addpanel_next'" /> </div>
+  </form>
+  </div>
+</body>
+</html>

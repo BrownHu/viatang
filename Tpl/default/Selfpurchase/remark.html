@@ -1,0 +1,42 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,留学生代购中国商品网站-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script>
+	function sendform(){
+		if( ! isEmpty(document.sendfrm.remark) ){
+			$('#sendfrm').submit();
+		}
+	}
+</script>
+</head>
+<body style="background:#fff;">
+<div class="consultation_send float_left" style="text-align:left">
+      <table  border="0" width="100%" align="center" cellpadding="3" cellspacing="1" class="left">
+          <tr>
+            <td align="center">
+        	  <form action="/Selfpurchase/updateRemark.shtml" method="post" id="sendfrm" name="sendfrm">
+		         <input type="hidden"  name="pid" id="pid" value="{$entity.id}">
+                 <textarea name="remark" id="remark" style="width:385px; height:170px; margin-top:5px;">{$entity.remark}</textarea>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <eq name="entity.status"  value="0">
+                <input type="button" class="btn_middle" onClick="sendform();" value="提交">
+              <else/>  
+                <input type="button" class="btn_nomal" onClick="closelightbox(false);" value="关闭">
+              </eq>
+            </td>
+          </tr>
+      </table>
+  
+</div>
+</body>
+</html>

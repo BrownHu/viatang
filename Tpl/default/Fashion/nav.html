@@ -1,0 +1,18 @@
+<div style="width:988px; height:100%; overflow:hidden; padding-bottom:14px;" class="middle nobd">
+  <DIV style="WIDTH: 940px" class="fetion_top middle mrg9"> <IMG  src="../Public/images/grey.gif" lazy="y" original="../Public/images/main_tit.jpg" class="left">
+    <UL class="right">
+      <empty name="category">  
+	      <LI><A class="hovered" href="/Fashion/index.shtml">全部</A> </LI>
+      <else/>
+    	  <LI><A href="/Fashion/index.shtml">全部</A> </LI>
+      </empty>
+      <volist name="FashionCategoryList" id="vo">
+      	  <notempty name="category">
+	      	  <LI><A href="/Fashion/index/c/{$vo.id}.shtml" <eq name="vo.id" value="$category">class=hovered</eq> >{$vo.caption}</A></LI>
+          <else/> 
+              <LI><A href="/Fashion/index/c/{$vo.id}.shtml">{$vo.caption}</A></LI>
+          </notempty>
+      </volist>
+    </UL>
+  </DIV>
+</div>

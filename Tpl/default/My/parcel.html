@@ -1,0 +1,166 @@
+<include file="Public:header" />
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/Plug-in/jquery-powerFloat.js"></script>
+<script type="text/javascript" src="//www.17track.net/externalcall.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/powerFloat.css">
+<div id="m4" class="w" style="  height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #B51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的运单</div>
+    <div style="width:970px; height:38px;" class="middle mrg14"><img src="../Public/images/jd5.gif" class="middle"></div>
+    
+  <div style="width:970px; height:100%; margin-top:18px;" class="middle nobd">
+      <table border="0" width="970" cellpadding="0" cellspacing="0">
+        <tr height="35">
+          <td style="width:100px;" align="left" class="parcel_hd_left">&nbsp;&nbsp;包裹ID</td>
+          <td style="width:90px;"  align="left" class="parcel_hd_middle">&nbsp;&nbsp;提交时间</td>
+          <td style="width:100px;" align="left" class="parcel_hd_middle">&nbsp;&nbsp;收货人</td>
+          <td style="width:100px;" align="left" class="parcel_hd_middle">&nbsp;&nbsp;运送方式</td>
+          <td style="width:100px;" align="left" class="parcel_hd_middle">&nbsp;&nbsp;&nbsp;运单号</td>
+          <td style="width:70px;"  align="left" class="parcel_hd_middle">&nbsp;&nbsp;返还(￥)<span style="background:url(../Public/images/icon_tip.gif) right top no-repeat; cursor:pointer;" id="huanfan"  onmouseover="showHot(this.id);"  onmouseout="hideTip();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+          <td style="width:100px;"  align="left" class="parcel_hd_middle">&nbsp;&nbsp;状态</td>
+          <td style="width:100px;" align="left" class="parcel_hd_right">&nbsp;&nbsp;操作</td>
+        </tr>
+        <present name="DataList">
+          <volist name="DataList" id="vo">
+            <tr height="32">
+              <td align="left" class="parcel_lst_left" style="padding-left:5px;"><a href="/Package/detail/id/{$vo.id}.shtml" title="点击查看详情">YD{$Think.session.m_id}-{$vo.id}</a></td>
+              <td align="center" class="parcel_lst_middle">{$vo.create_time|date="Y-m-d",###}</td>
+              <td align="left" class="parcel_lst_middle"><div style="130px; height:100%; vertical-align:middle; padding-left:5px; line-height:200%;">{$vo.contact}</div></td>
+              <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;{$vo.deliver_way}</td>
+              <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;
+              	<span class="track" id="code_trace_{$vo.package_code}" style="cursor:pointer; text-decoration:underline;">
+              		{$vo.package_code|default=' '}
+              	</span>
+              	<script>
+              	YQV5.trackSingleF1({
+    			    //必须，指定悬浮位置的元素ID。
+    			    YQ_ElementId:"code_trace_{$vo.package_code}",
+    			    //可选，指定查询结果宽度，最小宽度为600px，默认撑满容器。
+    			    YQ_Width:800,
+    			    //可选，指定查询结果高度，最大高度为800px，默认撑满容器。
+    			    YQ_Height:400,
+    			    //可选，指定运输商，默认为自动识别。
+    			    YQ_Fc:"0",
+    			    //可选，指定UI语言，默认根据浏览器自动识别。
+    			    YQ_Lang:"en",
+    			    //必须，指定要查询的单号。
+    			    YQ_Num:"{$vo.package_code}"
+    			});
+              	</script>
+              </td>
+               <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;<eq name="vo.excess_money" vale="0"><else/>{$vo.excess_money}</eq></td>
+              <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;
+                <switch name="vo.status">
+                  <case value="1">等待审核</case>
+                  <case value="2">处理中</case>
+                  <case value="3">配送中</case>
+                  <case value="4">已发货</case>
+                  <case value="5">确认收货</case>
+                  <case value="6">信息有误</case>
+                  <case value="7">已撤销</case>
+                  <case value="8">海关退包</case>
+                  <case value="9">海关退包</case>
+                  <case value="10">无法投递退包</case>
+                </switch>
+                 <php>
+                 	if($vo['reason'] != ''){
+                    	echo '(&nbsp;<span class="tip_reason" content="'.$vo['reason'].'" style="font-weight:bolder; font-size:14px; color:#f00;">！</span>&nbsp;)';
+                    }
+                 </php>
+              </td>
+              <td align="left" class="parcel_lst_right" style="text-align:center;">
+                <switch name="vo.status">
+                  <case value="1"><a href="#nogo" onclick="cancle({$vo.id});"  class="btn_n2">撤销运单</a></case>
+                  <case value="6"><a href="#nogo" onclick="cancle({$vo.id});"  class="btn_n2">撤销运单</a></case>
+                  <case value="4"><a href="#nogo" onclick="commont({$vo.id});"  class="btn_n2">确认收货</a></case>
+                  <case value="5">
+                  	<eq name="vo.had_review" value="0">
+                    <a href="#nogo" onclick="review({$vo.id});" style="font-size:14px;">评论</a>
+                    <else/>
+                    </eq>
+                  </case>
+                  <case value="8"><a href="#nogo" onclick="returnWare({$vo.id});"  class="btn_nomal">撤销运单</a></case>
+                  <default />  
+                    &nbsp;
+                </switch>
+              </td>
+            </tr>
+          </volist>
+          <else />
+          <tr>
+            <td colspan="8" align="center">暂无记录</td>
+          </tr>
+        </present>
+      </table>
+      <table border="0" width="770" cellpadding="0" cellspacing="0">
+        <tr>
+          <td colspan="8" style="padding-top:10px"><div align="center">
+              <php>echo $page</php>
+            </div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div onmouseout="hideTip();" style="border:1px solid #92002d; width:220px; height:20px; line-height:20px; background:#F96; position:absolute; z-index:100; display:none;" id="rebate_tip">
+  确认收货时将自动返还到您的帐户
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/Css/confirm.css">
+<form name="form1" action="" method="post">
+<input type="hidden" name="id" value="0">
+</form>
+<!--脚本代码可放于页面底部，等到页面最后执行。-->
+
+<script>
+
+
+$('.tip_reason').each(function(){
+		var cont = $(this).attr('content');
+		$(this).powerFloat({
+    		 width: 180, 
+			 target: [ { href: "##", text: cont }, ], 
+			 targetMode: "list" 
+		});
+})
+
+writeConfirm();
+function cancle(id){
+		confirm('  确定退包操作?商品将返回到"已入库"状态,运费、服务费、报关费等值金额将返还.',function () {
+			document.form1.id.value = id;
+			document.form1.action = '/Package/cancel';			
+			document.form1.submit();
+			});
+}
+function returnWare(id){
+	confirm('  确定退包操作?商品将返回到"已入库"状态,并扣除14元手续费，其它费用将返还.',function () {
+		document.form1.id.value = id;
+		document.form1.action = '/Package/returnWare';			
+		document.form1.submit();
+		});
+}
+function commont(id){
+	confirm('  确认收到包裹请点击确定,并对本次服务进行评论。',function () {
+	lightboxframe('确认收货，发表评论','/Package/confirm/id/'+id,500,150,true);
+	});
+}
+
+function review(id){
+	lightboxframe('确认收货，发表评论','/Package/doreview/id/'+id,500,200,true);
+}	
+	
+function note(id){
+	lightboxframe('修改收货人','/Package/readnote/id/'+id,500,370,true);
+}
+function showHot(id){
+	var offset = $('#'+id).offset();	
+	$('#rebate_tip').css('left',offset.left-100);
+	$('#rebate_tip').css('top',offset.top-25);
+	$('#rebate_tip').show();
+}
+function hideTip(){
+	$('#rebate_tip').hide();
+}
+</script>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

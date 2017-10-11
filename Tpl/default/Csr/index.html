@@ -1,0 +1,68 @@
+<include file="Public:header" />
+<script>$('#mn_csr').addClass('menu_li_on');</script>
+<div id="m1" style="width:988px; height:100%; overflow:hidden; " class="nobd middle mrg9">
+  <div id="csrtopbnr" style="width:986px; height:180px;" class="brd">
+  	<img id="loadbnr" src="../Public/images/toload.gif" alt="代购加载"  class="middle"  style="margin-top:50px;" />
+   </div>
+</div>
+<div style="width:986px; height:28px; line-height:28px; text-align:left; text-indent:10px; border:1px solid #fae2b9; background-color:#ffffe3; color:#ff6600;" class="middle mrg14">
+  <img src="../Public/images/icon_d.gif" alt="代购提醒"  width="24" height="20" align="absmiddle" />&nbsp;温馨提示：为了更快的帮助您解决问题，请您根据以下分类选择合适的渠道 。
+</div>
+<div id="m2" style="width:988px; height:187px; margin-top:14px; padding-bottom:20px; background:#f1f8fe;" class="nobd middle">
+	<div style="width:303px; height:157px; margin-left:18px; margin-top:22px; background:#fff;" class="left brd">
+    	<div style="width:303px; height:40px; line-height:40px; text-align:left; text-indent:10px; color:#236fba; " class="fnt_b">新手指南</div>
+        <div style="width:283px; height:67px; text-align:left; line-height:20px;" class="nobd middle">
+        	当您初次使用唯唐代购时，遇到到疑问请点击下面的按钮与客服联系（包括：注册、忘记密码、如何充值、代购流程、会员等级、配送范围及运费等）。
+        </div>
+        <div style="width:283px; height:40px; line-height:40px;" class="nobd middle">
+        	<input type="button" name="button" value="新手在线咨询" onclick="showcsr('/My/consultation.shtml');" style="background:#236fba; height:25px; line-height:25px; color:#fff; border:1px solid #073e74;">
+        </div>
+    </div>
+    
+    <div style="width:303px; height:157px; margin-left:18px; margin-top:22px; background:#fff;" class="left brd">
+    	<div style="width:303px; height:40px; line-height:40px; text-align:left; text-indent:10px; color:#236fba; " class="fnt_b">成功下单后</div>
+        <div style="width:283px; height:67px; text-align:left; line-height:20px;" class="nobd middle">
+        	订购中的商品问题（订单），运送的包裹问题（运单），请点击下面的按钮进行咨询。
+        </div>
+        <div style="width:283px; height:40px; line-height:40px;" class="nobd middle">
+        	<input type="button" name="button" value="订单、包裹咨询" onclick="showcsr('/My/consultation.shtml');"  style="background:#236fba; height:25px; line-height:25px; color:#fff; border:1px solid #073e74;">
+        </div>
+    </div>
+    
+    <div style="width:303px; height:157px; margin-left:18px; margin-top:22px; background:#fff;" class="left brd">
+    	<div style="width:303px; height:40px; line-height:40px; text-align:left; text-indent:10px; color:#236fba; " class="fnt_b">售后问题</div>
+        <div style="width:283px; height:67px; text-align:left; line-height:20px;" class="nobd middle">
+        	收到的商品、包裹问题，退款问题，意见与投诉，赔偿（可能根据您的实际情况需提供相应的证明信息，上传图片资料等）。
+        </div>
+        <div style="width:283px; height:40px; line-height:40px;" class="nobd middle">
+        	<input type="button" name="button" value="售后处理咨询" onclick="showcsr('/My/consultation.shtml');"  style="background:#236fba; height:25px; line-height:25px; color:#fff; border:1px solid #073e74;">
+        </div>
+    </div>    
+</div>
+
+<div id="m4" style="width:988px; height:134px; margin-top:14px;" class="middle nobd">
+	<div id="faq" style="width:650px; height:122px;" class="left bbrd">
+    	<div style="width:650px; height:40px; line-height:40px; overflow:hidden;">
+        	<span style="display:inline-block; width:120px;text-align:left; text-indent:20px;" class="left fnt_b">常见问题</span>
+            <span style="display:inline-block; width:80px;" class="right fnt_gry"><a href="/Help/index.shtml" target="_blank" class="lnk">更多>></a></span>
+        </div>
+        <div id="csr_faq" style="width:650px; height:82px; overflow:hidden;" class="nobd middle">
+        	<ul>
+              <volist name="IdxHelpList" id="vo" offset="0" length='6'>
+                 <li><a href="/Help/detail/id/{$vo.id}.shtml" target="_blank">{$vo.title|getShortTitle=###,20,false}</a></li>
+              </volist>
+            </ul>
+        </div>
+    </div>
+    <div style="width:291px;height:122px;" class="bbrd right">
+    <div style="margin-top:20px;" class="nobd"><a href="/News/detail/id/19.shtml" target="_blank"><img src="../Public/images/tprice.png" alt="代购运送方式对比" class="nobd middle"></a></div>
+    <div style="margin-top:23px;" class="nobd"><a href="/Tools/estimate.shtml" target="_blank"><img src="../Public/images/tgushuan.png" alt="代购国际运费估算" class="nobd middle"></a></div>
+    </div>
+</div>
+<input type="hidden" id="canchat" name="canchat" value="{$canchat|default=0}">
+<script>function showbnr(){ $('#loadbnr').remove(); $('#csrbnr').fadeIn(300);}
+$('#csrtopbnr').append('<img id="csrbnr" src="../Public/images/csr_hd.png" width="984" height="178" class="nobd middle" onload="showbnr();" style="margin-top:1px;display:none">');
+function csr(){	window.open('http://support.ulowi.net/chat.php?en=','','width=590,height=610,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes');}
+function showcsr(url){var canchat = $('#canchat').val();if(canchat == 1){window.open('http://support.ulowi.net/chat.php?en=','','width=590,height=610,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes');}else{if(url != ''){window.location = url;}}}</script>
+<style> #csr_faq ul{margin:0px; padding:0px; text-align:left;} #csr_faq li{ height:22px; line-height:22px; width:290px; margin-left:22px; float:left;}</style>
+<include file="Public:bottom" />

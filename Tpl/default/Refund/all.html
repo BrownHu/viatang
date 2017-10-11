@@ -1,0 +1,50 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;提现记录</div>
+    <div id="tab_title" style="width:770px; height:25px; margin-top:18px;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:306px; height:25px;" class="left nobd">
+        <li class="active1">全部状态</li>
+        <li class="normal1"><a href="/Refund/lst.shtml">已处理退款</a></li>
+        <li class="normal1"><a href="/Refund/processing.shtml">处理中退款</a></li>
+      </ul>
+      <div style="width:444px; height:24px; border-bottom:1px solid #e4e4e4" class="left";></div>
+    </div>
+    <div style="width:770px; margin-top:14px;" class="nobd middle">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:770px; border:1px solid #e6e6e6;">
+        <tr height="28" style="font-weight:bold;">
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="150" >时间</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="100">申请金额(￥)</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="100">余额(￥)</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="80">状态</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;">处理结果</td>
+        </tr>
+        <present name="list">
+          <volist name="list" id="vo">
+            <tr height="25" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.money|number_format=###,2}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.balance|default=0.00}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">
+              	<switch name="vo.status">
+                	<case value="0">未处理</case>
+                    <case value="1">已处理</case>
+                    <case value="2">已撤销</case>
+                </switch>
+              </td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; padding-left:5px;"><div style="width:100%;">{$vo.remark|default="-"}</div></td>
+            </tr>
+          </volist>
+          <else/>
+          <tr>
+            <td colspan="6" align="center">暂无数据</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:770px;" class="middle nobd">{$page}</div>
+    </div>
+  </div>
+</div>
+<include file="Public:bottom" />

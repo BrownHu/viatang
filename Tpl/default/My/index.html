@@ -1,0 +1,217 @@
+<include file="Public:header" />
+    <div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+        <div style="width:187px;overflow:hidden;" class="bbrd left ulowi_min_height">
+		    <include file="menu" />
+		</div>
+        <div id="main" style="width:988px; overflow:hidden;" class="right brd ulowi_min_height">
+            <div style="width:718px; height:836px;" class="nobd left">
+                <div id="user_info" style="height:150px; width:688px; margin-top:15px;" class="nobd right">      	
+                    <div class="photo">
+					    <img src="/Uploads/pic/avatar/{$Think.session.m_Info.head_img}_m.jpg" onerror="this.src='../Public/images/avatar.png';" alt="代购会员头像" style="width:120px; height:120px;" id="user_avatar" class="avatar">
+					</div>
+                    <div style="width:530px; text-align:left;" class="right">
+                        <p style="padding:10px; margin:0px;">
+						    您好！{$Think.session.m_Info.login_name}，欢迎您回来！
+						</p>
+                            <ul class="user_info">
+                                <li>现金余额:￥{$balance|default=0}</li>
+                                <li style="display:none">折扣余额:￥{$rebate|default=0}</li>
+                                <li style="display:none">积分:{$point|default=0}</li>
+                                <li>消费总额:{$consumption_total|abs="###"}</li>
+                                <li class="fnt_red fnt_b" style="display:none">上传头像功能已升级，</li>
+                                <li class="fnt_red fnt_b" style="display:none">上传头像获50积分!</li>
+                            </ul>
+                    </div>
+                </div>
+                <div style="height:30px; width:688px; text-align:left" class="nobd right">
+                    <div style="width:75px; margin-left:32px;" class="left nobd">
+                        <present name="upload_avatar">
+                            <a href="/My/avatar.shtml" class="btn_nomal" >
+							    上传头像
+							</a>
+                            <else/>
+                            <a href="/My/avatar.shtml" class="btn_nomal" >
+							    更新头像
+							</a>
+                        </present> 
+                    </div>
+                    <div style="width:520px; height:30px; " class="right">
+					    上次登录时间：{$Think.session.m_Info.last_login|date="Y-m-d H:i:s",###}，
+						上次登录IP：{$Think.session.m_Info.last_ip}
+					</div>
+                </div>
+                <div style="width:688px; height:107px; margin-top:20px; border:1px solid #e7dac3; background:#fbf9f5; " class="right">
+                    <table  width="660" border="0" cellspacing="0" cellpadding="0" style="margin-top:16px; margin-left:16px;">
+                        <tr>
+                            <td width="66" rowspan="2" align="center" valign="top">
+							    订单提醒：
+							</td>
+                            <td width="88" height="28" align="left" valign="top">
+							    <a href="/Order/wcl.shtml">
+								    等待审核({$wcl_count|default=0})
+								</a>
+							</td>
+                            <td width="88" align="left" valign="top">
+							    <a href="/Order/clz.shtml">
+								    处理中({$clz_count|default=0})
+								</a>
+							</td>
+                            <td width="79" align="left" valign="top">
+							    <a href="/Order/ydg.shtml">
+								    已订购({$order_count|default=0})
+								</a>
+							</td>
+                            <td width="108" align="left" valign="top">
+							    <a href="/Order/ydh.shtml">
+								    已到货({$arrive_count|default=0})
+								</a>
+							</td>
+                            <td width="101" align="left" valign="top">
+							    <a href="/Order/yrk.shtml">
+								    已入库({$yrk_count|default=0})
+								</a>
+							</td>
+                        </tr>
+                        <tr>
+                            <td height="28" align="left" valign="top">
+							    <a href="/My/order.shtml">
+								    暂时缺货({$zsqh_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/order.shtml">
+								    无货({$wh_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/order.shtml">
+								    无效({$wx_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/order.shtml">
+								    退换货处理中({$thhclz_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    &nbsp;
+							</td>
+                        </tr>
+                        <tr>
+                            <td height="28" align="center" valign="top">
+							    包裹提醒：
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/parcel.shtml">
+								    等待审核({$unprocess_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/parcel.shtml">
+								    处理中({$clz_pg_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/parcel.shtml">
+								    已发货({$sent_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/parcel.shtml">
+								    已确认({$yqr_pg_count|default=0})
+								</a>
+							</td>
+                            <td align="left" valign="top">
+							    <a href="/My/parcel.shtml">
+								    无效包裹({$wx_pg_count|default=0})
+								</a>
+							</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width:236px; height:620px; background:#f7f7f7;" class="nobd right">
+                <div style="width:224px; margin-left:10px;" class="nobd">
+                    <div style="height:35px; border-bottom:1px solid #cccccc; font-weight:bold;">
+                        <div style="padding-top:10px; text-align:left; padding-left:2px;">
+						    最新公告
+						</div>
+                    </div>
+                    <ul class="my_announce">
+                        <volist name="AnnounceList" id="vo">
+                            <li>
+							    <a href="/Announce/detail/id/{$vo.id}.shtml" target="_blank">
+								    {$vo.title|getShortTitle=###,15,false}
+								</a>
+							</li>
+                        </volist>
+                    </ul>
+                </div>
+                <div style="width:224px; margin-left:10px;" class="nobd">
+                    <div style="height:35px; border-bottom:1px solid #cccccc; font-weight:bold;">
+                        <div style="padding-top:10px; text-align:left; padding-left:2px;">常见问题</div>
+                    </div>
+                    <ul class="my_help">
+                        <volist name="HelpList" id="vo">
+                            <li>
+							    <a href="/Help/detail/id/{$vo.id}.shtml" target="_blank">
+								    {$vo.title|getShortTitle=###,15,false}
+								</a>
+							</li>
+                        </volist>
+                    </ul>
+                </div>
+                <div style="width:224px; margin-left:10px; text-align:left;" class="nobd">
+                    <div style="height:35px; border-bottom:1px solid #cccccc; font-weight:bold;">
+                        <div style="padding-top:10px; text-align:left; padding-left:2px;">
+						    我的建议
+						</div>
+                    </div>
+                    <div style="margin-top:12px;">
+					    还希望我们为您提供什么样的功能？
+					</div>
+                    <div style="margin-top:6px;">
+					    欢迎您提出意见或建议！
+					</div>
+                        <form name="form1" id="form1" action="/FeedBack/commitForMy" method="post">
+                            <div style="margin-top:8px;">
+                                <textarea id="content" name="content" style="width:190px;; height:120px;"></textarea>
+                            </div>
+                            <div style="margin-top:6px;">
+                                <input type="button" onclick="sendform();" value="提交" class="btn_nomal" />
+                                &nbsp;&nbsp;
+                                <input type="reset" value="清除" class="btn_n2" />
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/Css/confirm.css">
+<script>
+writeConfirm();
+    function complete(result){ 
+        if(result.status == '1'){
+	    alert(' 您的问题提交成功，感谢您的支持！');
+	        $('#content').val('');
+	    }
+    } 
+		    $('#form1').ajaxForm({
+		        success: complete, dataType: 'json' 
+		    }); 
+    function sendform(){
+        var content = $('#content').val(); 
+	    if(content == ''){
+    	    alert('总该写点什么吧'); 
+	    }
+	    else{
+    	    $('#form1').submit(); 
+	    }
+    }
+    function resetform(){
+    	$('#content').val('');
+	}
+</script>
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

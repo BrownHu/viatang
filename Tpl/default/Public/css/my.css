@@ -1,0 +1,90 @@
+#footpanel {
+	Z-INDEX: 9999;
+	BORDER-BOTTOM: medium none;
+	POSITION:fixed;
+	BORDER-LEFT: #c3c3c3 1px solid;
+	float:right;
+	WIDTH: 158px;
+	BOTTOM: 0px;
+	BACKGROUND: #e3e2e2;
+	BORDER-TOP: #c3c3c3 1px solid;
+	BORDER-RIGHT: #c3c3c3 1px solid;
+	RIGHT: 10px
+}
+#footpanel UL {
+	PADDING-BOTTOM: 0px;
+	LIST-STYLE-TYPE: none;
+	MARGIN: 0px;
+	PADDING-LEFT: 0px;
+	WIDTH: 100%;
+	PADDING-RIGHT: 0px;
+	FLOAT: left;
+	FONT-SIZE: 1.1em;
+	BORDER-TOP: #fff 1px solid;
+	LIST-STYLE-IMAGE: none;
+	PADDING-TOP: 0px
+}
+#footpanel UL LI {
+	POSITION: relative;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-RIGHT: 0px;
+	FLOAT: left;
+	PADDING-TOP: 0px
+}
+#footpanel UL LI A {
+	POSITION: relative;
+	PADDING-BOTTOM: 5px;
+	TEXT-INDENT: -9999px;
+	PADDING-LEFT: 5px;
+	WIDTH: 16px;
+	PADDING-RIGHT: 5px;
+	FLOAT: left;
+	HEIGHT: 16px;
+	COLOR: #333;
+	TEXT-DECORATION: none;
+	PADDING-TOP: 5px
+}
+#footpanel UL LI A:hover {
+	BACKGROUND-COLOR: #fff
+}
+#footpanel UL LI A.active {
+	Z-INDEX: 200;
+	BORDER-BOTTOM: #555 1px solid;
+	POSITION: relative;
+	BORDER-LEFT: #555 1px solid;
+	BACKGROUND-COLOR: #fff;
+	MARGIN-TOP: -2px;
+	HEIGHT: 17px;
+	BORDER-TOP: medium none;
+	BORDER-RIGHT: #555 1px solid
+}
+#footpanel A.home {
+	TEXT-INDENT: 0px;
+	PADDING-LEFT: 25px;
+	WIDTH: 55px;
+	BACKGROUND: url(../images/hlp.gif) no-repeat 10px center;
+	BORDER-RIGHT: #bbb 1px solid
+}
+
+#footpanel A.messages {
+	TEXT-INDENT: 0px;
+	PADDING-LEFT: 27px;
+	WIDTH: 40px;
+	BACKGROUND: url(../images/balloon.png) no-repeat 5px center;
+}
+
+#footpanel A SMALL {
+	TEXT-ALIGN: center;
+	PADDING-BOTTOM: 12px;
+	TEXT-INDENT: 0px;
+	PADDING-LEFT: 5px;
+	WIDTH: 70px;
+	PADDING-RIGHT: 5px;
+	DISPLAY: none;
+	BACKGROUND: url(../images/pop_arrow.gif) no-repeat center bottom;
+	COLOR: #fff;
+	FONT-SIZE: 1em;
+	PADDING-TOP: 8px
+}

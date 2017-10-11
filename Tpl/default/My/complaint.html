@@ -1,0 +1,70 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px;overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我要投诉</div>
+    <div style="width:950px; height:90px; padding-top:10px; text-align:left;" class="middle">
+      <p style="line-height:30px; display:block; width:916px;">亲爱的用户：<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为视服务为生命的公司，我们绝不纵容、姑息任何可能的，哪怕一半点的服务缺失。如果您在使用中对于我们的服务或工作人员（包括服务态度、订单操作等）有任何不满意，请您随时与
+        我们客户服务受理中心联系。 </p>
+    </div>
+    <div style="width:960px; margin-top:18px;" class="nobd middle">
+      <form action="/Complaint/commit" method="post" name="frmComplaint" id="frmComplaint">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:879px; border:0px solid #e6e6e6;">
+          <tr height="32" style="font-weight:bold;">
+            <td bgcolor="#f3f3f3" colspan="2" align="left" style="border-bottom:1px dotted #e6e6e6;" >&nbsp;&nbsp;&nbsp;&nbsp;投诉内容</td>
+          </tr>
+          <tr height="45" >
+            <td width="80">类别：</td>
+            <td align="left"><input type="radio" name="c_category" value="order" checked="checked">
+              订单&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="c_category" value="package">
+              运单&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="c_category" value="package">
+              客服&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="c_category" value="package">
+              其它 </td>
+          </tr>
+          <tr height="45">
+            <td>标题：</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" id="c_title" name="c_title" value="" size="80" style="width:500px;"></td>
+          </tr>
+          <tr height="5">
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr >
+            <td>描述：</td>
+            <td align="left"><textarea id="c_content" name="c_content" style="display:block; width:500px; height:200px;"></textarea></td>
+          </tr>
+          <tr height="25">
+            <td colspan="2">&nbsp;</td>
+          </tr>
+        </table>
+      </form>
+      <div style="height:12px; width:960px; padding-top:12px; text-align:left; text-indent:85px;" class="middle nobd">
+        <input type="button" name="submit"  onclick="javascript:sendform();" value="提交投诉" class="btn_middle">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" name="clear" onclick="javascript:clear();" value="清空内容" class="btn_nomal">
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function sendform(){
+	if( isEmpty(document.frmComplaint.c_title) ||  isEmpty(document.frmComplaint.c_content)){
+		alert('请输入所有项目，再提交!');
+	}else{
+		$('#frmComplaint').submit();
+	}
+}
+
+function clear(){
+	$('#c_title').val('');
+	$('#c_content').val('');
+}	
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

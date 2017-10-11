@@ -1,0 +1,99 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,留学生代购中国商品网站-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script>	
+function sendform(){
+	var v = document.add_address.u_a_select_country.value.split("|");
+	if( isEmpty(document.add_address.contact)  ||  isEmpty(document.add_address.country) 		
+	 || isEmpty(document.add_address.city) 		
+	 || isEmpty(document.add_address.address)		
+	 || isEmpty(document.add_address.zip)		
+	 || isEmpty(document.add_address.phone)){
+		$('#error_msg').html('&nbsp;请填写所有项后，再提交!');
+		$('#error_msg').show();
+	}else{
+		$('#deliver_id').val(v[0]);
+		$('#add_address').submit();
+	}
+}
+	
+	function hidemsg(){
+	  $('#error_msg').hide();
+	}
+	
+function select_country(a)
+{
+	var v = a.value.split("|");
+	if(v[0] == '7' || v[0] == '17' || v[0] == '24'){
+		$('#u_a_country').val('');
+		$('#show_write_country').show();
+	}else{
+		$('#u_a_country').val(v[1]);
+		$('#show_write_country').hide();
+	}
+}
+</script>
+</head>
+<body style="background:#fff;">
+<div style="text-align:left" class="float_left">
+  <form action="__URL__/update" method="post" name="add_address" id="add_address">
+  	<input type="hidden" name="id" value="{$vo.id}">
+     <input type="hidden" name="deliver_id" id="deliver_id" value="0">
+  	<div id="error_msg" style="height:18px;  display:none; width:100%; background-color:#f60; color:#fff" class="middle">出错信息</div>
+    <table class="user_centerTable">
+      <tbody>
+        <tr>
+          <td width="80"  style="text-indent:12px;">收货人：</td>
+          <td><input name="contact" type="text"  id="u_a_name"  onFocus="hidemsg();" style="width:210px" value="{$vo.contact}"></td>
+        </tr>
+        <tr>
+          <td style="text-indent:12px;">国家： </td>
+          <td>
+          	  <select name="u_a_select_country" id="u_a_select_country" style="width:215px" onChange="select_country(this);">
+                <option value="0|0" selected>请选择</option>
+              	<volist name="CountryList" id="vo1">
+                	<option value="{$vo.id}|{$vo.caption_en}">{$vo1.caption_cn}</option>
+                </volist>
+              </select>	
+          </td>
+        </tr>
+        <tr style="display:none" id="show_write_country">
+          <td style="text-indent:12px;">输入国家： </td>
+          <td><input id="u_a_country"  style="width:210px" name="country" onFocus="hidemsg();" value="{$vo.country}" ></td>
+        </tr>
+        <tr>
+          <td style="text-indent:12px;">省/州：</td>
+          <td><input name="state" type="text"  id="u_a_state" style="width:210px" onFocus="hidemsg();" value="{$vo.state}" ></td>
+        </tr> 
+        <tr>
+          <td style="text-indent:12px;">城市：</td>
+          <td><input name="city" type="text"  id="u_a_city"   style="width:210px" onFocus="hidemsg();" value="{$vo.city}" ></td>
+        </tr>
+        <tr>
+          <td valign="top" style="text-indent:12px;">地址：</td>
+          <td><textarea class="buy_ipt1" name="address" id="u_a_address" cols="45" rows="5"  onFocus="hidemsg();"  style="height:80px;width:400px;overflow:auto">{$vo.address}</textarea></td>
+        </tr>
+        <tr>
+          <td style="text-indent:12px;">邮编：</td>
+          <td><input name="zip" type="text"  id="u_a_zip" onFocus="hidemsg();"   style="width:210px" value="{$vo.zip}"></td>
+        </tr>
+        <tr>
+          <td style="text-indent:12px;">电话：</td>
+          <td><input name="phone" type="text" id="u_a_phone"  onFocus="hidemsg();" style="width:210px"  value="{$vo.phone}"></td>
+        </tr>
+        <tr>
+          <td height="40"></td>
+          <td><input type="button" name="button5" id="button7" class="btn_send" value="确认" onClick="javascript:sendform();"></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+</body>
+</html>

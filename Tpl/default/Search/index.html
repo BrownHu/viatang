@@ -1,0 +1,131 @@
+<include file="Public:header" />
+<include file="Mall:nav" />
+<script>
+chgtoptab('search');
+</script>	
+<div id="m0" style="width:988px; height:100%; overflow:hidden; margin-top:8px;" class="middle nobd"></div>
+<div style="width:988px;text-align:left; height:12px;" class="mrg14 nobd middle">
+	<a href="/">首页</a>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;<a href="#">商品搜索</a>
+	<span style="display:inline-block;" class="right"><a href="#" >查看全部商品分类信息>>&nbsp;&nbsp;</a></span>
+</div>	
+<div id="m1" style="width:988px;height:100%; overflow:hidden;" class="middle nobd mrg14">
+  <DIV class=main>
+    <DIV class="mainCont">
+      <div  id="chlbanner" style="width:780px; height:100%; overflow:hidden;" class="nobd"></div>	
+      <DIV class="cate_wrap">
+        <DIV class=cate_inner>
+          <DIV id=filter class=inner>
+            <notempty name="Categories">
+            <DIV class=cate_files>
+              <H4>类别：</H4>
+              <DIV class=cont>
+             	 <A href="/Search/so.html?cid={$cid|default=0}&sid={$sid}&q={$keyword}" class="current">全部</A>
+              	<volist name="Categories" id="vo">
+	              	<A href="/Search/so.html?cid={$vo.category_id}&sid={$sid}&q={$keyword}">{$vo.category_name}({$vo.count})</A> 
+                </volist>              
+              </DIV>
+            </DIV>
+            </notempty>
+            <notempty name="Sellers">
+            <DIV class=cate_files>
+              <H4>商家：</H4>              
+              <DIV class=cont>
+                <A href="/Search/so.html?cid={$cid}&sid={$sid|default=0}&q={$keyword}" class="current">全部</A>
+              	<volist name="Sellers" id="vo">
+	              	<A href="/Search/so.html?cid={$cid}&sid={$vo.seller_id}&q={$keyword}">{$vo.seller_name}({$vo.count})</A> 
+                </volist>              
+              </DIV>
+            </DIV>
+            </notempty>
+          </DIV>
+        </DIV>
+      </DIV>
+      <DIV class=filter_tool>
+        <DIV class=tab>
+           <LABEL>排序：</LABEL>
+           <UL id="order">
+            <LI><A <eq name="sort" value="">class="current"</eq> href="?q={$soearch_keyword}"><SPAN>默认</SPAN></A></LI>
+            <LI><A <eq name="sort" value="price-asc">class="current"</eq> href="?q={$soearch_keyword}&sort=price-asc"><SPAN>价格从低到高</SPAN></A></LI>
+            <LI><A <eq name="sort" value="price-desc">class="current"</eq> href="?q={$soearch_keyword}&sort=price-desc"><SPAN>价格从高到低</SPAN></A></LI>
+          </UL>
+        </DIV>
+        <DIV class=page><SPAN>{$PageNo}/{$TotalPages}</SPAN><A <gt name="PageNo" value="1">class="pre"<else/>class="pre_disable"</gt> href="?p={$PageNo-1}&q={$soearch_keyword}">上一页</A><A class=next href="?p={$PageNo+1}&q={$soearch_keyword}">下一页</A> </DIV>
+      </DIV>
+      <DIV id="search_result" class="search_result">
+        
+        <UL class="clearfix" id="search_product_result">
+          <li><img src="/Public/Images/icon_waiting.gif"/></li>
+        </UL>
+        
+        <div class="nobd mrg14">
+          <DIV class="digg">{$PageBar}</DIV>
+        </div>
+      </DIV>
+      <DIV class="search_bar search_b">
+        <DIV class="search_fields">
+          <FORM id="mall_search" name="mall_search" class="mall_search" method="get" action="/Search/index.html">
+            <INPUT id="kw" class="keytop" value="{$soearch_keyword|default='输入您要购买的商品名称'}" type="text" name="q" >
+            <input name="p" value="1" type="hidden">
+			<INPUT class="button" value="搜索" type="submit">
+          </FORM>
+        </DIV>
+      </DIV>
+    </DIV>
+  </DIV>
+  <DIV class="aside" style="text-align:left;">
+  	<DIV id="mod_category" class="module_product mod_collect" style="height:100%; overflow:hidden; padding-bottom:16px;">
+      <H3>热门商品类别</H3>
+      <DIV class="cont">
+        <UL style="padding-bottom:15px;">
+           <LI class="category"><a href="/search/index?p=0&q=精品女装">精品女装</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=连衣裙">连衣裙</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=T恤">T恤</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=衬衫">衬衫</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=裤子">裤子</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=牛仔裤">牛仔裤</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=半身裙">半身裙</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=背心">背心</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=马夹" >马夹</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=蕾丝衫" >蕾丝衫</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=针织衫" >针织衫</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=短外套" >短外套</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=中老年服装" >中老年服装</a></LI>
+           <LI class="category" style="padding-top:10px;"><a href="/search/index?p=0&q=女鞋" >女鞋</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=低帮鞋" >低帮鞋</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=高帮鞋" >高帮鞋</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=靴子" >靴子</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=帆布鞋" >帆布鞋</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=凉鞋" >凉鞋</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=拖鞋" >拖鞋</a></LI>
+           <LI class="category" style="padding-top:10px;"><a href="/search/index?p=0&q=男装" >男装</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=T恤" >T恤</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=衬衫" >衬衫</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=Polo衫" >Polo衫</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=背心" >背心</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=牛仔裤" >牛仔裤</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=休闲裤" >休闲裤</a></LI>
+           <LI class="subcategory"><a href="/search/index?p=0&q=圣诞" >圣诞</a></LI>
+        </UL>
+      </DIV>
+    </DIV>
+
+  </DIV>
+</div>
+<SCRIPT>
+(function($){ $('.product_item').mouseover(function(){ $(this).addClass("trigger_on");$('.mallbuy').hide();$(this).find('.mallbuy').show();});$('.product_item').mouseout(function(){ $(this).removeClass("trigger_on");$(this).find('.mallbuy').hide();});
+  var defwd = "输入您要购买的商品名称";	  var search_input = $('#kw'),form = $('#mall_search'),color = search_input.css('color');
+  search_input.focus(function(){ $(this).css('color','#000');  var val = $.trim($(this).val()); if(val == defwd) $(this).val('');}).blur(function(){  var val = $.trim($(this).val()); if(!val){ $(this).css('color',color); $(this).val(defwd); } });
+  form.submit(function(){ var val = $.trim(search_input.val()); if(!val || val == defwd) { search_input.focus(); return false; } });
+  
+  $.get('/search/loadResult/p/{$PageNo}/q/{$soearch_keyword}/sort/{$sort}',function(result){
+	 	$('#search_product_result').html(result);
+  });
+ })(jQuery);
+ 
+function buy(url){ 
+	$('#itemUrl').val(url);
+	$('#frm_daigou_result').attr('target','_blank');
+	$('#daigouform').submit();
+}
+</SCRIPT> 
+<include file="Public:bottom" />

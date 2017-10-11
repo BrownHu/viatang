@@ -1,0 +1,117 @@
+<include file="Public:header" />
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+var extensions = 'jpg,jpeg,gif,png';		
+var saveUrl = '/avatar/saveAvatar.html';
+var cameraPostUrl = '/avatar/camera.html';
+var editorFlaPath = '/Public/AvatarEditor.swf';
+
+function useCamera(){
+	var content = '<embed height="464" width="514" ';
+	content +='flashvars="type=camera';
+	content +='&postUrl='+cameraPostUrl+'?&radom=1';
+	content += '&saveUrl='+saveUrl+'?radom=1" ';
+	content +='pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" ';
+	content +='allowscriptaccess="always" quality="high" ';
+	content +='src="'+editorFlaPath+'"/>';
+	document.getElementById('avatar_editor').innerHTML = content;
+}
+
+function buildAvatarEditor(pic_id,pic_path,post_type){
+	var content = '<embed height="464" width="514"'; 
+	content+='flashvars="type='+post_type;
+	content+='&photoUrl='+pic_path;
+	content+='&photoId='+pic_id;
+	content+='&postUrl='+cameraPostUrl+'?&radom=1';
+	content+='&saveUrl='+saveUrl+'?radom=1"';
+	content+=' pluginspage="http://www.macromedia.com/go/getflashplayer"';
+	content+=' type="application/x-shockwave-flash"';
+	content+=' allowscriptaccess="always" quality="high" src="'+editorFlaPath+'"/>';
+	$('#avatar_editor').empty().html(content);
+}
+/**
+* 提供给FLASH的接口 ： 没有摄像头时的回调方法
+*/
+function noCamera(){
+   alert("没有检测到摄像头 ：）");
+}
+	  
+/**
+* 提供给FLASH的接口：编辑头像保存成功后的回调方法
+*/
+function avatarSaved(){
+  window.location = '/My/index.html';
+}
+
+/**
+* 提供给FLASH的接口：编辑头像保存失败的回调方法, msg 是失败信息，可以不返回给用户, 仅作调试使用.
+*/
+function avatarError(msg){
+   alert("头像上传失败了呀");
+}
+
+function checkFile()
+{
+   var path = document.getElementById('Filedata').value;
+   var ext = getExt(path);
+   var re = new RegExp("(^|\\s|,)" + ext + "($|\\s|,)", "ig");
+   if(extensions != '' && (re.exec(extensions) == null || ext == '')) {
+	   alert('对不起，只能上传jpg, gif, png类型的图片');
+	  return false;
+   }
+   showLoading();
+   return true;
+}
+
+function getExt(path) {
+  return path.lastIndexOf('.') == -1 ? '' : path.substr(path.lastIndexOf('.') + 1, path.length).toLowerCase();
+}
+
+function showLoading(){
+	document.getElementById('loading_gif').style.visibility = 'visible';
+}
+
+function hideLoading(){
+  document.getElementById('loading_gif').style.visibility = 'hidden';
+}
+		
+function complete(result){
+    if (result.status == '1'){
+		buildAvatarEditor(result.data['id'],result.data['file'],"photo");		
+    }else{		
+        alert(result.info);
+    }
+}
+</script>
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px;  font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;头像照片</div>
+    <div style="width:960px; height:60px; text-align:left;  tmargin-top:30px;" class="middle"> 
+      <script>  $('#form1').ajaxForm({success: complete,dataType: 'json'});</script>
+      <form  id="form1" name="form1" method='post' action="/Avatar/upload" enctype="multipart/form-data">
+        <p style="display:inline-block; margin-top:9px;">上传头像：
+          <input name="image" id="image" type="file"/>
+          &nbsp;
+          <input type="button" name="button" onclick="sendform();" class="btn_nomal" value="上传" />
+          <br><br> 支1M以下的JPG,GIF,PNG格式图片
+        </p>
+      </form>
+    </div>
+    <div style="width:698px; height:402px; border:1px solid #e6e6e6;  margin-top:40px; padding-bottom:22px;" class="nobd middle">
+      <div id="avatar_editor" style="width:514px; height:464px; overflow:hidden; margin-top:12px; margin-left:10px; text-align:left;" class="brd left"> 
+      	<img id="newImg" src="/Uploads/pic/avatar/tmp/tmp.png" align="left">
+      </div>
+    </div>
+    <div style="width:960px;text-align:left; margin-top:30px;" class="middle">
+      <p style="line-height:30px; text-align:left;">温馨提示：<br>
+        1、按住鼠标左键，在图片上拖动，拉出选择框。<br>
+        2、可以拖动选择框，放大或缩小或取消。调整至合适后点击"保存按钮"。<br>
+        3、请选择1MB以下的jpg或gif文件文件上传。 </p>
+    </div>
+  </div>
+</div>
+<script>writeConfirm();function sendform(){ $('#form1').submit();}</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

@@ -1,0 +1,365 @@
+    <include file="Public:header" />
+    <script type="text/javascript" src="/s/?g=my.js"></script>
+    <link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+	<script>
+        writeConfirm();
+        function del(id){
+            confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+	            $('#delid').val(id);
+	            $('#frmdel').attr('action','/Selfpurchase/delProduct');
+	            $('#frmdel').submit();
+            });		 
+        }
+        function doaccept(id){
+            if(id=='')	{
+	            alert('参数错误');
+            }else{
+	        if( ($('#contact_'+id).val() == '') || ($('#tel_'+id).val() == '') || ($('#address_'+id).val() == '')  ){
+		        alert('请填写退货信息后，再提交！');
+	        }else{
+		        $('#spid').val($('#supplement_'+id).val());
+		        $('#return_contact').val($('#contact_'+id).val());
+	  	        $('#return_tel').val($('#tel_'+id).val());
+		        $('#return_zip').val($('#zip_'+id).val());
+		        $('#return_address').val($('#address_'+id).val());
+		        $('$return_remark').val($('#remark_'+id).val());
+		        $('#frmSupplement').attr('action','/Selfpurchase/accept');
+		        $('#frmSupplement').submit();
+	            }
+            }
+        }
+
+        function deny(){
+            if(id=='')	{
+	            alert('参数错误');
+            }else{
+	            $('#sip').val($('#supplement_'+id).val());
+	            $('#frmSupplement').attr('action','/Selfpurchase/deny');
+	            $('#frmSupplement').submit();
+            }	
+        }
+
+        function addtocart(){
+	        if(checkSel()){
+	            $('#frmcart').submit();
+            }else{
+	            alert('请选择需要加入送货车的商品,再提交!');
+            }
+        }
+
+        function note(oid,pid){
+            lightboxframe('联系客服','/Consultation/add/oid/'+oid+'/pid/'+pid+'.shtml',500,280,true);
+        }
+        function remark(id){
+            if(id!=''){
+		        lightboxframe('商品备注','/Selfpurchase/loadRemark/id/'+id+'.shtml',400,220,true);
+            }
+        }
+        function freight(id,cmp,no,status){
+            if(id!=''){
+		        lightboxframe('物流信息','/Selfpurchase/loadFreight/id/'+id+'/c/'+cmp+'/no/'+no+'/s/'+status+'.shtml',300,120,true);
+            }
+        }
+        function batfreight(batid,seller){
+	        var slr = $.base64Encode(seller).replace('/','^');
+	            lightboxframe('物流信息','/Selfpurchase/showFreight/b/'+batid+'/s/'+slr+'.shtml',300,120,true);
+        }
+        function refresPhoto(pid){
+	        $.get('/Photo/showPhoto/type/2/pid/'+pid,function(data){
+		        if(data != ''){			
+			        $('#pic_list_'+pid).html(data);
+		        }else{
+			        $('#pic_list_'+pid).html('<span style="color:#ccc;"></span>');
+		        }
+		    });
+        }
+    </script>
+
+
+
+<div id="m4" class="w" style=" height:100%; overflow:hidden;" class="middle nobd mrg9">
+
+<div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+        <div style="width:988px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #B51005; text-align:left;" class="middle">当前位置：&nbsp;
+		    <a href="/My/index.shtml">我的唯唐</a>
+			&nbsp;&nbsp;>&nbsp;&nbsp;国际转运
+		</div>
+        <div style="width:988px; height:100%; overflow:hidden; border-bottom:1px solid #e3e3e3; padding-bottom:5px;  margin-top:18px;" class="middle">
+            <img src="../Public/images/gl.gif" class="left">
+            <div style="width:700px; margin-left:20px; text-align:left;" class="left">
+      	        <p style="font-size:18px; line-height:26px; height:30px;" class="fnt_b">国际转运商品管理</p>
+                <p style="line-height:15px; height:15px;" class="fnt_gry">您可以在此查看{:C('SITE_NAME')}尚未验货的商品</p>
+            </div>
+        </div>
+    
+        <div style="width:988px; height:35px; line-height:35px; border:1px solid #e3e3e3; background-color:#f9f9f9; font-size:14px; text-align:left;" class="middle mrg14">
+    	    <span style="display:block; width:44px;margin-left:16px;" class="left">ID</span>
+            <span style="display:block; width:240px;margin-left:10px;" class="left">商品名称</span>
+            <span style="display:block; width:145px;margin-left:3px; text-align:center;" class="left">快递公司</span>
+            <span style="display:block; width:145px;margin-left:1px; text-align:center;" class="left">物流单号</span>
+            <span style="display:block; width:46px;margin-left:3px; text-align:center;" class="left">数量</span>
+            <span style="display:block; width:77px; text-align:center;" class="left">状态</span>
+            <span style="display:block; width:58px;margin-left:10px; text-align:center;" class="left">备注</span>
+       
+            <span style="display:block; width:16px;margin-left:128px; text-align:center;" class="left">
+			    <input type="checkbox" name="checkbox"  id="checkbox"  onclick="selAll(this);" style="margin-top:0px;"/>
+			</span>
+        </div>
+        <div style="width:988px; height:35px; line-height:35px; border-left:1px solid #e3e3e3;border-right:1px solid #e3e3e3;border-bottom:1px solid #e3e3e3;  text-align:left;" class="middle">
+            <a href="/Selfpurchase/cart.shtml" class="left btn_middle" style="margin-top:3px; margin-left:10px;" >查看我的送货车</a>
+            <span style="display:inline-block; margin-left:20px;" class="fnt_gry">需填写物流信息才可以入库哦！</span>
+        </div>
+    
+    <div id="p_lst" style="width:988px; height:100%; overflow:hidden;" class="middle">
+    <form action="/Selfpurchase/addtocart" id="frmcart" name="frmcart" method="post">   
+      <volist name="DataList" id="vo">
+                <if condition="$vo.order_bat_id neq $preItem['order_bat_id']">
+                    <div style="background-color:#f3f3f3; height:35px; line-height:35px; text-align:left; padding-left:10px;" class="brd mrg14">
+          	            批次号：{$vo.order_bat_id}&nbsp;&nbsp;提交时间：{$vo.send_time|date='Y-m-d H:i:s',###}
+                    </div>
+  
+                </if>
+        <div style="height:100%; line-height:100%; overflow:hidden;" class="brd4">
+            <div style="width:60px; border-right:1px solid #e3e3e3; line-height:88px;" class="left">Z{$vo.id}</div>
+            <div style="width:240px; height:100%; overflow:hidden;  margin-left:5px;" class="left">
+                <div style="display:inline-block; width:70px; margin-top:4px; display:none;" class="nobd left" > 
+                    <a href="{$vo.url}" target="_blank"><img src="{$vo.img}" onerror="this.src='../Public/images/noimg80.gif';" alt="国际转运商品信息" class="product_img"/></a> 
+                </div>
+                <div style="display:inline-block; width:236px; text-align:left; margin-left:1px; padding-top:10px; " class="left nobd">
+             	    <a href="#nogo" class="lnk" onclick="updateTitle({$vo.id});">
+                    	<notempty name="vo.title">
+                    		{$vo.title}
+                        <else/>
+                        {$vo.remark}
+                        </notempty>
+                     </a>
+                     <br>
+                    <notempty name="vo.reason">
+					    <div style="color:#B51005; padding-right:8px; margin-top:15px;">提醒:&nbsp;&nbsp;{$vo.reason}</div>
+					</notempty>
+                    <div id="pic_list_{$vo.id}" style="height:30px;"></div> 
+                </div>
+            </div>
+            <div style="width:145px; line-height:88px; margin-left:3px;" class="left brd5">
+            	&nbsp;
+            	<notempty name="vo.shipping_company">
+            	{$vo.shipping_company}
+            	<else/>
+            		<a href="#nogo" onclick="updateExpress({$vo.id});" class="lnk">补充快递</a>
+            	</notempty>
+            </div>
+			<div style="width:145px; line-height:88px; margin-left:3px;" class="left brd5">
+			    <a href="/tools/logistics.shtml?tno={$vo.trace_no}" target="_blank" class="lnk" style="color:#333;">{$vo.trace_no}</a>
+			</div>
+            <div style="width:56px; line-height:88px; margin-left:3px;" class="left brd5">{$vo.count|default=1}</div>
+            <div style="width:85px; line-height:88px;" class="left brd5">
+                <switch name="vo.status">
+                    <case value="0">等待收货</case>
+                    <case value="1"><a  onclick="refresPhoto({$vo.id});" class="fnt_red" title="已到货" style="color:#333">已到货</a></case>
+                    <case value="2"><a href="#nogo" onclick="refresPhoto({$vo.id});" class="fnt_red" title="问题商品">问题商品</a></case>
+                    <case value="3"><span class="fnt_red">退货处理中</span></case>
+                    <case value="4">已退货</case>
+                    <case value="5">
+                 	    <a onclick="refresPhoto({$vo.id});" class="fnt_red" title="已入库" style="color:#333;">已入库</a>
+                        <define name="SELF_BUY_YRK" value="true" />
+                    </case>
+                    <case value="8"><span class="fnt_red">换货处理中</span></case>
+                    <case value="9"><span class="fnt_red">退货补运费中</span></case>
+                    <case value="10"><span class="fnt_red">换货补运费中</span></case>
+                    <default/>&nbsp;
+                </switch>           
+            </div>
+            <div style="width:130px; line-height:88px;" class="left brd5">
+		        <a href="#nogo" onclick="remark({$vo.id});" class="lnk">商品备注</a>
+		    </div>
+
+            <div style="width:70px; line-height:70px; height:88px;" class="left brd5">
+                <switch name="vo.status">
+                    <case value="0"><a href="#nogo" onclick="del({$vo.id});" class="btn_nomal" style="margin-top:18px; margin-left:2px;">删除</a></case>
+                    <case value="2">
+                 	    <a href="#nogo" onclick="note(0,{$vo.id});" class="btn_nomal" style="margin-top:18px; margin-left:2px;">联系客服</a>
+                        <a href="/My/consultation.shtml" target="_blank" class="lnk" style="display:none">消息记录</a>
+                    </case>
+                    <case value="3">
+                 	    <a href="#nogo" onclick="note(0,{$vo.id});" class="btn_nomal" style="margin-top:18px; margin-left:2px;">联系客服</a>
+                        <a href="/My/consultation.shtml" target="_blank" class="lnk">消息记录</a>
+                    </case>                 
+                    <case value="4"><a href="#nogo" onclick="del({$vo.id});" class="btn_nomal" style="margin-top:18px; margin-left:2px;">删除</a></case>
+                    <case value="5"><input type="checkbox" id="id_" name="id[]" value="{$vo.id}" style="margin-top:20px;" ></case>
+                    <case value="8">
+                 	    <a href="#nogo" onclick="note(0,{$vo.id});" class="btn_nomal" style="margin-top:18px; margin-left:2px;">联系客服</a>
+                        <a href="/My/consultation.shtml" target="_blank" class="lnk">消息记录</a>
+                    </case>                     
+                    <case value="9">
+                 	    <a href="#nogo" onclick="note(0,{$vo.id});" class="btn_nomal" style="margin-top:18px; margin-left:2px;">联系客服</a><br>
+                        <a href="/My/consultation.shtml" target="_blank" class="lnk">消息记录</a>
+                    </case>
+                    <case value="10">
+                 	    <a href="#nogo" onclick="note(0,{$vo.id});" class="btn_nomal" style="margin-top:18px; margin-left:2px;">联系客服</a><br>
+                        <a href="/My/consultation.shtml" target="_blank" class="lnk">消息记录</a>
+                    </case>
+                    <default/>&nbsp;
+                </switch>
+            </div>
+        </div>
+        
+        <if condition="($vo.seller neq $next['seller']) OR ($vo.order_bat_id neq $next['order_bat_id']) OR ($i eq $count)">
+            <php>$supplement = loadSupplement($vo['create_at'].$vo['user_id'].$vo['seller']);</php>
+            <notempty name="supplement">
+                <input type="hidden" name="supplement_{$vo.id}" id="supplement_{$supplement.id}" value="{$supplement.id}"> 
+                <div style="height:190px;text-align:left; overflow:hidden; padding-top:10px;" class="brd4">
+                    <div style="width:700px;line-height:30px;padding:5px; border-bottom:1px dashed #CCC;" class="middle">
+                        补款金额：<span class="fnt_red">￥{$supplement.shipping_fee|default=10}</span><br>
+                        补款原因：<span class="fnt_red">{$supplement.reason}</span>
+                    </div>
+                    <div style="width:700px;line-height:30px;padding:10px; border-bottom:1px dashed #CCC;" class="middle">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr height="30">
+                                <td width="60">收货人：</td><td width="130">
+							        <input type="text" id="contact_{$supplement.id}" name="retrun_contact" value="" size="20">
+						        </td>
+                                <td width="70" align="right">联系电话：</td>
+							    <td width="130"><input type="text" id="tel_{$supplement.id}" name="return_tel" value="">
+							    </td>
+                                <td width="70" align="right">邮编：</td>
+							    <td width="130">
+							        <input type="text" id="zip_{$supplement.id}" name="return_zip" value="" size="10">
+							    </td>
+                            </tr>
+                            <tr height="35"><td>收货地址：</td>
+						        <td colspan="4">
+							        <input type="text" id="address_{$supplement.id}" name="retrun_address" value="" style="width:400px;">
+						        </td>
+					        </tr>
+                            <tr height="35">
+						        <td>备注：</td>
+							    <td colspan="4">
+							        <input type="text" id="remark_{$supplement.id}" name="retrun_remark" value="" style="width:400px;">
+							    </td>
+						    </tr>
+                        </table>
+                    </div>
+                    <div style="width:700px;line-height:30px;padding:10px;" class="middle">
+                        <div style="width:110px;" class="left">
+						    <input type="button" onclick="javascript:doaccept({$supplement.id});" value="接受补款" class="btn_send" >
+						</div>
+                        <div style="width:50px; " class="left">
+						    <input type="button" value="拒绝"  onclick="deny({$supplement.id});" class="btn_cancle">
+						</div>
+                    </div>            
+                </div>
+            </notempty>
+        </if>
+      </volist>
+    </form>   
+        <div style="width:970px;" class='digg middle'>{$page}</div>  
+    </div>    
+        <defined name="SELF_BUY_YRK">
+            <div style="width:970px; height:50px; text-align:right;"  class="middle">
+                <span style="display:inline-block; margin-top:4px;" class="left">
+				    <a href="/Selfpurchase/cart.shtml" class="lnk">查看送货车</a>
+				</span>
+                    <input type="button" name="submit" id="submit" class="btn_big"  onclick="addtocart();" style="margin-right:20px;" value="将选中商品放入送货车">
+            </div>
+        </defined>
+  </div>
+</div>
+    <form action="" id="frmdel" name="frmdel" method="post">
+        <input type="hidden" name="id" id="delid" value="0"> 
+    </form>
+    <form action="/Selfpurchase/accept" id="frmSupplement" name="frmSupplement" method="post">
+        <input type="hidden" name="supplementid" id="spid" value="0">
+        <input type="hidden" name="contact" id="return_contact" value="">
+        <input type="hidden" name="tel" id="return_tel" value="">
+        <input type="hidden" name="zip" id="return_zip" value="">
+        <input type="hidden" name="address" id="return_address" value="">
+        <input type="hidden" name="remark" id="return_remark" value="">
+    </form>
+<script>
+writeConfirm();
+function del(id){
+  confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+	$('#delid').val(id);
+	$('#frmdel').attr('action','/Selfpurchase/delProduct');
+	$('#frmdel').submit();
+  });		 
+}
+function doaccept(id){
+  if(id=='')	{
+	  alert('参数错误');
+  }else{
+	  if( ($('#contact_'+id).val() == '') || ($('#tel_'+id).val() == '') || ($('#address_'+id).val() == '')  ){
+		  alert('请填写退货信息后，再提交！');
+	 }else{
+		  $('#spid').val($('#supplement_'+id).val());
+		  $('#return_contact').val($('#contact_'+id).val());
+	  	  $('#return_tel').val($('#tel_'+id).val());
+		  $('#return_zip').val($('#zip_'+id).val());
+		  $('#return_address').val($('#address_'+id).val());
+		  $('$return_remark').val($('#remark_'+id).val());
+		  $('#frmSupplement').attr('action','/Selfpurchase/accept');
+		  $('#frmSupplement').submit();
+	 }
+  }
+}
+
+function deny(){
+  if(id=='')	{
+	  alert('参数错误');
+  }else{
+	  $('#sip').val($('#supplement_'+id).val());
+	  $('#frmSupplement').attr('action','/Selfpurchase/deny');
+	  $('#frmSupplement').submit();
+  }	
+}
+
+function addtocart(){
+	if(checkSel()){
+	   $('#frmcart').submit();
+   }else{
+	   alert('请选择需要加入送货车的商品,再提交!');
+   }
+}
+
+function note(oid,pid){
+  lightboxframe('联系客服','/Consultation/add/oid/'+oid+'/pid/'+pid+'.shtml',500,280,true);
+}
+function remark(id){
+  if(id!=''){
+		lightboxframe('商品备注','/Selfpurchase/loadRemark/id/'+id+'.shtml',400,220,true);
+  }
+}
+
+function updateTitle(id){
+	if(id!=''){
+		lightboxframe('更新商品标题','/Selfpurchase/updateTitle/id/'+id+'.html',400,120,true);
+  }
+}
+
+function updateExpress(id){
+	if(id!=''){
+		lightboxframe('更新快递','/Selfpurchase/updateExpress/id/'+id+'.html',400,120,true);
+  }
+}
+
+function freight(id,cmp,no,status){
+  if(id!=''){
+		lightboxframe('物流信息','/Selfpurchase/loadFreight/id/'+id+'/c/'+cmp+'/no/'+no+'/s/'+status+'.shtml',300,120,true);
+  }
+}
+function batfreight(batid,seller){
+	var slr = $.base64Encode(seller).replace('/','^');
+	lightboxframe('物流信息','/Selfpurchase/showFreight/b/'+batid+'/s/'+slr+'.shtml',300,120,true);
+}
+function refresPhoto(pid){
+	$.get('/Photo/showPhoto/type/2/pid/'+pid,function(data){
+		   if(data != ''){			
+			$('#pic_list_'+pid).html(data);
+		   }else{
+			   $('#pic_list_'+pid).html('<span style="color:#f60;">还没有上传照片</span>');
+		   }
+		});
+}
+</script>
+<include file="Public:bottom" />

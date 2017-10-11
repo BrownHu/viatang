@@ -1,0 +1,130 @@
+<include file="Public:header" />
+<div id="m4" class="w" style=" height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;发货</div>    
+    <div style="width:970px; height:100%; overflow:hidden; border-bottom:1px solid #e3e3e3; padding-bottom:5px;  margin-top:18px;" class="middle">
+      <img src="../Public/images/gl.gif" alt="代购商品发货清单" class="left">
+      <div style="width:600px; margin-left:20px; text-align:left;" class="left">
+      	<p style="font-size:18px; line-height:20px; height:30px;" class="fnt_b">我的送货车</p>
+        <p style="line-height:8px; height:8px;" class="fnt_gry">您可以将要邮寄给您商品放入送货车，然后提交打包邮寄给您。</p>
+      </div>
+    </div>       
+    <div style="width:970px; height:38px;" class="middle mrg14"><img src="../Public/images/jd4.gif" alt="代购商品提交运送" class="middle"></div>
+    <div style="width:970px; height:40px; line-height:31px; border:1px solid #e3e3e3; background-color:#f9f9f9; font-size:14px; text-align:left;" class="middle mrg14">
+		<span style="display:block; width:80px;margin-left:2px; text-align:center;" class="left">
+        	<input type="checkbox" name="checkbox"  class="selALL"   id="checkbox"  onclick="selAll(this);" style="margin-right:10px;"/>ID
+        </span>
+        <span style="display:block; width:520px; text-align: center;" class="left">商品名称</span>
+        <span style="display:block; width:62px; text-align:center;" class="left">数量</span>
+        <span style="display:block; width:80px; text-align:center;" class="left">重量(g)</span>
+        <span style="display:block; width:211px; text-align:center;" class="left">类别</span>       
+    </div>
+    <div id="p_lst" style="width:970px; height:100%; overflow:hidden; " class="middle">
+      <notempty name="DataList">
+        <form action="" id="frmcart" name="frmcart" method="post">   
+        <volist name="DataList" id="vo">
+          <div style="height:100%; overflow:hidden; " class="brd4">
+             <div style="width:80px; border-right:1px solid #e3e3e3; line-height:55px; height:78PX;" class="left">
+			    <input type="checkbox" id="id_" name="id[]" class="check_id" tag="{$vo.id}" value="{$vo.product_id}.{$vo.type}.{$vo.id}" style="margin-right:12px;" >
+				    {$vo.product_id}
+			</div>
+             <div style="width:516px; height:100%; overflow:hidden;  margin-left:3px; padding-bottom: 3px;" class="left">
+               <div style="display:inline-block; width:75px; margin-top:3px;" class="nobd left"> 
+                 <a href="{$vo.url}" target="_blank">
+                   <img src="{$vo.img}" onerror="this.src='../Public/images/noimg80.gif';" class="product_img"/>
+                 </a> 
+               </div>
+               <div style="display:inline-block; width:430px; text-align:left; margin-left:10px; padding-top:25px;" class="left nobd">
+               	  <php>if($vo['type']==2){</php>
+                  	<notempty name="vo.title">
+                    {$vo.title}
+                    <else/>
+                    	 {$vo.remark}
+                    </notempty>
+                    <br>{$vo.shipping_company}&nbsp;&nbsp;&nbsp;{$vo.trace_no}
+                  <php>}else{</php>
+                  	<a href="{$vo.url}" target="_blank" class="lnk">{$vo.title}</a><br>
+                  <php>}</php>
+               </div>
+             </div>
+             <DIV style="width:60px; line-height:78px; margin-left:3px;" class="left brd5">{$vo.count|default=1}</DIV>
+             <div style="width:80px; line-height:78px;" class="left brd5">{$vo.total_weight|default='-'}</div>
+             <div style="width:80px; line-height:78px;" class="left brd5">
+               <switch name="vo.type">
+                  <case value="1">代购</case>
+                  <case value="2">国际转运</case>
+                  <default/>&nbsp;
+               </switch>
+             </div>
+          </div>
+        </volist>
+        </form>     
+        <div style="width:970px;" class='digg middle mrg14'>{$page}</div>
+      <else/>
+        <div style="width:970px; height:30px; line-height:30px;" class="middle brd4">暂无记录</div>
+      </notempty>
+    </div>    
+
+    <notempty name="DataList">
+      <div style="width:970px; height:50px; text-align:right;"  class="middle">
+         <span style="display:block; width:10px;margin-left:10px; text-align:center;" class="left">
+        	<input type="checkbox" name="checkbox"  id="checkbox" class="selALL"  onclick="selAll(this);" style="margin-top:6px;"/>
+        </span>
+        <span style="display:block; margin-left:15px; margin-top:10px;" class="left">全选</span>
+        
+        <span style="display:inline-block; margin-top:4px; margin-right:20px;" ><a href="#nogo" onclick="returnProduct();" class="btn_middle">将选中商品退回仓库</a></span>
+        <input type="button" name="submit" id="submit" class="btn_big"  onclick="sendform();" style="margin-right:20px;" value="将选中商品打包邮寄">
+      </div>
+      <div style="text-align:left;">包裹总重量:<span id="gtotal"></span>g = 商品总重量:<span id="ptotal"></span>g &nbsp;+&nbsp;包装重量约为:<span id="pgweight">{$package_weight}</span>g(商品总重量*0.1)<br></div>
+    </notempty>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function returnProduct(){
+	if(checkSel()){
+	   $('#frmcart').attr('action','/Selfpurchase/returnProduct.shtml');
+	   $('#frmcart').submit();
+   }else{
+	   alert('  请选择需要退回仓库的商品,再提交!');
+   }
+}
+
+function sendform(){
+	if(checkSel()){
+	   $('#frmcart').attr('action','/Package/package.shtml');
+	   $('#frmcart').submit();
+   }else{
+	   alert('  请选择需要打包邮寄的商品,再提交!');
+   }
+}
+
+$(document).ready(function(){
+	$('.check_id,.selALL').click(function(){
+		totalweight();
+	});
+	
+    var totalweight = function(){
+    	var weight = 0;
+    	$('.check_id').each(function(){
+			if($(this).attr('checked')){
+				var count = $(this).parent().next().next().html();
+				var _w = $(this).parent().next().next().next().html();
+				weight += parseFloat(count) * parseFloat(_w);			
+			}	
+		});
+    	weight = weight.toFixed(2);
+    	var w2 = parseFloat(weight) * 0.1;
+    	w2 = w2.toFixed(2);
+    	var _total = parseFloat(weight + w2);
+    	$('#ptotal').empty().html(weight);
+    	$('#pgweight').empty().html(w2);
+    	$('#gtotal').empty().html(_total.toFixed(2));
+    }
+	
+});
+</script>
+<include file="Public:bottom" />

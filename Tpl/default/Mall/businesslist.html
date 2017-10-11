@@ -1,0 +1,22 @@
+<include file="Public:header" />
+<include file="Mall:nav" />
+<div style="width:988px;text-align:left; height:12px;" class="mrg9 nobd middle">
+<a href="/">首页</a>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;<a href="/Mall/index.shtml">挑选商品</a>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;<font color="#666666">商品目录</font>
+</div>
+<div id="m1" style="width:988px;height:100%; overflow:hidden;" class="middle nobd mrg14">
+  <DIV id=site_list class=site_names_list style="text-align:left">
+    <volist name="Categories" id="vo">
+    <DIV class=site_item>
+      <DIV class=cate_name>
+        <H2><SPAN></SPAN><a href="/all/{$vo.cid}.html" target="_blank"  style="color:#b80000;">{$vo.name}</a></H2>
+      </DIV>
+      <DIV class=list style="padding-left:10px">
+        <volist name="vo.subcat" id="sub">
+          <div style="width:150px; height:30px; line-height:30px; text-align:left;" class="left"><A href="/all/{$sub.cid}.html" target=_blank>{$sub.name}</A></div>              
+        </volist> 
+      </DIV>
+    </DIV>
+    </volist>
+  </div>
+</div>
+<include file="Public:bottom" />

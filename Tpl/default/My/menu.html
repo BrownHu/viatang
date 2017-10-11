@@ -1,0 +1,50 @@
+  	<div style="width:156px; height:70px; line-height:22px; padding-top:5px; text-align:left; padding-left:24px;">
+    	<a href="/My/index.shtml" style="text-decoration:underline;font-size:16px;"  title="回会员中心首页">我的主页</a><br>
+                    现金余额:￥{$balance|default=0}<br>
+
+    </div>
+  	<div class="help_menu_hd nobd fnt_b">代购</div>
+    <div class="help_menu_item nobd" style="display:none"><a href="/My/buy.shtml">我要代购</a></div>
+    <div class="help_menu_item nobd"><a href="/Cart/index.shtml">我的购物车<span class="my_red">({$Think.session.ulowi_shoping_cart_count|default="0"})</span></a></div>
+    <div class="help_menu_item nobd"><a href="/My/order.shtml">代购订单</a></div>
+    <div class="help_menu_item nobd"><a href="/Order/history.html">历史订单</a></div>
+	<div class="help_menu_hd nobd fnt_b">国际转运</div>
+    <div class="help_menu_item nobd"><a href="/Selfpurchase/index.shtml">我的唯一收货地址</a></div>
+    <div class="help_menu_item nobd"><a href="/Selfpurchase/buy.shtml">提交包裹清单</a></div>
+    <div class="help_menu_item nobd"><a href="/Selfpurchase/product.shtml">转运商品管理</a></div>
+	<div class="help_menu_item nobd"><a href="/Selfpurchase/history.shtml">历史商品记录</a></div>
+    <div class="help_menu_item nobd" style="display:none;"  ><a href="/Transshipment/index.html">收货地址</a></div>
+    <div class="help_menu_item nobd" style="display:none;" ><a href="/Transshipment/report.html">提交包裹</a></div>
+    <div class="help_menu_item nobd" style="display:none;" ><a href="/Transshipment/ddsh.html">订单管理</a></div>
+	<div class="help_menu_hd nobd fnt_b">送货</div>
+    <div class="help_menu_item nobd"><a href="/Selfpurchase/cart.shtml" >我的送货车(<span class="my_red" id="ulowi_shipping_count">{$Think.session.ulowi_shipping_count|default="0"}</span>)</a></div>
+    <div class="help_menu_item nobd"><a href="/My/parcel.shtml">我的包裹</a></div>
+    <div class="help_menu_hd nobd fnt_b">财务管理</div>
+    <div class="help_menu_item nobd"><a href="/Pay/paypal.shtml" class="my_red">帐户充值</a></div>
+    <div class="help_menu_item nobd"><a href="/Log/spend.shtml">财务记录</a></div>
+    <div class="help_menu_item nobd" style="display:none;" ><a href="/My/refund.shtml">申请提现</a></div>
+    <div class="help_menu_item nobd" style="display:none;" ><a href="/Refund/processing.shtml">提现记录</a></div>
+    <div class="help_menu_item nobd" style="display:none"><a href="/My/point.shtml">积分记录</a></div>
+    <div class="help_menu_item nobd"><a href="/Daijinquan/index.html">优惠券</a></div>
+    <div class="help_menu_hd nobd fnt_b" style="display:none">代充值</div>
+    <div class="help_menu_item nobd" style="display:none"><a href="/Alipayagent/apply.shtml">申请代充值</a></div>
+    <div class="help_menu_item nobd" style="display:none"><a href="/Alipayagent/all.shtml">代充值记录</a></div>
+    <div class="help_menu_item nobd" style="display:none;"><a href="/Alipayagent/reg.shtml">支付宝代注册</a></div>
+    <div class="help_menu_hd nobd fnt_b">客户服务</div>
+    <div class="help_menu_item nobd"><a href="/My/consultation.shtml">我的咨询<span class="my_red">({$Think.session.my_unread_consulation|default="0"})</span></a></div>
+    <div class="help_menu_item nobd" ><a href="/My/notice.shtml">系统通知<span class="my_red">({$Think.session.my_unread_notice|default="0"})</span></a></div>
+    <div class="help_menu_item nobd"><a href="/My/complaint.shtml">我要投诉</a></div>
+    <div class="help_menu_item nobd"><a href="/My/review.shtml">收货评论</a></div>
+    <div class="help_menu_hd nobd fnt_b">帐号管理</div>
+    <div class="help_menu_item nobd"><a href="/My/profile.shtml">基本资料</a></div>
+    <div class="help_menu_item nobd"><a href="/My/address.shtml">收货地址管理</a></div>
+    <div class="help_menu_item nobd"><a href="/My/password.shtml">修改密码</a></div>
+    <div class="help_menu_item nobd"><a href="/My/email.shtml">修改Email</a></div>
+    <div class="help_menu_item nobd" style="display:none;" ><a href="/My/ordertip.shtml">订单提醒</a></div>
+    <div class="help_menu_item nobd"><a href="/My/avatar.shtml">头像照片</a></div>
+	<div class="help_menu_hd nobd fnt_b">我的收藏</div>
+    <div class="help_menu_item nobd"><a href="/My/favorite.shtml">我收藏的商品</a></div>
+    <div class="help_menu_item nobd"><a href="/My/shop.shtml">我收藏的店辅</a></div>
+    <div class="help_menu_hd nobd fnt_b">我的分享</div>
+    <div class="help_menu_item nobd"><a href="/Invite/index.shtml">邀请朋友</a></div>
+    <div class="help_menu_item nobd" style="display:none;"><a href="#">邀请返利查询</a>&nbsp;</div>

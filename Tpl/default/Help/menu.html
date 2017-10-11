@@ -1,0 +1,11 @@
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left">
+  	<div style="width:156px; height:50px; line-height:50px; text-align:left; text-indent:24px;" class="fnt_red fnt_b fnt14"><a href="/Help/index.shtml" class="fnt_red">帮助中心</a></div>
+  	<volist name="CategoryList" id="vo">
+      <div class="help_menu_hd nobd fnt_b">{$vo.caption}</div>
+      <notempty name="vo['_child']">
+      	<volist name="vo['_child']" id="sub_vo">
+      		<div class="help_menu_item nobd"><a href="__URL__/lst/cid/{$sub_vo.id}.shtml">{$sub_vo.caption}</a></div>
+        </volist>
+      </notempty>
+    </volist>
+  </div>

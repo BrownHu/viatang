@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,淘宝代购,包裹转寄,淘宝转运,代购中国商品-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/AddItemPanel.css">
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+</head>
+<body style="background:#fff;">
+<div style="text-align:center">
+  <div class="addpanel_procedure"> <img src="../Public/images/procedure.gif" alt="代购商品流程" /> </div>
+  <div class="addpanel_succeed" style="text-align:left">
+    <present name="PriceError">
+       <h2> {$PriceError}</h2>
+    <else/>
+       <h2> 恭喜！商品已经成功添加至购物车！</h2>
+    </present>
+    <p> 您的购物车里共有<span id="p3_cartNum">{$cart_count}</span>件商品&nbsp;&nbsp;合计<span id="p3_total">{$cart_total}</span>元</p>
+  </div>
+  <div class="addpanel_last" style="text-align:left">
+    <div class="addpanel_img"> <img id="p3_img" src="{$product.image}" alt="" onerror="this.src='../Public/images/noimg80.gif'" alt="代购商品图片" /></div>
+    <div class="addpanel_show">
+      <div id="p3_proName">{$product.title}</div>
+      <ul style="display:block; margin:0; padding:0;">
+        <li>商品价格：<span id="p3_price">￥{$product.price}</span></li>
+        <li>国内运费：<span id="p3_sendPrice">￥{$product.shipping_fee}</span></li>
+        <li>购买数量：<span id="p3_num">{$product.amount}</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="addpanel_lastnav"> 
+  <a href="/Cart/index.shtml" target="_blank" onclick="javascript:closelightbox(true);">查看购物车并结算</a> 
+  <a href="/Item/index.shtml" target="_self">继续填写代购单</a> 
+  </div>
+</div>
+</body>
+</html>

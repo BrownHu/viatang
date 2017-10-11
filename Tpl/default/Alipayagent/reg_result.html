@@ -1,0 +1,38 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;账号代注册</div>
+    <div style="width:768px; text-align:left;" class="middle mrg14">
+        <img src="../Public/images/c1.gif" class="left"> 
+        <ul style="display:block; margin-top:5px; text-align:left; padding:0px; margin-left:0px; text-indent:12px;">
+        	<li style="line-height:25px; height:22px;">身在海外无法注册支付宝和淘宝账户？Viatang免费帮您搞定！<a href="#" target="_blank" class="fnt_red" style="text-decoration:underline; color:#06C">点此了解代注册</a></li>
+        	<li style="line-height:25px; height:22px;"><a href="#" target="_blank" style="text-decoration:underline; color:#06C">代注册账户无法登录或使用，点此提交异常问题处理申请。</a></li>
+      	</ul>
+    </div>
+    <div style="width:758px; height:27px; line-height:27px; padding-left:10px; border:1px solid #ffc16d; background:#ffffdf; color:#ff6600; margin-top:18px; text-align:left;" class="middle">
+      温馨提示：您的代注册信息（登录密码、密码保护等）已全部发送至以下Email邮箱，请及时查收。 <a href="#" target="_blank"  style="text-decoration:underline; color:#06C">没有收到邮件?</a> 
+    </div>
+
+    <div style="width:770px; text-align:left;" class="middle nobd mrg14">
+      <div style="width:770px; border-top:1px solid #cccccc;">
+        <div style="height:30px; line-height:30px; padding-left:10px; background-color:#f3f3f3; margin-top:0px; text-align:left;" class="fnt_b mrg9">Email邮箱：</div>
+        <p style="padding-left:10px;">Email地址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;<span>{$alipay.email_reg}</span>&nbsp;&nbsp;<a href="/Pay/paypal.shtml" style="text-decoration:underline; color:#06C">进入邮箱</a></p>
+        <p style="padding-left:10px;">初始登录密码&nbsp;：&nbsp;&nbsp;<span>{$alipay.email_password}</span></p>
+      </div>
+      <div style="width:770px; border-top:1px solid #cccccc;">
+        <div style="height:30px; line-height:30px; padding-left:10px; background-color:#f3f3f3; margin-top:0px; text-align:left;" class="fnt_b mrg9">代注册账户：</div>
+        <p style="padding-left:10px;">支付宝账户名&nbsp;：&nbsp;&nbsp;<span>{$alipay.alipay_account}</span>&nbsp;&nbsp;<a href="/Pay/paypal.shtml"  style="text-decoration:underline; color:#06C" >登录支付宝</a></p>
+        <notempty name="alipay.taobao_account">
+        <p style="padding-left:10px;">淘宝账户名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;<span>{$alipay.taobao_account}</span>&nbsp;&nbsp;<a href="/Pay/paypal.shtml" style="text-decoration:underline; color:#06C">登录淘宝网</a></p>
+        </notempty>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();	
+</script> 
+<include file="Public:bottom" />

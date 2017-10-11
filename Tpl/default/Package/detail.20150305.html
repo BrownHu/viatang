@@ -1,0 +1,151 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">运单详情</div>
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; text-align:left; font-weight:bold;" class="middle">包裹信息</div>
+    <div style="width:770px; padding-bottom:12px; border-bottom:1px solid #e6e6e6;" class="middle">
+      <table width="750" border="0" cellpadding="0" cellspacing="0" class="middle">
+        <tbody>
+          <tr height="28" align="left">
+            <td>包裹ID：YD{$Think.session.m_id}-{$entity.id}</td>
+            <td>物流单号：{$entity.package_code|default="-"}<notempty name="enity.package_code">&nbsp;&nbsp;<a href="/Trace/index.shtml" target="_blank" class="lnk">包裹跟踪</a></notempty></td>
+            <td>运送方式：{$entity.deliver_way}</td>
+          </tr>
+          <tr height="28" align="left">
+            <td>包裹估重重量约：{$entity.weight|number_format=2}g</td>
+            <td>包裹实际重量：{$entity.weight_real|number_format=2}g</td>
+            <td>商品总数：:{$entity.product_num}&nbsp;件/类</td>
+          </tr>
+          <tr height="28" align="left">
+            <td>提交时间：{$entity.create_time|date="Y-m-d",###}</td>
+            <td>预计发送时间：&nbsp;{$entity.send_time_guess|date="Y-m-d",###}</td>
+            <td>实际发送时间：<eq name="entity.send_time" value="0">&nbsp;<else/>{$entity.send_time|date="Y-m-d",###}</eq></td>
+          </tr>
+          <tr><td height="28" align="left" colspan="3" style="display:none">运单照片：<a href="#nogo" onclick="refresPhoto({$entity.id});" style="color:#f60;">点击刷新照片</a><div id="pic_list_{$entity.id}"></div></td></tr>
+          <tr><td height="28" align="left" colspan="3">包裹备注：{$entity.custom_note}</td></tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div style="width:770px; height:auto; margin-top:12px;" class="middle nobd">
+      <div style="width:770px; height:25px; text-indent:12px; text-align:left; font-weight:bold;" class="nobd">商品详细</div>
+      <table border="0" width="770" cellpadding="0" cellspacing="0">
+        <tr height="30">
+          <td width="90" align="left" class="parcel_detail_hd">&nbsp;&nbsp;商品ID</td>
+          <td align="left" class="parcel_detail_hd">&nbsp;&nbsp;商品名称</td>
+          <td width="50" align="left" class="parcel_detail_hd">&nbsp;&nbsp;数量</td>
+          <td width="80" align="left" class="parcel_detail_hd">&nbsp;&nbsp;单价<span style="color:#92002d">(￥)</span></td>
+          <td width="80" align="left" class="parcel_detail_hd">&nbsp;&nbsp;重量<span style="color:#92002d">(g)</span></td>
+          <td width="80" align="left" class="parcel_detail_hd_right">&nbsp;&nbsp;类别</td>
+        </tr>
+        <volist name="DataList" id="vo">
+          <tr height="30">
+            <td align="center" class="parcel_lst_left">P{$vo.id}</td>
+            <td align="left" class="parcel_lst_middle"><div style="text-align:left; padding:5px; width:355px; overflow:hidden;">
+                <table width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="padding-right:10px" valign="top" width="50"><img src="/Uploads/pic/product/{$vo.thumb}_s.jpg" onerror="this.src='../Public/images/noimg80.gif';" alt="代购包裹商品信息"   class="product_img"></td>
+                      <td align="left"><div style="width:350px;"><a href="{$vo.url}" target="_blank" class="lnk" title="{$vo.title}">{$vo.title|getShortTitle=###,30,false}</a><br>
+                        <span class="product_tips">{$vo.custmer_note}</span></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div></td>
+            <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;{$vo.amount}</td>
+            <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;{$vo.price1}</td>
+            <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;<assign name="iweight" value="$vo.weight" /> <assign name="icount" value="$vo.amount" /> {$iweight * $icount}</td>
+            <td align="left" class="parcel_lst_right">&nbsp;&nbsp;代购</td>
+          </tr>
+        </volist>
+        <volist name="DataListAgent" id="vo">
+          <tr height="30">
+            <td align="center" class="parcel_lst_left">ZZ{$Think.session.m_id}{$vo.id}</td>
+            <td align="left" class="parcel_lst_middle"><div style="text-align:left; padding:5px; width:355px; overflow:hidden;">
+                <table width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="padding-right:10px" valign="top" width="50"><img src="{$vo.img}" onerror="this.src='../Public/images/noimg80.gif';" alt="代购商品信息"  class="product_img"></td>
+                      <td align="left"><div style="width:350px;"><a href="{$vo.url}" target="_blank" class="lnk" title="{$vo.title}">{$vo.title|getShortTitle=###,30,false}</a></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div></td>
+            <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;{$vo.count}</td>
+            <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;-</td>
+            <td align="left" class="parcel_lst_middle">&nbsp;&nbsp;<assign name="iweight" value="$vo.weight" /> <assign name="icount" value="$vo.count" /> {$iweight * $icount}</td>
+            <td align="left" class="parcel_lst_right">&nbsp;&nbsp;国际转运运</td>
+          </tr>
+        </volist>        
+      </table>
+      <div style="width:770px; height:30px; text-align:right; padding-top:12px;border-bottom:1px solid #e6e6e6;">共计:{$entity.product_num}件</div>
+      <div style="width:770px;" class="middle">
+        <div style="text-align:left; width:770; height:20px; text-indent:12px; padding-top:12px; font-weight:bold;" class="nobd">收货人信息</div>
+        <table border="0" cellpadding="0" cellspacing="0" width="745" class="middle">
+          <tr height="30">
+            <td align="left" width="325">收货人：{$entity.contact}</td>
+            <td align="left">送货区域：{$entity.deliver_area}</td>
+          </tr>
+          <tr height="30">
+            <td align="left">电话号话：{$entity.phone}</td>
+            <td align="left">所在国家：{$entity.country}</td>
+          </tr>
+          <tr height="30">
+            <td align="left">邮政编码：{$entity.zip}</td>
+            <td align="left">所在城市：{$entity.city}</td>
+          </tr>
+          <tr height="30">
+            <td colspan="2" align="left">详细地址：{$entity.address}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="width:770px;border-top:1px solid #e6e6e6;" class="middle mrg14">
+        <div style="text-align:left; width:770; height:20px; text-indent:12px; padding-top:12px; font-weight:bold;" class="nobd">包裹费用</div>
+        <table border="0" cellpadding="0" cellspacing="0" width="745" class="middle">
+          <tr height="30">
+            <td align="left">
+            	运费￥：{$entity.shipping_fee}&nbsp;&nbsp;+&nbsp;&nbsp;服务费￥：{$entity.serve_fee}&nbsp;&nbsp;+&nbsp;&nbsp;保险费￥：{$entity.insure_fee}&nbsp;&nbsp;+&nbsp;&nbsp;包装费￥：8.00&nbsp;&nbsp;+&nbsp;&nbsp;报关费￥：{$entity.cutom_fee} &nbsp;&nbsp;=&nbsp;&nbsp; ￥{$entity.total_fee}
+				，其中返还￥：{$entity.excess_money|default=0}
+			</td>
+          </tr>
+        </table>
+        <table border="0" width="770" cellpadding="0" cellspacing="0" style="margin-botoom:20px;">
+          <tr height="30" align="center" >
+            <td width="120"  class="parcel_detail_hd">运输方式</td>
+            <td width="120" class="parcel_detail_hd">起重重量</td>
+            <td width="120" class="parcel_detail_hd">起重价格</td>
+            <td width="120" class="parcel_detail_hd">续重重量</td>
+            <td width="120" class="parcel_detail_hd">续重价格</td>
+            <td width="100" class="parcel_detail_hd_right">报关费</td>
+          </tr>
+          <tr height="30" align="center">
+            <td class="parcel_lst_left">{$DeliverWay.shipping_way}</td>
+            <td class="parcel_lst_middle">{$DeliverWay.start_weight}</td>
+            <td class="parcel_lst_middle">{$DeliverWay.start_price}</td>
+            <td class="parcel_lst_middle">{$DeliverWay.continue_weight}</td>
+            <td class="parcel_lst_middle">{$DeliverWay.continue_price}</td>
+            <td class="parcel_lst_right">{$DeliverWay.customfee}</td>
+          </tr> 
+          <tr height="30" align="left">
+            <td class="parcel_lst_left parcel_lst_right" colspan="6"><br>&nbsp;&nbsp;运费计算公式：{$ShippingStr}<br><br><span style="color:#cccccc">&nbsp;&nbsp;</span><br>&nbsp; </td>           
+          </tr>          
+        </table>
+		<div style="height:20px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function refresPhoto(pid){
+	$.get('/Photo/showPhoto/type/3/pid/'+pid,function(data){
+		   if(data != ''){			
+			$('#pic_list_'+pid).html(data);
+		   }else{
+			   $('#pic_list_'+pid).html('<span style="color:#f60;">还没有上传照片</span>');
+		   }
+		});
+}
+</script>
+<include file="Public:bottom" />

@@ -1,0 +1,83 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="/s/?g=m.css">
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/Plug-in/smohan.fixednav.js"></script>
+<style>
+.promo-box {BORDER: none; PADDING-BOTTOM: 20px; }
+.promo-cont {background-color:#fff;BORDER: #dbdbdb 1px solid;color:#8f8b8b; MARGIN-BOTTOM: 10px; line-height:30px; padding:18px; OVERFLOW: hidden; _zoom: 1}
+.promo-cont .needcount {WIDTH: 440px; DISPLAY: block; FLOAT: right; }
+.promo-cont A {COLOR: #2e74d3; FONT-SIZE: 12px}
+#category{width:auto;height:auto;overflow:hidden;background-color:#fff}
+</style>
+<script>$('#mn_zixun a').addClass('menu_li_on');</script>
+<div style="height:auto;width:auto;overflow:hidden; background:#f3f3f3; padding-top:0px;">	
+<div id="m1" style="width:988px;height:100%; overflow:hidden;" class="middle nobd mrg14">
+  <DIV class=main style="width:850px">
+    <DIV class="mainCont">
+      <DIV style="height:8px;"></DIV> 
+      <DIV id="search_result" style="text-align:left;width:640px;" class="promo-box">
+        
+      <volist name="list" id="vo">
+        <DIV class=promo-cont>
+          			<div style="border-bottom:1px solid #cccccc;height:40px;line-height:35px; font-family:'微软雅黑' ;font-size:22px;margin-bottom:10px;font-weight:bold;">
+						<div style="width:475px;" class="left nobd"><h1>{$vo.title}</h1></div>
+						<div class="left nobd" style="width:65px;font-size:12px;text-align:right;">￥<span style="color:#f60;font-weight:normal;">{$vo.price}</span></div>
+						<div class="left nobd" style="width:55px;font-size:12px;text-align:right;"><a href="{$vo.url}" target="_blank">商品链接</a></div>
+					</div>
+					<div>
+					{$vo.content}	
+					</div>
+        </DIV>
+      </volist>
+        
+        <div class="nobd mrg14">
+		   <DIV class="digg">{$page}</DIV>
+        </div>
+      </DIV>
+    </DIV>
+  </DIV>
+  
+  <DIV class="aside" style="text-align:left;padding-top:8px;width:325px;float:right;">
+     <div id="category" class="brd" style="padding-bottom:10px;">
+			<img src="/img/20130913_310-170_6.jpg" alt="在国外买中国商品 国际运费3折起" style="margin-left:7px;margin-top:8px;">
+	</div>
+		
+	<div id="shangjia"  class="brd mrg14" style="background-color:#fff">
+		<div style="height:30px;line-height:55px; text-indent:10px; text-align:left;">热门商家</div>
+		<div id="tjsj_lst1" style="width:325px; height:176px; border-bottom:1px dashed #ebeaea; padding-left:5px;" class="nobd">
+          <ul>
+            <li>
+              <div class="tjsj_pic1"><a href="http://www.taobao.com" target="_blank" title="淘宝"><img src="/img/grey.gif" lazy="y" original="/img/logo/taobao.png" width="70" height="40" alt="淘宝网" /></a></div>
+            </li>
+            <li>
+              <div class="tjsj_pic1"><a href="http://www.paipai.com" target="_blank" title="拍拍"><img src="/img/grey.gif" lazy="y"  original="/img/logo/paipai.png" width="70" height="40"  alt="拍拍网" /></a></div>
+            </li>
+            <li>
+              <div class="tjsj_pic1"><a href="http://www.dangdang.com" target="_blank"><img src="/img/grey.gif" lazy="y"  original="/img/logo/dangdang.png" width="70" height="40" alt="当当网" /></a></div>
+            </li>
+            <li>
+              <div class="tjsj_pic1"><a href="http://www.m18.com" target="_blank" title="麦网"><img src="/img/grey.gif" lazy="y"  original="/img/logo/m18.png" width="70" height="40" alt="麦网" /></a></div>
+            </li>
+            <li>
+              <div class="tjsj_pic1"><a href="http://www.vancl.com" target="_blank" title="凡客诚品"><img src="/img/grey.gif" lazy="y"  original="/img/logo/vancl.png" width="70" height="40" alt="凡客诚品" /></a></div>
+            </li>
+            <li>
+              <div class="tjsj_pic1"><a href="http://www.mbaobao.com" target="_blank" title="麦包包"><img src="/img/grey.gif" lazy="y"  original="/img/logo/mbaobao.png" width="70" height="40" alt="麦包包" /></a></div>
+            </li>
+			<li>
+              <div class="tjsj_pic1"><a href="http://www.jd.com" target="_blank" title="京东商城"><img src="/img/grey.gif" lazy="y"  original="/img/logo/home_61.jpg" width="70" height="40" alt="京东商城" /></a></div>
+            </li>
+			<li>
+              <div class="tjsj_pic1"><a href="http://www.51buy.com" target="_blank" title="易迅网"><img src="/img/grey.gif" lazy="y"  original="/img/logo/home_11.jpg" width="70" height="40" alt="京东商城" /></a></div>
+            </li>
+          </ul>
+        </div>
+	</div>	
+  </DIV>
+</div>
+<div class="gw1 middle mrg14"></div>
+</div>
+<SCRIPT>
+(function($){  $('#shangjia').smohanfixednav(0,999,1);   $('.hot_search li').hover(function(){ $(this).siblings().removeClass('hover_trigger'); $(this).addClass('hover_trigger'); });;})(jQuery);
+function goPage(){ var p =  $.trim($('#go_pg').val()); if(Number(p) > 0){ window.location.href ='/Mall/index.html?p='+p+'&sort={$sort}'; }else{ $('#go_pg').val('');}}
+function buy(url){ $.get('/Public/isLogin.html', function(result) { if(parseInt(result) == 1){	fast_buy(url,true); }else{ var pageurl = $.base64Encode(url); login_min(',Item,index,url,"'+pageurl+'"',560,420,0); }});} </SCRIPT> 
+<include file="Public:bottom" />

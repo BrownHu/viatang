@@ -1,0 +1,850 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>外币兑换计算器</title>
+<style type="text/css">
+* {
+	margin:0px;
+	padding:0px;
+	font-family:"Courier New", Courier, monospace, "宋体";
+	font-size:12px;
+	color:#333;
+}
+input {
+	outline:none;
+}
+a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+input {
+	height:20px;
+	width:120px;
+	padding-left:2px;
+*line-height:150%;
+	border:1px solid #B7CAE5;
+}
+#forex {
+	position:relative;
+	margin:0px auto;
+	width:540px;
+	padding-top:10px;
+	background:#dba869 url(images/woodbg.gif) repeat-y 0 0;
+}
+#forex_title {
+	height:55px;
+	width:464px;
+}
+#forex_main {
+	width:464px;
+}
+.forex_cup {
+	padding-bottom:10px;/*background:url(images/cup.png) no-repeat right bottom;*/
+}
+#forex_cp {
+	width:473px;
+	height:auto;
+	margin:0 10px;
+	background:url(images/bg4.png) no-repeat;
+	_background:none;
+_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg4.png", sizingMethod="crop");
+}
+.forex_container {
+	position:relative;
+	width:473px;
+	height:auto;
+}
+.forex_line {
+	width:100%;
+	height:40px;
+	clear:both;
+}
+.forex_line div {
+	float:left;
+	margin-left:10px;
+	line-height:200%;
+}
+.forex_line div span {
+	margin-left:22px;
+}
+.forex_line div font {
+	margin:0px;
+	padding:0px;
+	color:#999;
+}
+.forex_line div label {
+	color:#c00;
+	font-family:arial;
+	font-weight:bold;
+}
+.selectorCss {
+	cursor:pointer;
+	width:156px;
+	height:26px;
+	margin:0px;
+	padding:0px;
+}
+.selectorCss a {
+	background:url(images/selector.png) no-repeat 0 0;
+	width:156px;
+	height:26px;
+	display:block;
+*line-height:210%;
+}
+.selectorCss a span {
+	margin-left:12px;
+	color:#666;
+}/*#3A629A*/
+.selectorCss input {
+	border:0px;
+	margin:0px;
+	color:#666;
+	background:url(images/selector.png) no-repeat 0 0;
+	width:156px;
+	height:20px;
+*height:26px;
+	display:block;
+*margin-left:-10px;
+	cursor:default;
+	font-size:12px;
+	outline:none;
+	padding:4px 0px 2px 10px;
+*padding:4px 0px 2px 10px !important;
+	padding:7px 0px 2px 10px\0;
+}
+.spaceCss {
+	height:20px;
+}
+.spaceCss2 {
+	width:100px;
+*width:115px;
+}
+.spaceCss3 {
+	height:60px;
+}
+.menuCss {
+	position:absolute;
+	margin:0px;
+	padding:0px;
+	left:0px;
+	top:0px;
+	border:1px solid #B7CAE5;
+	background:#F8F9FC;
+	width:152px;
+	height:200px;
+	overflow:auto;
+	overflow-x:hidden;
+	display:none;
+}
+.menuCss div {
+	width:156px;
+	height:25px;
+	text-align:left;
+	cursor:default;
+	background:#F8F9FC;
+	line-height:200%;
+}
+.menuCss div span {
+	margin-left:5px;
+}
+.forex_simple_txt {
+	color:#3A629A;
+}
+.forex_txt {
+	color:#333;
+}
+#arrowPanel {
+	position:absolute;
+	left:280px;
+*+left:295px;
+	_left:305px;
+	top:132px;
+}
+#arrowPanel a {
+	display:block;
+	width:22px;
+	height:30px;
+	background:url(images/arrow1.png) no-repeat 0 0;
+}
+.silderPanel {
+	position:absolute;
+	left:315px;
+*left:325px;
+	top:132px;
+	display:none;
+	border:1px solid #FFF27D;
+	padding:0px 5px;
+	background-color:#FFFCDE;
+	line-height:200%;
+}
+#msgPanel {
+	top:73px;
+}
+.forex_cup_on {
+	position:absolute;
+	width:108px;
+	height:191px;
+	background:url(images/cup.png) no-repeat 0 0;
+	z-index:3;
+	right:0px;
+	top:190px;
+	_background:none;
+_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/cup.png", sizingMethod="crop");
+}
+</style>
+<script type="text/javascript" src="js/tangram.js"></script>
+<script type="text/javascript">
+	//* background *//
+	try{
+		var linkArgs = location.search;
+		var styleObj = baidu.page.createStyleSheet();
+		if(linkArgs.indexOf("canvas_pos=search") == -1){
+			styleObj.addRule("#forex","width:800px !important;background:#dba869 url(images/woodbgb.jpg) repeat-y 0 0 !important;margin:0px auto;",0);
+			styleObj.addRule("#forex_cp","margin:0 auto !important;",1);
+			styleObj.addRule("#forex_container","margin:0 auto !important;",2);
+		}else{
+			styleObj.removeRule(0);
+			styleObj.removeRule(1);
+			styleObj.removeRule(2);
+		}
+	}catch(e){}
+</script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var forex_$ = function(tagId){return document.getElementById(tagId);}
+	var forex_$c = function(tagName){return document.createElement(tagName);}
+	var forex_box = function(tagName){return document.createElement(tagName);}
+	String.prototype.toNumber = function(){
+		return Number(this.replace(/px/gi,""));
+	}
+var forex = {
+		xhr : null,
+		xmlData : null,
+		args :{
+			loadMethods : [],
+			url : null,
+			analy : null,
+			callback : null,
+			sendData : null,
+			menu : null,
+			selor : null,
+			selIpt : null
+		},
+		index : [13,14,23,28,9,10,38,1,3,16,18,20,22,5,25,27,7,29,31,33,35,37,12,39,41,43,45,47,49,51,53,55,57,59,61,63,65,66,68,69,71],
+		simple : ["CNY","USD","EUR","GBP","CAD","CHF","JPY","ATS","AUD","CZK","DEM","DKK","ESP","BEF","FIM","FRF","BRL","HKD","HUF","IDR","INR","ITL","CLP","KER","MXN","MYR","NLG","NOK","NZD","PHP","PLN","PTE","RUB","SAR","SEK","SGD","THB","TWD","VEF","VND","ZAR"],
+		onLoaded : function(method){
+			if((window.onload == null || window.onload == undefined) && (forex.args.loadMethods.length < 1)){
+				forex.bind(window,"load",function(){
+					for(var i=0;i<forex.args.loadMethods.length;i++){
+						try{
+							forex.args.loadMethods[i]();
+						}catch(e){}
+					}
+				});
+			}
+			forex.args.loadMethods.push(method);
+		},
+		bind : function(obj,action,method){
+			if(window.addEventListener){
+				obj.addEventListener(action,method,false);
+			}else{
+				obj.attachEvent("on" + action,method);
+			}
+		},
+		getXy : function(parentObj){
+			var parentTop = parentObj.offsetTop;
+			var parentLeft = parentObj.offsetLeft;
+			while(parentObj = parentObj.offsetParent){
+				parentTop += parentObj.offsetTop;
+				parentLeft += parentObj.offsetLeft;
+			}
+			return {
+				top : parentTop,
+				left : parentLeft
+			}
+		},
+		request : function(){
+			try{
+				forex.xhr = new XMLHttpRequest();
+			}catch(e){
+				try{
+					forex.xhr = new ActiveXObject("Msxml2.XMLHTTP");
+				}catch(e){
+					try{
+						forex.xhr = new ActiveXObject("Microsoft.XMLHTTP");
+					}catch(e){
+						forex.xhr = null;
+					}
+				}
+			}//try end
+			if(!forex.xhr){
+				forex.box("Error Initializing XMLHttpRequest");
+				return false;
+			}else{
+				forex.xhr.open("GET",forex.args.url,forex.args.analy);
+				// header
+				forex.xhr.onreadystatechange = forex.args.callback;
+				forex.xhr.send(forex.args.sendData);
+			}
+		},
+		receive : function(){
+			if(forex.xhr){
+				if(forex.xhr.readyState == 4){
+					if(forex.xhr.status == 200){
+						forex.xmlData = forex.xhr.responseXML;
+						forex.handle();
+					}
+				}
+			}
+		},
+		handle : function(){
+			if(forex.xmlData){
+				var items = forex.xmlData.getElementsByTagName("item");
+				var count = forex.index.length;
+				for(var i=0;i<count;i++){
+//					document.getElementById("bz").innerHTML += items[forex.index[i]].childNodes[0].text + "&nbsp;&nbsp;<font color=\"red\">" + i + "</font>" + "&nbsp;&nbsp;<font color=\"green\">" + forex.index[i] + "</font>" + "&nbsp;&nbsp;<font color=\"blue\">" + forex.simple[i] + "</font><br />";
+					
+					forex.fill(items[forex.index[i]],i);
+				}
+			}
+		},
+		query : function(selector,evnt){
+			var keyword = "";
+			var val = forex_$(selector).value;
+			if(val.toUpperCase()){
+				keyword = val.toUpperCase();
+			}else{
+				keyword = val;
+			}
+			forex.args.menu.style.display = "block";
+			var nodes = forex.args.menu.getElementsByTagName("DIV");
+			var c = 0;
+			for(var i=0;i<forex.index.length;i++){
+				var items = nodes[i].getElementsByTagName("SPAN");
+				var txt = items[0].id.replace(/forex1_/gi,"") + items[1].innerHTML;
+				if(txt.indexOf(keyword) == -1){
+					nodes[i].style.display = "none";
+					c++;
+				}else{
+					nodes[i].style.display = "block";
+				}
+			}
+			if(c >= forex.index.length){
+				return false;
+			}
+		},
+		fill : function(itm,idx){
+			try{
+				var hadCurrency = forex_$("hadCurrency");
+				var exCurrency = forex_$("exCurrency");
+				var count = forex.index.length;
+				var txt = itm.getElementsByTagName("key")[0].childNodes[0].nodeValue.replace(/汇率/g,"");
+				var hadRate = itm.getElementsByTagName("display")[0].getElementsByTagName("content1")[0].childNodes[0].nodeValue.split("=")[1].replace(/人民币/g,"");
+				var exRate = itm.getElementsByTagName("display")[0].getElementsByTagName("content2")[0].childNodes[0].nodeValue.split("=")[1].replace(txt,"");
+	//			hadCurrency.options.add(new Option(forex.simple[idx] + " " + txt,hadRate));
+	//			exCurrency.options.add(new Option(forex.simple[idx] + " " + txt,exRate));
+				var html = "<span class=\"forex_simple_txt\" id=\"forex1_" + forex.simple[idx] + "\">" + forex.simple[idx] + "</span> <span class=\"forex_txt\" id=\"forex2_" + forex.simple[idx] + "\">" + txt + "</span>";
+				var hideBox = "<input type=\"hidden\" id=\"forexHide_" + forex.simple[idx] + "\" value=\"" + hadRate + "#" + exRate + "\" />";
+				if(forex.args.menu == null){
+					forex.args.menu = forex_$c("DIV");
+					forex.args.menu.id = "forexMenu";
+					forex.args.menu.className = "menuCss";
+					document.body.appendChild(forex.args.menu);
+				}
+				var menuItem = forex_$c("DIV");
+				menuItem.id = "forexMenuItem_" + forex.simple[idx];
+				menuItem.style.display = "block";
+				menuItem.innerHTML = hideBox + html;
+				forex.args.menu.appendChild(menuItem);
+				
+				forex.bind(menuItem,"mouseover",function(ent){
+					var evnt = window.event || ent;
+					var srcEle = evnt.srcElement || evnt.target;
+					while(srcEle.id.toLowerCase().indexOf("forexmenuitem") == -1){
+						srcEle = srcEle.parentNode;
+					}
+					var simpleTxt1 = srcEle.id.replace(/forexMenuItem_/gi,"");
+					srcEle.style.background = "#3A629A";
+					forex_$("forex1_" + simpleTxt1).style.color = "#FFF";
+					forex_$("forex2_" + simpleTxt1).style.color = "#FFF";
+					forex.bind(srcEle,"mouseout",function(ent){
+						var evnt = window.event || ent;
+						var srcEle = evnt.srcElement || evnt.target;
+						while(srcEle.id.toLowerCase().indexOf("forexmenuitem") == -1){
+							srcEle = srcEle.parentNode;
+						}
+						var simpleTxt = srcEle.id.replace(/forexMenuItem_/gi,"");
+						srcEle.style.background = "#F8F9FC";
+						forex_$("forex1_" + simpleTxt).style.color = "#3A629A";
+						forex_$("forex2_" + simpleTxt).style.color = "#333";
+					});
+				});
+				forex.bind(menuItem,"click",function(ent){
+					var evnt = window.event || ent;
+					var srcEle = evnt.srcElement || evnt.target;
+					while(srcEle.id.toLowerCase().indexOf("forexmenuitem") == -1){
+						srcEle = srcEle.parentNode;
+					}
+					var simpleTxt = srcEle.id.replace(/forexMenuItem_/gi,"");
+					srcEle.style.background = "#F8F9FC";
+					forex_$("forex1_" + simpleTxt).style.color = "#3A629A";
+					forex_$("forex2_" + simpleTxt).style.color = "#333";
+	/*				if(forex_$("hadCurrency").isOpen){
+						forex_$("hadCurrency").innerHTML = "<span class=\"forex_simple_txt\">" + simpleTxt + "</span> <span class=\"forex_txt\">" + forex_$("forex2_" + simpleTxt).innerHTML + "</span>";
+						forex_$("hadCurrencyHide").value = simpleTxt;
+					}else{
+						forex_$("exCurrency").innerHTML = "<span class=\"forex_simple_txt\">" + simpleTxt + "</span> <span class=\"forex_txt\">" + forex_$("forex2_" + simpleTxt).innerHTML + "</span>";
+						forex_$("exCurrencyHide").value = simpleTxt;
+					}*/
+					if(forex_$("hadSelector").isOpen){
+						forex_$("hadSelector").value = simpleTxt + " " + forex_$("forex2_" + simpleTxt).innerHTML;
+						forex_$("hadCurrencyHide").value = simpleTxt;
+					}else{
+						forex_$("exSelector").value = simpleTxt + " " + forex_$("forex2_" + simpleTxt).innerHTML;
+						forex_$("exCurrencyHide").value = simpleTxt;
+					}
+					forex.args.menu.style.display = "none";
+					forex.rate();
+				});
+			}catch(e){}
+		},
+		showMenu : function(selector,idTxt){
+			var pos = forex.getXy(selector);
+			forex.args.menu.style.left = pos.left + 1 + "px";
+			forex.args.menu.style.top = pos.top + 25 + "px";
+			var nodes = forex.args.menu.getElementsByTagName("DIV");
+			for(var i=0;i<forex.index.length;i++){
+				nodes[i].style.display = "block";
+			}
+			forex.args.menu.style.display = "block";
+//			forex_$("hadCurrency").isOpen = false;
+//			forex_$("exCurrency").isOpen = false;
+			forex_$("hadSelector").isOpen = false;
+
+			forex_$(idTxt).isOpen = true;
+			
+			forex.args.selIpt = forex_$(idTxt);
+			forex.args.selor = selector;
+		},
+		rate : function(){
+			var hadSimple = forex_$("hadCurrencyHide").value;
+			var exSimple = forex_$("exCurrencyHide").value;
+			if(hadSimple != "0" && exSimple != "0"){
+				var resultRate = 1.0000;
+				if(hadSimple.toLowerCase() != exSimple.toLowerCase()){
+					var hadRate = forex_$("forexHide_" + hadSimple).value.split('#')[0];
+					var exRate = forex_$("forexHide_" + exSimple).value.split('#')[1];
+					resultRate = parseFloat(hadRate) * parseFloat(exRate);
+				}
+				forex_$("forex_rate").innerHTML = parseFloat(resultRate).toFixed(4);
+			}
+			
+			if(forex_$("forex_amount").value != "" || Number(forex_$("forex_amount").value) > 0){
+				forex_$("msgPanel").style.display = "none";
+				forex.exchange();
+			}else{
+				forex_$("msgPanel").style.display = "block";
+			}
+		},
+		exchange : function(){
+			var amount = forex_$("forex_amount").value;
+			var resultRate = forex_$("forex_rate").innerHTML;
+			if(amount != "" && resultRate != ""){
+				if(parseFloat(amount) < 0 || isNaN(amount)){
+					//forex.box("请输入正确的数值！");
+					forex_$("msgPanel").style.display = "block";
+					return false;
+				}else{
+					forex_$("msgPanel").style.display = "none";
+				}
+				forex_$("forex_result").innerHTML = "<span style=\"color:green;margin:0px;font-family:Microsoft Yahei,Arial;font-size:20px;\">" + (parseFloat(amount) * parseFloat(resultRate)).toFixed(4) + "</span> " + forex_$("forex2_" + forex_$("exCurrencyHide").value).innerHTML;
+			}else{
+				//forex.box("请输入兑换金额并选择货币类型！");
+				return false;
+			}
+		},
+		change : function(){
+			var m = forex_$("hadCurrencyHide").value;
+			forex_$("hadCurrencyHide").value = forex_$("exCurrencyHide").value
+			forex_$("exCurrencyHide").value = m;
+			var n = forex_$("hadSelector").value;
+			forex_$("hadSelector").value = forex_$("exSelector").value;
+			forex_$("exSelector").value = n;
+			if(document.getElementById("hadSelector").value == "" || document.getElementById("hadSelector").value.replace(/ /gi,"") == "" || document.getElementById("exSelector").value == "" || document.getElementById("exSelector").value.replace(/ /gi,"") == ""){
+				return false;
+			}
+			if(!check("hadSelector") || !check("exSelector")){
+				return false;
+			}
+			forex.rate();
+		},
+		clear : function(){
+			forex_$("forex_rate").innerHTML = "";
+			forex_$("forex_result").innerHTML = "";
+		}
+	}
+forex.onLoaded(function(){
+	forex.args.url = "http://app.duapp.com/proxy?url=http://bhhq.hexun.com/data/forex_exch1.xml&format=xml&" + new Date().getTime();
+	//forex.args.url = "forex.xml";
+	forex.args.analy = true;
+	forex.args.callback = forex.receive;
+	forex.args.sendData = null;
+	forex.request();
+});
+forex.onLoaded(function(){
+	forex.bind(window,"resize",function(){
+		if(forex.args.menu && forex.args.menu.style.display == "block"){
+			forex.showMenu(forex.args.selor,forex.args.selIpt);
+		}
+	});
+});
+		var check = function(selector){
+			var keyword = "";
+			var val = forex_$(selector).value;
+			if(val.toUpperCase()){
+				keyword = val.toUpperCase();
+			}else{
+				keyword = val;
+			}
+			//forex.args.menu.style.display = "block";
+			var nodes = forex.args.menu.getElementsByTagName("DIV");
+			var c = 0;
+			for(var i=0;i<forex.index.length;i++){
+				var items = nodes[i].getElementsByTagName("SPAN");
+				var txt = items[0].id.replace(/forex1_/gi,"");
+				var txt2 = items[1].innerHTML;
+				if(keyword.indexOf(txt) == -1 && keyword.indexOf(txt2) == -1){
+					c++;
+				}
+			}
+			if(c >= forex.index.length){
+				return false;
+			}else{
+				return true;
+			}
+		}
+forex.onLoaded(function(){
+	forex.bind(forex_$("hadSelector"),"mousedown",function(ent){
+		var evnt = window.event || ent;
+		var srcEle = evnt.srcElement || evnt.target;
+		srcEle.value = (srcEle.value.indexOf("请选择币种") != -1) ? "" : srcEle.value;
+		while(srcEle.className.toLowerCase().indexOf("selectorcss") == -1){
+			srcEle = srcEle.parentNode;
+		}
+		//forex.showMenu(srcEle,"hadCurrency");
+		forex.showMenu(srcEle,"hadSelector");
+		forex.bind(forex_$("hadSelector"),"change",function(evt){
+			//forex.query("exSelector",(window.event || evt));
+			var evnt = window.event || ent;
+			var srcEle = evnt.srcElement || evnt.target;
+			try{
+				if(srcEle.value == "" || srcEle.replace(/ /gi,"") == ""){
+					document.getElementById("forex_rate").innerHTML = "";
+					document.getElementById("forex_result").innerHTML = "";
+					return false;
+				}
+			}catch(ex){}
+		});
+		forex.bind(forex_$("hadSelector"),"keyup",function(evt){
+			if(check("hadSelector")){
+				forex.query("hadSelector",(window.event || evt));
+			}else{
+				document.getElementById("forex_rate").innerHTML = "";
+				document.getElementById("forex_result").innerHTML = "";
+				return false;
+			}
+		});
+	});
+	forex.bind(forex_$("exSelector"),"mousedown",function(ent){
+		var evnt = window.event || ent;
+		var srcEle = evnt.srcElement || evnt.target;
+		srcEle.value = (srcEle.value.indexOf("请选择币种") != -1) ? "" : srcEle.value;
+		while(srcEle.className.toLowerCase().indexOf("selectorcss") == -1){
+			srcEle = srcEle.parentNode;
+		}
+		//forex.showMenu(srcEle,"exCurrency");
+		forex.showMenu(srcEle,"exSelector");
+		forex.bind(forex_$("exSelector"),"change",function(evt){
+			//forex.query("exSelector",(window.event || evt));
+			var evnt = window.event || ent;
+			var srcEle = evnt.srcElement || evnt.target;
+			try{
+				if(srcEle.value == "" || srcEle.replace(/ /gi,"") == ""){
+					document.getElementById("forex_rate").innerHTML = "";
+					document.getElementById("forex_result").innerHTML = "";
+					return false;
+				}
+			}catch(ex){}
+		});
+		forex.bind(forex_$("exSelector"),"keyup",function(evt){
+			if(check("exSelector")){
+				forex.query("exSelector",(window.event || evt));
+			}else{
+				document.getElementById("forex_rate").innerHTML = "";
+				document.getElementById("forex_result").innerHTML = "";
+				return false;
+			}
+		});
+	});
+	forex.bind(document,"click",function(ent){
+		var evnt = window.event || ent;
+		var srcEle = evnt.srcElement || evnt.target;
+		if(srcEle.id.toLowerCase() != "hadselector" && srcEle.id.toLowerCase() != "exselector" && srcEle.id.toLowerCase() != "hadcurrency" && srcEle.id.toLowerCase() != "excurrency" && srcEle.className.toLowerCase() != "selectorCss" && srcEle.className.toLowerCase() != "forex_simple_txt" && srcEle.className.toLowerCase() != "forex_txt"){
+			try{
+				if(forex.args.menu != null || forex.args.menu.style.display == "block"){
+					forex.args.menu.style.display = "none";
+				}
+			}catch(e){}
+		}
+	});
+	forex.bind(forex_$("forex_amount"),"keyup",function(){
+	   forex_$("forex_amount").value = forex_$("forex_amount").value.replace(/[^\d.]/g,"");  //清除"数字"和"."以外的字符 
+	   forex_$("forex_amount").value = forex_$("forex_amount").value.replace(/^\./g,"");  //验证第一个字符是数字而不是. 
+	   forex_$("forex_amount").value = forex_$("forex_amount").value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的. 
+	   forex_$("forex_amount").value = forex_$("forex_amount").value.replace(".","$#$").replace(/\./g,"").replace("$#$","."); 
+		if(forex_$("forex_amount").value == ""){
+			forex_$("forex_result").innerHTML = "";
+		}
+		forex.exchange();
+	});
+	forex.bind(forex_$("forex_amount"),"focus",function(){
+		forex_$("forex_amount").style.border = "1px solid #7c9ece";
+		forex.bind(forex_$("forex_amount"),"blur",function(){
+			forex_$("forex_amount").style.border = "1px solid #B7CAE5";
+		});
+	});
+	forex.bind(forex_$("arrowHref"),"mouseover",function(){
+		forex_$("arrowHref").style.background = "url(images/arrow1-1.png) no-repeat 0 0";
+		forex_$("silderPanel").style.display = "block";
+		forex.bind(forex_$("arrowHref"),"mouseout",function(){
+			forex_$("arrowHref").style.background = "url(images/arrow1.png) no-repeat 0 0";
+			forex_$("silderPanel").style.display = "none";
+		});
+	});
+	forex.bind(forex_$("arrowHref"),"click",function(){
+		forex.change();
+	});
+	forex.bind(forex_$("forex_amount"),"blur",function(){
+		if((forex_$("forex_amount").value != "") && (!isNaN(forex_$("forex_amount").value))){
+			forex_$("msgPanel").style.display = "none";
+		}
+	});
+	var date = new Date();
+	forex_$("fYear").innerHTML = date.getFullYear();
+	forex_$("fMonth").innerHTML = date.getMonth() + 1;
+	forex_$("fDay").innerHTML = date.getDate();
+	forex_$("forex_amount").focus();
+});
+</script>
+</head>
+<body>
+<div id="forex">
+  <div class="forex_cup_on"></div>
+  <div class="forex_cup">
+    <div id="forex_cp">
+      <div class="forex_container" id="forex_container">
+        <div id="forex_title"><img src="images/title.gif"></div>
+        <div class="spaceCss"></div>
+        <div id="forex_main">
+          <form>
+            <div class="forex_line">
+              <div><span>要兑换的金额：</span></div>
+              <div>
+                <input type="text" value="" id="forex_amount" maxlength="16" style="font-family: arial; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(183, 202, 229); border-right-color: rgb(183, 202, 229); border-bottom-color: rgb(183, 202, 229); border-left-color: rgb(183, 202, 229); ">
+                <span style="color:red;">*</span></div>
+            </div>
+            <div class="forex_line">
+              <div class="spaceCss2">&nbsp;
+                <input type="hidden" id="hadCurrencyHide" value="0">
+              </div>
+              <div class="selectorCss">
+                <input type="text" id="hadSelector" value="请选择币种" maxlength="8">
+              </div>
+            </div>
+            <div class="forex_line">
+              <div class="spaceCss2">&nbsp;</div>
+              <div class="selectorCss">
+                <input type="text" id="exSelector" value="请选择币种" maxlength="8">
+              </div>
+            </div>
+            <div class="forex_line">
+              <div class="spaceCss2" style="text-align:right;">
+                <p style="*margin-right:10px;">汇率：</p>
+                <input type="hidden" id="exCurrencyHide" value="0">
+              </div>
+              <div> 
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td width="50"><label id="forex_rate" style="margin:0px;display:block;margin-top:-4px;"></label></td>
+                      <td><font>（仅供参考，请以各银行实际汇率为准）</font></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="forex_line">
+              <div class="spaceCss2" style="text-align:right;">
+                <p style="*margin-right:10px;">结果：</p>
+              </div>
+              <div id="forex_result"></div>
+            </div>
+            <div class="forex_line">
+              <div class="spaceCss2">&nbsp;</div>
+              <div><font>汇率数据由和讯外汇提供,更新时间:<span id="fYear" style="margin:0px;color:#999;">2011</span>-<span id="fMonth" style="margin:0px;color:#999;">3</span>-<span id="fDay" style="margin:0px;color:#999;">24</span> </font></div>
+            </div>
+          </form>
+        </div>
+        <div class="spaceCss3"></div>
+        <div id="arrowPanel" class="arrowCss"><a href="javascript:void(0);" id="arrowHref"></a></div>
+        <div id="silderPanel" class="silderPanel">点击交换币种</div>
+        <div id="msgPanel" class="silderPanel">请输入需要兑换的数额</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="http://app.baidu.com/static/appstore/scripts/bdjs_client-1.0.js"></script> 
+<script>
+bdjs.clearAutoHeight();
+bdjs.setHeight(395);
+</script>
+<iframe style="visibility: hidden; height: 0px; width: 0px; position: absolute; " src="http://app.baidu.com/static/appstore/html/bdjs_callback.html#stamp=15rjavve3&amp;method=resize&amp;height=395"></iframe>
+<script src="http://app.baidu.com/app/monitor?apikey=xlkkWocRFGFS66FA5SCk32UK"></script>
+<iframe style="visibility: hidden; height: 0px; width: 0px; position: absolute; " src="http://app.baidu.com/static/appstore/html/bdjs_callback.html#stamp=15rjavvju&amp;method=time&amp;time=1300950417022"></iframe>
+<div id="forexMenu" class="menuCss" style="left: 284px; top: 190px; display: none; ">
+  <div id="forexMenuItem_CNY" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(248, 249, 252); display: block; background-position: initial initial; background-repeat: initial initial; ">
+    <input type="hidden" id="forexHide_CNY" value="1.0000#1.0000">
+    <span class="forex_simple_txt" id="forex1_CNY" style="color: rgb(58, 98, 154); ">CNY</span> <span class="forex_txt" id="forex2_CNY" style="color: rgb(51, 51, 51); ">人民币元</span></div>
+  <div id="forexMenuItem_USD" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(248, 249, 252); display: block; background-position: initial initial; background-repeat: initial initial; ">
+    <input type="hidden" id="forexHide_USD" value="6.5620#0.1524">
+    <span class="forex_simple_txt" id="forex1_USD" style="color: rgb(58, 98, 154); ">USD</span> <span class="forex_txt" id="forex2_USD" style="color: rgb(51, 51, 51); ">美元</span></div>
+  <div id="forexMenuItem_EUR" style="display: block; ">
+    <input type="hidden" id="forexHide_EUR" value="9.2370#0.1083">
+    <span class="forex_simple_txt" id="forex1_EUR">EUR</span> <span class="forex_txt" id="forex2_EUR">欧元</span></div>
+  <div id="forexMenuItem_GBP" style="display: block; ">
+    <input type="hidden" id="forexHide_GBP" value="10.6509#0.09389">
+    <span class="forex_simple_txt" id="forex1_GBP">GBP</span> <span class="forex_txt" id="forex2_GBP">英镑</span></div>
+  <div id="forexMenuItem_CAD" style="display: block; ">
+    <input type="hidden" id="forexHide_CAD" value="6.6877#0.1495">
+    <span class="forex_simple_txt" id="forex1_CAD">CAD</span> <span class="forex_txt" id="forex2_CAD">加元</span></div>
+  <div id="forexMenuItem_CHF" style="display: block; ">
+    <input type="hidden" id="forexHide_CHF" value="7.2094#0.1387">
+    <span class="forex_simple_txt" id="forex1_CHF">CHF</span> <span class="forex_txt" id="forex2_CHF">瑞郎</span></div>
+  <div id="forexMenuItem_JPY" style="display: block; ">
+    <input type="hidden" id="forexHide_JPY" value="0.08105#12.3385">
+    <span class="forex_simple_txt" id="forex1_JPY">JPY</span> <span class="forex_txt" id="forex2_JPY">日元</span></div>
+  <div id="forexMenuItem_ATS" style="display: block; ">
+    <input type="hidden" id="forexHide_ATS" value="0.6714#1.4893">
+    <span class="forex_simple_txt" id="forex1_ATS">ATS</span> <span class="forex_txt" id="forex2_ATS">奥地利先令</span></div>
+  <div id="forexMenuItem_AUD" style="display: block; ">
+    <input type="hidden" id="forexHide_AUD" value="6.6410#0.1506">
+    <span class="forex_simple_txt" id="forex1_AUD">AUD</span> <span class="forex_txt" id="forex2_AUD">澳元</span></div>
+  <div id="forexMenuItem_CZK" style="display: block; ">
+    <input type="hidden" id="forexHide_CZK" value="0.3791#2.6381">
+    <span class="forex_simple_txt" id="forex1_CZK">CZK</span> <span class="forex_txt" id="forex2_CZK">捷克克朗</span></div>
+  <div id="forexMenuItem_DEM" style="display: block; ">
+    <input type="hidden" id="forexHide_DEM" value="4.7236#0.2117">
+    <span class="forex_simple_txt" id="forex1_DEM">DEM</span> <span class="forex_txt" id="forex2_DEM">德国马克</span></div>
+  <div id="forexMenuItem_DKK" style="display: block; ">
+    <input type="hidden" id="forexHide_DKK" value="1.2388#0.8073">
+    <span class="forex_simple_txt" id="forex1_DKK">DKK</span> <span class="forex_txt" id="forex2_DKK">丹麦克朗</span></div>
+  <div id="forexMenuItem_ESP" style="display: block; ">
+    <input type="hidden" id="forexHide_ESP" value="0.05553#18.0098">
+    <span class="forex_simple_txt" id="forex1_ESP">ESP</span> <span class="forex_txt" id="forex2_ESP">西班牙比塞塔</span></div>
+  <div id="forexMenuItem_BEF" style="display: block; ">
+    <input type="hidden" id="forexHide_BEF" value="0.2290#4.3660">
+    <span class="forex_simple_txt" id="forex1_BEF">BEF</span> <span class="forex_txt" id="forex2_BEF">比利时法郎</span></div>
+  <div id="forexMenuItem_FIM" style="display: block; ">
+    <input type="hidden" id="forexHide_FIM" value="1.5538#0.6436">
+    <span class="forex_simple_txt" id="forex1_FIM">FIM</span> <span class="forex_txt" id="forex2_FIM">芬兰马克</span></div>
+  <div id="forexMenuItem_FRF" style="display: block; ">
+    <input type="hidden" id="forexHide_FRF" value="1.4084#0.7100">
+    <span class="forex_simple_txt" id="forex1_FRF">FRF</span> <span class="forex_txt" id="forex2_FRF">法国法郎</span></div>
+  <div id="forexMenuItem_BRL" style="display: block; ">
+    <input type="hidden" id="forexHide_BRL" value="3.9494#0.2532">
+    <span class="forex_simple_txt" id="forex1_BRL">BRL</span> <span class="forex_txt" id="forex2_BRL">巴西里尔</span></div>
+  <div id="forexMenuItem_HKD" style="display: block; ">
+    <input type="hidden" id="forexHide_HKD" value="0.8419#1.1879">
+    <span class="forex_simple_txt" id="forex1_HKD">HKD</span> <span class="forex_txt" id="forex2_HKD">港币</span></div>
+  <div id="forexMenuItem_HUF" style="display: block; ">
+    <input type="hidden" id="forexHide_HUF" value="0.03434#29.1237">
+    <span class="forex_simple_txt" id="forex1_HUF">HUF</span> <span class="forex_txt" id="forex2_HUF">匈牙利福林</span></div>
+  <div id="forexMenuItem_IDR" style="display: block; ">
+    <input type="hidden" id="forexHide_IDR" value="0.0007533#1327.4916">
+    <span class="forex_simple_txt" id="forex1_IDR">IDR</span> <span class="forex_txt" id="forex2_IDR">印度尼西亚盾</span></div>
+  <div id="forexMenuItem_INR" style="display: block; ">
+    <input type="hidden" id="forexHide_INR" value="0.1465#6.8241">
+    <span class="forex_simple_txt" id="forex1_INR">INR</span> <span class="forex_txt" id="forex2_INR">印度卢比</span></div>
+  <div id="forexMenuItem_ITL" style="display: block; ">
+    <input type="hidden" id="forexHide_ITL" value="0.004772#209.5398">
+    <span class="forex_simple_txt" id="forex1_ITL">ITL</span> <span class="forex_txt" id="forex2_ITL">意大利里拉</span></div>
+  <div id="forexMenuItem_CLP" style="display: block; ">
+    <input type="hidden" id="forexHide_CLP" value="0.01363#73.3465">
+    <span class="forex_simple_txt" id="forex1_CLP">CLP</span> <span class="forex_txt" id="forex2_CLP">智利比索</span></div>
+  <div id="forexMenuItem_KER" style="display: block; ">
+    <input type="hidden" id="forexHide_KER" value="0.005850#170.9387">
+    <span class="forex_simple_txt" id="forex1_KER">KER</span> <span class="forex_txt" id="forex2_KER">韩元</span></div>
+  <div id="forexMenuItem_MXN" style="display: block; ">
+    <input type="hidden" id="forexHide_MXN" value="0.5467#1.8291">
+    <span class="forex_simple_txt" id="forex1_MXN">MXN</span> <span class="forex_txt" id="forex2_MXN">墨西哥比索</span></div>
+  <div id="forexMenuItem_MYR" style="display: block; ">
+    <input type="hidden" id="forexHide_MYR" value="2.1653#0.4618">
+    <span class="forex_simple_txt" id="forex1_MYR">MYR</span> <span class="forex_txt" id="forex2_MYR">马来西亚元</span></div>
+  <div id="forexMenuItem_NLG" style="display: block; ">
+    <input type="hidden" id="forexHide_NLG" value="4.1924#0.2385">
+    <span class="forex_simple_txt" id="forex1_NLG">NLG</span> <span class="forex_txt" id="forex2_NLG">荷兰盾</span></div>
+  <div id="forexMenuItem_NOK" style="display: block; ">
+    <input type="hidden" id="forexHide_NOK" value="1.1725#0.8529">
+    <span class="forex_simple_txt" id="forex1_NOK">NOK</span> <span class="forex_txt" id="forex2_NOK">挪威克朗</span></div>
+  <div id="forexMenuItem_NZD" style="display: block; ">
+    <input type="hidden" id="forexHide_NZD" value="4.8923#0.2044">
+    <span class="forex_simple_txt" id="forex1_NZD">NZD</span> <span class="forex_txt" id="forex2_NZD">新西兰元</span></div>
+  <div id="forexMenuItem_PHP" style="display: block; ">
+    <input type="hidden" id="forexHide_PHP" value="0.1512#6.6154">
+    <span class="forex_simple_txt" id="forex1_PHP">PHP</span> <span class="forex_txt" id="forex2_PHP">菲律宾比索</span></div>
+  <div id="forexMenuItem_PLN" style="display: block; ">
+    <input type="hidden" id="forexHide_PLN" value="2.2932#0.4361">
+    <span class="forex_simple_txt" id="forex1_PLN">PLN</span> <span class="forex_txt" id="forex2_PLN">波兰兹罗提</span></div>
+  <div id="forexMenuItem_PTE" style="display: block; ">
+    <input type="hidden" id="forexHide_PTE" value="0.04608#21.7007">
+    <span class="forex_simple_txt" id="forex1_PTE">PTE</span> <span class="forex_txt" id="forex2_PTE">葡萄牙埃斯库多</span></div>
+  <div id="forexMenuItem_RUB" style="display: block; ">
+    <input type="hidden" id="forexHide_RUB" value="0.2311#4.3264">
+    <span class="forex_simple_txt" id="forex1_RUB">RUB</span> <span class="forex_txt" id="forex2_RUB">俄罗斯卢布</span></div>
+  <div id="forexMenuItem_SAR" style="display: block; ">
+    <input type="hidden" id="forexHide_SAR" value="1.7500#0.5714">
+    <span class="forex_simple_txt" id="forex1_SAR">SAR</span> <span class="forex_txt" id="forex2_SAR">沙特里亚尔</span></div>
+  <div id="forexMenuItem_SEK" style="display: block; ">
+    <input type="hidden" id="forexHide_SEK" value="1.0356#0.9656">
+    <span class="forex_simple_txt" id="forex1_SEK">SEK</span> <span class="forex_txt" id="forex2_SEK">瑞典克朗</span></div>
+  <div id="forexMenuItem_SGD" style="display: block; ">
+    <input type="hidden" id="forexHide_SGD" value="5.1923#0.1926">
+    <span class="forex_simple_txt" id="forex1_SGD">SGD</span> <span class="forex_txt" id="forex2_SGD">新加坡元</span></div>
+  <div id="forexMenuItem_THB" style="display: block; ">
+    <input type="hidden" id="forexHide_THB" value="0.2170#4.6084">
+    <span class="forex_simple_txt" id="forex1_THB">THB</span> <span class="forex_txt" id="forex2_THB">泰铢</span></div>
+  <div id="forexMenuItem_TWD" style="display: block; ">
+    <input type="hidden" id="forexHide_TWD" value="0.2220#4.5044">
+    <span class="forex_simple_txt" id="forex1_TWD">TWD</span> <span class="forex_txt" id="forex2_TWD">台币</span></div>
+  <div id="forexMenuItem_VEF" style="display: block; ">
+    <input type="hidden" id="forexHide_VEF" value="1.5300#0.6536">
+    <span class="forex_simple_txt" id="forex1_VEF">VEF</span> <span class="forex_txt" id="forex2_VEF">强势玻利瓦尔</span></div>
+  <div id="forexMenuItem_VND" style="display: block; ">
+    <input type="hidden" id="forexHide_VND" value="0.0003142#3182.7187">
+    <span class="forex_simple_txt" id="forex1_VND">VND</span> <span class="forex_txt" id="forex2_VND">越南盾</span></div>
+  <div id="forexMenuItem_ZAR" style="display: block; ">
+    <input type="hidden" id="forexHide_ZAR" value="0.9441#1.0592">
+    <span class="forex_simple_txt" id="forex1_ZAR">ZAR</span> <span class="forex_txt" id="forex2_ZAR">南非兰特</span></div>
+</div>
+</body>
+</html>

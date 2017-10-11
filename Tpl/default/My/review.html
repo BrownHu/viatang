@@ -1,0 +1,50 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;收货评论</div>
+    <div style="width:970px; margin-top:18px;" class="nobd middle">
+      <table border="0"  cellpadding="0" cellspacing="0" style="width:960px; border:1px solid #e6e6e6;">
+        <tr height="32" style="font-weight:bold;">
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="140" >包裹ID</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="170" >时间</td>
+          <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">评论内容</td>
+          <td bgcolor="#f3f3f3" width="130">操作</td>
+        </tr>
+        <present name="DataList">
+          <volist name="DataList" id="vo">
+            <tr height="30" >
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;"><a href="/Package/detail/id/{$vo.package_id}.shtml" style="text-decoration:underline;" class="fnt_blue">Y2011{$vo.package_id}</a></td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left;">
+              	<div style="padding-left:12px;padding-right:12px;padding-top:5px;padding-bottom:5px;">{$vo.content}</div>
+              </td>
+              <td style="border-top:1px solid #e6e6e6;"><eq name="vo.reply_time" value="0"><a href="#nogo"  onclick="del({$vo.id});" style="text-decoration:underline;">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;</eq><a href="/Review/index.shtml" target="_blank" style="text-decoration:underline;">查看</a></td>
+            </tr>
+          </volist>
+          <else />
+          <tr>
+            <td colspan="4">没有数据</td>
+          </tr>
+        </present>
+      </table>
+      <div style="height:12px; width:960px;" class="middle nobd"></div>
+      <div class="div" style="text-align:right;">{$page}</div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<form id="form1" name="form1" action="" method="get">
+</form>
+<script>
+writeConfirm();
+function del(id){
+	confirm('  确定删除操作?删除您可以重新评论.',function () {
+	document.form1.action = '/Review/del/id/'+id;			
+	document.form1.submit();
+	});
+}		
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

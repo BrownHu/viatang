@@ -1,0 +1,189 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="../Public/css/mall.css" />
+<script>$('#mn_buy').addClass('menu_li_on');</script>
+<include file="Mall:nav" />
+<div id="m1" style="width:988px;height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <DIV class=main>
+    <DIV class=mainCont><!-- 分类 S -->
+      <DIV class=cate_wrap>
+        <DIV class=cate_inner>
+          <DIV id=filter class=inner>
+            <DIV class=cate_files>
+              <H4>价格：</H4>
+              <A class="all current" href="#">全部</A>
+              <DIV class=cont><A href="?sp=1&ep=49">49元以下</A> <A href="?sp=50&ep=99">50-99元</A> <A href="?sp=100&ep=199">100-199元</A> <A href="?sp=200&ep=299">200-299元</A> <A href="?sp=300&ep=399">300-399元</A> <A href="?sp=400&ep=499">400-499元</A> <A href="?sp=500&ep=99999">500元以上</A> </DIV>
+            </DIV>
+          </DIV>
+        </DIV>
+      </DIV>
+      <DIV class=filter_tool>
+        <DIV class=tab>
+          <LABEL>排序：</LABEL>
+          <UL id=order>
+            <LI><A class=current   href="#"><SPAN>默认</SPAN></A></LI>
+            <LI><A   href="#"><SPAN>价格<EM></EM></SPAN></A></LI>
+            <LI><A   href="#"><SPAN>最低折扣</SPAN></A></LI>
+          </UL>
+        </DIV>
+        <DIV class=page><SPAN>{$PageNo}/{$TotalPages}</SPAN><A <gt name="PageNo" value="1">class="pre"<else/>class="pre_disable"</gt> href="?p={$PageNo-1}{$query}">上一页</A><A class=next href="?p={$PageNo+1}{$query}">下一页</A> </DIV>
+      </DIV>
+      <DIV id=search_result class=search_result>
+        <UL class=clearfix>
+          <present name="MallShoes">
+          <volist name="MallShoes" id="vo">
+            <LI class=product_item>
+              <H3><A href="{$vo.click_url}" target="_blank">{$vo.title|getShortTitle=###,25,true}</A></H3>
+              <SPAN class=pic><A href="{$vo.click_url}" target="_blank"><IMG alt="{$vo.title}" style="WIDTH: 220px" src="../Public/images/grey.gif" lazy="y" original="{$vo.pic_url}"></A></SPAN>
+              <DIV class=meta>
+                <UL>
+                  <LI class=price><STRONG>￥{$vo.price}</STRONG></LI>
+                  <LI class=merchant>商家：<A href="{$vo.shop_click_url}" target="_blank">{$vo.nick}</A><span style="display:inline-block; margin-left:15px; color:#999;">{$vo.item_location}</span></LI>                  
+                </UL>
+              </DIV>
+            </LI>
+          </volist>
+          <else/>
+          	<li class="product_item">暂无记录</li>
+          </present>
+        </UL>
+        <notempty name="MallShoes">
+          <div class="nobd mrg14">
+            <DIV class="digg">{$PageBar}&nbsp;到第&nbsp;&nbsp;
+              <input type="text" style="width:30px; border:1px solid #999;" id="go_pg" value="">
+              &nbsp;&nbsp;页&nbsp;&nbsp;
+              <input type="button" value="确定" onclick="goPage();">
+            </DIV>
+          </div>
+        </notempty>
+      </DIV>
+      <DIV class="search_bar search_b">
+        <DIV class=search_fields>
+          <FORM id="mall_search" name="mall_search" class="mall_search" method="get" action="/Mall/so.shtml">
+            <INPUT id="kw" class="keytop" value="输入您要购买的商品名称" type="text" name="q">
+            <INPUT class="button" value="搜索" type="submit">
+          </FORM>
+        </DIV>
+      </DIV>
+    </DIV>
+  </DIV>
+  
+  <!-- 热推商品 S -->
+  <DIV class=aside style="text-align:left;">
+    <DIV id=mod_collect class="module_product mod_collect">
+      <H3>热推商品</H3>
+      <DIV class=cont>
+        <OL>
+          <LI>
+            <H4><A href="#" target=_blank>时尚气质豹纹印花衬衫 黑花 </A></H4>
+            <A class=pic href="#"  target=_blank><IMG alt="" src="../Public/images/mall/t01f2452611ed61f8fc.jpg"></A>
+            <DIV class=meta><STRONG>￥89.00</STRONG><SPAN></SPAN></DIV>
+          </LI>
+          <LI>
+            <H4><A href="#" target=_blank>西装领轻便夹克</A></H4>
+            <A class=pic href="#" target=_blank><IMG alt="" src="../Public/images/mall/t01d2087dad76072ac7.jpg"></A>
+            <DIV class=meta><STRONG>￥118.00</STRONG><SPAN></SPAN></DIV>
+          </LI>
+          <LI>
+            <H4><A href="#" target=_blank>SPORTICA 2011新款时尚简洁 条纹针织衫 （黑色）</A></H4>
+            <A class=pic href="#" target=_blank><IMG alt="" src="../Public/images/mall/t0190285f3f51fb1b5d.jpg"></A>
+            <DIV class=meta><STRONG>￥159.00</STRONG><SPAN></SPAN></DIV>
+          </LI>
+          <LI>
+            <H4><A href="#" target=_blank>芭迪专柜正品单鞋</A></H4>
+            <A class=pic href="#" target=_blank><IMG alt="" src="../Public/images/mall/t0168ca0e8896bc7015.jpg"></A>
+            <DIV class=meta><STRONG>￥299.00</STRONG><SPAN></SPAN> </DIV>
+          </LI>
+          <LI>
+            <H4><A href="#" target=_blank>平纹头层牛皮手提单肩斜挎两用包</A></H4>
+            <A class=pic href="#" target=_blank><IMG alt="" src="../Public/images/mall/t019e1709f51b92cb39.jpg"></A>
+            <DIV class=meta><STRONG>￥365.00</STRONG><SPAN></SPAN> </DIV>
+          </LI>
+        </OL>
+      </DIV>
+    </DIV>
+    <!-- 最近收藏 E --><!-- 销量排行榜 S -->
+    <DIV id=mod_ranking class="module_product mod_ranking">
+      <H3>销量排行榜</H3>
+      <DIV class=cont>
+        <OL>
+          <LI class=top>
+            <H4><EM>01</EM><A href="http://www.pb89.com/goods/100999.html" 
+  target=_blank>穿越潮界四折特享 蓝色长款衬衫</A></H4>
+            <A class=pic 
+  href="http://www.pb89.com/goods/100999.html" target=_blank><IMG alt="" 
+  src="../Public/images/mall/t019291e32cb00c3d68.jpg"></A>
+            <DIV class=meta><STRONG>￥99.00</STRONG><SPAN>287人购买</SPAN> </DIV>
+          </LI>
+          <LI class=top>
+            <H4><EM>02</EM><A href="http://www.menglu.com/product/143437.html" 
+  target=_blank>2011冬装新款精致驼色小蝴蝶结双排扣呢子外套</A></H4>
+            <A class=pic 
+  href="http://www.menglu.com/product/143437.html" target=_blank><IMG alt="" 
+  src="../Public/images/mall/t01acb67c173b561cb5.jpg"></A>
+            <DIV class=meta><STRONG>￥168.00</STRONG><SPAN>256人购买</SPAN> </DIV>
+          </LI>
+          <LI class=top>
+            <H4><EM>03</EM><A href="http://item.mbaobao.com/pshow-1205012001.html" 
+  target=_blank>微笑向暖系列牛皮斜挎包 灰蓝色</A></H4>
+            <A class=pic 
+  href="http://item.mbaobao.com/pshow-1205012001.html" target=_blank><IMG alt="" 
+  src="../Public/images/mall/t01dc8c1007845ff81c.jpg"></A>
+            <DIV class=meta><STRONG>￥178.00</STRONG><SPAN>189人购买</SPAN> </DIV>
+          </LI>
+          <LI>
+            <H4><EM>04</EM><A href="http://www.outlets365.com/p5784.html" target=_blank> 马克·华菲 做旧磨白直筒牛仔裤</A></H4>
+            <A class=pic 
+  href="http://www.outlets365.com/p5784.html" target=_blank><IMG alt="" 
+  src="../Public/images/mall/t0105843d782b7ebcdc.jpg"></A>
+            <DIV class=meta><STRONG>￥316.00</STRONG><SPAN>142人购买</SPAN> </DIV>
+          </LI>
+          <LI>
+            <H4><EM>05</EM><A href="http://www.ezeroshop.com/Product-235.aspx" 
+  target=_blank>零度 休闲皮鞋男鞋</A></H4>
+            <A class=pic 
+  href="http://www.ezeroshop.com/Product-235.aspx" target=_blank><IMG alt="" 
+  src="../Public/images/mall/t011bd8cd12a45149f8.jpg"></A>
+            <DIV class=meta><STRONG>￥439.00</STRONG><SPAN>134人购买</SPAN> </DIV>
+          </LI>
+        </OL>
+      </DIV>
+    </DIV>
+    <!-- 购买排行榜 E --> 
+  </DIV>
+</div>
+<SCRIPT>
+  (function($){
+	  $('.product_item').hover(function(){ $(this).addClass("trigger_on"); },function(){ $(this).removeClass("trigger_on"); })
+	  	  var defwd = "输入您要购买的商品名称";
+	  var search_input = $('#kw'),form = $('#mall_search'),color = search_input.css('color');
+	  search_input.focus(function(){
+		  $(this).css('color','#000');
+		  var val = $.trim($(this).val());
+		  if(val == defwd) $(this).val('');
+		  }).blur(function(){
+		  var val = $.trim($(this).val());
+		  if(!val){
+			  $(this).css('color',color);
+			  $(this).val(defwd);
+		  }
+	  });
+	  form.submit(function(){
+		  var val = $.trim(search_input.val());
+		  if(!val || val == defwd)
+		  {
+			  search_input.focus();
+			  return false;
+		  }
+	  });
+  })(jQuery);
+  
+  function goPage(){
+	  var p =  $.trim($('#go_pg').val());
+	  if(Number(p) > 0){
+		  window.location.href ='/Mall/woman.shtml?p='+p;
+	  }else{
+		  $('#go_pg').val('');
+	  }
+  }   
+</SCRIPT> 
+<include file="Public:bottom" />

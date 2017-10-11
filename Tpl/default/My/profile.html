@@ -1,0 +1,68 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px;  overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;基本资料</div>
+    <div style="width:970px; border:1px solid #e6e6e6;  margin-top:18px; padding-bottom:24px;" class="nobd middle">
+      <form action="/Profile/commit" method="post" id="infoUpdate" name="infoUpdate">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:812px; margin-top:18px;">
+          <tr height="35">
+            <td width="80">姓名:</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" name="true_name" value="{$profile.true_name}" size="20" /></td>
+          </tr>
+          <tr height="35">
+            <td>性别:</td>
+            <td align="left"><input type="radio" name="sex" checked="checked" value="1" 
+              <eq name="profile.sex" value="1">checked</eq>
+              />男&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" 
+              <eq name="profile.sex" value="0">checked</eq>
+              value="0"  />女</td>
+          </tr>
+          <tr height="35">
+            <td>国家:</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" name="country" value="{$profile.country}" size="20" /></td>
+          </tr>
+          <tr height="35">
+            <td>省/州:</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" name="state" value="{$profile.state}" size="20" /></td>
+          </tr>
+          <tr height="35">
+            <td>城市:</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" name="city" value="{$profile.city}" size="20" /></td>
+          </tr>
+          <tr height="35">
+            <td>地址:</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" name="address" value="{$profile.address}" size="50" /></td>
+          </tr>
+          <tr height="35">
+            <td>邮编:</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" name="zip" value="{$profile.zip}" size="20" /></td>
+          </tr>
+          <tr height="35">
+            <td>电话:</td>
+            <td align="left"><input style="height: 25px; padding-left: 6px;" type="text" name="tel" value="{$profile.tel}" size="20" /></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div style="height:12px; width:960px; text-indent:80px; text-align:left; margin-top:30px;" class="middle nobd">
+      <input type="button" name="submit" onclick="sendform();" value="提交修改" class="btn_middle">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="button" name="clear" value="清空" class="btn_nomal" />
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function sendform(){
+	if(isEmpty(document.infoUpdate.true_name) || isEmpty(document.infoUpdate.country) ){
+		alert('请输入姓名和国家，再提交!');
+	}else{
+		$('#infoUpdate').submit();
+	}
+}
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

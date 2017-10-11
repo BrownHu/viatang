@@ -1,0 +1,115 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:770px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;申请代充值</div>
+    <div style="width:768px; height:97px; border:1px solid #d5eeb9; background:#f3fdea; margin-top:18px;" class="middle">
+      <div style="text-align:left; text-indent:12px;margin-top:12px;">申请代充值</div>
+      <ul style="display:block; margin-top:5px; text-align:left; padding:0px; margin-left:0px; text-indent:12px;">
+        <li style="line-height:25px; height:22px;">1. 使用代充值服务可将&nbsp;ulowi&nbsp;账户上的资金转账至支付宝账户！<a href="#" target="_blank" class="fnt_red" style="text-decoration:underline">查看代充值攻略</a></li>
+        <li style="line-height:25px; height:22px;">2. 单笔代充值5元起充，每笔需收取10%的手续费。</li>
+      </ul>
+    </div>
+    <div id="tab_title" style="width:770px; height:25px; margin-top:18px; display:none;" class="middle nobd">
+      <div style="width:20px; border-bottom:1px solid #e4e4e4; height:24px;" class="left"></div>
+      <ul style="margin:0px; padding:0px; display:block; width:204px; height:25px;" class="left nobd">
+        <li class="active1">己有支付宝</li>
+        <li class="normal1" onclick="javascript:showpay(2);">唯唐提供帐号</li>
+      </ul>
+      <div style="width:546px; height:24px; border-bottom:1px solid #e4e4e4" class="left";></div>
+    </div>
+    <div style="width:770px;" class="middle nobd">
+      <div style="width:758px; height:150px;" class="middle bbrd mrg14">
+        <form action="/Alipayagent/commit" method="post" name="send_apply_form" id="send_apply_form">
+          <input type="hidden" name="account_tyep" id="account_tyep" value="1">
+          <table border="0" cellpadding="0" cellspacing="0" style="width:600px; margin-top:12px;" class="middle">
+            <tr height="30">
+              <td align="left"  width="100">支付宝帐户：</td>
+              <td align="left"  width="178"><input name="alipay" id="alipay" type="txt" value="" ></td>
+              <td align="left" class="fnt_gry">输入需要代充值的支付宝账号或手机号码</td>
+            </tr>
+            <tr height="30">
+              <td align="left">实名认证信息：</td>
+              <td align="left"><input name="real_name" id="real_name" type="txt" value="" ></td>
+              <td align="left" class="fnt_gry">请输入需要代充值账号对应的实名信息</td>
+            </tr>
+            <tr height="30">
+              <td align="left">代充值金额：</td>
+              <td align="left"><input name="money" id="cz_money" type="txt" value="" onkeyup="value=value.replace(/[^\d]/g,'');cal();"></td>
+              <td align="left" class="fnt_gry">输入整数或小数，小数点后不超过2位</td>
+            </tr>
+            <tr height="30">
+              <td align="left">验证码：</td>
+              <td align="left">
+                <div style="width:55px; overflow:hidden;" class="left">
+                  <input type="text" id="verify" name="verify" value="" maxlength="4" style="width:50px;" onkeyup="value=value.replace(/[^\d]/g,'');">
+                </div>
+                <div style="width:50px; margin-left:12px;" class="left">
+                  <img id="ImgValidCode" style="cursor: pointer;"  src="__URL__/verify/"  class="nobd" onClick="this.src=this.src+'?'" />
+                </div>
+              </td>
+              <td align="left" class="fnt_gry">输入图中的字符</td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div style="width:768px; height:28px; line-height:28px; text-align:left; text-indent:10px; border:1px solid #fae2b9; background-color:#ffffe3; color:#ff6600;" class="middle mrg14">
+        温馨提示：部分商家可能不支持非实名认证支付宝账户交易，建议事先与商家咨询&nbsp;<a href="#" target="_blank" class="lnk">了解详情>></a> 
+      </div>
+      <div style="width:770px; height:60px; border-bottom:1px dashed #999; text-align:left;" class="middle mrg14">
+      	<p>ulowi&nbsp;帐户余额：<span class="fnt_red">￥{$balance}</span>&nbsp;&nbsp;<a href="/Pay/paypal.shtml" class="btn_n2">立即充值</a></p>
+        <p>本次共需支付：<span id="total" class="fnt_red">￥0.00</span>&nbsp;&nbsp;=&nbsp;&nbsp;<span id="cz_amount">￥0.00</span>&nbsp;&nbsp;+&nbsp;&nbsp;<span id="cz_fee">￥0.00</span></p>
+      </div>
+      <div style="width:770px; height:30px; text-align:right;" class="middle mrg14">
+	      <p id="tip_msg" class="fnt_red" style="display:none;">对不起！您的帐户余额不足请&nbsp;&nbsp;<a href="/Pay/paypal.shtml" class="btn_n2">立即充值</a></p>
+          <p><input id="btn_send" type="button" disabled="disabled" name="submit" value="支付并提交申请" onclick="sendform();" class="btn_middle"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function showpay(status){
+	if(status == 1){
+	   window.location.href = '/Alipayagent/apply.shtml';
+	}
+	if(status == 2){
+	   window.location.href = '/Alipayagent/applyu.shtml';
+	}
+}
+
+function cal(){
+	var balance = {$balance|default=0};
+	var money = $('#cz_money').val();
+	var service_fee = FormatNumber(money * 0.05,2);
+	var total = Number(money) + Number(service_fee);
+	$('#total').html('￥'+total);
+	$('#cz_amount').html('￥'+money);	
+	$('#cz_fee').html('￥'+service_fee);	
+	if( (money <= balance) && (money>0) ){		
+	   $('#btn_send').attr('disabled','');
+	}else{
+	   if(money > balance){ $('#tip_msg').show();}
+  	   $('#btn_send').attr('disabled','disabled');
+	}
+}
+
+function sendform(){
+	if( ($('#alipay').val() == '') || ($('#real_name').val() == '') || ($('#verify').val() == '')){
+  	   alert('  请输入所有项目再提交！若有疑问请与客服联系！');
+		return ;
+	}
+	if(isNaN($('#cz_money').val())){
+		alert('  请输入正确的充值金额,重新提交！若有疑问请与客服联系!');
+		return ;
+	}
+	if( !isEmail(document.getElementById('alipay'),'')){
+		alert('  请输入正确的支付宝帐号(例:john@viatang.com)');
+		return;
+	}
+	$('#send_apply_form').submit();	
+}
+</script> 
+<include file="Public:bottom" />

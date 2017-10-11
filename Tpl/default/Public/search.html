@@ -1,0 +1,123 @@
+<script type="text/javascript" src="/Public/Js/jQuery/Plug-in/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.artDialog.js?skin=default"></script> 
+<script type="text/javascript" src="/Public/Js/jquery.autocomplete.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/Css/jquery.autocomplete.css">
+<div style="width:auto;height:auto;overflow:hidden;background-color:#fff">
+<div id="head_t" style="width:988px;height:62px; margin-top:8px;" class="middle">
+  <div id="logo" style="overflow:hidden; margin-top:0px;" class="left nobd"><a href="/"><img src="../Public/images/logo.png" class="nobd" alt="唯唐代购"></a></div>
+  <div style="width:556px; height:65px;overflow:hidden;" class="right nobd">
+	<div id="toptab" style="width:556px; height:20px; overflow:hidden;margin-top:2px;">
+    	<ul style="display:block;width:202px;line-height:20px; height:20px; padding-left:14px; margin:0px;font-size:14px;" class="left">
+            <li id="tabbuy" class="left topsearch_on" onClick="chgtoptab('buy');" tag="1">代购</li>			
+            <li id="tabsearch" class="left topsearch_normal"  onClick="chgtoptab('search');">搜索</li>
+            <li id="tabselfbuy" class="left topsearch_normal"  onClick="chgtoptab('selfbuy');">国际转运</li>
+        </ul>
+    </div>
+    <div style="width:556px; height:45px;overflow:hidden; ">
+      <div id="topbuy" style="width:546px; overflow:hidden;" class="nobd right top-input-i">
+	    <form action="/Item/step2.html" method="get" id="daigouform" target="_blank">
+	    	<input type="hidden" name="itemUrl" id="itemUrl" value="" />
+          	<div style="width:451px; margin-left:2px;overflow:hidden; margin-top:0px;" class="left nobd">
+            	<input id="CrawlUrl" name="CrawlUrl" type="text" value="http://粘贴您想代购的中国购物网站的商品网址（URL）" class="yjtd_input fnt_lgt_gry" >
+        	</div>
+        	<div style="margin-top:0px;overflow:hidden;" class="nobd left">
+				<img id="CrawlBtn" src="/img/btn-dg.gif" alt="我要代购" class="nobd" style="cursor:pointer;" > 
+			</div>
+		</form>
+      </div>
+      <div id="topsearch" style="width:546px; overflow:hidden; display:none;" class="nobd right top-input-i">
+        <div style="width:451px; margin-left:2px;overflow:hidden; margin-top:0px;" class="left nobd">
+          <form action="/search/index" method="post"  id="searchform">
+          	  <input name="p" value="1" type="hidden">
+	          <input id="keyword" name="q" type="text" value="<php>if(!empty($soearch_keyword) && ($soearch_keyword!='')){echo $soearch_keyword;}else{echo '请输入要搜索的商品名称';}</php>" style="color:#4D4E51;" class="yjtd_input fnt_lgt_gry" >
+          </form>
+        </div>
+        <div style="margin-top:0px;overflow:hidden;" class="nobd left"><img id="btnsearch" src="/img/btn-search.gif" alt="代购搜索" class="nobd" style="cursor:pointer;" onClick="dosearch();" > </div>
+      </div>
+      <div id="topselfbuy" style="width:546px; overflow:hidden; display:none;" class="nobd right top-input-i">
+	    <form action="/Selfpurchase/step1" method="post" id="selfbuyform">
+	    	<input type="hidden" name="url" id="selfUrl" value="" />
+          	<div style="width:451px; margin-left:2px;overflow:hidden; margin-top:0px;" class="left nobd">
+            	<input id="sel_url" name="itemurl" type="text" value="http://粘贴您想代购的中国购物网站的商品网址（URL）" class="yjtd_input fnt_lgt_gry" >
+        	</div>
+        	<div style="margin-top:0px;overflow:hidden;" class="nobd left">
+				<img  src="/img/btn-dj.gif" alt="我要代寄" class="nobd" style="cursor:pointer;" onclick="doSelfBuy();" > 
+			</div>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="display:none;">
+  <form action="/Item/loadItem" method="get" id="frm_daigou_result">
+	<input type="hidden" name="_k" value="" id="daigou_result_page">
+  </form>	
+</div>
+<script>
+
+function doSelfBuy(){  
+	var pageurl = $("#sel_url").val();  
+	if (pageurl == '') { 
+		alert('   请输入您自助购买的商品网址！');
+	}else{
+		if(pageurl == 'http://粘贴您想代购的中国购物网站的商品网址（URL）'){
+			alert('请输入您自助购买的商品网址!');
+			return false;
+		}else{
+			pageurl = $.base64Encode(pageurl).replace('/','^').replace('==','@'); 
+			lightboxframe('国际转运','/Selfpurchase/step1/url/'+pageurl,540,425,true);
+			//$('#selfUrl').val($('#sel_url').val(pageurl));
+			//$('#selfbuyform').submit();
+		}
+	}
+} 
+
+function complete(result){		
+    if (result.status == '1'){
+		//window.location.href = '/Item/loadItem';		
+		$('#daigou_result_page').val(result.info);
+		$('#frm_daigou_result').submit();
+		closeDialog();			
+	}else{
+		art.dialog({title:'一键代购',content: result.info,time: 2});
+	}		
+}
+
+function closeDialog(){
+	var list = art.dialog.list;
+	for (var i in list) {
+    	list[i].close();
+	};
+}
+
+function dotipmsg(){
+	art.dialog({title:'一键代购',content: '正在抓取商品数据，请稍等....<br><br><img src="/img/loading.gif" alt="商品加载" >',time: 30});
+}
+	
+/*$('#daigouform').ajaxForm({
+  beforeSubmit :dotipmsg,	
+  success: complete,
+  dataType: 'json'
+});	*/
+
+$('#keyword').autocomplete("/Search/getSuggest", {
+		multiple: true,
+		dataType: "json",
+		parse: function(data) {
+			return $.map(data, function(row) {
+				return {
+					data: row,
+					value: row.cid,
+					result: row.cap
+				}
+			});
+		},
+		
+		formatItem: function(item) {
+			return item.cap;
+		}
+}).result(function(e, item) {
+		$("#searchform").submit();
+});
+</script>	

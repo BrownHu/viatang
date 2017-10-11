@@ -1,0 +1,175 @@
+<include file="Public:header" />
+<style>
+	.Buy_NumLeft,.Buy_NumRight{display:inline-block;  border:1px solid #cacaca; height:22px; line-height20px; width:20px; float:left; background:url(/img/item_car.png) no-repeat; }
+  .Buy_NumLeft{ background-position :-85px -6px;}
+  .Buy_NumRight{ background-position :-104px -6px;}
+  .pro_count{text-align:center;width:25px;border-left:none;border-right:none;border-top:1px solid #cacaca;border-bottom:1px solid #cacaca; height:20px;ime-mode: disabled;float:left;}
+</style>
+<div id="m2" style="width:988px; height:100%; overflow:hidden; margin-top:14px; border-top:1px solid #fff;" class="middle">
+  <php>if(!empty($list) &&  (count($list) > 0) ){</php>
+  <div style="width:986px; height:30px;" class="middle"><img src="../Public/images/jd2.gif" alt="代购流程栏"></div>
+  <form action="" id="frmcart" name="frmcart" method="post">
+    <div id="main-nav-holder">
+    <table cellpadding="0" cellspacing="0" class="user_centerListable middle mrg14" style="width:986px;" >
+      <thead>
+        <tr>
+          <td width="30"><input type="checkbox" name="checkbox"  id="checkbox" checked="checked" onclick="selAll(this);recalfee();"/></td>
+          <td align="left">商品名称</td>
+          <td width="80">单价(<span class="fnt_pnk">￥</span>)</td>
+          <td width="110">数量</td>
+          <td width="80">国内运费(<span class="fnt_pnk">￥</span>)</td>
+          <td width="80">总价(<span class="fnt_pnk">￥</span>)</td>
+          <td width="50">操作</td>
+        </tr>
+      </thead>
+    </table>
+    </div>
+    <php>for($i=0; $i<$count; $i++){ </php>
+    <php>if((($i < $count) && ($list[$i]['seller'] <> $list[$i-1]['seller'])) || ($i == 0) ){</php>
+    <php>if($i <> 0){</php>
+    <div style="height:20px; width:986px;;" class="middle nobd"></div>
+    <php>}</php>
+    <table border="0" cellpadding="0" cellspacing="0" class="package_seller middle">
+      <tr height="30">
+        <td colspan="4">&nbsp;&nbsp;&nbsp;<font style="font-weight:bold">卖家</font>:&nbsp;
+          <php> echo $list[$i]['seller']; </php>
+          &nbsp;&nbsp; &nbsp; &nbsp; <php>echo  getSiteName($list[$i]['url']);</php>
+          </td>
+      </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" class="middle package_item" style="width:986px;">
+      <php>}</php>
+      <tr>
+        <td width="25"><input type="checkbox" value="<php>echo $list[$i]['id']</php>" name="id[]" class="cart_pid"  checked id="checkbox" onclick="unsel(this);recalfee();"  /></td>
+        <td align="left">
+          <div class="left">
+            <ul><li><img src="/Uploads/pic/product/<php>echo $list[$i]['thumb']</php>_s.jpg" onerror="this.src='../Public/images/noimg80.gif'" alt="代购商品图片" class="product_img"/></li></ul>
+            <ul style="width:400px">
+              <li>
+                 <a href="<php>echo $list[$i]['url']</php>" target="_blank"><php>echo $list[$i]['title']</php></a>
+                 <h4 class="product_tips"><php>if($list[$i]['note'] != ''){echo '备注:&nbsp;'.$list[$i]['note'];}</php></h4>
+              </li>
+            </ul>
+          </div>
+        </td>
+        <td width="80"><php>echo $list[$i]['price'];</php></td>
+        <td width="110">
+        	<a href="javascript:void(0);" onclick="desc_count('<php>echo $list[$i]['id'];</php>');" class="Buy_NumLeft">&nbsp;</a>
+			<input id="productNum_<php>echo $list[$i]['id'];</php>" class="pro_count"  onblur="if(this.value.length<=0) this.value=1;" type="text" value="<php>echo $list[$i]['amount'];</php>" maxlength="6" onkeyup="value=value.replace(/[^\d]/g,'');change_count('<php>echo $list[$i]['id'];</php>');" />
+            <a href="javascript:void(0);" onclick="asc_count('<php>echo $list[$i]['id'];</php>');" class="Buy_NumRight">&nbsp;</a> 
+		</td>
+        <td width="80"><php>echo $list[$i]['shipping_fee'];</php></td>
+        <td width="80"><span id="total_<php>echo $list[$i]['id'];</php>"><php>echo $list[$i]['total'];</php></span></td>
+        <td><a href="#nogo" onclick="edit('__URL__/load/id/<php>echo $list[$i]['id'];</php>');">修改</a></td>
+      </tr>
+      <php>if( ($i < $count) && ($list[$i]['seller'] <> $list[$i+1]['seller']) ){</php>
+    </table>
+    <php>}
+      } </php>
+  </form>
+  <div style="width:100%; padding-top:20px;" class="middle nobd">
+    <div style="float:left">&nbsp;&nbsp;&nbsp;
+      <input type="checkbox" name="checkbox"  id="checkbox" checked="checked" onclick="selAll(this);recalfee();"/>
+      &nbsp;&nbsp;全选</div>
+    <div style="width:100px;" class="left">合计：<span id="cart_total_fee">{$cart_total_fee}</span></div>  
+    <div style="float:right; width:360px;">
+      <div style="width:90px;" class="left"><a href="#nogo" onclick="javascript:del();" class="btn_nomal" >删除选中</a></div>
+      <div style="width:90px;" class="left"><a href="#nogo" onclick="javascript:lightboxframe('快速代购','/Item/index.shtml',550,420,true);" class="btn_nomal" >添加项目</a></div>
+      <div style="width:110px;margin-left:10px;" class="left"><a  href="#nogo" onclick="javascript:checkout();" ><img src="../Public/images/btn_qjs.gif" alt="确认订单" ></a></div>
+    </div>
+  </div>
+  <php>}else{</php>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bbrd middle">
+    <tbody>
+      <tr>
+        <td width="35%" height="200" align="center"><img src="../Public/images/cart_empty.png" alt="购物车信息" ></td>
+        <td width="65%" align="left" style="line-height:150%"><p style="font-size:15px; margin-bottom:20px;"><b>您的购物车还是空的，赶紧行动吧！您可以：</b></p>
+          <table>
+            <tr>
+              <td>现在就</td>
+              <td><a href="/My/buy.html"  style="text-decoration:none; color:#fff;" class="btn_send">提交代购单</a></td>
+              <td>&nbsp;或者到</td>
+              <td>&nbsp;<a href="/See/index.shtml" style="color:#cb1108; text-decoration:underline;">最新代购</a> 逛逛！ </td>
+            </tr>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+  <php>}</php>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function edit(url){
+	javascript:lightboxframe('修改商品信息',url,530,420,true);
+}
+function del(){
+	if(checkSel()){
+		confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+		  $('#frmcart').attr('action','/Cart/del');
+		  $('#frmcart').submit();
+		});		 
+	}
+}
+function desc_count(id){
+		if (parseInt($('#productNum_'+id).val()) > 1 ){
+			$('#productNum_'+id).val( parseInt($('#productNum_'+id).val()) - 1 );
+		}
+		$.get('/Cart/update_count/id/'+id+'/c/'+$('#productNum_'+id).val(),function(data){
+			$('#total_'+id).html(data);
+			recalfee();
+		});
+		
+		
+}
+	
+function asc_count(id){
+		$('#productNum_'+id).val( parseInt($('#productNum_'+id).val()) + 1 );
+		$.get('/Cart/update_count/id/'+id+'/c/'+$('#productNum_'+id).val(),function(data){
+			$('#total_'+id).html(data);
+			recalfee();
+		});		
+		
+
+}
+
+function change_count(id){
+	if($('#productNum_'+id).val() != ''){
+		$.get('/Cart/update_count/id/'+id+'/c/'+$('#productNum_'+id).val(),function(data){
+			$('#total_'+id).html(data);
+		});
+	}
+		
+}
+	
+function unsel(e){
+   if(e.checked == false){ 
+	 var cb =  document.getElementsByName('checkbox');
+	 cb[0].checked = false; 
+   }
+}
+
+function recalfee(){
+  var ids = '';
+  $(".cart_pid").each(function(){
+  	  if($(this).attr('checked') == true){
+	    ids = ids + ','+ $(this).val();
+	  }
+  });
+   $.get('/Cart/totalfee/id/'+ids,function(data){
+			$('#cart_total_fee').html(data);
+  });
+}
+ 
+function checkout(){
+	if(checkSel()){
+	   $('#frmcart').attr('action','/Cart/pcheck.shtml');
+	   $('#frmcart').submit();
+   }else{
+	   alert('请选择需要结算的商品,再提交!');
+   }
+}
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

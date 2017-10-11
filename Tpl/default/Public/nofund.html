@@ -1,0 +1,27 @@
+<include file="Public:header" />
+<div id="m1" style="width:988px; height:363px;" class="nobd middle mrg9">
+  <div style="width:605px; height:363px; text-align:left; padding-top:60px; " class="nobd  middle"> <img src="../Public/images/result_none.png" alt="宝贝不存在" class="left" />
+    <div style="width:500px; margin-left:20px;" class="left">
+      <div style="font-size:20px;">很抱歉，您查看的宝贝不存在，可能已下架或者被转移。</div>
+      <div style="margin-top:30px;">
+        <p>您可以：</p>
+        <p style="display:block; margin-top:30px;">1.&nbsp;&nbsp;该宝贝可能已经下架，您可以联系掌柜找找宝贝。</p>
+        <p>2.&nbsp;&nbsp;到“挑选商品”频道去看看。</p>
+        <p>3.&nbsp;&nbsp;去看看大家在代购什么？去找你感兴趣的宝贝分类，将在&nbsp;<span id="clock" style="font-size:18px;" class="fnt_b fnt_red">10</span>&nbsp;秒后自动跳转。 </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var sec = 10;
+timerID = setInterval("count()",1000);
+function count() {
+	if( sec > 0){
+    	$('#clock').html(sec);
+		sec = sec -1;
+	}else{
+		 window.location.href = "/Mall/index.shtml";
+	}
+}
+</Script> 
+<include file="Public:bottom" />

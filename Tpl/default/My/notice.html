@@ -1,0 +1,65 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+        <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的信箱</div>
+        <div id="tab_title" style="width:960px; height:25px; margin-top:18px;" class="middle nobd">
+          <ul style="margin:0px; padding:0px; display:block; width:204px; height:25px;" class="left nobd">
+            <li class="active1">系统通知</li>
+            <li class="normal1"><a href="/My/consultation.shtml">我的咨询<span class="my_red">({$Think.session.my_unread_consulation|default="0"})</span></a></li>
+          </ul>
+          <div style="width:728px; height:24px; border-bottom:1px solid #e4e4e4; text-align:right;" class="left";><a href="#nogo"  onclick="javascript:lightboxframe('我要咨询','/Consultation/add',500,280,true);" class="btn_add" >提交咨询</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="width:960px; margin-top:14px;" class="nobd middle">
+        <form action="" metho="get" name="form1" id="form1">
+          <table border="0"  cellpadding="0" cellspacing="0" style="width:960px; border:1px solid #e6e6e6;">
+            <tr height="35" style="font-weight:bold;">
+              <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="50" >状态</td>
+              <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6;" width="150" >时间</td>
+              <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">通知标题</td>              
+              <td bgcolor="#f3f3f3" width="100">操作</td>
+            </tr>
+            <present name="DataList">
+            <volist name="DataList" id="vo" key="k">
+            <tr height="32" style="cursor:pointer;" onclick="showdiv('msg_{$vo.id}'); doread({$vo.id});" >
+              <td id="img_read_tag" style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;"><eq name="vo.tag" value="0"><img  src="../Public/images/urd1.png" alt="代购系统消息" ><else/><img src="../Public/images/rdd1.png" alt="代购系统信息" ></eq></td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$vo.create_time|date="Y-m-d",###}</td>
+              <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">
+                  <div class="mrg9  lnk" style="padding-bottom:5px;" title="点击查看详情">{$vo.title}</div>
+                  <div id="msg_{$vo.id}" style="display:none; width:96%; border:1px dashed #CCC; margin-bottom:10px; color:#f00; padding-bottom:5px; padding-top:5px;" class="middle">{$vo.msg}</div>
+              </td>              
+              <td style="border-top:1px solid #e6e6e6;"><a href="#nogo" onclick="javascript:del({$vo.id})" class="lnk">删除</a></td>              
+            </tr>
+            </volist>
+            <else />
+            <tr height="32"><td colspan="4" style="border-top:1px solid #e6e6e6;">暂无记录</td></tr>
+            </present>
+          </table>
+           </form>
+          <div style="height:12px; width:960px;" class="middle nobd">{$page}</div>
+        </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/Css/confirm.css">
+<script>
+writeConfirm();
+function del(id){
+  confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+	document.form1.action = '/Notice/del/id/'+id;			
+	document.form1.submit();
+  });
+}
+
+function doread(id){
+	$.get("/Notice/doRead/id/"+id, function(){
+		$('#img_read_tag').empty().html("<img src='/img/rdd1.png'>");	
+		var count = $('#global_msg_tip').html();
+		count = count *1;
+		if(count >=1 ) { count = count - 1;}
+		$('#global_msg_tip').html(count);
+	});
+}	
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

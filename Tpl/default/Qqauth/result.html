@@ -1,0 +1,53 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="/s/?g=g.js"></script>
+<link href="http://qzonestyle.gtimg.cn/qzone_v6/proj_qlogin/qlogin.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body style="background:#FFF">
+<div id="append"></div>
+<div id="append"></div>
+<div class="page_login">
+
+<div class="lay_top">
+  <div class="lay_top_inner">
+    <h1 class="logo text_hide">QQ登录</h1>
+    <div class="lat_top_other"><!--lat_top_defined--> 
+      <a href="http://connect.qq.com/qqlogin" target="_blank" title="什么是QQ登录" class="help"><i class="icon_help_white"></i>什么是QQ登录?</a> </div>
+  </div>
+</div>
+
+
+<div class="lay_main">
+  <div class="lay_login_form">
+    <div class="login_wrap" id="login" style="height: 233px; width: 284px;"> 
+      <!--快速登录框-->
+      <div id="qlogin" style="display:block;">
+        <div class="ajax rtninfo" align="center" style="margin-top:50px;"> <img src="../Public/images/loading.gif" alt="唯唐代购登录加载中" align="middle" /><br><br>
+   			 登录成功， 正在跳转... 
+        </div>
+      </div>
+      <div id="web_login" style="display:none;"> 
+        <!-- ptlogin --> 
+      </div>
+      
+    </div>
+  </div>
+  <div class="lay_pic" id="img_link"></div>
+</div>
+<!-- @footer -->
+
+<div class="lay_footer">
+</div>
+</div>
+<script>
+	//if( window.parent != window.self){
+	//	closelightbox(true);
+	//}else{
+    	window.location.href = '{$return_url}';
+    //}
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>代购 － 代购淘宝 全球直邮 代购当当 代购中国商品</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script>	
+	function sendform(){
+		var v = document.add_address.u_a_select_country.value.split("|");
+		if( isEmpty(document.add_address.u_a_name)  ||  isEmpty(document.add_address.u_a_country) 		
+		 || isEmpty(document.add_address.u_a_city) 		
+		 || isEmpty(document.add_address.u_a_address)		
+		 || isEmpty(document.add_address.u_a_zip)		
+		 || isEmpty(document.add_address.u_a_phone)){
+			$('#error_msg').html('&nbsp;请填写所有项后，再提交!');
+			$('#error_msg').show();
+			return false;
+		}else{
+			$('#zone_id').val(v[0]);
+			$('#add_address').submit();
+			//closelightbox(true);
+		}
+	}
+	
+	function hidemsg(){
+	  $('#error_msg').hide();
+	}
+	
+function select_country(a)
+{
+	var v = a.value.split("|");
+	if(v[0] == '7' || v[0] == '17' || v[0] == '24'){
+		$('#u_a_country').val(v[1]);
+		$('#show_write_country').show();
+	}else{
+		$('#u_a_country').val(v[1]);
+		$('#show_write_country').hide();
+	}
+	$('#zone_id').val(v[0]);
+}
+</script>
+</head>
+<body>
+<div style="text-align:left" class="float_left">
+  <form action="/Package/note" method="post" name="add_address" id="add_address">
+  	<input type="hidden" name="id" value="{$entity.id}">
+     <input type="hidden" name="zone_id" id="zone_id" value="0">
+  	<div id="error_msg" style="height:18px;  display:none; width:100%; background-color:#f60; color:#fff" class="middle">出错信息</div>
+    <table class="user_centerTable">
+      <tbody>
+        <tr>
+          <th>收货人：</th>
+          <td><input name="u_a_name" type="text" class="buy_ipt1" id="u_a_name" onMouseOver="this.className='buy_ipt2';" onMouseOut="this.className='buy_ipt1';" onFocus="hidemsg();" size="28" value="{$entity.contact}"></td>
+        </tr>
+        <tr>
+          <th>收货国家： </th>
+          <td>
+          	  <select name="u_a_select_country" id="u_a_select_country" onChange="select_country(this);">
+                <option value="0|0" selected>请选择</option>
+              	<volist name="CountryList" id="vo">
+                	<option value="{$vo.id}|{$vo.caption_en}" <eq name="vo.id" value="entity.deliver_id">selected</eq> >{$vo.caption_cn}</option>
+                </volist>
+              </select>	
+          </td>
+        </tr>
+        <tr style="display:none" id="show_write_country">
+          <th>输入国家： </th>
+          <td><input id="u_a_country" class="buy_ipt1" onMouseOver="this.className='buy_ipt2';" onMouseOut="this.className='buy_ipt1';" size="28" name="u_a_country" onFocus="hidemsg();" value="{$entity.country}" ></td>
+        </tr> 
+        <tr>
+          <th>收货城市：</th>
+          <td><input name="u_a_city" type="text" class="buy_ipt1" id="u_a_city" onMouseOver="this.className='buy_ipt2';" onMouseOut="this.className='buy_ipt1';"  style="width:200px" onFocus="hidemsg();" value="{$entity.city}" ></td>
+        </tr>
+        <tr>
+          <th valign="top">收货地址：</th>
+          <td><textarea class="buy_ipt1" name="u_a_address" id="u_a_address" cols="45" rows="5" onMouseOver="this.className='buy_ipt2';" onFocus="hidemsg();"  onmouseout="this.className='buy_ipt1';" style="height:80px;width:400px;overflow:auto">{$entity.address}</textarea></td>
+        </tr>
+        <tr>
+          <th>收货人邮编：</th>
+          <td><input name="u_a_zip" type="text" class="buy_ipt1" id="u_a_zip" onMouseOver="this.className='buy_ipt2';" onFocus="hidemsg();"  onmouseout="this.className='buy_ipt1';" size="28" style="width:120px" value="{$entity.zip}"></td>
+        </tr>
+        <tr>
+          <th>收货人电话：</th>
+          <td><input name="u_a_phone" type="text" class="buy_ipt1" id="u_a_phone" onMouseOver="this.className='buy_ipt2';" onFocus="hidemsg();"  onmouseout="this.className='buy_ipt1';" size="28" value="{$entity.phone}"></td>
+        </tr>
+        <tr>
+          <td height="40"></td>
+          <td><input type="button" name="button5" id="button7" class="btn_nomal" value="确认" onClick="javascript:sendform();"></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+</body>
+</html>

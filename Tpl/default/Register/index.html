@@ -1,0 +1,140 @@
+<tagLib name="html,cx" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" Content="zh-CN" /> 
+<link rel="shortcut icon" href="../Public/images/favicon.ico" alt="淘宝代购 唯唐代购中国商品 ">
+<title>淘宝代购网免费注册-viatang.com{$title|default=''}</title>
+<meta name="keywords" content="{$keywords|default='代购,淘宝代购,代购网,taobao,唯唐代购,viatang,代购用户免费注册,淘宝代购免费注册,用户登录,新用户免服务费,免费注册代购中国商品,美国代购,加拿大代购,华人代购'}" />
+<meta name="description" content="{$description|default='专为海外华人、留学生提供代购淘宝商品平台，海外华人代购中国商品免费注册,留学生代购淘宝商品免费注册,享超低国际运费服务。'}" />
+<link rel="stylesheet" type="text/css" href="/s/?g=g.css">
+<script type="text/javascript" src="/s/?g=g.js"></script>
+</head>
+<body style="background:url(/img/reg_bg.jpg) center top no-repeat;">
+<style>.input-txt{border:1px solid #BDBDBD; border-radius:3px; height:30px; text-indent:5px; line-height:30px;width:234px;}.input-txt:hover{border-color:#83b900}</style>
+<div id="head_t" style="width:988px;height:62px; margin-top:14px;" class="middle">
+  <div id="logo" style="overflow:hidden; margin-top:5px;" class="left nobd"><a href="/"><img src="/img/logo_reg.png" alt="唯唐代购中国商品" class="nobd left" style="margin-left:15px;"></a></div>
+ 
+</div>
+<div id="m1" style="width:976px; height:363px; margin-top:60px" class="nobd middle">
+  <div style="width:660px; height:363px; margin-top:1px; margin-left:1px; " class="nobd left">
+    <div style="height:40px; line-height:50px; text-align:left; text-indent:60px;font-size:30px;color:#768263;font-family:'微软雅黑';">新用户注册</div>
+    <div style="margin-top:60px; margin-left:60px; width:600px;" class="nobd">
+      <ul class="middle">
+        <form action="/Register/register.shtml" method="post" id="form1" name="form1">
+          <input name="spreader" id="spreader" type="hidden" value='{$Think.session.spreader|default="0"}'>
+		  <li class="login_item" style="margin-top:10px;">
+            <div style="width:84px;text-align:right;line-height:30px;font-size:14px;" class="left">邮箱：</div>
+            <div style="222px;" class="left">
+              <input type="text" name="email" id="email" onBlur="checkEmail();" onFocus="resetTip('email');" value=""  class="input-txt">
+            </div>
+            <div id="u_mail" style="text-indent:12px; color:#999">用于登录和接收订单提醒，修改密码</div>
+          </li>                
+          <li class="login_item" style="margin-top:10px;">
+            <div style="width:84px;text-align:right;line-height:30px;font-size:14px;" class="left">登录密码：</div>
+            <div style="222px;" class="left">
+              <input type="password" name="password"  id="password1" value="" onFocus="lightit('pwd1');" onBlur="grayit('pwd1','密码设为6~16位数字或字母');"   class="input-txt">
+            </div>
+            <div id="pwd1" style="text-indent:12px; color:#999">密码设为6~16位数字或字母</div>
+          </li>
+          <li class="login_item" style="margin-top:10px;">
+            <div style="width:84px;text-align:right;line-height:30px;font-size:14px;" class="left">用户名：</div>
+            <div style="222px;" class="left">
+              <input type="text" name="username"  id="username"  value="" onFocus="lightit('tipusername');" onBlur="checkUser();grayit('tipusername','给自已起个响亮的名字吧!');"   class="input-txt">
+            </div>
+            <div id="tipusername" style="text-indent:12px; color:#999">用户名也可以登录，大家以后就这样称呼您!</div>
+          </li>		      
+          <li class="login_item" style="margin-top:10px;">
+            <div style="width:84px;text-align:right;line-height:30px;font-size:14px;" class="left">验证码：</div>
+            <div style="width:180px;" class="left">
+              <input type="text" id="verify" name="verify" value="" maxlength="4" onFocus="lightit('verfiy_tip');" onBlur="grayit('verfiy_tip','请输入左图中的4位数字');" style="width:156px;border:1px solid #BDBDBD; border-radius:3px; text-indent:5px;height:30px;line-height:30px;">
+            </div>
+            <div  style="margin-left:12px; width:55px;" class="left"> <img id="ImgValidCode" alt="会员注册验证码" style="cursor: pointer;"  src="/Public/verify/"  class="nobd" onClick="this.src=this.src+'?'" /></div>
+            <div id="verfiy_tip" style="width:150px; margin-left:12px; color:#999" class="left">请输入图片中4位数字</div>
+          </li>
+		  <li class="login_item" style="text-indent:84px;color:#cecfd1;"><input type="checkbox" checked="checked" name="law" id="law"><a href="#" target="_blank">我已经认真阅读并同意《隐私声明、使用协议》</a> </li>
+        </form>
+        <li class="login_item" >
+          <div style="margin-left:84px;" class="nobd left">
+          <img src="/img/reg_icon.png" alt="立即注册"  onclick="checkform();" style="cursor:pointer;" class="nobd">&nbsp;&nbsp;&nbsp;
+          <a href="/">返回首页</a>
+          </div>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+  <div style="width:280x; height:410px; margin-top:1px; margin-left:0px; margin-top:22px; border-left:1px  solid #e0e2e3;" class="nobd right">
+    <div id="gg_lst" style="width:278px; height:215px; margin-top:6px; color:#666666;" class="nobd middle">
+      <p style="padding-left:30px;font-size:12px;color:#999999; text-align:left;">已经有帐号？请直接登录 </p>
+      <p style="text-align:left; padding-left:30px;"><a href="/Public/login.shtml"><img src="/img/login_btn3.png" alt="立即登录唯唐代购网站，体验中国商品代购服务" style="border:none;"></a></p>
+      <ul style="text-align:left; margin-left:30px;margin-top:40px; font-size:12px;color:#999999">
+        <li style="line-height:18px;height:20px;">唯唐代购是网购中国商品服务最好的代购平台,在</li>
+        <li style="line-height:18px;height:20px;">这里您可以:</li>
+        <li style="line-height:12px;height:15px;">&nbsp;</li>
+        <li style="line-height:18px;height:20px; font-size:13px;">1，商品集中邮寄，省运费，免包装费 </li>
+        <li style="line-height:18px;height:20px;font-size:13px;">2，轻松购买中国网上商品 </li>
+        <li style="line-height:18px;height:20px;font-size:13px;">3，7~14个工作日收到订购的中国商品</li>
+        <li style="line-height:18px;height:20px;font-size:13px;">4，订单处理全程透明，随时可查单</li>
+        <li style="line-height:18px;height:20px;font-size:13px;">5，购物保障,问题商品100%先行赔付</li>
+      </ul>
+      <div style="width:260px; text-align:left; margin-left:20px; padding-top:15px; margin-top:10px; " class="middle">
+    <p>您还可以用以下方式登录：</p>
+    	<a href="#nogo" onClick="toQzoneLogin();"><img src="../Public/images/qq_login.png" title="QQ账号登录" style="padding:4px;" class="nobd"></a><br>
+         <a href="/wechat/login.html" target="_blank"><img src="../Public/images/icon24_wx_button.png" title="微信账号登录" style="padding:4px;" class="nobd"></a>
+    </div>
+    </div>
+  </div>
+</div>
+<script>
+$('#password').val('');
+function checkform(){ 
+  if( ($.trim($('#email').val()) == '') || !isEmail(document.form1.email) ){ 
+	  $('#u_mail').html('<font color="red">请填写正确的Email地址！</font>');
+  }else {   
+	  if( $('#password1').val() == ''){ 
+		  $('#psw1').html('<font color="red">密码请设为6~16位数字或字母</font>'); 
+	  }else{ 
+		  var password = $('#password1').val();
+		  if( password.length >= 6 ){ 
+			  $('#form1').submit();
+		  }else{ 
+			  $('#psw1').html('<font color="red">密码最少要6位哦！</font>');
+		  }
+	  }
+  }
+}
+ function toQzoneLogin(){
+	window.location.href='/Qqauth/login.html';
+} 
+
+function lightit(id){ $('#'+id).css('color','red');}function grayit(id,val){ $('#'+id).css('color','#999'); $('#'+id).html(val);}
+function checkEmail(){if( ! isEmpty(document.form1.email)){ if(!isEmail( document.form1.email)){ $('#u_mail').html('<font color="red">邮箱格式不正确!</font>');}else{ var email = $('#email').attr('value'); $.get('/Ajax/isExists/mail/'+email + '/act/mail', function(data) {if(data == '1'){ $('#u_mail').html('<font color="red">该邮箱已经被注册！</font>');}else{ $('#u_mail').html('<font color="green">恭喜您，该邮箱可以注册!</font>');}});}}else{ $('#u_mail').css('color','#999');$('#u_mail').html('用于接收订单通知，修改密码等');}}
+function checkUser(){
+	if( ! isEmpty(document.form1.username)){ 
+	  var user = $('#username').attr('value'); 
+	  $.get('/Ajax/isExists/usr/'+user + '/act/usr', function(data) {
+		  if(data == '1'){ 
+		  	$('#tipusername').html('<font color="red">用户名已存在</font>');
+		 }else{ 
+		 	$('#tipusername').html('<font color="green">恭喜您,可以使用!</font>');
+		 }
+	 });
+   }else{ 
+   	$('#tipusername').css('color','#999');
+	$('#tipusername').html('给自已起个响亮的名字吧');
+   }
+ }
+function resetTip(act){ $('#u_mail').css('color','red');$('#u_mail').html('填写您的常用邮箱，方便我们与您联系');}
+$("#email").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#email").val())  != '')) { $('#password1').focus(); return false; } });$("#password1").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#password1").val())  != '')) { $('#password2').focus(); return false; } });
+$("#password2").keydown(function(e) { if ((e.keyCode == 13) && ($.trim($("#password2").val())  != '')) { $('#verify').focus(); return false; } });$("#verify").keydown(function(e) { if ((e.keyCode == 13 ) && ($.trim($("#verify").val())  != '')) {checkform(); return false; } });
+</script> 
+
+<div style="width:976px; height:50px; margin-top:200px;color:#999999;font-size:12px;" class="nobd middle">©Copyright ©2013-2015 唯唐代购! Inc. All rights reserved.
+<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" target="_blank" style="color:#999999;">沪ICP备14050218号-2</a></div>
+</div>
+
+</body>
+</html>
+<script>$.get('/ajax/showinfo.html',function(data){});</script>

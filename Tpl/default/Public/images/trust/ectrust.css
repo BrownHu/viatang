@@ -1,0 +1,186 @@
+BODY {
+	BACKGROUND-COLOR: #ececec; FONT: 13px arial, helvetica, clean, sans-serif
+}
+BODY * {
+	LINE-HEIGHT: 1.3em; COLOR: #000
+}
+IMG {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+A {
+	TEXT-DECORATION: none
+}
+H4 {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #fff; FONT-SIZE: 12px; FONT-WEIGHT: bold; PADDING-TOP: 0px
+}
+#container {
+	MARGIN: 0px auto; WIDTH: 600px
+}
+#header {
+	WIDTH: 600px; FLOAT: left
+}
+#sidebar {
+	POSITION: absolute; PADDING-BOTTOM: 0px; MARGIN: 51px 0px 0px; PADDING-LEFT: 0px; WIDTH: 180px; PADDING-RIGHT: 0px; FLOAT: right; HEIGHT: 280px; RIGHT: 10px; PADDING-TOP: 0px
+}
+#businessRed {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #890308
+}
+#businessblue {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #05266e
+}
+.qyzbRed {
+	BORDER-BOTTOM: #890308 1px; BORDER-LEFT: #890308 1px solid; BORDER-TOP: #890308 1px solid; BORDER-RIGHT: #890308 1px solid
+}
+.qyzbBlue {
+	BORDER-BOTTOM: #05266e 1px; BORDER-LEFT: #05266e 1px solid; BORDER-TOP: #05266e 1px solid; BORDER-RIGHT: #05266e 1px solid
+}
+.qyzbRed UL {
+	PADDING-BOTTOM: 10px; LINE-HEIGHT: 22px; LIST-STYLE-TYPE: none; MARGIN: 0px 0px 0px 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 10px
+}
+.qyzbBlue UL {
+	PADDING-BOTTOM: 10px; LINE-HEIGHT: 22px; LIST-STYLE-TYPE: none; MARGIN: 0px 0px 0px 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 10px
+}
+.qyzbRed LI {
+	LINE-HEIGHT: 22px; PADDING-LEFT: 14px; BACKGROUND: url(images/list-01.gif) no-repeat 0px 6px; OVERFLOW: hidden
+}
+.qyzbBlue LI {
+	LINE-HEIGHT: 22px; PADDING-LEFT: 14px; BACKGROUND: url(images/list-01.gif) no-repeat 0px 6px; OVERFLOW: hidden
+}
+#maincontainer {
+	MARGIN: 5px 0px 0px; WIDTH: 600px; FLOAT: left
+}
+.maincontainerRed {
+	BACKGROUND-COLOR: #890308
+}
+.maincontainerblue {
+	BACKGROUND-COLOR: #05266e
+}
+.both {
+	LINE-HEIGHT: 0; BACKGROUND-COLOR: #ececec; FONT-SIZE: 0px
+}
+.both .r {
+	BACKGROUND-COLOR: #890308
+}
+.both .rr {
+	BACKGROUND-COLOR: #05266e
+}
+.r1 {
+	LINE-HEIGHT: 0; MARGIN: 0px 5px; HEIGHT: 1px; FONT-SIZE: 0px
+}
+.r2 {
+	LINE-HEIGHT: 0; MARGIN: 0px 3px; HEIGHT: 1px; FONT-SIZE: 0px
+}
+.r3 {
+	LINE-HEIGHT: 0; MARGIN: 0px 2px; HEIGHT: 1px; FONT-SIZE: 0px
+}
+.r5 {
+	LINE-HEIGHT: 0; MARGIN: 0px 1px; HEIGHT: 2px; FONT-SIZE: 0px
+}
+#maincontainer #prove {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 40px; PADDING-RIGHT: 40px; PADDING-TOP: 0px
+}
+#maincontainer #prove P {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 2em; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #fff; PADDING-TOP: 0px
+}
+#maincontainer #prove P A {
+	COLOR: #fff
+}
+.declaration {
+	BACKGROUND-COLOR: #cecece; MARGIN: 10px 0px
+}
+.declaration TD {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 5px; LINE-HEIGHT: 1.9em; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; COLOR: #3a3a3a; VERTICAL-ALIGN: top; PADDING-TOP: 10px
+}
+.declaration .edge {
+	WIDTH: 5px
+}
+.declaration .leftWidth {
+	WIDTH: 30px
+}
+.declaration .centerWidth {
+	WIDTH: 120px
+}
+.declaration .vainly {
+	BORDER-BOTTOM: #fff 1px dotted
+}
+.declaration A {
+	COLOR: #f00
+}
+#authorize {
+	MARGIN-TOP: 10px; WIDTH: 600px; MARGIN-BOTTOM: 10px; FLOAT: left; CLEAR: both
+}
+#remark {
+	MARGIN: 0px; WIDTH: 600px; FLOAT: left
+}
+.catetitle {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 5px; FLOAT: left; FONT-SIZE: 15px; FONT-WEIGHT: bold; PADDING-TOP: 0px
+}
+.redtitle {
+	BACKGROUND-COLOR: #890308
+}
+.bluetitle {
+	BACKGROUND-COLOR: #05266e
+}
+.catetitle IMG {
+	BORDER-RIGHT-WIDTH: 0px; FLOAT: left; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; VERTICAL-ALIGN: top; BORDER-LEFT-WIDTH: 0px
+}
+.catetitle SPAN {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FLOAT: left; COLOR: #fff; PADDING-TOP: 5px
+}
+.remarkRadio {
+	WIDTH: 15%
+}
+.remarkBorder {
+	BORDER-BOTTOM: #d0dce4 1px; BORDER-LEFT: #d0dce4 1px solid; WIDTH: 598px; BORDER-TOP: #d0dce4 1px; BORDER-RIGHT: #d0dce4 1px solid
+}
+#customerform {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 600px; PADDING-RIGHT: 0px; BACKGROUND: url(images/buttomBg1.gif) no-repeat left top; FLOAT: left; COLOR: #000; PADDING-TOP: 0px
+}
+.graytitle {
+	BORDER-BOTTOM: 2px solid; BORDER-LEFT: 4px solid; MARGIN: 10px 0px 0px 5px; PADDING-LEFT: 5px; COLOR: #0066cc; FONT-SIZE: 13px; PADDING-TOP: 5px
+}
+.redGraytitle {
+	BORDER-BOTTOM-COLOR: #890308; BORDER-LEFT-COLOR: #890308
+}
+.blueGraytitle {
+	BORDER-BOTTOM-COLOR: #05266e; BORDER-LEFT-COLOR: #05266e
+}
+#customerform .select {
+	MARGIN-TOP: 10px; MARGIN-BOTTOM: 10px
+}
+#customerform .select1 {
+	MARGIN-TOP: 10px
+}
+#customerform .select TD {
+	BORDER-BOTTOM: #d3d3d3 1px dotted
+}
+#customerform .select1 TD {
+	BORDER-BOTTOM: #d3d3d3 1px dotted
+}
+.ticket {
+	TEXT-ALIGN: center; MARGIN-TOP: 6px
+}
+.ticket INPUT {
+	MARGIN: 0px 20px 0px 5px
+}
+.ticket P {
+	TEXT-ALIGN: left; MARGIN: 0px 0px 6px; WIDTH: 100%; FLOAT: left; COLOR: #06c
+}
+.redAsterist {
+	COLOR: #f00
+}
+.blueAsterist {
+	COLOR: #05266e
+}
+.buttomSubmit {
+	TEXT-ALIGN: center; MARGIN-TOP: 5px; WIDTH: 600px
+}
+.buttom {
+	PADDING-BOTTOM: 0px; BACKGROUND-COLOR: #c8e8f7; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FLOAT: right; PADDING-TOP: 0px
+}
+#success {
+	TEXT-ALIGN: center; MARGIN: 20px auto; WIDTH: 340px
+}
+.success {
+	BORDER-BOTTOM: #9c979a 1px solid; TEXT-ALIGN: left; PADDING-BOTTOM: 36px; MARGIN: 20px 0px 10px; PADDING-LEFT: 100px; PADDING-RIGHT: 0px; BACKGROUND: url(images/success.gif) no-repeat left top; COLOR: #f00; FONT-SIZE: 16px; FONT-WEIGHT: bold; PADDING-TOP: 20px
+}

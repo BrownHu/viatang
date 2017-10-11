@@ -1,0 +1,215 @@
+<include file="Public:header" />
+<style>.sanjiao {margin:auto;POSITION:absolute}</style>
+<script type="text/javascript" src="/Public/Js/jQuery/Plug-in/jquery-powerFloat.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/Css/powerFloat.css">
+<div id="m2" style="width:988px; height:100%; overflow:hidden; margin-top:14px; border-top:1px solid #fff;" class="middle">
+  <form action="/Cart/checkout.html"  id="frmcheckout"  name="frmcheckout"  method="post">
+    <input type="hidden"  name="ids" value="{$id_lst}" id="ids">
+    <input type="hidden"  name="serve_fee"  id="serve_fee" value="{$serve_fee|default=0.1}">
+    <input type="hidden"  name="ticket_code" value="" id="ticket_code" />
+    <table cellpadding="0" cellspacing="0" class="user_centerListable middle" style="width:986px;">
+      <thead>
+        <tr>
+          <td align="center" style="border-right:1px solid #e1e1e1">商品名称</td>
+          <td width="70" style="border-right:1px solid #e1e1e1">单价(<span class="fnt_pnk">￥</span>)</td>
+          <td width="38" style="border-right:1px solid #e1e1e1">数量</td>
+          <td width="73" style="border-right:1px solid #e1e1e1">国内运费</td>
+          <td width="70">总价(<span class="fnt_pnk">￥</span>)</td>
+        </tr>
+      </thead>
+    </table>
+    <php> $product_fee = 0;
+      $shipping_fee=0; 
+      $tmp_sum=0; 
+      $exp=''; 
+      $total=0;
+      $len = count($item_list);
+      
+      for($i=0; $i<$len; $i++){ 
+           $product_fee = $product_fee +  $item_list[$i]['price'] * $item_list[$i]['amount'];
+           $tmp_sum 	= $tmp_sum + $item_list[$i]['price'] * $item_list[$i]['amount'];
+           
+      	    if((($i < $len) && ($item_list[$i]['seller'] <> $item_list[$i-1]['seller'])) || ($i == 0) ){  
+      if($i <> 0){ </php>
+    <div style="height:20px; width:986px;;" class="middle nobd"></div>
+    <php>}</php>
+    <table border="0" cellpadding="0" cellspacing="0" class="package_seller middle">
+      <tr height="30">
+        <td colspan="4">&nbsp;&nbsp;&nbsp;<font style="font-weight:bold">卖家</font>:&nbsp;
+          <php> echo $item_list[$i]['seller']; </php>
+           &nbsp;&nbsp; &nbsp; &nbsp; <php>echo  getSiteName($item_list[$i]['url']);</php>
+          </td>
+      </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" class="middle package_item" style="width:986px;">
+      <php>}</php>
+      <tr>
+        <td align="left"><div class="left">
+            <ul>
+              <img src="/Uploads/pic/product/<php>echo $item_list[$i]['thumb']</php>_s.jpg" onerror="this.src='../Public/images/noimg80.gif'" class="product_img"/>
+            </ul>
+            <ul style="width:430px">
+              <a href="<php>echo $item_list[$i]['url']</php>" target="_blank">
+              <php>echo $item_list[$i]['title']</php>
+              </a>
+              <h4 class="product_tips">
+                <php>echo $item_list[$i]['note'];</php>
+              </h4>
+            </ul>
+          </div></td>
+        <td width="80"><php>echo $item_list[$i]['price'];</php></td>
+        <td width="50"><php>echo $item_list[$i]['amount'];</php></td>
+        <td width="80"><php>echo $item_list[$i]['shipping_fee'];</php></td>
+        <td width="80"><php>echo $item_list[$i]['total'];</php></td>
+      </tr>
+      <php>if((($i+1 < $len) && ($item_list[$i]['seller'] <> $item_list[$i+1]['seller'])) || ($i == ($len-1)) ){</php>
+      <tr class="product_saler">
+        <td colspan="5"><div style="padding-right:5px; width:960px; text-align:right;" class="right nobd">
+            <php> $tmp_sum = $tmp_sum + $item_list[$i]['shipping_fee'];
+              echo '小计:'.$tmp_sum.' ( 已含运费：'.$item_list[$i]['shipping_fee'].')'; 
+              $exp='';
+              $tmp_sum=0; </php>
+          </div></td>
+      </tr>
+      <php> $shipping_fee = $shipping_fee + $item_list[$i]['shipping_fee'];
+        } </php>
+      <php>if( ($i < $len) && ($item_list[$i]['seller'] <> $item_list[$i+1]['seller']) ){</php>
+    </table>
+    <php>}
+      }</php>
+  </form>
+  <div style="width:986px; height:auto; overflow:hidden; border:1px solid #e1e1e1; margin-top:20px;" class="middle">
+    <div style="width:745px; height:241px;" class="left">
+    	<div style="height:30px; margin-top:10px; line-height:30px; font-size:14px; text-indent:12px; text-align:left">订单结算</div>
+        <div style="width:720px; height:auto; overflow:hidden; text-align:left;display:none" class="middle">
+        	<p style="font-weight:bold">使用优惠券</p>
+            <p>选择或输入已有优惠券,享受优惠抵扣</p>
+            <div style="height:45px; width:700px; margin-top:10px; background-color:#e8f1ff; border:1px solid #b2d1ff;">
+            	<input type="text" name="code" id="dis_code" value="" onClick="$('#dis_code').val('');"  style="width:205px; height:20px; margin-top:10px; margin-left:10px;">
+                <input type="button" id="btn_apply" name="apply" value="验证" onclick="verifyDis();" style="background-color:#3f90f9; color:#fff; margin-left:10px; border:none; cursor:pointer; width:50px; line-height:22px; height:22px;">
+            </div>
+            <div style="margin-top:10px; display:none">
+            	<span style="font-weight:bold">支付密码:</span><br>
+            	<div style="height:45px; width:700px; margin-top:10px; background-color:#e8f1ff; border:1px solid #b2d1ff;">
+                	<input type="password" name="pay_password" id="pay_password" value="" style="width:205px; height:20px; margin-top:10px;margin-left:10px;">&nbsp;&nbsp;<span>为了保障您的权益，请输入支付密码</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width:241px; height:241px; background-color:#f3f3f3; text-align:left; padding-top:10px;" class="right">
+    	<ul style="padding-left:10px; border-bottom:1px solid #e1e1e1; padding-bottom:10px;">
+        	<li class="je"><span class="spl">商品总价&nbsp;:</span><span class="f4 spr" id="product_fee"><php>echo number_format($product_fee,2);</php></span></li>
+            <li class="je"><span class="spl">国内运费&nbsp;:</span><span class="f4 spr" id="yun_fee"><php>echo number_format($shipping_fee,2);</php></span></li>
+            <li class="je" style="display:none"><span class="spl">服&nbsp;&nbsp;务&nbsp;&nbsp;费&nbsp;:</span><span class="f4 spr" id="span_serve_fee"><php>echo number_format($serve_fee,2);</php></span></li>           
+        </ul>
+        <ul style="padding-left:10px;padding-bottom:10px; padding-top:10px; font-size:20px;">
+       	   <li class="je"><span class="spl">合计&nbsp;:</span><span class="spr" id="total"> <php>$total=$product_fee+$shipping_fee+$serve_fee; $total=round($total,2);echo number_format($total,2);</php></span><input type="hidden" id="after_dis_total" value="<?php echo $total; ?>"></li>
+        </ul>
+        <ul style="padding-left:10px;padding-bottom:10px; padding-top:10px;">
+        	<li class="je"><span class="spl">当前余额:</span><span class="spr">{$balance}</span></li>
+        </ul>
+    </div>
+  </div>
+  <div style="width:988px; height:auto; padding-top:10px; overflow:hidden;">
+    <div style="width:100px;" class="left"><a href="/Cart/index.html" class="f"><img src="../Public/images/btn_fh.gif" alt="返回上一步" border="0"></a></div> 
+  	<php>if($balance==0 || ($balance < $total)){</php>
+       <div class="right" style="width:150px;"><a href="/My/pay.shtml" class="btn_send" style="color:#fff; text-decoration:none;">立即充值</a> </div>
+    <php>}else{</php>
+       <div class="right" style="width:140px; " ><img src="/img/btn_qrjs.gif" alt="确认结算"  style="cursor:pointer; border:none" onclick="javascript:sendform();" ></div>
+    <php>}</php>
+  </div>
+</div>
+<style>
+.spl{display:block; width:90px; float:left}
+.spr{display:block; width:140px; float:right}
+.je{height:25px; width:270px; display:block; overflow:hidden; line-height:25px; }
+</style>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+ writeConfirm();
+
+ $("#dis_code").powerFloat({
+	width: "280",
+	eventType: "focus",
+	target: [ 
+		<volist name='Djq_list' id='vo_list'>
+			{
+				href:"#nogo",
+				onClick:"javascript:setCode('{$vo_list.code}');",
+				text:"{$vo_list.code},&nbsp;<span style='color:#f60'>￥{$vo_list.mianzhi}</span>"
+			},
+		</volist>],
+	targetMode: "list"	
+  });
+
+ function setCode(code){ $('#dis_code').val(code);$('#ticket_code').val(code);	}
+
+ function hidetip(){ $.powerFloat.hide();}
+ $('#pay_password').bind('blur',hidetip);
+ 
+ function verifyDis(){
+	var code =  $('#dis_code').val();
+ 	if($.trim(code) == ''){
+		$('#dis_code').powerFloat({
+					eventType: null,
+					targetMode: "remind",
+					target: "<span style='color:#f60'>优惠码无效！可能输入错误或已过期</span>",
+					position: "1-4"
+		});
+	 return;
+	}
+	$.get('__URL__/verifiDiscode/c/'+code, function(data){		
+			var result = Number(data) * 1.0;	   
+			if( result == 0){
+				$('#dis_code').val('');
+				$('#dis_code').powerFloat({
+					eventType: null,
+					targetMode: "remind",
+					target: "<span style='color:#f60'>优惠码无效！可能输入错误或已过期</span>",
+					position: "1-4"
+				}).focus();
+			}else{
+				var serv_fee = $('#serve_fee').val();
+				serv_fee = serv_fee * 1.0;
+				if(result < serv_fee){
+					var n_fee = serv_fee - result;
+					var total_fee = $('#after_dis_total').val();
+					total_fee = total_fee * 1.0 - result*1.0; 
+					$('#span_serve_fee').html(n_fee); 
+					$('#total').html(total_fee);
+				}else{
+					var total_fee = $('#after_dis_total').val();
+					total_fee = total_fee * 1.0 - serv_fee*1.0;
+					$('#span_serve_fee').html('0'); 
+					$('#total').html(total_fee);
+				}
+				$('#ticket_code').val(code);
+				$('#dis_code').attr('disabled','disabled');
+				$('#btn_apply').attr('disabled','disabled');
+				$('#dis_code').powerFloat({
+					eventType: null,
+					targetMode: "remind",
+					target: "<span style='color:#f60'>已抵扣相应的服务费，请核对右侧的金额哦</span>",
+					position: "1-4"
+				});
+			}
+		});
+ }
+ 
+ function sendform(){ 	
+ 	$('#frmcheckout').submit();
+	/*if($.trim($('#pay_password').val())==''){		
+		$('#pay_password').powerFloat({
+			eventType: null,
+			targetMode: "remind",
+			target: "<span style='color:#f60'>请输入支付密码！支付密码不能为空哦</span>",
+			position: "1-4"
+		}).focus();
+	}else{
+		$('#frmcheckout').submit();
+	}*/
+}
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

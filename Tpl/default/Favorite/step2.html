@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>唯唐代购-全球最专业海外华人代购,留学生代购中国商品网站-viatang.com</title>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/jquery-1.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/css/AddItemPanel.css">
+<link rel="stylesheet" type="text/css" href="../Public/css/main.css">
+<script type="text/javascript">
+   function btnClsClick() {
+        $("#productUrl").removeAttr("readonly").val("");
+		$('#productName').val('');
+		$('#productPrice').val("");		
+		$('#productSendPrice').val('');
+		$('#productRemark').val('');
+        $("#proAlert").text("请将您想代购商品的详细页网址粘贴到输入框中提交!");
+        return false;
+    }
+
+    $(document).ready(function() {
+        $("#productRemark").blur(function() { if ($.trim($(this).val()).length <= 0 || $(this).val() == "请选填颜色、尺寸等要求！") $(this).attr("class", "addpanel_still").val("请选填颜色、尺寸等要求！"); }).focus(function() { if ($(this).attr("class") == "addpanel_still") $(this).select().removeAttr("class"); }).click(function() { if ($(this).val() == "请选填颜色、尺寸等要求！") $(this).val(""); });
+        $("#btnCls").click(btnClsClick);
+
+        $("#successBtn").click(function() {
+			if ($.trim($("#productUrl").val()).length <= 0) {
+                alert('商品页网址不能为空');
+				return;
+            }
+            if ($.trim($("#productName").val()).length <= 0) {
+                alert('商品名称不能为空');
+				return;
+            }
+            if ($.trim($("#productPrice").val()).length <= 0) {
+				alert('请填写商品价格');
+                return;
+            }
+            if ($.trim($("#productSendPrice").val()).length <= 0) {
+				alert('请填写运费');
+                return;
+            }
+			if ($.trim($("#productRemark").val()) == "请选填颜色、尺寸等要求！") {
+				$('#productRemark').val('');
+            }			
+			
+			$('#frmstep2').submit();
+        });
+    });
+</script>
+</head>
+<body style="background:#fff;">
+<div style="text-align:center">
+<form action="/Favorite/step3" id="frmstep2" name="frmstep2" method="post">
+<input type="hidden" name="seller" id="seller" value="{$product.seller}">
+<div class="addpanel_procedure"><img src="../Public/images/procedure.gif" alt="一键填单" /> </div>
+<div class="addpanel_wangzhi">
+  <dl>
+    <dt>购买商品页网址：</dt>
+    <dd>
+      <input id="productUrl" class="addpanel_normal" name="productUrl" type="text" value="{$productUrl}"  />
+    </dd>
+  </dl>
+  <div id="proAlert" style="text-align:left; color:#f60; text-align:center;" class="middle">系统未能抓取商品全部信息，您可以在输入框中填写相关信息!</div>
+</div>
+<div class="addpanel_data">
+  <table>
+    <tr>
+      <td class="addpanel_zuo"> 商品名称： </td>
+      <td colspan="2"><input class="addpanel_k" id="productName" name="productName" type="text" value="{$product.title}" /></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 商品价格： </td>
+      <td><input class="" maxlength="7" id="productPrice" name="productPrice" type="text" value="{$product.price}" onkeyup="value=value.replace(/[^\d\.]/g,'');" />
+        <span>RMB</span></td>
+      <td rowspan="3" align="right"><img src="{$product.image}"  style="width:100px; height:100px;" onerror="this.src='../Public/images/noimg80.gif';" alt="代购商品图片" />
+        <input type="hidden" name="image" value="{$product.image}" /></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 国内运费： </td>
+      <td><input id="productSendPrice"  name="productSendPrice" type="text" value="{$product.shipping_fee|default=10}" />
+        <span>RMB</span></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 购买数量： </td>
+      <td><input id="productNum" name="productNum" onblur="if(this.value.length<=0) this.value=1;" type="text" value="1" maxlength="6" onkeyup="value=value.replace(/[^\d]/g,'');" />
+        <a id="numAdd" href="#" title="增加数量" onclick="$('#productNum').val(parseInt($('#productNum').val())+1);"></a> <a id="numMis" class="addpanel_jian" href="javascript:void('0')" title="减少数量" onclick="var tb=$('#productNum'); parseInt(tb.val())<2?1:tb.val(parseInt(tb.val())-1);"></a></td>
+    </tr>
+    <tr>
+      <td class="addpanel_zuo"> 商品备注： </td>
+      <td colspan="2"><textarea class="addpanel_still" id="productRemark" name="productRemark" cols="" rows="">请选填颜色、尺寸等要求！</textarea></td>
+    </tr>
+  </table>
+</div>
+<div class="addpanel_go">
+  <input  class="addpanel_next" id="successBtn" name="" type="button" onmouseover="this.className='addpanel_next_'" onmouseout="this.className='addpanel_next'" />
+  <a href="javascript:void(0)" id="btnCls">[清空]</a> </div>
+  </form>
+  </div>
+</body>
+</html>

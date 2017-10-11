@@ -1,0 +1,118 @@
+<html>
+<include file="Public:header" />
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <title>微信支付</title>
+</head>
+<style>
+.main{width:1200px;margin:auto;overflow: hidden;}
+.wechatcomp{margin-top:10px;}
+.pay-num{margin-top:9px;color:#999;text-align: right;}
+.panelContent{margin-top:48px;}
+.qrcodePanel img{width:259px;height:259px;}
+#pay_container {
+    width:994px;
+    height:610px;
+    margin:0 auto;
+    border:3px solid #dfdfdf;
+    }
+#pay_container .loginPanel {
+    border: none;
+    margin:0 auto;
+    position:static;
+    }
+#pay_container .loginPanel .title {
+            border-bottom: 1px dashed #bfbfbf;
+            padding:14px 34px;
+            color:#666;
+            font-size:12px;
+			height:70px;
+        }
+#pay_container .left {
+            float:left;
+        }
+#pay_container .right {
+            float:right;
+        }
+#pay_container .loginPanel .title .allcost{
+            color:#000;
+            padding-top: 8px;
+            text-align: right;
+        }
+#pay_container .loginPanel .panelContent .qrcodeContent{
+            height:260px;
+        }
+#pay_container .loginPanel .qrcodePanel{
+            width:260px;
+            height:260px;
+            margin:0px auto;
+            padding:5px;
+        }
+#pay_container .loginPanel .qrcode {
+            width:auto;
+            /*box-shadow:0 4px 3px #333333;*/
+            border: none;
+        }
+#pay_container .loginPanel .info {
+            text-align:center;
+
+            margin:0 auto;
+            padding:7px 0 0;
+        }
+#pay_container .loginPanel .normlDesc {
+            color:#B4B7BC;
+            display:inline-block;
+            font-size:16px;
+            line-height:48px;
+            margin-top:21px;
+        }
+#pay_container .guide{
+            position:absolute;
+            top:50px;
+            filter:alpha(opacity=50);
+            margin:18px auto 0px;
+            display: none;
+        }
+#pay_container .loginPanel .title .allcost span{
+            color:#ff6600;
+            font-size:32px;
+            font-weight:bold;
+            font-family:"Arial"
+        }
+		
+</style>
+	    <div class="main">
+            <div id="pay_container">
+                <div class="loginPanel normalPanel">
+                    <div class="title  clearfix">
+                        <div class="left">
+                            <div class="wechatlogo"><img src="../Public/images/wechat_logo.png" alt="微信支付"></div>
+                            <div class="wechatcomp">收款方：上海唐悦信息技术有限公司（唯唐代购）</div>      
+                        </div>
+                        <div class="right">
+                            <div class="allcost"><span id="show_money">{$wepaymoney}</span>元</div>
+                            <div class="pay-num">交易号：{$trade_no}</div>
+                        </div>
+                    </div>
+                    <div id="waiting_pay" class="waiting panelContent">
+                        <div class="qrcodeContent" style="position:relative;">
+                            <div class="qrcodePanel">
+                                <img class="qrcode lightBorder" id="QrCode" src="http://www.viatang.com/wepay/qrcode.html?data={$url}">
+                            </div>
+                            <div id="guideTrigger" style="position: absolute; z-index: 9999; width: 260px; height: 100%; left: 50%; top: 0px; margin-left: -130px; opacity: 0; background-color: white;"></div>
+                        </div>
+                        <div class="info">
+                            <div class="normlDesc loginTip" style="position:relative;">
+                                <img src="../Public/images/wachat_logo2.png" alt="">
+                                <div id="tipTrigger" style="position: absolute; z-index: 9999; width: 100%; height: 100%; left: 0px; top: 0px; opacity: 0; background-color: white;"></div>
+                            </div>
+                            <img class="guide pngImg" style="z-index: 500; left: 50%; display: none; opacity: 0; margin-left: -120px; top: 365px;" src="/images/rank/wechat_mb.png?t=20140919"> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="clear"></div>
+	   <include file="Public:bottom" />
+</html>

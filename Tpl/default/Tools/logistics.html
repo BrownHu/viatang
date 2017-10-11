@@ -1,0 +1,153 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Logistics/base.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Logistics/index.css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Logistics/company.js"></script>
+<script language="JavaScript" type="text/javascript" src="__PUBLIC__/Logistics/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/Plug-in/jquery.form.js"></script>
+<script>
+function complete(result){	
+  if (result.status == '1'){      
+	  $('#queryContext').empty().append(result.data);
+	  $('#showtablecontext').css('width','500');
+	  $('#queryWait').hide();
+	  $('#queryContext').show();
+  }else{ 
+   $('#queryWait').hide();
+  	$('#notFindTip1').show();
+  }
+}
+function sendform(){
+	$('#queryContext').empty();
+	$('#queryWait').show();
+	$('#notFindTip1').hide();
+	$('#frmlogistics').submit();
+}
+$('#frmlogistics').ajaxForm({
+   success: complete,
+   dataType: 'json'
+});	
+</script>
+<div style="width:986px; height:100%; overflow:hidden; padding-top:10px; text-align:left;" class="middle brd mrg9">
+<div style="width:100%; height:30px; line-height:30px; text-indent:20px; font-size:20px;" class="fnt_b">国内快递查询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1，选择快递公司-------> 2，填写快递单号</div>
+<div class="clear"></div>
+<a href="#" id="topShow" onclick="return false;"></a>
+<div class="container mrg14">
+  <div id="companyList" class="column-1">
+    <dl>
+      <dt class="dt-2">常用</dt>
+      <dd class="dd-2"><a href="#" id="a-shentong" onclick="selectCompany('shentong',this);return false;">申通</a>
+      <a href="#" id="a-ems" title="ems快递单号查询" onclick="selectCompany('ems',this);return false;">EMS</a>
+      <a href="#" id="a-shunfeng" onclick="selectCompany('shunfeng',this);return false;">顺丰</a><a href="#" id="a-yuantong" onclick="selectCompany('yuantong',this);return false;">圆通</a>
+      <a href="#" id="a-yunda" onclick="selectCompany('yunda',this);return false;">韵达</a><a href="#" id="a-zhongtong" onclick="selectCompany('zhongtong',this);return false;">中通</a><a href="#" id="a-tiantian" onclick="selectCompany('tiantian',this);return false;">天天</a><a href="#" id="a-huitongkuaidi" onclick="selectCompany('huitongkuaidi',this);return false;">汇通</a><a href="#" title="速尔物流" id="a-suer" onclick="selectCompany('suer',this);return false;">速尔</a><a href="#" id="a-zhongtiewuliu" onclick="selectCompany('zhongtiewuliu',this);return false;">中铁</a><a href="#" id="a-debangwuliu" onclick="selectCompany('debangwuliu',this);return false;">德邦</a><a href="#" id="a-zhaijisong" onclick="selectCompany('zhaijisong',this);return false;" style="width:45px">宅急送</a></dd>
+    </dl>	
+    <dl class="dl-bg">
+      <dt>A</dt>
+      <dd><a href="#" id="a-aae" onclick="selectCompany('aae',this);return false;">AAE快递</a><a href="#" id="a-anxindakuaixi" onclick="selectCompany('anxindakuaixi',this);return false;">安信达</a><a href="#" id="a-anjiekuaidi" onclick="selectCompany('anjiekuaidi',this);return false;">安捷快递</a></dd>
+    </dl>
+    <dl>
+      <dt>B</dt>
+      <dd><a href="#" id="a-bht" onclick="selectCompany('bht',this);return false;">BHT快递</a><a href="#" id="a-baifudongfang" onclick="selectCompany('baifudongfang',this);return false;">百福东方</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>C</dt>
+      <dd><a href="#" id="a-cces" onclick="selectCompany('cces',this);return false;">CCES</a></dd>
+    </dl>
+    <dl>
+      <dt>D</dt>
+      <dd><a href="#" id="a-dhl" onclick="selectCompany('dhl',this);return false;">DHL快递</a><a href="#" id="a-dsukuaidi" onclick="selectCompany('dsukuaidi',this);return false;">D速物流</a><a href="#" id="a-dpex" onclick="selectCompany('dpex',this);return false;">DPEX</a><a href="#" id="a-datianwuliu" onclick="selectCompany('datianwuliu',this);return false;">大田物流</a><a href="#" id="a-debangwuliu" onclick="selectCompany('debangwuliu',this);return false;">德邦物流</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>E</dt>
+      <dd><a href="#" id="a-ems" title="ems快递查询" onclick="selectCompany('ems',this);return false;">EMS快递</a></dd>
+    </dl>
+    <dl>
+      <dt>F</dt>
+      <dd><a href="#" id="a-fedex" title="fedex快递查询" onclick="selectCompany('fedex',this);return false;">FedEx</a><a href="#" id="a-feikangda" title="飞康达快递查询" onclick="selectCompany('feikangda',this);return false;">飞康达</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>G</dt>
+      <dd><a href="#" id="a-guangdongyouzhengwuliu" onclick="selectCompany('guangdongyouzhengwuliu',this);return false;">广东邮政</a><a href="#" id="a-ganzhongnengda" onclick="selectCompany('ganzhongnengda',this);return false;">港中能达</a></dd>
+    </dl>
+    <dl>
+      <dt>H</dt>
+      <dd><a href="#" id="a-huitongkuaidi" onclick="selectCompany('huitongkuaidi',this);return false;">汇通快递</a><a href="#" id="a-tiandihuayu" onclick="selectCompany('tiandihuayu',this);return false;">华宇物流</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>J</dt>
+      <dd><a href="#" id="a-jiajiwuliu" title="佳吉物流" onclick="selectCompany('jiajiwuliu',this);return false;">佳吉快运</a><a href="#" id="a-jiayiwuliu" title="佳怡物流查询" onclick="selectCompany('jiayiwuliu',this);return false;">佳怡物流</a><a href="#" id="a-jinguangsudikuaijian" title="京广快递" onclick="selectCompany('jinguangsudikuaijian',this);return false;">京广物流</a><a href="#/jxd" id="a-jixianda" onclick="selectCompany('jixianda',this);return false;">急先达</a></dd>
+    </dl>
+    <dl>
+      <dt>K</dt>
+      <dd><a href="#" id="a-kuaijiesudi" title="快捷快递" onclick="selectCompany('kuaijiesudi',this);return false;">快捷速递</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>L</dt>
+      <dd><a href="#" id="a-longbanwuliu" title="龙邦物流" onclick="selectCompany('longbanwuliu',this);return false;">龙邦快递</a><a href="#" id="a-fedex" title="联邦快递查询" onclick="selectCompany('fedex',this);return false;">联邦快递</a><a href="#" id="a-lianhaowuliu" title="联昊通物流" onclick="selectCompany('lianhaowuliu',this);return false;">联昊通</a></dd>
+    </dl>
+    <dl>
+      <dt>Q</dt>
+      <dd><a href="#" id="a-quanyikuaidi" onclick="selectCompany('quanyikuaidi',this);return false;">全一快递</a><a href="#" id="a-quanchenkuaidi" onclick="selectCompany('quanchenkuaidi',this);return false;">全晨快递</a><a href="#" id="a-quanritongkuaidi" onclick="selectCompany('quanritongkuaidi',this);return false;">全日通</a><a href="#" id="a-quanjitong" title="全际通物流"  onclick="selectCompany('quanjitong',this);return false;">全际通</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>S</dt>
+      <dd><a href="#" id="a-shentong" title="申通快递单号查询" onclick="selectCompany('shentong',this);return false;">申通快递</a><a href="#" id="a-shunfeng" title="顺丰快递查询" onclick="selectCompany('shunfeng',this);return false;">顺丰快递</a><a href="#" id="a-suer" title="速尔物流" onclick="selectCompany('suer',this);return false;">速尔快递</a><a href="#" id="a-shenghuiwuliu" onclick="selectCompany('shenghuiwuliu',this);return false;">盛辉物流</a></dd>
+    </dl>
+    <dl>
+      <dt>T</dt>
+      <dd><a href="#" id="a-tnt" onclick="selectCompany('tnt',this);return false;">TNT快递</a><a href="#" id="a-tiantian" title="海航天天快递" onclick="selectCompany('tiantian',this);return false;">天天快递</a><a href="#" id="a-tiandihuayu" onclick="selectCompany('tiandihuayu',this);return false;">天地华宇</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>U</dt>
+      <dd><a href="#" id="a-ups" onclick="selectCompany('ups',this);return false;">UPS快递</a></dd>
+    </dl>
+    <dl>
+      <dt>X</dt>
+      <dd><a href="#" id="a-xingchengjibian" onclick="selectCompany('xingchengjibian',this);return false;">星晨急便</a><a href="#" id="a-xinhongyukuaidi" onclick="selectCompany('xinhongyukuaidi',this);return false;">鑫飞鸿</a> <a href="#" id="a-cces" title="cces快递"  onclick="selectCompany('cces',this);return false;">希伊艾斯</a><a href="#" id="a-xinbangwuliu"  onclick="selectCompany('xinbangwuliu',this);return false;">新邦物流</a>
+      <a href="#" id="a-xinfengwuliu" title="信丰物流"  onclick="selectCompany('xinfengwuliu',this);return false;">信丰快递</a></dd>
+    </dl>
+    <dl class="dl-bg">
+      <dt>Y</dt>
+      <dd><a href="#" id="a-yuantong" title="圆通快递查询单号"  onclick="selectCompany('yuantong',this);return false;">圆通快递</a><a href="#" id="a-yunda" title="韵达快递单号查询"  onclick="selectCompany('yunda',this);return false;">韵达快递</a><a href="#" id="a-youzhengguonei" style="width:150px;" onclick="selectCompany('youzhengguonei',this);return false;">邮政国内包裹/挂号信</a><a href="#" id="a-yafengsudi" title="亚风速递"  onclick="selectCompany('yafengsudi',this);return false;">亚风快递</a><a href="#" id="a-yuanweifeng" onclick="selectCompany('yuanweifeng',this);return false;">源伟丰</a>
+      <a href="#" id="a-yibangwuliu" title="一邦物流"  onclick="selectCompany('yibangwuliu',this);return false;">一邦快递</a><a href="#" id="a-youshuwuliu" title="优速物流"  onclick="selectCompany('youshuwuliu',this);return false;">优速快递</a><a href="#" id="a-yuanchengwuliu" onclick="selectCompany('yuanchengwuliu',this);return false;">远成物流</a><a href="#" id="a-yuanzhijiecheng" onclick="selectCompany('yuanzhijiecheng',this);return false;">元智捷诚</a>
+      <a href="#" id="a-yuntongkuaidi" onclick="selectCompany('yuntongkuaidi',this);return false;">运通快递</a><a href="#" id="a-yuefengwuliu" onclick="selectCompany('yuefengwuliu',this);return false;">越丰快递</a></dd>
+    </dl>
+    <dl>
+      <dt>Z</dt>
+      <dd><a href="#" id="a-zhongtong" onclick="selectCompany('zhongtong',this);return false;">中通快递</a><a href="#" id="a-zhongtiewuliu"  title="中铁物流" onclick="selectCompany('zhongtiewuliu',this);return false;">中铁快运</a><a href="#" id="a-zhaijisong" onclick="selectCompany('zhaijisong',this);return false;">宅急送</a><a href="#" id="a-zhongyouwuliu" onclick="selectCompany('zhongyouwuliu',this);return false;">中邮物流</a></dd>
+    </dl>
+  </div>
+  <div class="column-2">
+    <p class="companyinfo"><span id="companyName"></span><span id="companyTel"></span></p>
+    <div class="search-box">
+      <b class="xtop"><b class="xb1b"></b><b class="xb2b"></b><b class="xb3b"></b><b class="xb4b"></b></b>
+      <div class="xboxcontent_b">
+       <form action="/Tools/trace_result.shtml" id="frmlogistics" method="post">
+        <input name="com" id="comcode" type="hidden" value="">
+        <input name="item_no" type="text" class="inp" id="postid" style="width:360px;line-height:33px;" maxlength="26" url="true" value="{$trace_no}" autocomplete="off" />
+        <input id="query" type="button" onclick="sendform();"  class="btn-out" onmouseover="this.className='btn-over'" onmouseout="this.className='btn-out'" value="查询" />
+       </form> 
+        <p class="box"></p>
+      </div>
+      <b class="xbottom"><b class="xb4b"></b><b class="xb3b"></b><b class="xb2b"></b><b class="xb1b"></b></b>
+    </div>
+    <div class="clear"></div>
+    <p id="queryWait" class="wait" style="display:none">正在查询中，请稍等片刻......</p>
+    <div id="queryContext" style="display:none;">
+    </div>
+    <div id="notFindTip1" class="tips" style="display:none;"> <a onclick="$('#notFindTip1').hide();return false;" href="#" class="tips-close" title="关闭提示"></a>
+      <p>指定单号不存在。</p>
+      <dl>
+        <dt>可能原因为：</dt>
+        <dd id="companyQueryTip"></dd>
+        <dd>·刚发的快递，有时第二天才可查到；</dd>
+        <dd>·历史单号一段时间后会失效；</dd>
+        <dd>·以 [LP] 开头的是淘宝内部单号，用运单号码才可查询。</dd>
+        <dd>&nbsp;</dd>
+      </dl>
+    </div>
+    <div class="box"></div>
+  </div>
+</div>
+<div class="clear"></div>
+</div>
+<include file="Public:bottom" />

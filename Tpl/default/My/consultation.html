@@ -1,0 +1,55 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:988px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;我的信箱</div>
+    <div id="tab_title" style="width:960px; height:25px; margin-top:18px;" class="middle nobd">
+      <ul style="margin:0px; padding:0px; display:block; width:204px; height:25px;" class="left nobd">
+        <li class="normal1"><a href="/My/notice.shtml">系统通知<span class="my_red">({$Think.session.my_unread_notice|default="0"})</span></a></li>
+        <li class="active1">我的咨询</li>
+      </ul>
+      <div style="width:728px; height:24px; border-bottom:1px solid #e4e4e4; text-align:right;" class="left";><a href="#nogo" onclick="javascript:lightboxframe('我要咨询','/Consultation/add',500,280,true);" class="btn_add" >提交咨询</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    </div>
+    <div style="width:960px; margin-top:14px;" class="nobd middle">
+      <form action="" metho="get" name="form1" id="form1">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:960px; border:1px solid #e6e6e6;">
+          <tr height="35" style="font-weight:bold;">
+            <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; width:70px;">序号</td>
+            <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; width:70px;">状态</td>
+            <td bgcolor="#f3f3f3" style=" border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;">咨询问题标题</td>
+            <td bgcolor="#f3f3f3" width="140" >咨询时间</td>            
+          </tr>
+          <present name="DataList">
+            <volist name="DataList" id="vo" key="k">
+              <tr height="32" >
+                <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;">{$k}</td>
+                <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6;"><eq name="vo.admin_reply_tag" value="1"><img src="../Public/images/urd1.png" alt="代购系统消息" ><else/><img src="../Public/images/rdd1.png" alt="代购系统信息" ></eq></td>
+                <td style="border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6; text-align:left; text-indent:12px;"><a href="/Consultation/detail/id/{$vo.id}.shtml" class="lnk">{$vo.title}</a><span class="fnt_red"><eq name="vo.status" value="0">({$vo.reply_count})<else />(0)</eq></span></td>
+                <td style="border-top:1px solid #e6e6e6;">{$vo.create_at|date="Y-m-d",###}</td>
+              </tr>
+            </volist>
+            <else />
+            <tr height="32">
+              <td colspan="4" style="border-top:1px solid #e6e6e6;">暂无记录</td>
+            </tr>
+          </present>
+        </table>
+      </form>
+      <div style="height:12px; width:960px;" class="middle nobd"></div>
+      <div class="div" style="text-align:right;">{$page}</div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/Css/confirm.css">
+<script>
+writeConfirm();
+function del(id){
+	confirm('  确定要删除吗? 删除后将不可恢复!',function () {
+	document.form1.action = '/Consultation/del/id/'+id;			
+	document.form1.submit();
+	});
+}	
+</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />

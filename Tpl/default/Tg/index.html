@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/Public/Css/tg.css"/>
+<link rel="stylesheet" type="text/css" href="/Public/Css/common.css"/>
+<link rel="shortcut icon" href="../Public/images/favicon.ico" alt="唯唐代购">
+<script type="text/javascript" src="/Public/Js/jQuery/jquery.1.8.min.js"></script>
+<script type="text/javascript" src="/Public/Js/koala.min.1.5.js"></script>
+<script type="text/javascript" src="/Public/Js/clock.js"></script>
+<script type="text/javascript" src="/Public/Js/top.js"></script>
+<script type="text/javascript" src="/s/?g=g.js"></script>
+<title>唯唐代购-代购中国商品、淘宝代购、taobao、国货代购、海外华人代购、留学生代购，打造最专业的代购网站-viatang.com</title>
+<meta name="keywords" content="{$keywords|default='代购,海外华人代购,唯唐代购,代购中国商品,淘宝代购,美国华人代购,美国淘宝,海外淘宝,加拿大淘宝,澳洲淘宝,海外淘宝支付,新加坡代购,留学生代购,化妆品代购,图书代购,特产代购,服装代购'}" />
+<meta name="description" content="{$description|default='唯唐代购-全球最专业的海外华人代购、留学生代购中国商品网站，专为海外华人代购淘宝、亚马逊、京东等中国购物网站商品，提供图书、特产、生活用品等多种商品代购，支持paypal、支付宝等多种支付方式.唯唐代购目前在美国、英国、新加坡、澳洲、加拿大等全球范围内的华人代购和留学生代购市场中都有着超好的口碑.'}" />
+</head>
+<body>
+<!--logo start-->
+<div class="tglogo">
+      <a href="/"><img src="/Public/Images/tg/index_11.png" alt="唯唐代购,海外华人代购中国淘宝商品平台" /></a>
+</div>
+<!--logo end-->
+<!--banner start-->
+<div id="fsD11" class="focus1">  
+    <div id="D1pic1" class="fPic">  
+        <div class="fcon">
+            <a href="/"><img src="/Public/Images/tg/tg_02.jpg" alt="为所有海外华人提供淘宝代购平台" ></a>            
+        </div>
+        
+        <div class="fcon">
+            <a href="/showhelp/84.html"><img src="/Public/Images/tg/tgbannner_02.jpg" alt="代购商品范围"></a>
+        </div>
+        
+        <div class="fcon">
+            <a href="/"><img src="/Public/Images/tg/tgbanner1_02.jpg" alt="唯唐代购特色服务 享国际运费3折起"></a>
+        </div>
+    </div>
+    <div class="fbg">  
+    <ul class="D1fBt" id="D1fBt">  
+        <li><a href="javascript:void(0)" hidefocus="true" target="_self" class=""></a></li>
+        <li><a href="javascript:void(0)" hidefocus="true" target="_self" class=""></a></li>  
+        <li><a href="javascript:void(0)" hidefocus="true" target="_self" class="current"></a></li>  
+    </ul>  
+    </div>
+    <div class="banner_common">  
+    <span class="prev"></span>   
+    <span class="next"></span> 
+    </div>   
+</div>  
+<script type="text/javascript">
+	Qfast.add('widgets', { path: "/Public/Js/terminator2.2.min.js", type: "js", requires: ['fx'] });  
+	Qfast(false, 'widgets', function () {
+		K.tabs({
+			id: 'fsD11',   //焦点图包裹id  
+			conId: "D1pic1",  //** 大图域包裹id  
+			tabId:"D1fBt",  
+			tabTn:"a",
+			conCn: '.fcon', //** 大图域配置class       
+			auto: 1,   //自动播放 1或0
+			effect: 'left',   //效果配置
+			eType: 'mouseover', //** 鼠标事件
+			pageBt:true,//是否有按钮切换页码
+			bns: ['.prev', '.next'],//** 前后按钮配置class                          
+			interval: 5000  //** 停顿时间  
+		}) 
+	})  
+</script>
+<!--banner end-->
+<!--connr start-->
+<div class="connr"> 
+   <div class="plybg">
+      <h2>会员最新评价</h2>
+      <div class="plybgc" >
+       <div id="demo">
+         <div id="demo1">
+         <volist name="ReviewList" id="vo">
+           <div class="ply">
+              <div class="plytop">
+                 <div class="plylef">
+                    <img src="/Uploads/pic/avatar/{$vo.user_id|getAvatar}_s.jpg" alt="唯唐代购会员最新评论" onerror="this.src='/img/1.gif'" />
+                 </div>
+                 <div class="plyrig1">
+                    <div class="name">
+                       {$vo.user_name|getSortUserName=###}
+                    </div>
+                    <div class="date">
+                       {$vo.create_time|date="Y-m-d H:i:s"}
+                    </div>    
+                 </div>
+              </div> 
+              <div class="clear" ></div>    
+              <div class="plyrig">        
+                 <div class="cent">
+                 </div>
+                 <div class="bott">
+                    <div class="py">
+                          {$vo.content|getShortTitle=###,35,true}
+                    </div>
+                    <p>寄送地址：{$vo.country}</p>               
+                 </div>
+                 <div class="clear">
+                 </div>
+              </div>
+               <div class="clear"></div>
+           </div>
+		   </volist>
+              
+       </div>
+       
+       <div id="demo2"></div>
+   <script>
+	   var speed=50
+	   demo2.innerHTML=demo1.innerHTML
+	   function Marquee(){
+	   if(demo2.offsetTop-demo.scrollTop<=0)
+	   demo.scrollTop-=demo1.offsetHeight
+	   else{
+	   demo.scrollTop++
+	   }
+	   }
+	   var MyMar=setInterval(Marquee,speed)
+	   demo.onmouseover=function() {clearInterval(MyMar)}
+	   demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
+   </script></div>
+       </div>
+   </div>     
+   <div class="ply1">
+      <h2>成为Viatang会员你可以享受到:</h2>
+      <div class="ply1bg">
+         <div class="img1">
+            <img src="/Public/Images/tg/tg_08.png" alt="代购淘宝网" /><img src="/Public/Images/tg/tg_05.png" alt="paypal 支付宝 外币支付" />
+         </div>
+         <div class="img2">
+            <img src="/Public/Images/tg/tg_10.png" alt="唯唐代购送货上门" /><img src="/Public/Images/tg/tg_11.png" alt="国际快递运输方式 EMS DHL UPS 唯唐专线" />
+         </div>
+      </div>
+   </div>
+   <div class="clear"></div>
+</div>
+<div class="clear"></div>
+<!--connr end-->
+<!--connr1 start-->
+<div class="connr1">
+   <div class="connr1l">
+      <div class="conr1lt">
+         <h2>我们可以提供</h2>
+         <ul  class="help_t">
+            <li><a href="/search/index" target="_blank">站内直接搜索淘宝网商品并提交，我们为您购买，轻松便捷</a></li>
+            <li><a href="/" target="_blank">支持亚马逊，当当等网站，使用外币直接付款</a></li>
+            <li><a href="/Freight/index.html" target="_blank">DHL EMS UPS 唯唐专线等国际物流超低折扣</a></li>
+            <li><a href="/showhelp/181.html" target="_blank">可集中运送商品，买得越多，国际运费节省更多</a></li>
+            <li><a href="/news/179.html" target="_blank">免费提供商品验货 及国内退换货服务</a></li>
+         </ul>
+      </div>
+      <div class="conr1lb">
+         <h2>客户中心</h2>
+         <ul  class="help_t">
+            <li><a href="/showhelp/34.html" target="_blank">为什么不自己买而要通过Viatang购买呢？</a></li>
+            <li><a href="/Service/index.html" target="_blank">如何使用Viatang代购？</a></li>
+            <li><a href="/showhelp/181.html" target="_blank">为什么集中运输能节省更多国际运费？</a></li>
+            <li><a href="/Help/detail/id/108.shtml" target="_blank">Viatang 提供哪些售后保障？</a></li>            
+         </ul>
+         <a href="/"><img src="/Public/Images/tg/tg_23.png" alt="联系我们" /></a>
+      </div>
+   </div>
+   <div class="connr1r">
+      <h2>Viatang 快速注册</h2>
+      <form action="/Register/register.html" method="post" id="form1" name="form1">
+	  <input name="spreader" id="spreader" type="hidden" value="0">
+         <p>用户名:<input type="text" name="username" onBlur="checkUser();" id="username"/>
+		 	<span id="tipusername"></span>
+		 </p>
+         <p>邮&nbsp;&nbsp;箱:<input type="text" name="email"  onBlur="checkEmail();" id="email" />
+		   <span id="u_mail"></span>
+		 </p> 
+         <p>密&nbsp;&nbsp;码:<input type="password" name="password" id="password"/></p> 
+         <p>
+         	<span style="display:inline-block; float:left">验证码:</span>
+         	<input type="text" id="verify" name="verify" value="" maxlength="4" style="width:150px; float:left">
+         	<img id="ImgValidCode" alt="会员注册验证码" style="cursor: pointer; margin-left:10px; float:left; height:25px; margin-top:5px;" src="/Public/verify/" class="nobd" onclick="this.src=this.src+'?'">
+         </p>
+         <div class="submit"><input type="button" value=" " onclick="checkform();"/></div>   
+		 <div id="check_form_msg" style="text-align:center;padding-top:10px;color:red;"></div>
+      </form>
+   </div>
+</div>
+<!--connr1 end-->
+<!--connr2 start-->
+<div class="connr2">
+   <h2>唯唐代购Viatang.com 是做什么的？</h2>
+   <h3>Viatang.com 帮助海外华人一站式购买中国所有购物网站商品，支持外币直接充值，集中运输多个购物网站采购的商品，国际运费省更多！</h3>
+   <div class="pici">
+      <div class="picc1">
+         <img src="/Public/Images/tg/tg_27.png" alt="提交代购淘宝商品" />
+         <span>将淘宝网及其他购物网站选中的商品链接提交至Viatang我们帮您购买</span>
+      </div>
+      <div class="jt"><img src="/Public/Images/tg/tg_13_09.png" alt="唯唐代购推广" /></div>
+      <div class="picc2">
+         <img src="/Public/Images/tg/tg_29.png" alt="代购商品包装" />
+         <span>商品到达Viatang仓库</span>
+      </div>
+      <div class="jt"><img src="/Public/Images/tg/tg_13_09.png" alt="唯唐代购推广" /></div>
+      <div class="picc3">
+         <img src="/Public/Images/tg/tg_31.png" alt="DHL EMS运输方式" />
+         <span>选择运输方式国际运费低至4折</span>
+      </div>
+      <div class="jt"><img src="/Public/Images/tg/tg_13_09.png" alt="唯唐代购推广" /></div>
+      <div class="picc4">
+         <img src="/Public/Images/tg/tg_33.png" alt="唯唐代购配送全球" />
+         <span>多件商品集中打包邮寄</span>
+      </div>
+      <div class="jt"><img src="/Public/Images/tg/tg_13_09.png" alt="唯唐代购推广" /></div>
+      <div class="picc5">
+         <img src="/Public/Images/tg/tg_35.png" alt="代购送货上门" />
+         <span>包裹到达您海外的家</span>
+      </div>
+   </div>
+   <div class="clear"></div>
+   <a href="/" class="butt">
+      <img src="/Public/Images/tg/tg_43.png" alt="身在海外，足不出户 代购中国淘宝商品代购平台" />
+   </a>
+</div>
+
+<!--connr2 end-->
+<!--line start-->
+<div class="line">
+</div>
+<!--line end-->
+<!--footer-list start-->
+<div class="footer-list">
+   <dl>
+      <dt><a href="">新手指南</a></dt>
+      <dd><a href="/news/127.html" target="_blank">代购流程</a></dd>
+      <dd><a href="/news/137.html" target="_blank">服务与费用</a></dd>
+      <dd><a href="/news/95.html" target="_blank">如何付款</a></dd>
+      <dd><a href="/news/141.html" target="_blank">如何跟踪运单</a></dd>
+      <dd><a href="/news/179.html" target="_blank">购物保障</a></dd>
+   </dl>
+   <dl>
+      <dt><a href="">用户须知</a></dt>
+      <dd><a href="/About/index/s/4.html" target="_blank">服务条款</a></dd>
+      <dd><a href="/About/index/s/4.html" target="_blank">服务介绍</a></dd>
+      <dd><a href="/About/index/s/4.html" target="_blank">服务修订</a></dd>
+      <dd><a href="/About/index/s/5.html" target="_blank">隐私声明</a></dd>
+   </dl>
+   <dl>
+      <dt><a href="">支付说明</a></dt>
+      <dd><a href="/Payment/credit.html" target="_blank">国际信用卡</a></dd>
+      <dd><a href="/Payment/paypal.html" target="_blank">Paypal支付</a></dd>
+      <dd><a href="/Payment/alipay.html" target="_blank">国内银行卡</a></dd>
+      <dd><a href="/Payment/alipay.html" target="_blank">支付宝付款</a></dd>
+      <dd><a href="/Payment/xianjin.shtml" target="_blank">西联汇款</a></dd>
+      <dd><a href="/Payment/index.html" target="_blank">其它付款方式</a></dd>
+   </dl>  
+   <dl>
+      <dt><a href="">配送说明</a></dt>
+      <dd><a href="/news/19.html" target="_blank">运输方式和费用</a></dd>
+      <dd><a href="/news/142.html" target="_blank">大宗商品的运费</a></dd>
+      <dd><a href="/news/143.html" target="_blank">海关及税项</a></dd>
+      <dd><a href="/news/144.html" target="_blank">收货注意事项</a></dd>
+   </dl>
+   <dl>
+      <dt><a href="">售后服务</a></dt>
+      <dd><a href="/news/108.html" target="_blank">商品退换货原则</a></dd>
+      <dd><a href="/news/109.html" target="_blank">商品退换货流程</a></dd>
+      <dd><a href="/news/133.html" target="_blank">商品的保管期限</a></dd>
+      <dd><a href="/My/complaint.html" target="_blank">投诉与建议</a></dd>
+   </dl>
+    <dl>
+      <dt><a href="/About/index/s/2.shtml">联系我们</a></dt>
+      <dd><a href="/About/index/s/1.shtml">关于我们</a></dd>
+      <dd><a href="/About/index/s/7.shtml">商务合作</a></dd>
+      <dd><a href="/help/lst/cid/17.shtml">投诉热线</a></dd>
+   </dl>
+   <div class="lx">
+      <p class="bt">客户服务热线:</p>
+      <p><img src="/Public/Images/tg/index_130.png" alt="唯唐代购客服热线" /></p>
+      <p>热线时间：9:00-19:00</p>
+      <p>客服邮箱：service@viatang.com</p>
+      <p>北京时间：<span id="clock"></span></p>
+   </div>
+</div>
+<!--footer-list end-->
+<!--link start-->
+<div class="link">
+   <img src="/Public/Images/tg/index_133.jpg" alt="唯唐代购服务范围" usemap="#map1" />
+   <map name="map1">
+   <area shape="rect" coords="0 0 101 35" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 204 48" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 305 35" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 410 35" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 520 35" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 690 35" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 808 35" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 874 35" style="cursor:pointer;" href="" />
+   <area shape="rect" coords="0 0 938 35" style="cursor:pointer;" href="" />
+   </map>
+</div>
+<!--link end-->
+<!--link1 start-->
+<div class="link1">
+   <span class="lb">友情链接:</span>
+   <ul>
+      <li><a href="http://www.taobao.com/"" target="_blank">淘宝网</a><span>|</span></li>
+      <li><a href="http://www.tmall.com/"" target="_blank">天猫</a><span>|</span></li>
+      <li><a href="http://www.jd.com/"" target="_blank">京东</a><span>|</span></li>
+      <li><a href="http://www.amazon.cn/"" target="_blank">亚马逊</a><span>|</span></li>
+      <li><a href="http://www.yhd.com/"" target="_blank">一号店</a><span>|</span></li>
+      <li><a href="http://www.viatang.com/"" target="_blank">唯唐代购</a><span>|</span></li>
+      <li><a href="http://www.dangdang.com/"" target="_blank">当当网</a><span>|</span></li>
+      <li><a href="http://www.viatang.com/sitemap.html" target="_blank">网站地图</a></li>
+   </ul>
+</div>
+<!--link1 start-->
+<div class="bot1">
+唯唐代购-全球最专业的海外华人代购、留学生代购中国商品网站，专为海外华人代购淘宝、亚马逊、京东等中国购物网站商品，提供图书、特产、生活用品等多种商品代购，支持paypal、支付宝等多种支付方式。唯唐代购目前在美国、英国、新加坡、澳洲、加拿大等全球范围内的华人代购和留学生代购市场中都有着超好的口碑。
+</div>
+<div class="foott">
+Copyright ©2013-2015 唯唐代购! Inc. All rights reserved.<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" target="_blank" style="color:#B51005;">沪ICP备14050218号-2</a>
+</div>
+<script type="text/javascript">
+<!--
+$('#password').val('');
+function checkform(){ 
+	$('#check_form_msg').html('');
+	if($('#username').val()=='')
+	{
+		$('#check_form_msg').html('用户名不能为空');
+		$('#username').focus();
+		return false;
+	}
+
+	var username = $('#username').val();//用户名
+	var reg_username = /^[a-zA-Z\d]\w{3,11}[a-zA-Z\d]$/;//用户名正则
+	if(!reg_username.test(username))
+	{
+		$('#check_form_msg').html('用户名必须是字母、数字、下划线的组合，不能以下划线开头和结尾');
+		return false;
+	}
+
+	if($('#email').val()=='')
+	{
+		$('#check_form_msg').html('邮件地址不能为空');
+		$('#email').focus();
+		return false;
+	}
+	var email = $('#email').val();//邮箱地址
+	var reg_email = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;//用户名正则
+	if(!reg_email.test(email))
+	{
+		$('#check_form_msg').html('请输入正确的邮箱地址');
+		return false;
+	}
+
+	if($('#password').val()=='')
+	{
+		$('#check_form_msg').html('密码不能为空');
+		$('#password').focus();
+		return false;
+	}
+	var password	= $('#password').val();
+	var reg_password = /^[0-9]*$/;
+	if(reg_password.test(password))
+	{
+		$('#check_form_msg').html('密码不能为纯数字');
+		return false;
+	}
+
+	var verify	= $('#verify').val();
+	var reg_verify = /^[\d]{4}$/;
+	if(!reg_verify.test(verify))
+	{
+		$('#check_form_msg').html('请输入4位数字验证码');
+		return false;
+	}
+
+	$('#check_form_msg').html('注册提交中');
+
+	$('#form1').submit();
+}
+
+function checkEmail(){if( ! isEmpty(document.form1.email)){ if(!isEmail( document.form1.email)){ $('#u_mail').html('<font color="red">邮箱格式不正确!</font>');}else{ var email = $('#email').attr('value'); $.get('/Ajax/isExists/mail/'+email + '/act/mail', function(data) {if(data == '1'){ $('#u_mail').html('<font color="red">该邮箱已经被注册过！</font>');}else{ $('#u_mail').html('<font color="green">恭喜您，该邮箱可以注册!</font>');}});}}else{ $('#u_mail').css('color','#999');$('#u_mail').html('');}}
+function checkUser(){
+	if( ! isEmpty(document.form1.username)){ 
+	  var user = $('#username').attr('value'); 
+	  $.get('/Ajax/isExists/usr/'+user + '/act/usr', function(data) {
+		  if(data == '1'){ 
+		  	$('#tipusername').html('<font color="red">用户名已存在</font>');
+		 }else{ 
+		 	$('#tipusername').html('<font color="green">恭喜您,可以使用!</font>');
+		 }
+	 });
+   }else{ 
+   	$('#tipusername').css('color','#999');
+	$('#tipusername').html('');
+   }
+ }
+//-->
+</script>
+</body>
+</html>

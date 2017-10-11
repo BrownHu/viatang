@@ -1,0 +1,86 @@
+<include file="Public:header" />
+<div id="m4" style="width:988px; height:100%; overflow:hidden; margin-top:14px;" class="middle nobd">
+  <div style="width:156px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="My:menu" /></div>
+  <div id="main" style="width:798px; height:100%; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:742px; height:20px; text-indent:12px; padding-top:10px; border-bottom:1px solid #92002d; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">会员中心</a>&nbsp;&nbsp;>&nbsp;&nbsp;邀请朋友</div>
+    <div style="width:770px; padding:8px; height:100%; overflow:hidden; vertical-align:middle;" class="nobd middle">
+      <div style="width:740px; height:100%; overflow:hidden; vertical-align:middle; margin-top:22px; padding-bottom:20px;" class="middle nobd">
+        <div style="height:32px; width:740px; background:url(../Public/images/share/method1.gif) no-repeat;" class="nobd"></div>
+        <div style="width:500px; margin-top:20px; text-align:left; margin-left:80px;" class="left">
+          <p>通过社区的分享功能邀请好友</p>
+          <!-- JiaThis Button BEGIN -->
+          <script type="text/javascript" > 
+			var jiathis_config={
+			data_track_clickback:true,
+			url:"{$spread_url}",
+			summary:"Viatang 是专门代购中国商品的平台，Viatang为您提供一站式网购中国商品，集中发货，配送至全球的服务，超低运费，二次验货，购物有保障",
+			title:"我正在通过唯唐代购 ",
+			hideMore:false
+			}
+		  </script>
+
+          <div id="jiathis_style_32x32"> <a class="jiathis_button_qzone"></a> <a class="jiathis_button_tsina"></a> <a class="jiathis_button_tqq"></a> <a class="jiathis_button_renren"></a> <a class="jiathis_button_kaixin001"></a> <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a> </div>
+          <!-- JiaThis Button END --> 
+        </div>
+      </div>
+      <div style="border-top:1px dashed #CCC; padding:8px; width:740px; height:100%; overflow:hidden; vertical-align:middle;" class="middle nobd">
+        <div style="height:32px; width:740px; background:url(../Public/images/share/method2.gif) no-repeat;" class="nobd"></div>
+        <div style="width:500px; margin-top:20px; text-align:left; margin-left:80px;" class="left">
+          <p>向对方的邮箱发送邀请邮件</p>
+          <form action="/Invite/mail" name="frmMail" id="frmMail" method="post" >
+            <table border="0" cellpadding="0" cellspacing="0">
+              <tr height="30">
+                <td width="100">您的姓名:</td>
+                <td><input type="text" name="user" value="{$spreat}"></td>
+              </tr>
+              <tr height="30">
+                <td>好友邮箱地址:</td>
+                <td><input type="text" name="recever" value=""  style="width:360px;"></td>
+              </tr>
+              <tr height="30">
+                <td>标题:</td>
+                <td>您的唯唐网私人推荐信 </td>
+              </tr>
+              <tr>
+                <td>正 文:</td>
+                <td><textarea style="width:360px; height:100px;" name="content">唯唐代购专为海外华人服务，为您代购中国大陆网上任何商品，淘宝，当当，拍拍等一站式购物，价格便宜，最重要的是服务特别好，免费验货，集中邮寄，省邮费。在这儿购物放心！你的好友{$spreat}邀请您现在加入唯唐代购会员俱乐部，购物放心又省钱。快去逛逛吧~ 
+                        </textarea></td>
+              </tr>
+              <tr height="40">
+                <td>&nbsp;</td>
+                <td><input type="submit" name="btntj" value="发送邮件" class="btn_nomal"></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+      <div style="border-top:1px dashed #CCC; padding:8px; width:740px;" class="middle nobd">
+        <div style="height:32px; width:740px; background:url(../Public/images/share/method3.gif) no-repeat;" class="nobd"></div>
+        <div style="width:500px; margin-top:20px; text-align:left; margin-left:80px;" class="left">
+          <p>用&nbsp;<img src="../Public/images/share/qqicon.gif" alt="QQ图标" > &nbsp;<img src="../Public/images/share/msn.gif" alt="msn聊天" >&nbsp;等聊天工具发送邀请链接 </p>
+          <p>复制此邀请链接地址，用QQ、MSN或其他方式发送给你的朋友；打开此网址即可加入</p>
+          <p>默认邀请链接：
+            <input type="text" id="spread_url" name="spread_url" value="{$spread_url}" size="50">&nbsp;
+            <input type="button" name="button" value="复制链接" onclick="copyToClipboard();"  class="btn_nomal">
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/s/?g=my.js"></script>
+<link rel="stylesheet" type="text/css" href="/s/?g=my.css">
+<script>
+writeConfirm();
+function copyToClipboard(){
+  if (document.all){
+	  var e = $('#spread_url').val();
+	  window.clipboardData.setData('text', e);
+	  alert("复制成功，立即发给我的好友！");}
+  else{
+	  alert("您的浏览器不支持剪贴板操作，请自行复制。");
+   }
+}
+</script>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+<include file="Public:bottom" />

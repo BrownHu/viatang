@@ -1,0 +1,26 @@
+<?php
+return array(
+'package_load_error'  => 'Reads the product data error,Not submit packaged,Retry after checking！If you still have questions please do not hesitate to contact our customer service!',
+'package_load_shipping_fail' =>'Distribution data read errors,Not submit packaged,Retry after checking！If you still have questions please do not hesitate to contact our customer service!',
+'package_op_error'	=> 'Illegal Operation！',
+'package_submit_fail'=>'Failure to submit waybill，Data anomalies，Please try again later，If the problem has occurred, please contact customer service！',	
+'package_over_limit'=>'Sorry, your package weighs more than the total weight limit of the mode of transport can not be shipped, please subcontract shipments！',
+'package_not_enough'=>'Sorry, your account balance insufficient, you can recharge after resubmit！',	
+'package_zone_error'=>'Sorry, wrong delivery area, please try again!',	
+'package_address_error'=>'Sorry, shipping address information is not complete, please resubmit after completion!',
+'package_fee_error'=>'Sorry, wrong time validation package cost, please try again later!',
+'package_data_error'=>'Sorry, data validation fails, please try again later!',	
+'package_submit_error'=>'Submit packaging error, please check retry after, if there are still questions please do not hesitate to contact our customer service!',
+'package_start_price'=>'(Lifting price)',	
+'package_fee'=>'That, added weight lifting price + price * continued heavy units, continued heavy unit = (total weight of the parcel - lifting weight) / continued heavy weight',	
+'package_confirm'=>'Users confirm receipt',	
+'package_decode_fail'=>'An error occurred while decrypting the ciphertext packing costs',	
+'package_op_fail'=>'Operation failed!',
+'package_confirm_return'=>'Confirm receipt, discounts return',	
+'package_user_submit'=>'User-submitted package',	
+'package_user_cancel'=>'Users revoked parcels,Parcel id:',	
+'package_cancel_return'=>'Revocation parcel rebate',	
+'package_cal_result'=>'Results',	
+'package_parameter_error'=>'parameter is incorrect',																									
+);
+?>

@@ -1,0 +1,66 @@
+<include file="Public:header" />
+<div id="m4" style="width:1192px; height:100%; overflow:hidden;" class="middle nobd mrg9">
+  <div style="width:187px;height:100%; overflow:hidden;" class="bbrd left ulowi_min_height"><include file="menu" /></div>
+  <div id="main" style="width:988px; overflow:hidden;" class="right brd ulowi_min_height1">
+    <div style="width:980px; height:30px; text-indent:12px; padding-top:14px; font-size: 15px; border-bottom:1px solid #b51005; text-align:left;" class="middle">当前位置：&nbsp;<a href="/My/index.shtml">我的唯唐</a>&nbsp;&nbsp;>&nbsp;&nbsp;邮件提醒</div>
+    <div style="width:940px; height:70px; text-align:left;  tmargin-top:18px;" class="middle">
+      <p style="line-height:30px; padding-top: 10px;">您的邮箱为：{$email} ，我们会发送邮件到此邮箱，提醒相关订单状态。<br>
+        请勾选以下需要提醒的项目：</p>
+    </div>
+    <div style="width:879px; border:1px solid #e6e6e6;  margin-top:12px; padding-bottom:22px;" class="nobd middle">
+      <form action="/Ordertip/commit" method="post" id="infoupdate" name="infoupdate">
+        <table border="0"  cellpadding="0" cellspacing="0" style="width:830px; margin-top:20px;">
+          <tr height="35">
+            <td width="183" align="left" style="text-indent:50px;"><input type="checkbox" name="clz" value="1" 
+              <eq name="ord_tip.clz" value="1">checked</eq>
+              >处理中</td>
+            <td width="183" align="left" style="text-indent:50px;"><input type="checkbox" name="ydg" value="1"  
+              <eq name="ord_tip.ydg" value="1">checked</eq>
+              >已订购</td>
+            <td width="183" align="left" style="text-indent:50px;"><input type="checkbox" name="ydh" value="1"  
+              <eq name="ord_tip.ydh" value="1">checked</eq>
+              >已到货</td>
+            <td width="183" align="left" style="text-indent:50px;"><input type="checkbox" name="wh" value="1"  
+              <eq name="ord_tip.wh" value="1">checked</eq>
+              >无货</td>
+          </tr>
+          <tr height="35">
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="zsqh" value="1"  
+              <eq name="ord_tip.zsqh" value="1">checked</eq>
+              >暂时缺货</td>
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="wx" value="1"  
+              <eq name="ord_tip.wx" value="1">checked</eq>
+              >无效</td>
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="thhclz" value="1"  
+              <eq name="ord_tip.thhclz" value="1">checked</eq>
+              >退换货处理中</td>
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="yth" value="1"  
+              <eq name="ord_tip.yth" value="1">checked</eq>
+              >已退货</td>
+          </tr>
+          <tr height="35">
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="yrk" value="1"  
+              <eq name="ord_tip.yrk" value="1">checked</eq>
+              >已入库</td>
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="ejwc" value="1"  
+              <eq name="ord_tip.ejwc" value="1">checked</eq>
+              >二检完成</td>
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="cqdd" value="1"  
+              <eq name="ord_tip.cqdd" value="1">checked</eq>
+              >超期订单</td>
+            <td align="left" style="text-indent:50px;"><input type="checkbox" name="zfdd" value="1"  
+              <eq name="ord_tip.zfdd" value="1">checked</eq>
+              >作废订单</td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div style="height:12px; width:960px; text-indent:80px; text-align:left; margin-top:30px;" class="middle nobd">
+      <input type="button" name="submit" onclick="sendform();" value="提交修改" class="btn_middle">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      无法收到相关邮件，您可以点击<a href="/My/email.shtml" style="color:#f00000;">这里</a>更换邮箱地址。 </div>
+  </div>
+</div>
+<script>function sendform(){ $('#infoupdate').submit(); }</script> 
+<div class="gw1 middle mrg14"></div>
+<include file="Public:bottom" />
