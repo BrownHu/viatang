@@ -1,0 +1,79 @@
+
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="renderer" content="webkit">
+	<title> 唯唐代购-viatang.com </title>
+	<meta name="keywords" content="唯唐代购,代购,代购中国,淘宝代购,淘宝双十一代购,淘宝转运,海外华人代购,华人代购,代购网站,淘宝转寄海外,留学生代购,国际转运,淘宝集中转运" />
+	<meta name="description" content="专为海外华人,留学生代购淘宝、当当、亚马逊、京东等中国商品.提供逆向海淘,淘宝代购,淘宝转运,国际转运,包裹转寄服务.支持paypal、国际信用卡、支付宝等多种支付方式.批量下单,多件商品集中寄送,专享超低国际运费." />
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta http-equiv="Cache-Control" content="no-siteapp"/>
+	<link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
+	<link rel="stylesheet" href="/Public/Css/weApp.css">
+	<style>
+		.topbar{display:none}
+	</style>
+</head>
+<body>
+<div class="pet_mian">
+
+	<header data-am-widget="header" class="am-header bg-red color-6f" data-am-sticky>
+		<span style='display: none' id="navType">{$topNavType}</span>  	<!--隐藏的用来判断顶部导航栏类型的判断量-->
+		<!--首页-->
+		<div class="am-padding-0 topbar topbarPartH"  >
+			<h1 class="am-header-title">唯唐代购</h1>
+		</div>
+		<div class="user topbar topbarPartH" id="topBar">
+			<a href="/m/index.html"><i class="am-icon-user am-icon-sm color-6f" ></i></a>
+		</div>
+		<!--首页end-->
+
+		<!--会员首页-->
+		<div class="am-header-left am-header-nav topbar topbarPartM">
+			<a href="/index/index.html"><i class="am-icon-home a-color am-icon-sm color-6f"></i></a>
+		</div>
+		<h1 class="am-header-title topbar topbarPartM" >会员中心</h1>
+		<!--会员首页end-->
+
+		<!--可返回页面-->
+		<div class="am-header-left am-header-nav topbar topbarPartB">
+			<i onclick="window.history.back()" class="am-icon-chevron-left a-color color-6f"></i>
+		</div>
+		<h1 class="am-header-title topbar topbarPartB">添加单号</h1> <!--此处文字待 assign替换-->
+
+		<!--可返回页面end-->
+
+	</header>
+
+	<!--待填充子页面-->
+	<block name="memberPage">会员中心</block>
+	<block  name="index">首页</block>
+	<block name='waybill'>运单查询</block>
+	<block name="addressAbout">地址相关</block>
+	<block name="others">其他</block>
+	<!--blockend-->
+
+	<!--回到顶部-->
+	<div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+		<a href="#top" title="回到顶部">
+			<span class="am-gotop-title">回到顶部</span>
+			<i class="am-gotop-icon am-icon-chevron-up"></i>
+		</a>
+	</div>
+
+</div>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+<script>
+//	根据assign的值选择顶部导航  M：会员中心 H：主页 B：可返回
+	$(function () {
+		var  type=".topbarPart"+$('span#navType').text()
+		$(type).show()
+	})
+</script>
+
+</body>
+</html>

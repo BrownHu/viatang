@@ -55,7 +55,7 @@ class WeAction extends HomeAction {
  	private function getRequestCodeUrl($_second_redirect_uri){
  		$_redirect_uri = $this->redirect_url . $_second_redirect_uri; 
 		$query = array(
-				'appid'         => C( 'WECHAT_AppID' ),
+				'appid'         => "wxdfaebc95aec271b5",
 				'redirect_uri'  => $_redirect_uri,
 				'response_type' => 'code',
 				'scope'         => 'snsapi_base',
@@ -63,7 +63,7 @@ class WeAction extends HomeAction {
 		);
 		
 		$query = http_build_query($query);
-		return "{$this->requestCodeURL}?{$query}#wechat_redirect";;
+        return "{$this->requestCodeURL}?{$query}#wechat_redirect";
 	}
 	
 	// -------------------------------------------------------------------------------------------
@@ -80,8 +80,10 @@ class WeAction extends HomeAction {
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------
 	private function getAuthAccessToken($state, $code) {
 		//if ($state == $_SESSION ['WechatState']) {
-			$appid = trim ( C ( 'WECHAT_AppID' ) );
-			$secret = trim ( C ( 'WECHAT_AppSecret' ) );
+            $appid = 'wxdfaebc95aec271b5';//trim ( C ( 'Wechat_APPID' ) );
+//			$appid = trim ( C ( 'WECHAT_AppID' ) );
+//			$secret = trim ( C ( 'WECHAT_AppSecret' ) );
+			$secret = "50fe03331a5905e1075fced73f673077";
 			$token_url = str_replace('__APPID__', $appid, $this->accesstoken_url);
 			$token_url = str_replace('__SECRET__', $secret, $token_url);
 			$token_url = str_replace('__CODE__', $code, $token_url);
@@ -104,14 +106,16 @@ class WeAction extends HomeAction {
 		if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
 			$openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
 		}else{
+
 			$this->processOpenid('home.html');
 		}
 		$this->assign('openid',$openid);
+        echo $openid;
 		//加载用户
 		//$user = $this->getUserByWechatOpenId($openid);
-		$this->loadAnnounce();
-		$this->loadAd();
-		$this->display();
+//		$this->loadAnnounce();
+//		$this->loadAd();
+//		$this->display();
 	}
 	
 	// -------------------------------------------------------------------------------------------
@@ -143,7 +147,39 @@ class WeAction extends HomeAction {
 		$this->assign('openid',$_REQUEST['openid']);
 		$this->display();
 	}
-	
+//hubing start
+    // -------------------------------------------------------------------------------------------
+    // 到库查询
+    public function arriveQuery(){
+
+    }
+
+    // -------------------------------------------------------------------------------------------
+    // 提交包裹清单
+    public function commitPackage(){
+
+    }
+
+    // 商品管理
+    public function goodsManage(){
+
+    }
+//
+//    //
+//    public function commitPackage(){
+//
+//    }
+//
+//    // 提交包裹清单
+//    public function commitPackage(){
+//
+//    }
+//
+//    // 提交包裹清单
+//    public function commitPackage(){
+//
+//    }
+//    hubing end
 	// -------------------------------------------------------------------------------------------
 	// 公告详情
 	public function detail(){
@@ -492,7 +528,7 @@ class WeAction extends HomeAction {
 	private function computeExpressValueSum($ids){
 		return ($ids!='')?$this->express->where("id in ($ids)")->sum('value'):0;
 	}
-	
+
 	//--------------------------------------------------------------------------------------------
 	// 取报关费
 	private function getCustomFee() {
