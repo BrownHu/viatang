@@ -1,0 +1,35 @@
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+	<a href="#top" title="回到顶部">
+		<span class="am-gotop-title">回到顶部</span>
+		<i class="am-gotop-icon am-icon-chevron-up"></i>
+	</a>
+</div>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+<script>	
+	console.log('script  loading')
+	var tip=$('span#headTip').text();
+	var member=[];
+	member.push("<header data-am-widget=\"header\" class=\"am-header bg-red color-6f\" data-am-sticky><div class=\"am-header-left am-header-nav\"><a href=\"index.html\"><i class=\"am-icon-home a-color am-icon-sm color-6f\"></i></a></div><h1 class=\"am-header-title\">会员中心</h1></header>");
+	var  index=[];
+	index.push("<header data-am-widget=\"header\" class=\"am-header bg-red color-6f\" data-am-sticky><div class=\"am-padding-0 topbar topbarPartH\"  ><h1 class=\"am-header-title\">唯唐代购</h1></div><div class=\"user topbar topbarPartH\" id=\"topBar\"><a href=\"home.html\"><i class=\"am-icon-user am-icon-sm color-6f\" ></i></a></div></hearer>");
+	var  backable=[];
+	backable.push("<header data-am-widget=\"header\" class=\"am-header bg-red color-6f\" data-am-sticky><div class=\"am-header-left am-header-nav topbar topbarPartB\"><i onclick=\"window.history.back()\" class=\"am-icon-chevron-left a-color color-6f\"></i></div><h1 class=\"am-header-title topbar topbarPartB\">{$topContent|default='唯唐代购'}</h1></header>");
+	var node1=member.join('');
+	var node2=index.join('');
+	var node3=backable.join('');
+
+	switch(tip)
+		{
+		case "M":
+		$('div.pet_mian').prepend($(node1))
+			break;
+		case "H":
+		$('div.pet_mian').prepend($(node2))
+			break;
+		default:
+		$('div.pet_mian').prepend($(node3))
+			break;
+		}
+
+</script>

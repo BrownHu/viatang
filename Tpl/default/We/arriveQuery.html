@@ -1,0 +1,61 @@
+	<include  file="baseHead" />
+	<div class="am-g">
+		<div class="am-u-lg-12" style="margin-top: 20px;">
+	        <form class="am-form"  method="post" onsubmit="return formcheck()">
+	          	<div class="am-input-group">
+	              	<input type="text" class="am-form-field" id="book"  placeholder="请输入快递单号">
+	              	<span class="am-input-group-btn">
+	                	<button class="am-btn am-btn-success bg-8f4929 color-6f" type="button" onClick="doTrack()"><span class="am-icon-search"></span></button>
+	              	</span>
+	            </div>
+	        </form>
+		</div>
+		<div class="am-u-sm-12" class="am-animation-fade" id="jieguo" >
+        	<div class="am-scrollable-horizontal" style="margin-top: 30px;">
+			  <table class="am-table am-text-center am-table-bordered am-table-striped am-table-hover am-text-nowrap">
+			   	<tr>
+			   		<td>单号</td>
+			   		<td>是否到库</td>
+			   	</tr>
+			   	<tr class="am-active">
+			   		<td id="querydBook"></td>
+			   		<td id="queryResult"></td>
+			   	</tr>
+			  </table>
+			</div>
+        </div>
+	</div>
+<include file='totop' />
+</div>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		$('#book').focus();
+	    $('#book').select();
+	    $('#jieguo').hide()
+	});
+	function doTrack() {
+		
+	    var num = document.getElementById("book").value;
+	    if(num===""){
+	    	alert('请先输入运单号')
+	    	return false;
+	    }
+		$('#querydBook').text(num)
+		$('#queryResult').text('到库')
+		$('#jieguo').show();
+//	    $.ajax({
+//	    	url:"",
+//	    	data:{"num":num},
+//	    	dataType:"json",
+//	    	type:"GET",
+//	    	success:function(data){
+//	    				//ajax 处理
+//				$('#querydBook').text(num)
+//			    $('#queryResult').text('到库')
+//			    $('#jieguo').show();
+//	    	}
+//	    })
+	}
+</script>
+</body>
+	</html>

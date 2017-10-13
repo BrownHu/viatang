@@ -1,0 +1,21 @@
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+<script>	
+	console.log('script  loading')
+	var tip=$('span#headTip').text()
+	var member="<header data-am-widget=\"header\" class=\"am-header bg-red color-6f\" data-am-sticky><div class=\"am-header-left am-header-nav\"><a href=\"/index/index.html\"><i class=\"am-icon-home a-color am-icon-sm color-6f\"></i></a></div><h1 class=\"am-header-title\">会员中心</h1></header>";
+	switch(tip)
+		{
+		case "M":
+		$('div#pet_mian').prepend(member.join(''))
+		  break;
+		case "B":
+
+		  break;
+		case "M":
+
+		default:
+			break;
+		}
+
+</script>

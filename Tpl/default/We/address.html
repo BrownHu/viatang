@@ -1,0 +1,73 @@
+<include file="baseHead" />
+	<div class="am-g">
+				<!-- 地址列表 -->
+		<volist name="DataList" id="vo">
+			<div class="am-u-sm-12 address-list">
+				<article class="address-box" style="background-color: #FFFFFF;">
+					<div>
+						<header class="address-box-header">
+							<p>
+								<span style=" text-align: left;">收件人:&nbsp;&nbsp;{$vo.contact|default="&nbsp;"}</span>
+								<span style=" display: inline-block; float: right;">{$vo.phone|default="&nbsp;"}</span>
+							</p>
+						</header>
+						<div class="address-box-main">
+							<p>国家:&nbsp;&nbsp;{$vo.country|default="&nbsp;"} </p>
+							<p>州/省:&nbsp;&nbsp;{$vo.state|default="&nbsp;"}</p>
+							<p>城市:&nbsp;&nbsp;{$vo.city|default="&nbsp;"}</p>
+							<p>邮编:&nbsp;&nbsp;{$vo.zip|default="&nbsp;"}</p>
+							<p>地址:  {$vo.address|default="&nbsp;"}</p>
+							<hr class="line">
+						</div>
+						<footer class="address-box-foot clearfix"  style="float: right;">
+							<div class="am-comment-actions address_default">
+								<if condition="$vo.defalut eq 1">
+									<a style="margin-top: 4px;"><b><i class="am-icon-map-marker"></i> 默认</b></a>
+								</if>
+							</div>
+							<a onclick="del({$vo.id})" class="am-btn am-btn-warning am-radius am-btn-xs btn" type="button">删除</a>
+							<a onclick="window.location.href='address.html?op=edit&id={$vo.id}'" class="am-btn am-btn-warning am-radius am-btn-xs btn" type="button">修改</a>
+						</footer>
+					</div>
+				</article>
+			</div>
+		</volist>
+		<p style="text-align: center;">{$page}</p>
+
+	</div>
+	<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default" id="public-footer-btn">
+		<ul class="am-navbar-nav am-cf am-avg-sm-3">
+			<li>
+				<div class="am-header-right am-header-nav btn-add">
+					<a href="address.html?op=add" class="am-btn am-btn-danger am-radius am-btn-xs">添加地址</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- 删除地址弹出提示框 -->
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd"></div>
+			<div class="am-modal-bd">您确定要删除吗？</div>
+			<div class="am-modal-footer">
+				<span id="sureBtn" class="am-modal-btn" data-am-modal-confirm>确定</span>
+				<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+			</div>
+		</div>
+	</div>
+	<!-- end 删除地址弹出提示框 -->
+<include  file='totop' />
+</div>
+<script>
+	/*地址删除*/	
+	function del(id) {
+		$("#my-confirm").modal({
+			relatedTarget: this,
+			onConfirm: function(options) {
+				window.location.href = "/address?delete&id=" + id +".html";
+			}
+		})
+	}
+</script>
+</body>
+</html>

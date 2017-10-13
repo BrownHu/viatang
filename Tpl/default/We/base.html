@@ -2,78 +2,132 @@
 <!doctype html>
 <html class="no-js">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<meta name="renderer" content="webkit">
-	<title> 唯唐代购-viatang.com </title>
-	<meta name="keywords" content="唯唐代购,代购,代购中国,淘宝代购,淘宝双十一代购,淘宝转运,海外华人代购,华人代购,代购网站,淘宝转寄海外,留学生代购,国际转运,淘宝集中转运" />
-	<meta name="description" content="专为海外华人,留学生代购淘宝、当当、亚马逊、京东等中国商品.提供逆向海淘,淘宝代购,淘宝转运,国际转运,包裹转寄服务.支持paypal、国际信用卡、支付宝等多种支付方式.批量下单,多件商品集中寄送,专享超低国际运费." />
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta http-equiv="Cache-Control" content="no-siteapp"/>
-	<link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
-	<link rel="stylesheet" href="/Public/Css/weApp.css">
-	<style>
-		.topbar{display:none}
-	</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>唯唐代购</title>
+    <meta name="renderer" content="webkit">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
+    <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <div class="pet_mian">
-
+<!-- 动态修改 头部导航文字、图标、链接 -->
 	<header data-am-widget="header" class="am-header bg-red color-6f" data-am-sticky>
-		<span style='display: none' id="navType">{$topNavType}</span>  	<!--隐藏的用来判断顶部导航栏类型的判断量-->
-		<!--首页-->
-		<div class="am-padding-0 topbar topbarPartH"  >
-			<h1 class="am-header-title">唯唐代购</h1>
-		</div>
-		<div class="user topbar topbarPartH" id="topBar">
-			<a href="/m/index.html"><i class="am-icon-user am-icon-sm color-6f" ></i></a>
-		</div>
-		<!--首页end-->
-
-		<!--会员首页-->
-		<div class="am-header-left am-header-nav topbar topbarPartM">
+		<div class="am-header-left am-header-nav">
 			<a href="/index/index.html"><i class="am-icon-home a-color am-icon-sm color-6f"></i></a>
 		</div>
-		<h1 class="am-header-title topbar topbarPartM" >会员中心</h1>
-		<!--会员首页end-->
-
-		<!--可返回页面-->
-		<div class="am-header-left am-header-nav topbar topbarPartB">
-			<i onclick="window.history.back()" class="am-icon-chevron-left a-color color-6f"></i>
-		</div>
-		<h1 class="am-header-title topbar topbarPartB">添加单号</h1> <!--此处文字待 assign替换-->
-
-		<!--可返回页面end-->
-
+		<h1 class="am-header-title">会员中心</h1>
 	</header>
-
-	<!--待填充子页面-->
-	<block name="memberPage">会员中心</block>
-	<block  name="index">首页</block>
-	<block name='waybill'>运单查询</block>
-	<block name="addressAbout">地址相关</block>
-	<block name="others">其他</block>
-	<!--blockend-->
-
-	<!--回到顶部-->
-	<div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
-		<a href="#top" title="回到顶部">
-			<span class="am-gotop-title">回到顶部</span>
-			<i class="am-gotop-icon am-icon-chevron-up"></i>
-		</a>
+<!--end  -->
+	<div class="am-g">
+		<div class="am-u-lg-12" style="margin-top: 20px;">
+			<div class="am-alert am-alert-secondary" data-am-alert style="background: #FFFFFF;">
+				<table class="" style="width: 100%;" onclick="window.location.href='/index.php/m/user.html'">
+				 	<tr>
+					    <td rowspan="2" class="am-text-middle" style="width: 50px;height: 50px;padding:0;">
+					    	<img class="am-radius" alt="140*140" src="./public/img/no-img_mid_.jpg" width="50" height="50" />
+					    </td>
+					    <td style="padding-left: 20px;">1102665688@qq.com</td>
+					    <td rowspan="2" class="am-text-middle" align="center" onClick="window.location.href='/m/user.html'"><i class="am-icon-gear"></i></td>
+				  	</tr>
+				  	<tr>
+					    <td style="padding-left: 20px;">1102665688@qq.com</td>
+				  	</tr>
+				</table>
+			</div>
+		</div>
+		<div class="am-u-lg-12" style="margin-top: 10px;">
+			<ul class="am-list am-list-static">
+			  	<li onClick="window.location.href='waybillSearch.html'">
+			    	<i class="am-icon-plus am-icon-fw" style="color:#5EB95E;"></i>&nbsp;&nbsp;添加单号			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+			    	<hr class="line">
+			  	</li>
+			  	<li onClick="window.location.href='/waitconfirm/index.html'">
+			    	<i class="am-icon-shopping-cart am-icon-fw" style="color:#FF2400;"></i>&nbsp;&nbsp;国内订单			    				    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+			    	<hr class="line">
+			  	</li>
+			  	<li onClick="window.location.href='/waitpay/index.html'">
+			    	<i class="am-icon-spinner am-icon-fw" style="color:#a02bfa;"></i>&nbsp;&nbsp;订单处理			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+			    	<hr class="line">
+			  	</li>
+			  	<li onClick="window.location.href='/waitrate/index.html'">
+			    	<i class="am-icon-plane am-icon-fw" style="color:#0E90D2;"></i>&nbsp;&nbsp;已发订单			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+			  	</li>
+			</ul>
+		</div>
+		<div class="am-u-lg-12">
+			<ul class="am-list am-list-static">
+			  	<li onClick="window.location.href='/address/index.html'">
+			    	<i class="am-icon-map-marker am-icon-fw" style="color:#F37B1D;"></i>&nbsp;&nbsp;地址管理			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+			    	<hr class="line">
+			  	</li>
+			  	<li onClick="window.location.href='/JFAddress/index.html'">
+			    	<i class="am-icon-home am-icon-fw" style="color:#faee2b;"></i>&nbsp;&nbsp;君丰地址			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+			  	</li>
+			</ul>
+		</div>
+		<div class="am-u-lg-12">
+			<ul class="am-list am-list-static">
+			  	<li onClick="window.location.href='/help/suggest.html'">
+			    	<i class="am-icon-info-circle am-icon-fw"></i>&nbsp;&nbsp;投诉建议			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+			  	</li>
+			</ul>
+		</div>
 	</div>
 
-</div>
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
-<script>
-//	根据assign的值选择顶部导航  M：会员中心 H：主页 B：可返回
-	$(function () {
-		var  type=".topbarPart"+$('span#navType').text()
-		$(type).show()
-	})
-</script>
+	
 
+	<footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+		<div class="lang">
+			<p><span class="am-icon-plane"> 唯唐代购</span></p>
+		</div>
+	</footer>
+
+<!-- toTop -->
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+	<a href="#top" title="回到顶部">
+		<span class="am-gotop-title">回到顶部</span>
+		<i class="am-gotop-icon am-icon-chevron-up"></i>
+	</a>
+</div>
+<!-- toTop end -->
+
+<!-- 底部导航栏开始 -->
+	<div data-am-widget="navbar" class="am-navbar am-cf bg-red color-6f">
+	  <ul class="am-navbar-nav am-cf am-avg-sm-3 ">
+		    <li>
+			      <a href="/index/index.html" class="color-6f">
+			        	<span class="am-icon-home"></span>
+			        	<span class="am-navbar-label">网站首页</span>
+			      </a>
+		    </li>
+		    <li>
+			      <a href="/track/cn.html" class="color-6f">
+			        	<span class="am-icon-plane"></span>
+			        	<span class="am-navbar-label">快递追踪</span>
+			      </a>
+		    </li>
+		    <li>
+			      <a href="/freight.html" class="color-6f">
+			        	<span class="am-icon-calculator"></span>
+			        	<span class="am-navbar-label">运费估算</span>
+			      </a>
+		    </li>
+		   
+		  </ul>
+	</div>
+<!-- 底部导航栏结束 -->
+
+</div>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+   	<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+   	<script>
+   		$('a').attr('href','#');
+   	</script>
+	
+</script>
 </body>
 </html>

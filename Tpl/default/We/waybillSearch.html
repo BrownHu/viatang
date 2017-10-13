@@ -1,35 +1,8 @@
-
-<!doctype html>
-<html class="no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>唯唐代购</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
-    <link rel="stylesheet" href="/Public/Css/weApp.css">
-    <style type="text/css">
-    </style>
-</head>
-<body>
-<div class="pet_mian">
-	<header data-am-widget="header" class="am-header bg-red color-6f" data-am-sticky>
-		<div class="am-header-left am-header-nav">
-			<i onclick="window.history.back()" class="am-icon-chevron-left a-color color-6f"></i>
-		</div>
-		<h1 class="am-header-title">国际快递查询</h1>
-	</header>
+	<include file='baseHead' />
+	<!-- header here -->
+	<span style="display: none" id="headTip">{$headerType}</span>
+	<!-- body -->
 	<div class="am-g">
-		<!-- 分栏 start -->
-		<!-- <div class="am-u-lg-12" style="margin-top: 20px;">
-			<div class="am-btn-group am-btn-group-justify">
-				<p class="am-btn bg-red color-6f" >国际快递查询</p>
-				<a class="am-btn am-btn-default" href="/track/cn.html" role="button">包裹到库查询</a>
-			</div>
-		</div> -->
-		<!-- 分栏 en d -->
 		<div class="am-u-lg-12" style="margin-top: 20px;">
 	        <form class="am-form" action="/track/cn.html" method="post" onsubmit="return formcheck()">
 	          	<div class="am-input-group">
@@ -44,18 +17,20 @@
         
         </div>
 	</div>
-<div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
-	<a href="#top" title="回到顶部">
-		<span class="am-gotop-title">回到顶部</span>
-		<i class="am-gotop-icon am-icon-chevron-up"></i>
-	</a>
-</div>
+	<!--body end -->
 
-</div>
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
-<script type="text/javascript" src="http://www.17track.net/externalcall.js"></script>
-<script type="text/javascript">
+	<!-- foot -->
+	<!-- foot end -->
+	
+	<!-- totop -->
+	<include file="totop" />
+	<!-- totop end -->
+
+<!-- 底部导航 -->
+	
+<!-- 底部导航结束 -->
+	<script type="text/javascript" src="http://www.17track.net/externalcall.js"></script>
+	<script type="text/javascript">
 	$(document).ready(function(e) {
 		$('#book').focus();
 	    $('#book').select();
@@ -75,7 +50,6 @@
 	    });
 	}
 </script>
-<script type="text/javascript">
-
-</script>
+</div>
 </body>
+</html>
