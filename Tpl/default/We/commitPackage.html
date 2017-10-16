@@ -1,0 +1,67 @@
+<include  file="baseHead" />
+    <!--body start -->
+        <div class="am-g  am-margin-top-lg">
+            <form class="am-form am-form-horizontal" action="commitPackage.html" method="post">
+                <div class="am-form-group">
+                    <label for="express" class="am-u-sm-3 am-form-label">快递公司</label>
+                    <div class="am-u-sm-9">
+                        <select data-am-selected="{maxHeight: 300}" name="shipingCompany" id="express">
+                            <volist name="list" id="vo">
+                                <option value="{$vo.caption}">{$vo.caption}</option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="expressNo" class="am-u-sm-3 am-form-label" >快递单号:</label>
+                    <div class="am-u-sm-9">
+                        <input type="number" name="traceNo" id="expressNo" required >
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="shop" class="am-u-sm-3 am-form-label">商品名称:</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" id="shop" name="title" placeholder="" required>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="date" class="am-u-sm-3 am-form-label">发货日期:</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" name="express_date" class="am-form-field" placeholder="请选择发货时间" id="date" data-am-datepicker readonly required />                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="count" class="am-u-sm-3 am-form-label">购买数量:</label>
+                    <div class="am-u-sm-9">
+                        <input type="number" name="productNum" id="count" placeholder="" required>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="remark" class="am-u-sm-3 am-form-label">备注:</label>
+                    <div class="am-u-sm-9">
+                        <textarea class="" name="productRemark" rows="5" id="remark"></textarea>
+                    </div>
+                </div>
+
+
+
+                <div class="am-form-group">
+                    <div class="am-u-sm-9 am-u-sm-offset-3">
+                        <button type="submit" class="am-btn am-btn-success am-inline">
+                            <i class="am-icon-truck"></i>
+                            提交
+                        </button>
+                        <button type="reset" class="am-btn am-inline am-btn-danger am-margin-left-sm">
+                            <i class="am-icon-undo"></i>
+                            清空
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <!--body end-->
+</div>
+<include file="footer" />
+<include file='totop' />
+</body>
+</html>

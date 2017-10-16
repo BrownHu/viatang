@@ -186,7 +186,14 @@ class WeAction extends HomeAction {
     // -------------------------------------------------------------------------------------------
     // 提交包裹清单
     public function commitPackage(){
-
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            dump($_REQUEST);
+        }else {
+            $list = M('DeliverCompany')->select();
+            $this->assign('topContent', '提交包裹清单');
+            $this->assign('list', $list);
+            $this->display();
+        }
     }
 
     // 物流查询
@@ -286,6 +293,40 @@ class WeAction extends HomeAction {
 //            $this->assign ( 'page', trim($page) );
 //            $this->display ();
 }
+    public function goodM(){
+        $module=$_REQUEST['op']=="" ? "not"  :$_REQUEST['op'];
+        $DAO = M ( 'ProductAgent' );
+        $condition = '(status != 5) AND (status != 6) AND (status != 7) AND user_id=9358';
+        $arrivedCount=$DAO->where('status=5 and user_id=9358')->count();
+        $count = $DAO->where ( $condition )->count ();
+        $this->assign('count',$count);
+        $this->assign('arrivedCount',$arrivedCount);
+        switch ($module){
+            case "not":
+                $DataList = $DAO->where ( $condition )->order ( 'order_bat_id desc' )->select ();
+                $this->assign ( 'DataList', $DataList );
+                $this->display ();
+                break;
+            case "arrive":
+                $DataList=$DAO->where('status=5 and user_id=9358')->select();
+                $this->assign('DataList',$DataList);
+                $this->display('goodM_arrive');
+                break;
+            case  "del":
+                $id=$_REQUEST['id'];
+                break;
+            case  "edit":
+                $traceId=$_REQUEST['id'];
+                $result=$DAO->where("id=$traceId")->select();
+                $this->assign('Data',$result[0]);
+                $this->display('goodM_edit');
+                break;
+            case "update":
+                break;
+
+        }
+
+    }
 //    hubing end
 	// -------------------------------------------------------------------------------------------
 	// 公告详情

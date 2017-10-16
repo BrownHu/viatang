@@ -1,0 +1,96 @@
+<include file="baseHead" />
+<!--主体-->
+<div class="am-g  waitconfirm">
+    <form action="">
+    <div class="am-u-lg-12">
+        <div class="am-btn-group am-btn-group-justify sec-directory">
+            <a class="am-btn " href="goodM.html" role="button">未入库({$count})</a>
+            <a class="am-btn active-a"  href="#" role="button">已入库({$arrivedCount})</a>
+        </div>
+    </div>
+
+    <volist  name="DataList" id='vo' >
+        <div class="am-u-sm-12 waitconfirm-body">
+            <div class="am-panel am-panel-default waitconfirm-body-inf">
+                    <input type="checkbox" name="order_id[]" value="{$vo.id}">
+                <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target:'#do-not-say-<php>echo $i;</php>'}">
+                    <span>{$vo.order_bat_id}</span>
+                    <i class="am-icon-chevron-right"></i>
+                </div>
+                <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det">
+                    <div class="am-panel-bd">
+                        <blockquote>
+                            <p>单号： <b>{$vo.order_bat_id}</b></p>
+                            <p>日期： <b>{$vo.send_time|date="Y-m-d H:s:i",###}</b></p>
+                            <p>备注： <b>{$vo.remark}</b></p>
+                            <p>状态：<b style="color: red;">已入库</b></p>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="am-panel-footer" align="right" style="padding:0;">
+                    <span style="margin-right: 2%;font-size: 14px;">{$vo.title}</span>
+                </div>
+            </div>
+        </div>
+    </volist>
+    </form>
+
+    <!--底部按钮-->
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-3" style="background-color:rgba(0,0,0,.8);text-align: center;">
+            <li><!-- 加入送货车 -->
+                <div class="am-fr am-header-nav btn-add">
+                    <a href="javascript:cart();" class="am-btn am-btn-danger am-radius am-btn-xs" >加入送货车</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- end 底部按钮 -->
+</div>
+
+
+<!-- 删除订单弹出提示框 -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">唯唐代购</div>
+        <div class="am-modal-bd">
+            您确定提交勾选商品？	    </div>
+        <div class="am-modal-footer">
+            <span id="sureBtn" class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        </div>
+    </div>
+</div>
+<!-- end 删除订单弹出提示框 -->
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">唯唐代购</div>
+        <div class="am-modal-bd">
+            请先选择订单!	    </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">确定</span>
+        </div>
+    </div>
+</div>
+<!--回到顶部-->
+<include file="totop" />
+</div>
+<script type="text/javascript">
+
+    function cart(id) {
+        if($(":checkbox:checked").val() > 0){
+            $("#my-confirm").modal({
+                relatedTarget: this,
+                onConfirm: function(options) {
+                    $('form').submit();
+                }
+            });
+        }else{
+            $("#my-alert").modal();
+        }
+    }
+
+</script>
+</body>
+</html>

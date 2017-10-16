@@ -1,0 +1,33 @@
+<include file="baseHead" />
+    <form  method="post" action="goodM.html?op=update" class="am-form">
+        <div class="am-g" style="margin-top: 5%;">
+            <div class="am-u-sm-12">
+                <div class="am-panel am-panel-default">
+                    <div class="am-panel-bd">
+                        <input type="hidden" value="{$Data.id}" name="id" />
+                        <!--<div class="am-form-group">-->
+                            <!--<label for="traceNo"><b>快递单号</b></label>-->
+                            <!--<input type="number" id="traceNo" class="am-form-field" minlength="4" name="traceNo" value="{$Data.trace_no}" placeholder="请输入快递单号">-->
+                        <!--</div>-->
+                        <div class="am-form-group">
+                            <label for="remark"><b>备注</b></label>
+                            <textarea rows="5" id="remark" name="remark" >{$Data.remark}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+            <ul class="am-navbar-nav am-cf am-avg-sm-1" style="background-color:rgba(0,0,0,.8);">
+                <li><!-- 添加单号按钮 -->
+                    <div class="am-header-right am-header-nav btn-add" style="text-align: right;padding-right: 5px;">
+                        <button type="submit" class="am-btn am-btn-danger am-radius am-btn-xs" >确定</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <include file="totop" />
+</div>
+</body>
+</html>

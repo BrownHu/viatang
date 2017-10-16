@@ -1,7 +1,7 @@
 
 a{color:#333333;}
-.sec-directory{width: 100%;background-color: #FFFFFF;border:1px solid #8f4929;border-radius: 5px;margin: 10px auto;}/*浜岀骇瀵艰埅*/
-.active-a{background-color: #8f4929;color:#f4cf43;}
+.sec-directory{width: 100%;background-color: #FFFFFF;border:1px solid red;border-radius: 5px;margin: 10px auto;}/*浜岀骇瀵艰埅*/
+.active-a{background-color: red;color:#ffffff;}
 .pet_mian { max-width: 640px;background-color: #eff1f3; margin: 0 auto; position: relative;font-family: "瀹嬩綋";}
 html,body,.pet_mian{min-height:100vh;}
 .nothing{width:100%;text-align: center;margin-top: 5%;margin-left: 10px;}
