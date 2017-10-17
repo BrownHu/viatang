@@ -3,7 +3,7 @@
 		<div class="am-u-lg-12" style="margin-top: 20px;">
 	        <form class="am-form"  method="post" onsubmit="return formcheck()">
 	          	<div class="am-input-group">
-	              	<input type="text" class="am-form-field" id="book"  placeholder="请输入快递单号">
+	              	<input type="text" required class="am-form-field" id="book"  placeholder="请输入快递单号">
 	              	<span class="am-input-group-btn">
 	                	<button class="am-btn am-btn-success bg-8f4929 color-6f" type="button" onClick="doTrack()"><span class="am-icon-search"></span></button>
 	              	</span>
@@ -16,10 +16,14 @@
 			   	<tr>
 			   		<td>单号</td>
 			   		<td>是否到库</td>
+					<td>商品</td>
+					<td>快递公司</td>
 			   	</tr>
 			   	<tr class="am-active">
 			   		<td id="querydBook"></td>
-			   		<td id="queryResult"></td>
+			   		<td style="color: red;font-weight: bolder" id="queryResult"></td>
+					<td id="title"></td>
+					<td id="ship"></td>
 			   	</tr>
 			  </table>
 			</div>
@@ -34,27 +38,32 @@
 	    $('#jieguo').hide()
 	});
 	function doTrack() {
-		
-	    var num = document.getElementById("book").value;
+		var progress = $.AMUI.progress;
+		var num = document.getElementById("book").value;
 	    if(num===""){
 	    	alert('请先输入运单号')
 	    	return false;
 	    }
-		$('#querydBook').text(num)
-		$('#queryResult').text('到库')
-		$('#jieguo').show();
-//	    $.ajax({
-//	    	url:"",
-//	    	data:{"num":num},
-//	    	dataType:"json",
-//	    	type:"GET",
-//	    	success:function(data){
-//	    				//ajax 处理
-//				$('#querydBook').text(num)
-//			    $('#queryResult').text('到库')
-//			    $('#jieguo').show();
-//	    	}
-//	    })
+		progress.start();
+		$.ajax({
+	    	url:"checkArrive.html?id="+num,
+			dataType: 'json',
+	    	success:function(data){
+	    		if(data.res_code==0){
+					$('#querydBook').text(data.trace_no);
+					$('#queryResult').text(data.status);
+					$('#title').text(data.title);
+					$('#ship').text(data.shipping_company);
+					$('#jieguo').show();
+				}else{
+					alert('暂无此运单，确认后重新输入');
+				}
+				progress.done();
+			},
+			error:function () {
+				progress.done();
+			}
+	    })
 	}
 </script>
 </body>

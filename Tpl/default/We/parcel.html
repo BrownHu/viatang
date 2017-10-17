@@ -1,0 +1,97 @@
+<include file="baseHead" />
+<!--主体-->
+<div class="am-g  waitconfirm">
+
+    <div class="am-u-lg-12  am-margin-bottom-xl"></div>
+
+    <volist  name="DataList" id='vo' >
+        <div class="am-u-sm-12 waitconfirm-body">
+            <div class="am-panel am-panel-default waitconfirm-body-inf">
+                <if condition="($vo.had_review eq  0 ) AND ($vo.status eq 5)">
+                    <input type="radio" name="order_id" value="{$vo.id}">
+                </if>
+                <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target:'#do-not-say-<php>echo $i;</php>'}">
+                    <span>YD{$userId}-{$vo.id}</span>
+                    <i class="am-icon-chevron-right"></i>
+                </div>
+                <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse  waitconfirm-body-det <php>if($i==1){echo 'am-in';}</php>">
+                    <div class="am-panel-bd">
+                        <blockquote>
+                            <p>包裹ID： <b>YD{$userId}-{$vo.id}</b></p>
+                            <p>提交时间： <b>{$vo.create_time|date="Y-m-d",###}</b></p>
+                            <p>收货人： <b>{$vo.contact}</b></p>
+                            <p>运送方式： <b>{$vo.deliver_way}</b></p>
+                            <p>运单号： <b>{$vo.package_code|default=' '}</b></p>
+                            <p>返还(￥)： <b><eq name="vo.excess_money" vale="0"><else/>{$vo.excess_money}</eq></b></p>
+                            <p>状态：<b style="color: red;"><switch name="vo.status">
+                                <case value="1">等待审核</case>
+                                <case value="2">处理中</case>
+                                <case value="3">配送中</case>
+                                <case value="4">已发货</case>
+                                <case value="5">确认收货</case>
+                                <case value="6">信息有误</case>
+                                <case value="7">已撤销</case>
+                                <case value="8">海关退包</case>
+                                <case value="9">海关退包</case>
+                                <case value="10">无法投递退包</case>
+                                <default/>&nbsp;
+                            </switch></b></p>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="am-panel-footer"  align="right" style="padding:0;">
+                    <span   style="margin-right: 2%;font-size: 14px;">{$vo.create_time|date="Y-m-d",###}</span>
+                    <div class="am-cf"></div>
+                </div>
+            </div>
+        </div>
+    </volist>
+    <div class="am-u-sm-6 am-u-sm-offset-6  am-u-sm-centered am-margin-bottom-xl">
+        {$page}
+    </div>
+
+
+
+    <!--底部按钮-->
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-3" style="background-color:rgba(0,0,0,.8);text-align: center;">
+
+            <li><!-- 评论按钮 -->
+                <div class="am-fr  am-header-nav btn-add">
+                    <a href="javascript:comment();" class="am-btn am-btn-danger am-radius am-btn-xs" >评论</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- end 底部按钮 -->
+</div>
+
+
+
+<!-- end 评论弹出提示框 -->
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">唯唐代购</div>
+        <div class="am-modal-bd">
+            请先选择包裹!	    </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">确定</span>
+        </div>
+    </div>
+</div>
+<!--回到顶部-->
+<include file="totop" />
+</div>
+<script type="text/javascript">
+    function comment(){
+        var id=$(':radio:checked').val();
+        if(typeof (id) != "undefined" ){
+            window.location.href = "comment.html?id="+id;
+        }else{
+            $("#my-alert").modal();
+        }
+    }
+</script>
+</body>
+</html>

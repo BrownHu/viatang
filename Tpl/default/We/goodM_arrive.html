@@ -1,7 +1,7 @@
 <include file="baseHead" />
 <!--主体-->
 <div class="am-g  waitconfirm">
-    <form action="">
+    <form action="addtocart" method="post">
     <div class="am-u-lg-12">
         <div class="am-btn-group am-btn-group-justify sec-directory">
             <a class="am-btn " href="goodM.html" role="button">未入库({$count})</a>
@@ -12,12 +12,12 @@
     <volist  name="DataList" id='vo' >
         <div class="am-u-sm-12 waitconfirm-body">
             <div class="am-panel am-panel-default waitconfirm-body-inf">
-                    <input type="checkbox" name="order_id[]" value="{$vo.id}">
+                    <input type="checkbox" name="id[]" value="{$vo.id}">
                 <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target:'#do-not-say-<php>echo $i;</php>'}">
                     <span>{$vo.order_bat_id}</span>
                     <i class="am-icon-chevron-right"></i>
                 </div>
-                <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det">
+                <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det <php>if($i==1){echo 'am-in';}</php>">
                     <div class="am-panel-bd">
                         <blockquote>
                             <p>单号： <b>{$vo.order_bat_id}</b></p>

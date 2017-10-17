@@ -71,9 +71,7 @@ class SelfpurchaseAction extends BaseAction {
 				$this->error('请完整填写快递公司名称，快递单号和商品名称后再提交');
 				die();
 			}
-			
 			$product ['remark'] = trim ( $_POST ['productRemark'] );
-				
 			$product['order_bat_id'] = time();
 			$product ['send_time'] =  !empty($_POST ['express_date']) ? strtotime($_POST ['express_date']) : time();
 			$product ['create_at'] =   time();

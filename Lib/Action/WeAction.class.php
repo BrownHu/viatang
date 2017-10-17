@@ -32,7 +32,6 @@ class WeAction extends HomeAction {
 	protected $finance;
 	protected $lang = LANG_SET;
 	protected $country;
-	
 	// -------------------------------------------------------------------------------------------
 	// 初始化
 	function _initialize() {
@@ -107,6 +106,9 @@ class WeAction extends HomeAction {
     }
 	public function home(){
         $topNavType="M";
+        $userInfo=M('User')->find(9358);
+        $userInfo['head_img']=$userInfo['head_img']=="" ? "../Ulowi/Tpl/default/Public/images/avatar.png" : "../Uploads/pic/avatar/".$userInfo['head_img']."_m.jpg";
+        $this->assign('userInfo',$userInfo);
         $this->assign('topNavType',$topNavType);
         $this->display('member');
 
@@ -183,7 +185,57 @@ class WeAction extends HomeAction {
 //            $this->redirect ( 'index' );
 //        }
     }
-    // -------------------------------------------------------------------------------------------
+//    到库查询 页面ajax
+    public  function checkArrive(){
+        $condition['trace_no']=$_REQUEST['id'];
+        $res=M('ProductAgent' )->where($condition)->select();
+        $back['res_code']=0;
+        if($res==null){
+            $back['res_code']=1;
+        }
+        $back['trace_no']=$res[0]['trace_no'];
+        $back['title']=$res[0]['title'];
+        $back['status']=$this->getStatus($res[0]['status']);
+        $back['shipping_company']=$res[0]['shipping_company'];
+        echo   json_encode($back);
+    }
+//   根据清单状态码返回中文提示
+    private   function  getStatus($id){
+        $message=null;
+        switch ($id){
+            case 0:
+                $message="等待收货";
+                break;
+            case 1:
+                $message="已到货";
+                break;
+            case 2:
+                $message="问题商品";
+                break;
+            case 3:
+                $message="退货处理中";
+                break;
+            case 4:
+                $message="已退货";
+                break;
+            case 5:
+                $message="已入库";
+                break;
+            case 8:
+                $message="换货处理中";
+                break;
+            case 9:
+                $message="退货补运费中";
+                break;
+            case 10:
+                $message="换货补运费中";
+                break;
+            default:
+                $message="服务异常";
+        }
+        return $message;
+    }
+
     // 提交包裹清单
     public function commitPackage(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -195,27 +247,75 @@ class WeAction extends HomeAction {
             $this->display();
         }
     }
+    //加入送货车
+
+    public function addtocart() {
+            $IdAry = $_POST ['id'];
+//            $user_id = $this->user ['id'];
+            $user_id = 9358;
+            $user_name = "wsh111";
+//            $user_name = $this->user ['login_name'];
+            $DAO = M ( 'ProductAgent' );
+
+            // 将购物车商品写入自助购订单
+            $create_at = time ();
+            $Idlst = implode ( ',', $IdAry );
+            $DataList = $DAO->where ( "id in ($Idlst) AND user_id=$user_id" )->select ();
+
+            $ShippingCartDAO = M ( 'ShippingCart' );
+            foreach ( $DataList as $item ) {
+                $entity ['user_id'] = $user_id;
+                $entity ['user_name'] = $user_name;
+                $entity ['product_id'] = $item ['id'];
+                $entity ['type'] = 2; // 1：代购，2：自助购
+                $entity ['title'] = $item ['title'];
+                $entity ['url'] = '';//$item ['url'];
+                $entity ['img'] = '';//$item ['img'];
+                $entity ['count'] = $item ['count'];
+                $entity ['weight'] = $item ['weight'];
+                $entity ['total_weight'] = $item ['weight'] * $item ['count'];
+                $entity ['product_fee'] = 0;//$item ['price'] * $item ['count']; // 计算商品金额
+                $entity ['service_rate'] = 0.1; // 自助购商品不收服务费
+                $entity ['service_fee'] = 0; // 自助购商品不收服务费
+                $entity ['create_at'] = $create_at;
+
+                $entity ['shipping_company'] = $item ['shipping_company'];
+                $entity ['trace_no'] = $item ['trace_no'];
+                $entity ['remark'] = $item ['remark'];
+                //dump($entity);exit;
+
+                $count = $ShippingCartDAO->where ( 'product_id=' . $item ['id'] . ' AND type=2' )->count ();
+                if ($count == 0) { // 这里防止重复添加
+                    $id = $ShippingCartDAO->data ( $entity )->add ();
+                }
+                $this->setStatus($item ['id'],7,$user_id);
+            }
+            $this->redirect('We/goodM',array('op'=>'arrive'));
+//            $this->success('已成功加入送货车!');
+
+
+    }
+    //修改商品状态
+
+    private function setStatus($pid,$sta,$uid){
+        $DAO = new Model();
+        $DAO->execute("UPDATE product_agent SET status=$sta WHERE id=$pid  AND user_id=$uid");
+    }
 
     // 物流查询
     public function waybillSearch(){
         $this->assign('topContent','国际快递查询');
         $this->display();
     }
-//
-//    //
-//    public function commitPackage(){
-//
-//    }
-//
+
     // 仓库地址
     public function vtaddress(){
         $this->assign('topContent','唯唐地址');
         $this->display();
     }
-//
-    // 用户地址管理 :done
+
+    // 用户地址管理
     public function address(){
-        /*done*/
 //        $this->assign('topContent','地址管理');
 //
 //        if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
@@ -239,7 +339,6 @@ class WeAction extends HomeAction {
 //            }else{
 //                $this->redirect('index');
 //        }
-/*done*/
         $request=$_REQUEST;
         $op=$request['op'];
         $DAO = M ( 'Address' );
@@ -251,49 +350,54 @@ class WeAction extends HomeAction {
             $this->assign('topContent','编辑地址');
             $this->display('address_edit');
         }elseif ($op=='delete'){
-            echo "delete";
-//           return $DAO->where($condition)->delete() ? true :false;
+            $DAO->where($condition)->delete();
+            $this->redirect('address');
         }elseif($op=='add'){
             $this->assign('topContent','新增地址');
             $this->display('address_add');
-
         }elseif($op=='update'){
             $map = array();
-            $keys = array('contact', 'phone', 'country', 'state', 'city', 'address', 'zip');
+            $keys = array('contact', 'phone', 'state', 'city', 'address', 'zip');
             for ($flag = 0; $flag < count($keys); $flag++) {
                 $map[$keys[$flag]] = $_REQUEST[$keys[$flag]];
             }
+            $country=explode("|",$_REQUEST['country']);
+            $map['deliver_id']=$country[0];
+            $map['country']=$country[1];
             $type=$_REQUEST['type'];
             if($type=='add') {
-                $map['user_id'] = $this->user['id'];
-                $map['user_name'] = $this->user['login_name'];
-                $DAO->data($map)->add();
-                $this->redirect('address.html');
-            }else{
-                $condition=array('id'=>$_REQUEST['id']);
-                return  $DAO->where($condition)->update($map) ? true : false;
-                $this->redirect('address.html');
+//                $map['user_id'] = $this->user['id'];
+                $map['user_id'] =9358;
+//                $map['user_name'] = $this->user['login_name'];
+                $map['user_name'] = "wsh111";
+                $flag=$DAO->data($map)->add();
+                if ($flag>0){
+                    $this->redirect('address');
+                }else{
+                    $this->redirect('address');
+                }
+            }elseif ($type=='edit'){
+                $DAO->where($condition)->save($map);
+                $this->redirect('address');
             }
         }else{
             $this->assign('topContent','地址管理');
-            $DataList = $DAO->limit(10)->select ();
-            $p = new Page (10, 2);
-            $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
-            $page = $p->show ();
+            $DataList = $DAO->where('user_id=9358')->limit(10)->select ();
             $this->assign ( 'DataList', $DataList );
-            $this->assign ( 'page', trim($page) );
             $this->display ();
         }
-//        $DAO = M ( 'Address' );
-//            $DataList = $DAO->limit(10)->select ();
-//            $p = new Page (10, 2);
-//            $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
-//            $page = $p->show ();
-//            $this->assign ( 'DataList', $DataList );
-//            $this->assign ( 'page', trim($page) );
-//            $this->display ();
 }
+// 页面跳转
+    public  function  pageJump($boll,$succtitle,$failtitle){
+        if ($boll==true){
+            $this->success($succtitle);
+        }else{
+            $this->error($failtitle);
+        }
+
+    }
     public function goodM(){
+        $this->assign('topContent','商品管理');
         $module=$_REQUEST['op']=="" ? "not"  :$_REQUEST['op'];
         $DAO = M ( 'ProductAgent' );
         $condition = '(status != 5) AND (status != 6) AND (status != 7) AND user_id=9358';
@@ -314,18 +418,57 @@ class WeAction extends HomeAction {
                 break;
             case  "del":
                 $id=$_REQUEST['id'];
+                $DAO->where("id=$id")->delete();
+                $this->redirect('goodM');
                 break;
             case  "edit":
+                $this->assign('topContent','商品修改');
                 $traceId=$_REQUEST['id'];
                 $result=$DAO->where("id=$traceId")->select();
                 $this->assign('Data',$result[0]);
                 $this->display('goodM_edit');
                 break;
             case "update":
+                $id=$_REQUEST['id'];
+                $map['remark']=$_REQUEST['remark'];
+                $DAO->where("id=$id")->save($map);
+                $this->redirect('goodM');
                 break;
 
         }
 
+    }
+
+    // 我的包裹
+    public function parcel() {
+//        if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
+//            $openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
+//        }else{
+//            $this->processOpenid('register.html');
+//        }
+//
+//        $this->user = $this->getUserByWechatOpenId($openid);
+//        $this->assign('user',$this->user);
+//        $this->assign('openid',$openid);
+
+//        if ($this->user) {
+            $this->assign('topContent','我的包裹');
+            $this->dao = M ( 'Package' );
+            $count = $this->dao->where ( "status<>7 AND user_id=9358" )->count ();
+            if ($count > 0) {
+                //import ( 'ORG.Util.Page' );
+                $p = new Page ( $count, 7 );
+                $p->setConfig ( 'first', '1' );
+                $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
+                $page = $p->show ();
+                $DataList = $this->dao->where ( 'status<>7 AND user_id=9358' )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_time desc' )->select ();
+                $this->assign ( 'DataList', $DataList );
+                $this->assign ( 'page', trim($page) );
+                $this->assign('userId',9358);
+            }
+//        }
+
+        $this->display ();
     }
 //    hubing end
 	// -------------------------------------------------------------------------------------------
@@ -367,38 +510,7 @@ class WeAction extends HomeAction {
 
 
     //------------------------------------------------------------------------------------------------
-	// 我的包裹
-	public function parcel() {
-		if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
-			$openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
-		}else{
-			$this->processOpenid('register.html');
-		}
-		
-		$this->user = $this->getUserByWechatOpenId($openid);
-		$this->assign('user',$this->user);
-		$this->assign('openid',$openid);
-		
-		if ($this->user) {
-			$this->dao = M ( 'Package' );
-			$count = $this->dao->where ( "status<>7 AND user_id=" . $this->user ['id'] )->count ();
-			if ($count > 0) {
-				//import ( 'ORG.Util.Page' );
-				$p = new Page ( $count, C ( 'NUM_PER_PAGE' ) );
-				$p->setConfig ( 'first', '1' );
-				$p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
-				$page = $p->show ();
-				$DataList = $this->dao->where ( 'status<>7 AND user_id=' . $this->user ['id'] )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_time desc' )->select ();
-				$this->assign ( 'DataList', $DataList );
-				$this->assign ( 'page', trim($page) );
-	
-				global $package_status_array;
-				$this->assign ( 'PackageStatus', $package_status_array );
-			}
-		}
-		
-		$this->display ();
-	}
+
 	
 	// -------------------------------------------------------------------------------------------
 	// 微信推送入口

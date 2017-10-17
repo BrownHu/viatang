@@ -19,7 +19,7 @@
                         <span>{$vo.order_bat_id}</span>
                         <i class="am-icon-chevron-right"></i>
                     </div>
-                    <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det">
+                    <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det <php>if($i==1){echo 'am-in';}</php>">
                         <div class="am-panel-bd">
                             <blockquote>
                                 <p>单号： <b>{$vo.order_bat_id}</b></p>
@@ -107,12 +107,13 @@
         }
 
     }
-    function del(id) {
-        if($(":radio:checked").val() > 0){
+    function del() {
+        var id=$(':radio:checked').val();
+        if(typeof (id) != "undefined" ){
             $("#my-confirm").modal({
                 relatedTarget: this,
                 onConfirm: function(options) {
-                    window.location.href = "/waitconfirm/del/orderid/" + $(":radio:checked").val() + ".html";
+                    window.location.href = "goodM.html?op=del&id=" +id;
                 }
             });
         }else{
