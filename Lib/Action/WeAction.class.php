@@ -407,13 +407,23 @@ class WeAction extends HomeAction {
         $this->assign('arrivedCount',$arrivedCount);
         switch ($module){
             case "not":
-                $DataList = $DAO->where ( $condition )->order ( 'order_bat_id desc' )->select ();
+                $p = new Page ( $count, 8 );
+                $p->setConfig ( 'first', '1' );
+                $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
+                $page = $p->show ();
+                $DataList = $DAO->where ( $condition )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'order_bat_id desc' )->select ();
                 $this->assign ( 'DataList', $DataList );
+                $this->assign ( 'page', trim($page) );
                 $this->display ();
                 break;
             case "arrive":
-                $DataList=$DAO->where('status=5 and user_id=9358')->select();
+                $p = new Page ( $arrivedCount, 8 );
+                $p->setConfig ( 'first', '1' );
+                $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
+                $page = $p->show ();
+                $DataList=$DAO->where('status=5 and user_id=9358')->limit ( $p->firstRow . ',' . $p->listRows )->select();
                 $this->assign('DataList',$DataList);
+                $this->assign ( 'page', trim($page) );
                 $this->display('goodM_arrive');
                 break;
             case  "del":
@@ -457,7 +467,7 @@ class WeAction extends HomeAction {
             $count = $this->dao->where ( "status<>7 AND user_id=9358" )->count ();
             if ($count > 0) {
                 //import ( 'ORG.Util.Page' );
-                $p = new Page ( $count, 7 );
+                $p = new Page ( $count, 8 );
                 $p->setConfig ( 'first', '1' );
                 $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
                 $page = $p->show ();
@@ -469,6 +479,44 @@ class WeAction extends HomeAction {
 //        }
 
         $this->display ();
+    }
+
+
+//     包裹评论
+    public function comment(){
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $id=trim($_REQUEST['id']);
+            $PackageDAO = M('Package');
+            $package = $PackageDAO->where("id=$id")->find();
+            if($package){
+                $data['package_id'] 	= $id;
+                $data['package_no'] 	= $package['package_code'];
+                $data['zone_id'] 	= $package['zone_id'];
+                $data['way_id'] 	= $package['deliver_id'];
+                $data['way_name'] 	= $package['deliver_way'];
+                $data['country']	= $package['country'];
+                $data['user_id'] 	= 9358;
+//                $data['user_id'] 	= $this->user['id'];
+                $data['user_name']	= "wsh111";
+//                $data['user_name']	= $this->user['login_name'];
+                $data['content']	= trim($_REQUEST['review']);
+                $data['ip']		= get_client_ip();
+
+                $data['reply_content']	= '';
+                $data['reply_time']	= 0;
+                $data['admin_id']	= 0;
+                $data['admin_name']	= '';
+                $data['is_display']	= 0;
+                $data['create_time']	= time();
+                M('Package')->where("id=$id")->save(array('had_review'=>1));
+                M('Comment')->data($data)->add();
+                $this->redirect('We/parcel');
+            }
+        }else{
+            $this->assign('topContent','服务评论');
+            $this->assign('id',$_REQUEST['id']);
+            $this->display();
+        }
     }
 //    hubing end
 	// -------------------------------------------------------------------------------------------

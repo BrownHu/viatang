@@ -1,0 +1,29 @@
+<include file="baseHead" />
+<form  method="post" action="comment.html" class="am-form">
+    <div class="am-g" style="margin-top: 5%;">
+        <div class="am-u-sm-12">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-bd">
+                    <input type="hidden" value="{$id}" name="id" />
+                    <div class="am-form-group">
+                        <label for="remark"><b>评论内容</b></label>
+                        <textarea rows="5" required id="remark" name="review"  placeholder="请填写您对本次代购服务的评价"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-1" style="background-color:rgba(0,0,0,.8);">
+            <li><!-- 提交评论按钮 -->
+                <div class="am-header-right am-header-nav btn-add" style="text-align: right;padding-right: 5px;">
+                    <button type="submit"  id="commitBtn" class="am-btn am-btn-danger am-radius am-btn-xs" >提交评论</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>
+<include file="totop" />
+</div>
+</body>
+</html>
