@@ -13,8 +13,8 @@
  */
 class FinaceViewModel extends ViewModel {
     public $viewFields = array(
-       'User'=>array('id','login_name','_type'=>'LEFT'),
-       'Finance'  =>  array('consumption_total'=>'total', '_on'=>'User.id=Finance.user_id')
-    );
+    'User'=>array('id','login_name','_type'=>'LEFT'),
+    'Finance'  =>  array('consumption_total'=>'total', '_on'=>'User.id=Finance.user_id')
+);
 }
 ?>

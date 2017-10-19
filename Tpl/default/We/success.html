@@ -1,0 +1,34 @@
+<include file="baseHead" />
+<div class="am-g">
+    <!--<input type="hidden"  id='hidSecond' value="{{$second}}">-->
+    <input type="hidden"  id='hidSecond' value="{$second}">
+    <input type="hidden" id="url"  value="{$jumpUrl}">
+    <div style="text-align: center" class="am-u-sm-6 am-u-sm-centered">
+        <i style="font-size: 100px;color: #85D148;" class="am-icon-check-circle am-success"></i>
+    </div>
+</div>
+<div class="am-g">
+    <div style="text-align: center" class="am-u-sm-12 am-u-sm-centered">
+        <span style="color:red;font-weight: bold;">操作成功</span>,将在&nbsp;<span  style="color:red;font-weight: bold;" id="second">{$second}</span>&nbsp;秒后跳转，或点击<a href="{$jumpUrl}" style="color:red;font-weight: bold;">这里</a>跳转...
+    </div>
+</div>
+<include file="totop" />
+<script>
+    $(function () {
+        var url=$('#url').val();
+        var second=parseInt($('input#hidSecond').val())-1;
+        var xunhuan=setInterval(function () {
+            if(second!=0){
+                $('span#second').text(second);
+                second=second-1;
+            }else{
+                clearInterval(xunhuan);
+                window.location.href=url;
+            }
+
+        },1000)
+    })
+</script>
+    </div>
+</dody>
+</html>

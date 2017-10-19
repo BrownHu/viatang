@@ -237,16 +237,120 @@ class WeAction extends HomeAction {
     }
 
     // 提交包裹清单
-    public function commitPackage(){
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-            dump($_REQUEST);
-        }else {
+    public function commitPackage() {
+        if($_SERVER['REQUEST_METHOD']=='POST') {
+//        $user = Session::get ( C ( 'MEMBER_INFO' ) );
+            $user = array('id' => 9358, 'login_name' => 'wsh111');
+            if ($user) {
+                $product ['user_id'] = $user ['id'];
+                $product ['user_name'] = $user ['login_name'];
+                $product ['title'] = trim($_POST ['title']);
+                $product ['count'] = trim($_POST ['productNum']);
+                $product ['count'] = (!is_numeric($product ['count']) || ($product ['count'] <= 0)) ? 1 : $product ['count'];
+                $shiping_commpany = trim($_POST ['shipingCompany']);
+                $trace_no = trim($_POST ['traceNo']);
+                $shiping_commpany = (strlen($shiping_commpany) > 1) ? ltrim($shiping_commpany, '-') : $shiping_commpany;
+                $shiping_commpany = (strlen($shiping_commpany) > 1) ? rtrim($shiping_commpany, '-') : $shiping_commpany;
+                $trace_no = (strlen($trace_no) > 1) ? ltrim($trace_no, '-') : $trace_no;
+                $trace_no = (strlen($trace_no) > 1) ? rtrim($trace_no, '-') : $trace_no;
+                $trace_no = preg_replace('/[ ]/', '', $trace_no);
+                $trace_no = trim($trace_no);
+                $product ['remark'] = trim($_POST ['productRemark']);
+                $product['order_bat_id'] = time();
+                $product ['send_time'] = !empty($_POST ['express_date']) ? strtotime($_POST ['express_date']) : time();
+                $product ['create_at'] = time();
+
+                $product ['shipping_company'] = trim($shiping_commpany);
+
+                $_count = $this->countItemByTraceno(trim($trace_no));
+
+                $_do = false;
+                $_message = '您提交的包裹运单号已存在，请勿重复提交!';
+                $DAO = M('ProductAgent');
+                switch ($_count) {
+                    case 0:
+                        $product ['trace_no'] = trim($trace_no);
+                        $_id = $DAO->data($product)->add();
+                        $admin = array('id' => 0, 'loginame' => '');
+                        $this->writeProductAgentLog($_id, 0, $user['id'], $user['login_name'], '用户自主提交包裹', $admin);
+                        $_do = true;
+                        $_message = '恭喜，提交成功!您可在：个人中心-转运商品管理 中查看详情';
+                        break;
+
+                    case 1:
+                        $item = $this->loadItemByTraceno(trim($trace_no));
+                        if ($item) {
+                            if ($item['user_id'] == 0) {//无主包裹
+                                unset($product ['create_at']);// 禁更新创建日期
+                                unset($product ['count']);// 禁更新数量
+                                unset($product['order_bat_id']);
+
+                                $DAO->where("id=" . $item['id'])->save($product);
+                                $admin = array('id' => 0, 'loginame' => '');
+                                $this->writeProductAgentLog($item['id'], $item['status'], $item['user_id'], $item['user_name'], '用户(后)提交转运包裹信息，系统自动关联后并更新包裹重量商品名称等信息', $admin);
+                                $_do = true;
+                                $_message = '您提交的包裹已成功签收，现已自动关联到您的名下，您可在：个人中心-转运商品管理 中查看详情';
+                            } elseif ($item['user_id'] == $user ['id']) {
+                                if ($item['status'] == 0) {//等待收货, 可以修改全部数据
+                                    $product ['trace_no'] = trim($trace_no);
+                                    unset($product ['user_id']);
+                                    unset($product ['user_name']);
+                                    $_id = $DAO->where("id=" . $item['id'])->save($product);
+                                    $admin = array('id' => 0, 'loginame' => '');
+                                    $this->writeProductAgentLog($_id, $item['status'], $user['id'], $user['login_name'], '等待收货”订单，被用户成功更新包裹信息', $admin);
+                                    $_do = true;
+                                    $_message = '恭喜您，您提交的转运商品已更新成功!您可在：个人中心-转运商品管理 中查看详情';
+                                } else {
+//                                    $this->writeProductAgentLog($_id, $item['status'], $user['id'], $user['login_name'], '客户尝试修改处理中订单，系统已拒绝', $admin);
+                                    $_do = false;
+                                    $_message = '您提交的包裹已为您关联到账户中，您可在：个人中心-转运商品管理 中查看详情';
+                                }
+                            }
+                        }
+                        break;
+                }
+                $this->pageJump($_do,"commitPackage",3);
+            }
+        }else{
             $list = M('DeliverCompany')->select();
             $this->assign('topContent', '提交包裹清单');
             $this->assign('list', $list);
             $this->display();
         }
     }
+
+/*提交包裹清单相关*/
+    private function writeProductAgentLog($pid,$status,$user_id,$user_name,$remark,$admin){
+        $item = array(	'product_id' 	=>	$pid,
+            'status'		=>	$status,
+            'admin_id'		=>	$admin['id'],
+            'admin_name'	=>	$admin['loginame'],
+            'user_id'		=>	$user_id,
+            'user_name'		=>	$user_name,
+            'remark'		=>	$remark,
+            'create_at'		=>	time()
+        );
+        M("ProductAgentLog")->data($item)->add();
+    }
+
+    private function countItemByTraceno($traceno){
+        if(trim($traceno) != ''){
+            return M('ProductAgent')->where("trace_no='$traceno'")->count();
+        }
+
+        return 0;
+    }
+
+    private function loadItemByTraceno($traceno){
+        if(trim($traceno) != ''){
+            return M('ProductAgent')->where("trace_no='$traceno'")->find();
+        }
+
+        return false;
+
+    }
+    /*提交包裹清单相关*/
+
     //加入送货车
 
     public function addtocart() {
@@ -290,7 +394,8 @@ class WeAction extends HomeAction {
                 }
                 $this->setStatus($item ['id'],7,$user_id);
             }
-            $this->redirect('We/goodM',array('op'=>'arrive'));
+//            $this->redirect('We/goodM',array('op'=>'arrive'));
+             $this->actionSuccess("goodM?op=arrive",3);
 //            $this->success('已成功加入送货车!');
 
 
@@ -350,8 +455,8 @@ class WeAction extends HomeAction {
             $this->assign('topContent','编辑地址');
             $this->display('address_edit');
         }elseif ($op=='delete'){
-            $DAO->where($condition)->delete();
-            $this->redirect('address');
+            $flag=$DAO->where($condition)->delete();
+            $this->pageJump($flag,"address");
         }elseif($op=='add'){
             $this->assign('topContent','新增地址');
             $this->display('address_add');
@@ -371,14 +476,10 @@ class WeAction extends HomeAction {
 //                $map['user_name'] = $this->user['login_name'];
                 $map['user_name'] = "wsh111";
                 $flag=$DAO->data($map)->add();
-                if ($flag>0){
-                    $this->redirect('address');
-                }else{
-                    $this->redirect('address');
-                }
+                $this->pageJump($flag,"address");
             }elseif ($type=='edit'){
-                $DAO->where($condition)->save($map);
-                $this->redirect('address');
+                $flag=$DAO->where($condition)->save($map);
+                $this->pageJump($flag,"address");
             }
         }else{
             $this->assign('topContent','地址管理');
@@ -387,15 +488,25 @@ class WeAction extends HomeAction {
             $this->display ();
         }
 }
-// 页面跳转
-    public  function  pageJump($boll,$succtitle,$failtitle){
+ /*页面跳转*/
+    public  function  pageJump($boll,$url,$time=3){
         if ($boll==true){
-            $this->success($succtitle);
+            $this->actionSuccess($url,$time);
         }else{
-            $this->error($failtitle);
+            $this->actionFail($url,$time);
         }
-
     }
+    function  actionSuccess($url,$time){
+        $this->assign('jumpUrl',$url);
+        $this->assign('second',$time);
+        $this->display('success');
+    }
+    function  actionFail($url,$time){
+        $this->assign('jumpUrl',$url);
+        $this->assign('second',$time);
+        $this->display('error');
+    }
+    /*页面跳转*/
     public function goodM(){
         $this->assign('topContent','商品管理');
         $module=$_REQUEST['op']=="" ? "not"  :$_REQUEST['op'];
@@ -428,8 +539,8 @@ class WeAction extends HomeAction {
                 break;
             case  "del":
                 $id=$_REQUEST['id'];
-                $DAO->where("id=$id")->delete();
-                $this->redirect('goodM');
+                $flag=$DAO->where("id=$id")->delete();
+                $this->pageJump($flag,"goodM");
                 break;
             case  "edit":
                 $this->assign('topContent','商品修改');
@@ -441,10 +552,9 @@ class WeAction extends HomeAction {
             case "update":
                 $id=$_REQUEST['id'];
                 $map['remark']=$_REQUEST['remark'];
-                $DAO->where("id=$id")->save($map);
-                $this->redirect('goodM');
+                $flag=$DAO->where("id=$id")->save($map);
+                $this->pageJump($flag,"goodM");
                 break;
-
         }
 
     }
@@ -509,8 +619,8 @@ class WeAction extends HomeAction {
                 $data['is_display']	= 0;
                 $data['create_time']	= time();
                 M('Package')->where("id=$id")->save(array('had_review'=>1));
-                M('Comment')->data($data)->add();
-                $this->redirect('We/parcel');
+                $flag=M('Comment')->data($data)->add();
+                $this->pageJump($flag,"parcel");
             }
         }else{
             $this->assign('topContent','服务评论');
@@ -564,7 +674,12 @@ class WeAction extends HomeAction {
 	// 微信推送入口
 	public function index() {
 //	    echo time();
-        $this->assign('topNavType',"H");
+//        $CommentList=D("CommentView")->limit('0,5')->select();
+//        var_dump($CommentList);
+//            die();
+        $AnnounceList = M ( 'Announce' )->field('id,title,last_update')->order ( 'last_update desc' )->limit ( '0,4' )->select ();
+        $this->assign ( 'AnnounceList', $AnnounceList );
+        $this->assign('headerType',"H");
         $this->display();
 
 //			$WechatClient = !empty($this->wechat_token) ? new Wechat ( $this->wechat_token ) : false;
@@ -594,7 +709,14 @@ class WeAction extends HomeAction {
 //		}
 
 	}
-	
+	public function news(){
+        $this->assign('topContent','到库查询');
+        $id=$_REQUEST['id'];
+        $news=M ( 'Announce' )->find ($id);
+        $this->assign('news',$news);
+        $this->display();
+
+    }
 	// -------------------------------------------------------------------------------------------
 	// 显示文章
 	public function article(){
