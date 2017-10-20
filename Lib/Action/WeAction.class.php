@@ -27,31 +27,36 @@ class WeAction extends HomeAction {
 	
 	protected $goods;
 	protected $express;
-
+    protected $user;
 	protected $address;
 	protected $finance;
 	protected $lang = LANG_SET;
 	protected $country;
+    protected $openid;
 	// -------------------------------------------------------------------------------------------
 	// 初始化
 	function _initialize() {
+	    $action=ACTION_NAME;
         $this->wechat_token = 'ZLinkDaigouCMS';
-
 		$this->_server_url = 'http://www.viatang.com/we/';//C('SITE_URL')
 		if( !isset($_SESSION ['WechatState']) ){
 			$_SESSION ['WechatState'] = md5 ( uniqid ( rand (), TRUE ) );
 		}
-		
-//		$this->goods 	= M("Goods");
-//		$this->express 	= M("Express");
-//		$this->address 	= M('DeliverAddress');	//发货渠道
-//		$this->finance 	= D("Finance");
-//		$this->country  = M('DeliverZone');	//配送区域
+		$NotNeedMember=array('index','waybillSearch','news','home','pageJump','bindViatang','actionSuccess','actionFail','showHelp');
+        if (in_array($action,$NotNeedMember,true)==false){
+            if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId'])){
+                $openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
+                $this->user=$this->getUserByWechatOpenId($openid);
+            }else{
+                $this->processOpenid($action);
+            }
+        }
+
 	}
 	
 	// -------------------------------------------------------------------------------------------
  	private function getRequestCodeUrl($_second_redirect_uri){
- 		$_redirect_uri = $this->redirect_url . $_second_redirect_uri; 
+ 		$_redirect_uri = $this->redirect_url . $_second_redirect_uri;
 		$query = array(
 				'appid'         => "wxdfaebc95aec271b5",
 				'redirect_uri'  => $_redirect_uri,
@@ -62,6 +67,7 @@ class WeAction extends HomeAction {
 		
 		$query = http_build_query($query);
         return "{$this->requestCodeURL}?{$query}#wechat_redirect";
+//        echo "{$this->requestCodeURL}?{$query}#wechat_redirect";
 	}
 	
 	// -------------------------------------------------------------------------------------------
@@ -81,15 +87,19 @@ class WeAction extends HomeAction {
             $appid = 'wxdfaebc95aec271b5';//trim ( C ( 'Wechat_APPID' ) );
 //			$appid = trim ( C ( 'WECHAT_AppID' ) );
 //			$secret = trim ( C ( 'WECHAT_AppSecret' ) );
-			$secret = "50fe03331a5905e1075fced73f673077";
+			$secret = "862a68a8b553c46bd0dfe7e939fbd765";
 			$token_url = str_replace('__APPID__', $appid, $this->accesstoken_url);
 			$token_url = str_replace('__SECRET__', $secret, $token_url);
 			$token_url = str_replace('__CODE__', $code, $token_url);
 			$response = file_get_contents_ex($token_url);
 			$_result = json_decode($response,true);
-			
+           /*hubing*/
+//            var_dump($_result);
+//            die();
+            /*end*/
+
 			if (isset($_result['errcode'])) { return false; }
-	
+
 			$_SESSION ["WechatAuthAccessToken"] = $_result ["access_token"];
 			$_SESSION ['WechatAuthExpiresIn'] = time() + $_result ['expires_in'];
 			$_SESSION ['WechatAuthOpenId'] = $_result ['openid'];
@@ -99,38 +109,7 @@ class WeAction extends HomeAction {
 	}
 	
 	// -------------------------------------------------------------------------------------------
-	// 微信首页
-    public function  demo(){
-        $this->assign('name','zling');
-        $this->display();
-    }
-	public function home(){
-        $userInfo=M('User')->find(9358);
-        $userInfo['head_img']=$userInfo['head_img']=="" ? "../Ulowi/Tpl/default/Public/images/avatar.png" : "../Uploads/pic/avatar/".$userInfo['head_img']."_m.jpg";
-        $this->assign('userInfo',$userInfo);
-        $this->assign('headerType',"M");
-        $this->display('member');
 
-//        $topContent="查询物流";
-//        $this->assign('headerType',$topNavType); //头类型  M：会员中心 H ：首页  B：可返回上层，需伴随topContent 为当前页面顶部导航文字
-//        $this->assign('topContent',$topContent);
-
-//		if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
-//			$openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
-//		}else{
-//
-//			$this->processOpenid('home.html');
-//		}
-//		$this->assign('openid',$openid);
-//        echo $openid;
-		//加载用户
-		//$user = $this->getUserByWechatOpenId($openid);
-//		$this->loadAnnounce();
-//		$this->loadAd();
-//		$this->display();
-	}
-	
-	// -------------------------------------------------------------------------------------------
 	// 加载公告
 	private function loadAnnounce(){
 		$this->dao = M("Announce");
@@ -160,29 +139,73 @@ class WeAction extends HomeAction {
 		$this->display();
 	}
 //hubing start
-    // -------------------------------------------------------------------------------------------
+//微信推送入口
+    public function  home(){
+//        $WechatClient = !empty($this->wechat_token) ? new Wechat ( $this->wechat_token ) : false;
+//			$WechatRequest = ($WechatClient) ? $WechatClient->request () : false;
+//
+//			 if ($WechatRequest && is_array ( $WechatRequest)) {
+//				$_openid = $WechatRequest ['FromUserName'] ;
+//
+//				if (strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_EVENT) {
+//					if (strtoupper ( $WechatRequest['Event'] ) == Wechat::MSG_EVENT_CLICK) {
+//						if ($this->getUserByWechatOpenId ($_openid) != false) {
+//							$content = $this->eventRoute($WechatRequest,$_openid);
+//						} else {
+//							$content = '为了更好地为您服务，请先'
+//									 . '<a href="'. $this->_server_url . 'register.html?oid='.$_openid.'">'
+//									 . '绑定系统帐号哦'
+//									 . '</a>';
+//						}
+//
+//						$WechatClient->replyText ( $content );
+//					}
+//				}elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_TEXT){
+//
+//				}elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_IMAGE){
+//
+//				}
+//		}
+    }
+
+
+    /*会员中心*/
+    public function member(){
+        $userInfo=M('User')->find($this->user['id']);
+        $userInfo['head_img']=$userInfo['head_img']=="" ? "../Ulowi/Tpl/default/Public/images/avatar.png" : "../Uploads/pic/avatar/".$userInfo['head_img']."_m.jpg";
+        $this->assign('userInfo',$userInfo);
+        $this->assign('headerType',"M");
+        $this->display();
+    }
+    //绑定用户到微信公众号
+    public function bindViatang(){
+        if($_SERVER['REQUEST_METHOD']=="POST"){
+            $map['is_qquser']=2;
+            $map['qq_openid']=$_REQUEST['qq_openid'];
+            $username=trim($_REQUEST['login_name']);
+            $password = htmlspecialchars ( trim ( $_REQUEST["password"] ) );
+            $userEmail = base64_encode ( ulowi_encode ($username));
+            $user = M ( "User" )->where ( "(active_status=1) AND (status=1) AND (is_qquser!=2)  AND (login_name='$username' OR email2='$userEmail' ) " )->find ();
+            $password1 = md5($password);
+            $password2 = ($user['salt']=='')?$password1:md5($password1.$user['salt']);
+            if (!empty($user) &&  ($user['password'] == $password2 )) {
+                $condition['login_name']=$username;
+                $condition['password']=$password2;
+                M('User')->where($condition)->save($map);
+                $this->redirect('We/member');
+            } else {
+                $this->actionFail('member',3);
+            }
+        }else{
+        $this->assign('topContent','绑定用户');
+        $this->assign('openId',$_REQUEST['myId']);
+        $this->display();
+        }
+    }
     // 到库查询
     public function arriveQuery(){
         $this->assign('topContent','到库查询');
         $this->display();
-//        if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
-//			$openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
-//		}else{
-//			$this->processOpenid('home.html');
-//		}
-//        $this->user = $this->getUserByWechatOpenId($openid);
-//        if ($this->user) {
-//            $DAO = M ( 'ProductAgent' );
-//            $condition = '(status != 6) AND (status != 7) AND user_id=' . $this->user ['id'];
-//            $count = $DAO->where ( $condition )->count ();
-//            if ($count > 0) {
-//                $DataList = $DAO->where ( $condition )->order ( 'order_bat_id desc' )->select ();
-//                $this->assign ( 'DataList', $DataList );
-//            }
-//            $this->display ();
-//        } else {
-//            $this->redirect ( 'index' );
-//        }
     }
 //    到库查询 页面ajax
     public  function checkArrive(){
@@ -239,7 +262,8 @@ class WeAction extends HomeAction {
     public function commitPackage() {
         if($_SERVER['REQUEST_METHOD']=='POST') {
 //        $user = Session::get ( C ( 'MEMBER_INFO' ) );
-            $user = array('id' => 9358, 'login_name' => 'wsh111');
+            $user=$this->user;
+//            $user = array('id' => 9358, 'login_name' => 'wsh111');
             if ($user) {
                 $product ['user_id'] = $user ['id'];
                 $product ['user_name'] = $user ['login_name'];
@@ -354,10 +378,10 @@ class WeAction extends HomeAction {
 
     public function addtocart() {
             $IdAry = $_POST ['id'];
-//            $user_id = $this->user ['id'];
-            $user_id = 9358;
-            $user_name = "wsh111";
-//            $user_name = $this->user ['login_name'];
+            $user_id = $this->user ['id'];
+//            $user_id = 9358;
+//            $user_name = "wsh111";
+            $user_name = $this->user ['login_name'];
             $DAO = M ( 'ProductAgent' );
 
             // 将购物车商品写入自助购订单
@@ -399,6 +423,7 @@ class WeAction extends HomeAction {
 
 
     }
+
     //修改商品状态
 
     private function setStatus($pid,$sta,$uid){
@@ -420,29 +445,6 @@ class WeAction extends HomeAction {
 
     // 用户地址管理
     public function address(){
-//        $this->assign('topContent','地址管理');
-//
-//        if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
-//            $openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
-//        }else{
-//            $this->processOpenid('address.html');
-//        }
-//        $this->user = $this->getUserByWechatOpenId($openid);
-//
-//        if ($this->user) {
-//            $DataList=$this->getReceiveAddressList($this->user['id']);
-//            $count=count($DataList);
-//            if ($count > 0) {
-//                $p = new Page ( $count, 5);
-//                $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
-//                $page = $p->show ();
-//                $this->assign ( 'DataList', $DataList );
-//                $this->assign ( 'page', trim($page) );
-//                $this->display();
-//            }
-//            }else{
-//                $this->redirect('index');
-//        }
         $request=$_REQUEST;
         $op=$request['op'];
         $DAO = M ( 'Address' );
@@ -470,10 +472,10 @@ class WeAction extends HomeAction {
             $map['country']=$country[1];
             $type=$_REQUEST['type'];
             if($type=='add') {
-//                $map['user_id'] = $this->user['id'];
-                $map['user_id'] =9358;
-//                $map['user_name'] = $this->user['login_name'];
-                $map['user_name'] = "wsh111";
+                $map['user_id'] = $this->user['id'];
+//                $map['user_id'] =9358;
+                $map['user_name'] = $this->user['login_name'];
+//                $map['user_name'] = "wsh111";
                 $flag=$DAO->data($map)->add();
                 $this->pageJump($flag,"address");
             }elseif ($type=='edit'){
@@ -482,7 +484,8 @@ class WeAction extends HomeAction {
             }
         }else{
             $this->assign('topContent','地址管理');
-            $DataList = $DAO->where('user_id=9358')->limit(10)->select ();
+            $con=array('user_id'=>$this->user['id']);
+            $DataList = $DAO->where($con)->limit(10)->select ();
             $this->assign ( 'DataList', $DataList );
             $this->display ();
         }
@@ -506,12 +509,15 @@ class WeAction extends HomeAction {
         $this->display('error');
     }
     /*页面跳转*/
+    //商品管理
     public function goodM(){
         $this->assign('topContent','商品管理');
         $module=$_REQUEST['op']=="" ? "not"  :$_REQUEST['op'];
         $DAO = M ( 'ProductAgent' );
-        $condition = '(status != 5) AND (status != 6) AND (status != 7) AND user_id=9358';
-        $arrivedCount=$DAO->where('status=5 and user_id=9358')->count();
+        $user_id=$this->user['id'];
+
+        $condition = "(status != 5) AND (status != 6) AND (status != 7) AND user_id=$user_id";
+        $arrivedCount=$DAO->where("status=5 and user_id=$user_id")->count();
         $count = $DAO->where ( $condition )->count ();
         $this->assign('count',$count);
         $this->assign('arrivedCount',$arrivedCount);
@@ -531,7 +537,7 @@ class WeAction extends HomeAction {
                 $p->setConfig ( 'first', '1' );
                 $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
                 $page = $p->show ();
-                $DataList=$DAO->where('status=5 and user_id=9358')->limit ( $p->firstRow . ',' . $p->listRows )->select();
+                $DataList=$DAO->where("status=5 and user_id=$user_id")->limit ( $p->firstRow . ',' . $p->listRows )->select();
                 $this->assign('DataList',$DataList);
                 $this->assign ( 'page', trim($page) );
                 $this->display('goodM_arrive');
@@ -573,17 +579,17 @@ class WeAction extends HomeAction {
 //        if ($this->user) {
             $this->assign('topContent','我的包裹');
             $this->dao = M ( 'Package' );
-            $count = $this->dao->where ( "status<>7 AND user_id=9358" )->count ();
+            $user_id=$this->user['id'];
+            $count = $this->dao->where ( "status<>7 AND user_id=$user_id" )->count ();
             if ($count > 0) {
-                //import ( 'ORG.Util.Page' );
                 $p = new Page ( $count, 8 );
                 $p->setConfig ( 'first', '1' );
                 $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
                 $page = $p->show ();
-                $DataList = $this->dao->where ( 'status<>7 AND user_id=9358' )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_time desc' )->select ();
+                $DataList = $this->dao->where ( "status<>7 AND user_id=$user_id")->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_time desc' )->select ();
                 $this->assign ( 'DataList', $DataList );
                 $this->assign ( 'page', trim($page) );
-                $this->assign('userId',9358);
+                $this->assign('userId',$user_id);
             }
 //        }
 
@@ -593,6 +599,8 @@ class WeAction extends HomeAction {
 
 //     包裹评论
     public function comment(){
+//        $user_id=$this->user['id'];
+//        $login_name=$this->user['login_name'];
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $id=trim($_REQUEST['id']);
             $PackageDAO = M('Package');
@@ -604,10 +612,10 @@ class WeAction extends HomeAction {
                 $data['way_id'] 	= $package['deliver_id'];
                 $data['way_name'] 	= $package['deliver_way'];
                 $data['country']	= $package['country'];
-                $data['user_id'] 	= 9358;
-//                $data['user_id'] 	= $this->user['id'];
-                $data['user_name']	= "wsh111";
-//                $data['user_name']	= $this->user['login_name'];
+//                $data['user_id'] 	= $user_id;
+                $data['user_id'] 	= $this->user['id'];
+//                $data['user_name']	= "wsh111";
+                $data['user_name']	= $this->user['login_name'];
                 $data['content']	= trim($_REQUEST['review']);
                 $data['ip']		= get_client_ip();
 
@@ -637,40 +645,8 @@ class WeAction extends HomeAction {
 		$this->assign('openid',$_REQUEST['openid']);
 		$this->display();
 	}
-    // -------------------------------------------------------------------------------------------
-    // 公告详情
-//    public function arriveQuery(){
-//        $this->dao = M('Announce');
-//        $this->_load();
-//        $this->assign("item",$this->view->get('vo'));
-//        $this->assign('openid',$_REQUEST['openid']);
-//        $this->display();
-//    }
-//// -------------------------------------------------------------------------------------------
-//    // 公告详情
-//    public function detail(){
-//        $this->dao = M('Announce');
-//        $this->_load();
-//        $this->assign("item",$this->view->get('vo'));
-//        $this->assign('openid',$_REQUEST['openid']);
-//        $this->display();
-//    }
-//// -------------------------------------------------------------------------------------------
-//    // 公告详情
-//    public function detail(){
-//        $this->dao = M('Announce');
-//        $this->_load();
-//        $this->assign("item",$this->view->get('vo'));
-//        $this->assign('openid',$_REQUEST['openid']);
-//        $this->display();
-//    }
-
-
-    //------------------------------------------------------------------------------------------------
-
-	
 	// -------------------------------------------------------------------------------------------
-	// 微信推送入口
+	// 首页
 	public function index() {
 //	    echo time();
 //        $CommentList=D("CommentView")->limit('0,5')->select();
@@ -1274,7 +1250,13 @@ class WeAction extends HomeAction {
 	// 根据微信openid 加载用户信息
 	private function getUserByWechatOpenId($_openid) {
 		if (! empty ( $_openid )) {
-			return M ( 'User' )->field ( 'id,login_name' )->where ( "wechat_openid='$_openid'" )->find ();
+		    $condition=array('qq_openid'=>$_openid,"is_qquser"=>2);
+            $flag=M ( 'User' )->field ( 'id,login_name' )->where ($condition)->find ();
+            if($flag){
+                return  $flag;
+            }else{
+                $this->redirect("We/bindViatang/myId/$_openid");
+            }
 		}
 		return false;
 	}

@@ -1,0 +1,33 @@
+<include file="baseHead" />
+<div class="am-g">
+    <div class="am-u-sm-12 am-margin-top-xl">
+        <form class="am-form am-form-horizontal" action="We/bindViatang" method="post">
+            <input type="hidden" name="qq_openid" value="{$openId}">
+            <div class="am-form-group">
+                <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">登陆名:</label>
+                <div class="am-u-sm-9">
+                    <input type="text" name="login_name" required id="doc-ipt-3" placeholder="输入您的唯唐账户">
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">密码:</label>
+                <div class="am-u-sm-9">
+                    <input type="password" name="password" required id="doc-ipt-pwd-2" placeholder="输入您的唯唐密码">
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-offset-3">
+                    <button type="submit" class="am-btn am-btn-danger">绑定我的唯唐账号</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+</div>
+<include file="totop" />
+<include  file="footer" />
+</body>
+</html>
