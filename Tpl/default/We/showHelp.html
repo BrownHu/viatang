@@ -1,0 +1,30 @@
+<include file="baseHead" />
+<div class="am-g am-margin-top-sm">
+    <volist  name="HelpList" id='vo' >
+        <div class="am-u-sm-12 waitconfirm-body">
+            <div class="am-panel am-panel-default waitconfirm-body-inf">
+                <div class="am-text-truncate am-panel-hd .am-text-truncate" data-am-collapse="{parent: '#accordion', target:'#do-not-say-<php>echo $i;</php>'}">
+                    <span><i class="am-icon am-icon-question"></i></span><span class="am-margin-left-xs">{$vo.title}</span>
+                </div>
+                <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det <php>if($i==1){echo 'am-in';}</php>">
+                    <div class="am-panel-bd">
+                        <blockquote>
+                            <p class="am-margin-bottom-sm"><b><span><i class="am-icon am-icon-reply-all"></i></span><span>回复：{$vo.title}</span></b></p>
+                            {$vo.content}
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="am-panel-footer" align="right" style="padding:0;">
+                    <span style="margin-right: 2%;font-size: 14px;"></span>
+                </div>
+            </div>
+        </div>
+    </volist>
+    <small class="am-margin-left-sm"><span class="am-margin-right-xs"><i class="am-icon am-warning am-icon-warning"></i></span>更多问题请访问唯唐主站(www.viatang.com)</small>
+
+</div>
+<include file="totop" />
+</div>
+<include  file="footer" />
+</body>
+</html>

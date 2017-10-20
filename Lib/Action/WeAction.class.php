@@ -105,11 +105,10 @@ class WeAction extends HomeAction {
         $this->display();
     }
 	public function home(){
-        $topNavType="M";
         $userInfo=M('User')->find(9358);
         $userInfo['head_img']=$userInfo['head_img']=="" ? "../Ulowi/Tpl/default/Public/images/avatar.png" : "../Uploads/pic/avatar/".$userInfo['head_img']."_m.jpg";
         $this->assign('userInfo',$userInfo);
-        $this->assign('topNavType',$topNavType);
+        $this->assign('headerType',"M");
         $this->display('member');
 
 //        $topContent="查询物流";
@@ -677,9 +676,11 @@ class WeAction extends HomeAction {
 //        $CommentList=D("CommentView")->limit('0,5')->select();
 //        var_dump($CommentList);
 //            die();
+        $this->assign('headerType',"H");
+        $HelpList = M ( 'Help' )->field('id,title')->where ( 'category_id=11' )->limit ( '1,5' )->order ( 'sort asc' )->select ();
         $AnnounceList = M ( 'Announce' )->field('id,title,last_update')->order ( 'last_update desc' )->limit ( '0,4' )->select ();
         $this->assign ( 'AnnounceList', $AnnounceList );
-        $this->assign('headerType',"H");
+        $this->assign ( 'HelpList', $HelpList );
         $this->display();
 
 //			$WechatClient = !empty($this->wechat_token) ? new Wechat ( $this->wechat_token ) : false;
@@ -709,8 +710,28 @@ class WeAction extends HomeAction {
 //		}
 
 	}
+	/*问题回复*/
+	public  function   showHelp(){
+        $DAO = D('Help');
+        $op=$_REQUEST['op'];
+        switch ($op){
+            case 'more':
+                $this->assign('topContent','常见问题列表');
+                $HelpList = M ( 'Help' )->where ( 'category_id=11' )->limit ( '1,20' )->order ( 'sort asc' )->select ();
+                $this->assign('HelpList',$HelpList);
+                $this->display();
+                break;
+            case "detail":
+                $this->assign('topContent','问题详情');
+                $id=$_REQUEST['id'];
+                $entity = $DAO->where("id=$id")->find();
+                $this->assign('faq',$entity);
+                $this->display('help_detail');
+        }
+    }
+
 	public function news(){
-        $this->assign('topContent','到库查询');
+        $this->assign('topContent','新闻公告');
         $id=$_REQUEST['id'];
         $news=M ( 'Announce' )->find ($id);
         $this->assign('news',$news);
