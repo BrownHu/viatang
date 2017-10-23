@@ -42,7 +42,7 @@ class WeAction extends HomeAction {
 		if( !isset($_SESSION ['WechatState']) ){
 			$_SESSION ['WechatState'] = md5 ( uniqid ( rand (), TRUE ) );
 		}
-		$NotNeedMember=array('index','waybillSearch','news','home','pageJump','bindViatang','actionSuccess','actionFail','showHelp');
+		$NotNeedMember=array('index','judgeUserByOpenid','waybillSearch','news','home','pageJump','bindViatang','actionSuccess','actionFail','showHelp');
         if (in_array($action,$NotNeedMember,true)==false){
             if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId'])){
                 $openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
@@ -139,33 +139,16 @@ class WeAction extends HomeAction {
 		$this->display();
 	}
 //hubing start
-//微信推送入口
+//主页
     public function  home(){
-//        $WechatClient = !empty($this->wechat_token) ? new Wechat ( $this->wechat_token ) : false;
-//			$WechatRequest = ($WechatClient) ? $WechatClient->request () : false;
-//
-//			 if ($WechatRequest && is_array ( $WechatRequest)) {
-//				$_openid = $WechatRequest ['FromUserName'] ;
-//
-//				if (strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_EVENT) {
-//					if (strtoupper ( $WechatRequest['Event'] ) == Wechat::MSG_EVENT_CLICK) {
-//						if ($this->getUserByWechatOpenId ($_openid) != false) {
-//							$content = $this->eventRoute($WechatRequest,$_openid);
-//						} else {
-//							$content = '为了更好地为您服务，请先'
-//									 . '<a href="'. $this->_server_url . 'register.html?oid='.$_openid.'">'
-//									 . '绑定系统帐号哦'
-//									 . '</a>';
-//						}
-//
-//						$WechatClient->replyText ( $content );
-//					}
-//				}elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_TEXT){
-//
-//				}elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_IMAGE){
-//
-//				}
-//		}
+        /*start*/
+        $this->assign('headerType',"H");
+        $HelpList = M ( 'Help' )->field('id,title')->where ( 'category_id=11' )->limit ( '1,5' )->order ( 'sort asc' )->select ();
+        $AnnounceList = M ( 'Announce' )->field('id,title,last_update')->order ( 'last_update desc' )->limit ( '0,4' )->select ();
+        $this->assign ( 'AnnounceList', $AnnounceList );
+        $this->assign ( 'HelpList', $HelpList );
+        $this->display('index');
+        /*end*/
     }
 
 
@@ -646,18 +629,37 @@ class WeAction extends HomeAction {
 		$this->display();
 	}
 	// -------------------------------------------------------------------------------------------
-	// 首页
+	// 微信入口
 	public function index() {
-//	    echo time();
-//        $CommentList=D("CommentView")->limit('0,5')->select();
-//        var_dump($CommentList);
-//            die();
-        $this->assign('headerType',"H");
-        $HelpList = M ( 'Help' )->field('id,title')->where ( 'category_id=11' )->limit ( '1,5' )->order ( 'sort asc' )->select ();
-        $AnnounceList = M ( 'Announce' )->field('id,title,last_update')->order ( 'last_update desc' )->limit ( '0,4' )->select ();
-        $this->assign ( 'AnnounceList', $AnnounceList );
-        $this->assign ( 'HelpList', $HelpList );
-        $this->display();
+        $WechatClient = !empty($this->wechat_token) ? new Wechat ( $this->wechat_token ) : false;
+        $WechatRequest = ($WechatClient) ? $WechatClient->request () : false;
+        if ($WechatRequest && is_array ( $WechatRequest)) {
+            $_openid = $WechatRequest ['FromUserName'] ;
+
+            if (strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_EVENT) {
+                if (strtoupper ( $WechatRequest['Event'] ) == Wechat::MSG_EVENT_CLICK) {
+                    if ($this->judgeUserByOpenid ($_openid) != false) {
+                        $content = $this->eventRoute($WechatRequest,$_openid);
+                    } else {
+                        $content = '为了更好地为您服务，请先'
+//									 . '<a href="'. $this->_server_url . 'register.html?oid='.$_openid.'">'
+                            . '绑定系统帐号哦';
+//									 . '</a>';
+                    }
+                    $WechatClient->replyText ( $content );
+                }
+            }elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_TEXT){
+//				    暂不考虑其他关键字
+                $content=$WechatRequest['Content'];
+                $content= $content== "公众号测试" ? $this->_server_url."home" : "唯唐代购欢迎您";
+                $WechatClient->replyText($content);
+
+            }elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_IMAGE){
+                $WechatClient->replyText("viatang");
+
+
+            }
+        }
 
 //			$WechatClient = !empty($this->wechat_token) ? new Wechat ( $this->wechat_token ) : false;
 //			$WechatRequest = ($WechatClient) ? $WechatClient->request () : false;
@@ -1260,7 +1262,14 @@ class WeAction extends HomeAction {
 		}
 		return false;
 	}
-
-	
+    private   function  judgeUserByOpenid($_openid){
+        $bool=false;
+        if (! empty ( $_openid )) {
+            $condition=array('qq_openid'=>$_openid,"is_qquser"=>2);
+            $flag=M ( 'User' )->field ( 'id,login_name' )->where ($condition)->find ();
+            $bool=$flag ?  true :false ;
+        }
+        return $bool;
+    }
 }
 ?>

@@ -105,8 +105,11 @@ class PublicAction extends Action {
 		}
 		
 		if ((strpos ( $username, "'" ) > 0) || (strpos ( $password, "'" ) > 0)) { $this->goError ( L('public_input_error') );}
-		$user = M ( "User" )->where ( "(active_status=1) AND (status=1) AND (is_qquser=0)  AND (login_name='$username' OR email2='$userEmail' ) " )->find ();
-	
+		/*for  wechat  login temp hide*/
+//		$user = M ( "User" )->where ( "(active_status=1) AND (status=1) AND (is_qquser=0)  AND (login_name='$username' OR email2='$userEmail' ) " )->find ();
+        /*end*/
+		$user = M ( "User" )->where ( "(active_status=1) AND (status=1) AND (login_name='$username' OR email2='$userEmail' ) " )->find ();
+
 		$password1 = md5($password);
 		$password2 = ($user['salt']=='')?$password1:md5($password1.$user['salt']);
 		if (!empty($user) && ($user['password'] != '')  &&  ($user['password'] == $password2 )) {
