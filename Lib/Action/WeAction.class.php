@@ -43,7 +43,7 @@ class WeAction extends HomeAction {
             $_SESSION ['WechatState'] = md5 ( uniqid ( rand (), TRUE ) );
         }
 
-        $NeedMember=array('member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
+        $NeedMember=array('cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
         if (in_array($action,$NeedMember,true)){
             if( isset($_SESSION ['WechatAuthOpenId'] )|| isset($_REQUEST['openid'])){
                 $openid = isset($_SESSION ['WechatAuthOpenId'] )? $_SESSION ['WechatAuthOpenId'] : $_REQUEST['openid']  ;
@@ -151,7 +151,221 @@ class WeAction extends HomeAction {
         $this->display('index');
         /*end*/
     }
+    /*我的送货车*/
+    public function  cart(){
+        $this->assign('topContent','我的送货车');
+        $DAO = M ( 'ShippingCart' );
+        $condition = 'user_id=' . $this->user ['id'];
+        $count = $DAO->where ( $condition )->count ();
+        if ($count > 0) {
+            $p = new Page ( $count, 8 ); // C ( 'NUM_PER_PAGE' )
+            $p->setConfig ( 'first', '1' );
+            $p->setConfig ( 'theme', '%upPage% %first%  %linkPage%  %downPage%' );
+            $page = $p->show ();
+            $DataList = $DAO->where ( $condition )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_at desc' )->select ();
+            $this->assign ( 'DataList', $DataList );
+            $this->assign ( 'page', trim($page) );
+        }
+        $this->display ();
+    }
+    /*展示待打包商品*/
+    public function cartStep2(){
+        $this->assign('topContent','打包运送');
+        $DAO=M ('ShippingCart');
+        $IdAry = $_REQUEST['id'];
+        $ids = $this->buildIdstr ( $IdAry );
+        $weight_total = 0;
+        $package_weight = 0;
+        $count = $DAO->where ( "id in ($ids) AND user_id=" . $this->user ['id'] )->count ();
+        $DataList = $DAO->field ( 'title,count,img,total_weight,type' )->where ( "id in ($ids) AND user_id=" . $this->user ['id'] )->select ();
+        $this->assign ( 'DataList', $DataList );
+        $this->assign ( 'count', $count );
+        //计算商品总重量
+        $weight_total = $this->computeProductWeight ( $ids ); //商品重量
+        $package_weight = $weight_total * 0.1; //包装重理
+        $this->assign ( 'weight_total', $weight_total );
+        $this->assign ( 'package_weight', $package_weight );
+        $this->assign ( 'ids', $ids ); //传递打包商品id列表
+        $this->display();
 
+    }
+    /*选择运输方式*/
+    public function  cartStep3(){
+            $ids = trim ( $_POST ['ids'] );
+            $countryList = M ( 'DeliverZone' )->where ( 'status = 1' )->order ( 'sort asc' )->select ();
+            //计算商品总重量
+            $package_weight = $this->computeProductWeight ( $ids );
+            $this->assign ( 'PackageWeight', $package_weight * 1.1 );
+            $this->assign ( 'CountryList', $countryList );
+            $this->assign ( 'InsureRate', $this->getInsureRate () );
+            $this->assign ( 'ids', $ids ); //将需打包商品id列表回传
+            $this->display();
+    }
+    //保险费比例
+    private function getInsureRate() {
+        $InsureRate = M ( 'FinaceConfig' )->where ( "item='" . C ( 'INSURE_RATE' ) . "'" )->find ();
+        return ($InsureRate && ($InsureRate ['value'] > 0)) ? $InsureRate ['value']:5;
+    }
+    //取得配送方式列表
+    public function way_lst() {
+        $zid = $_GET ['zid'];
+        $weight = $_GET ['w'];
+        if (empty ( $weight )) {
+            $weight = 0;
+        }
+        $tr_hd = '<tr style="font-weight:bold;"><td align="left" width="100">运送方式</td><td>首重(g) </td><td>起价(￥) </td><td>续重(g) </td><td>续价(￥) </td><td>限重(kg)</td></tr> ';
+        $emp_str = '<tr><td align="left" bgcolor="#FFFFFF"> - </td>' . '<td bgcolor="#FFFFFF">0</td>' . '<td bgcolor="#FFFFFF">0</td>' . '<td bgcolor="#FFFFFF">0</td>' . '<td bgcolor="#FFFFFF">0</td>'  . '</tr>';
+
+        if ($zid) {
+            $result = '';
+            $DataList =  M('DeliverAddress')->where ( "status = '1' AND zone_id=$zid" )->order ( 'id' )->select ();
+
+            foreach ( $DataList as $key => $value ) {
+                if (($weight <= 8000) && ($value ['shipping_way'] == '海运')) {
+                }elseif( ($weight <10100) && (trim($value ['shipping_way']) == '专线11-100kg') ){
+                }elseif( ($weight >10000) && (trim($value ['shipping_way']) == '专线11kg以内') ){
+                }elseif( ($weight <12000) && (trim($value ['shipping_way']) == '12Kg以上大货专线') ){
+                }elseif( ($weight <21000) && (trim($value ['shipping_way']) == '21Kg以上大货专线') ){
+                }elseif( ($weight <4000) && (($value ['shipping_way'] == 'SAL水陆联运') || ($value ['shipping_way'] == 'AIR 2kg以上') ) ){
+                }else{
+                    $result .= '<tr><td align="left" bgcolor="#FFFFFF"><input type="radio" name="pg_shipping_method[]"  value="' . $value ['id'] . '" onclick="shipping( ' . $value ['id'] . ');setLimitWeight(' . $value ['limit_weight'] * 1000 . ');" />' . $value ['shipping_way'] . '</td>' . '<td bgcolor="#FFFFFF">' . $value ['start_weight'] . '</td>' . '<td bgcolor="#FFFFFF">' . $value ['start_price'] . '</td>' . '<td bgcolor="#FFFFFF">' . $value ['continue_weight'] . '</td>' . '<td bgcolor="#FFFFFF">' . $value ['continue_price'] . '</td>' . '<td bgcolor="#FFFFFF" style="color:#f60;font-weight:bold;">' . $value ['limit_weight'] . '</td></tr> ';
+                }
+            }
+
+            if (strlen ( $result ) > 0) {
+                echo $tr_hd . $result;
+            } else {
+                echo $tr_hd . $emp_str;
+            }
+        } else {
+            echo $tr_hd . $emp_str;
+        }
+    }
+//    商品转运 计算费用
+    public function computefee() {
+        $id = trim ( $_POST ['wid'] );
+        $weight = trim ( $_POST ['pw'] );
+        $ids = trim ( $_POST ['ids'] );
+        $insure = trim ( $_POST ['insure'] ); //是否参加保险
+        if ($id && $weight && $ids) {
+            $data = $this->doComputeFee ( $id, $weight, $ids, $insure );
+            if ($data) {
+                $this->ajaxReturn ( $data, L('package_cal_result'), 1 );
+            } else {
+                $this->ajaxReturn ( null, L('package_parameter_error'), 0 );
+            }
+        } else {
+            $this->ajaxReturn ( null, L('package_parameter_error'), 0 );
+        }
+    }
+    // 取报关费
+    private function getCustomFee($id) {
+        if (!is_numeric($id) ) { return 8; }
+        $way =  M('DeliverAddress')->where ( "id=$id" )->find ();
+        return ($way && is_numeric($way ['customfee']) ) ? $way ['customfee'] : 8;
+    }
+    //----------------------------------------------------------------------------------------
+    //计算运费，服务费，保险费
+    private function doComputeFee($wid, $pw, $ids, $tag) {
+        if ($wid && $pw && $ids) {
+            $shippingFee = $this->doShippingFee ( $wid, $pw ); //计算运费
+            $ServiceFeeDaigou = $this->checkDaigouProductServiceFee ( $ids,$wid ); //核查代购部份商品的服务费
+            $ServiceFeeShipping = $this->doShippingServiceFee ( $wid, $shippingFee ); //计算运费部份服务费
+            $CustomFee = $this->getCustomFee ( $wid );
+            $ProductFee = $this->computeProductFee ( $ids );
+            if ($tag) {
+                $InsureRate = $this->getInsureRate ();
+                $InsureFee = (($ProductFee + $shippingFee) * $InsureRate) / 100; //保险费
+            } else {
+                $InsureFee = 0;
+            }
+
+            $totalFee = $shippingFee + $ServiceFeeDaigou + $ServiceFeeShipping + $CustomFee + $InsureFee +8;
+            $data ['shippingFee'] = round ( $shippingFee, 2 );
+            $data ['serviceFee'] = round ( $ServiceFeeDaigou + $ServiceFeeShipping, 2 );
+            //if(floatval($data ['serviceFee']) < $this->min_serve_fee ) {$data ['serviceFee'] = $this->min_serve_fee;}
+            $data ['insureFee'] = round ( $InsureFee, 2 ); //险费
+            $data ['customFee'] = round ( $CustomFee, 2 );
+            $data ['totalFee'] = round ( $totalFee, 2 ); //只保留两位小数
+            $data ['serveFeeDaigou'] = round ( $ServiceFeeDaigou, 2 ); //代购商品的服务费
+            $data ['serveFeeShiping'] = round ( $ServiceFeeShipping, 2 ); //运费部份服务费
+            $data['package_material_fee'] = 8;
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    //计算打包商品的金额
+    private function computeProductFee($ids) {
+        return ($ids) ?  M ('ShippingCart')->where ( "id in ($ids) AND type=1" )->sum ( 'product_fee' ) : 0; //只统计代购商品结算时金额
+    }
+    //计算运费部份的服务费
+    private function doShippingServiceFee($wid, $shippingFee) {
+        if ($wid && $shippingFee) {
+            $way = M('DeliverAddress')->where ( "id=$wid" )->find ();
+            $serviceRate =($way && $way ['rate'] > 0) ?  $way ['rate'] : $this->getServiceRate () ;
+            return ($shippingFee * $serviceRate) / 100;
+        }
+        return 0;
+    }
+// 服务费
+    private function getServiceRate() {
+        $entity = M ( 'FinaceConfig' )->where ( "item='serve_rate'" )->find ();
+        return ($entity && is_numeric($entity ['value'])) ?$entity ['value']:0;
+    }
+    private function getShippingServiceRate($wid){
+        if ($wid) {
+            $way = M('DeliverAddress')->where ( "id=$wid" )->find ();
+            $serviceRate = ($way && is_numeric($way ['rate']) ) ?  $way ['rate'] :0 ;
+            return $serviceRate;
+        }
+        return 0;
+    }
+
+    //检查代购部份商品服务费
+    private function checkDaigouProductServiceFee($ids,$wid) {
+        $result = 0;
+        if ($ids && ($ids != '')) {
+            $DataList = M ('ShippingCart')->field ( 'product_fee,service_rate' )->where ( "id in ($ids) AND type=1 AND service_fee=0" )->select ();
+            foreach ( $DataList as $item ) {
+                $serviceRate = $this->getShippingServiceRate($wid);//$item ['service_rate'];
+                $result = $result + ($item ['product_fee'] * $serviceRate) / 100;
+            }
+        }
+        return $result;
+    }
+    //根据重量和运输方式计算运费
+    private function doShippingFee($wid, $weight) {
+        $result = 0;
+        if ($wid && $weight) {
+            $way = M('DeliverAddress')->where ( "id=$wid" )->find ();
+            if ($way) {
+                if ($weight <= $way ['start_weight']) {
+                    $result = $way ['start_price'];
+                } else {
+                    $unit = ceil ( ($weight - $way ['start_weight']) / $way ['continue_weight'] );
+                    $result = $way ['start_price'] + $way ['continue_price'] * $unit;
+                }
+            }
+        }
+        return $result;
+    }
+    //计算打包商品总重量
+    private function computeProductWeight($ids) {
+        return ($ids) ? floatval ( M ('ShippingCart')->where ( "id in ($ids)" )->sum ( 'total_weight' ) ) : 0;
+    }
+    //根据 数据生成id串
+    private function buildIdstr($idAry) {
+        $result = '';
+        if ($idAry && is_array ( $idAry )) {
+            foreach ( $idAry as $id ) {
+                $item = explode ( '.', $id );
+                $result = $result . ',' . $item [2];
+            }
+            $result = ltrim ( $result, ',' );
+        }
+        return $result;
+    }
 
     /*会员中心*/
     public function member(){
@@ -160,6 +374,21 @@ class WeAction extends HomeAction {
         $this->assign('userInfo',$userInfo);
         $this->assign('headerType',"M");
         $this->display();
+    }
+    //会员详细信息
+    public function  memberInfo(){
+        $this->assign('topContent','我的信息');
+        $finance = D ( 'Finance' )->finace ( $this->user ['id'] );
+        if ($finance) {
+            $this->assign ( 'balance', $finance ['money'] ); // 余额
+            $this->assign ( 'consumption_total', $finance ['consumption_total'] );
+        }
+        $userInfo=M('User')->find($this->user['id']);
+        $userInfo['head_img']=$userInfo['head_img']=="" ? "/Ulowi/Tpl/default/Public/images/avatar.png" : "/Uploads/pic/avatar/".$userInfo['head_img']."_m.jpg";
+        $this->assign('userInfo',$userInfo);
+        $this->display('member_info');
+
+
     }
     //绑定用户到微信公众号
     public function bindViatang(){
@@ -990,11 +1219,7 @@ class WeAction extends HomeAction {
     }
 
     //--------------------------------------------------------------------------------------------
-    // 取报关费
-    private function getCustomFee() {
-        $entity = M ( 'FinaceConfig' )->where ( "item='custom'" )->find ();
-        return  ($entity && ($entity ['value'] > 0)) ? $entity ['value'] :0.07;
-    }
+
 
     // -------------------------------------------------------------------------------------------
     //检查包裹是否有申报过

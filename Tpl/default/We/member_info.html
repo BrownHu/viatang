@@ -1,0 +1,55 @@
+<inlcude file="baseHead" />
+    <div class="am-g user-inf">
+        <div class="am-u-lg-12" style="margin-top: 20px;">
+            <div class="am-alert am-alert-secondary" data-am-alert style="background: #FFFFFF;">
+                <table class="" style="width: 100%;">
+                    <tr>
+                        <td style="width: 50px;height: 50px;padding:0;" align="center">
+                            <img src="{$userInfo['head_img']}" class="am-img-thumbnail am-circle" width="50" height="50">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">{$userInfo.login_name}</td>
+                    </tr>
+                    <tr>
+                        <td align="center">{$userInfo.email}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="pet_grzx_num">
+                                <span style="color: #F37B1D;">￥{$balance|default=0}<i><b>现金余额:</b></i></span>
+                                <span style="color: #F37B1D;" onclick="NavJump('commitPackage')">{$consumption_total|abs="###"}<i><b>消费总额</b></i></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="am-u-lg-12" style="margin-top: 10px;">
+            <ul class="am-list am-list-static am-list-border">
+                <li>
+                    昵称：<span class="am-fr">{$userInfo.nick}</span>
+                </li>
+                <li>
+                    邮箱：
+                    <span class="am-fr">
+                        {$userInfo.email}
+                    </span>
+                </li>
+                <li style="padding: 2px;background-color:#eff1f3;"></li>
+
+                <li onclick="NavJump('recharge')">
+                     余额充值				  	</li>
+
+                <li onclick="NavJump('address')">
+                    地址管理				  	</li>
+
+            </ul>
+        </div>
+    </div>
+<include file="totop" />
+</div>
+</body>
+</html>
+
+

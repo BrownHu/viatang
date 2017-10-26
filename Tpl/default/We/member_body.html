@@ -7,7 +7,7 @@
 					    	<img class="am-radius" alt="我是头像" src="{$userInfo.head_img}" width="50" height="50" />
 					    </td>
 					    <td style="padding-left: 20px;">{$userInfo.login_name}</td>
-					    <!--<td rowspan="2" class="am-text-middle" align="center" onClick="window.location.href='#'"><i class="am-icon-gear"></i></td>-->
+					    <td rowspan="2" class="am-text-middle" align="center" onclick="NavJump('memberInfo')"><i class="am-icon-gear"></i></td>
 				  	</tr>
 				  	<tr>
 					    <td style="padding-left: 20px;">{$userInfo.email}</td>
@@ -29,9 +29,14 @@
 			    	<i class="am-icon-spinner am-icon-fw" style="color:#a02bfa;"></i>&nbsp;&nbsp;商品管理			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
 			    	<hr class="line">
 			  	</li>
+				<li onclick="NavJump('cart')" >
+					<i class="am-icon-truck am-icon-fw" style="color:#0E90D2;"></i>&nbsp;&nbsp;我的送货车			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
+					<hr class="line">
+				</li>
 			  	<li onclick="NavJump('parcel')" >
 			    	<i class="am-icon-plane am-icon-fw" style="color:#0E90D2;"></i>&nbsp;&nbsp;我的包裹			    	<i class="am-icon-chevron-right" aria-hidden="true"></i>
 			  	</li>
+
 			</ul>
 		</div>
 		<div class="am-u-lg-12">

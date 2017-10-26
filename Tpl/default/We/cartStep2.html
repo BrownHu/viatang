@@ -1,0 +1,54 @@
+<include  file="baseHead" />
+<!--body start -->
+<div class="am-g  am-margin-top-sm">
+    <form class="am-form am-form-horizontal" action="cartStep3" method="post">
+        <input type="hidden" name="ids" value="{$ids}">
+        <div class="am-u-sm-12" class="am-animation-fade" >
+
+            <div class="am-scrollable-horizontal" style="">
+                <table class="am-table am-text-center am-table-bordered am-table-striped am-table-hover am-text-nowrap">
+                    <tr>
+                        <td>商品名称</td>
+                        <td>重量(g)</td>
+                        <td>数量</td>
+                        <td>类别</td>
+                    </tr>
+                    <volist name="DataList" id="vo">
+                        <tr class="am-active">
+                            <td>{$vo.title}</td>
+                            <td>{$vo.total_weight|default="-"}</td>
+                            <td>{$vo.count}</td>
+                            <td>
+                                <switch name="vo.type">
+                                    <case value="1">代购</case>
+                                    <case value="2">国际转运</case>
+                                </switch>
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+            </div>
+        </div>
+        <div class="am-u-sm-12">
+                <div style="text-align:right;font-size: 10px;">包裹总重量:<strong>{$weight_total + $package_weight}</strong>g = 商品总重量:<strong>{$weight_total}</strong>g &nbsp;+&nbsp;包装重量约为:<strong>{$package_weight}</strong>g(商品总重量*0.1)<br></div>
+        </div>
+        <div class="am-form-group am-margin-top-xl">
+            <div class="am-u-sm-11 am-u-sm-offset-1">
+                <button type="button" onclick="window.history.back()" class="am-btn am-btn-danger  am-inline">
+                    <i class="am-arrow-left"></i>
+                    上一步
+                </button>
+                <button type="submit"  class="am-btn am-inline am-btn-success  am-margin-left-sm">
+                    <i class="am-arrow-right"></i>
+                    下一步,选择送货方式
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--body end-->
+</div>
+<include file="footer" />
+<include file='totop' />
+</body>
+</html>
