@@ -148,6 +148,16 @@ if(way == 'sf') return  736;
 return 1000;}
 function show_other(a,wid,aid){ if(a == 1){ $('#way_id').val('0'); $('#address_id').val('0'); $('#show_table').show(); $('#add_review').show(); }else{ $('#way_id').val(wid); $('#address_id').val(aid); $('#show_table').hide(); $('#add_review').hide();}}
 function select_country(a){var v = a.value.split("|");if(v[0] == '7' || v[0] == '17' || v[0] == '24'){ $('#country').val(''); $('#show_write_country').show();}else{ $('#country').val(v[1]);$('#show_write_country').hide();} $('#way_id').val(v[0]);}
-function sendform(){if( ($('#zone_id').val() == $('#way_id').val() ) || ($('#zone_id').val() == 5) ){ $('#order_form').submit();}else{	alert(' 您选择的收货地址与运费计算时选择的送货区域不一致!您可以点击“使用其它地址”，手工输入。');}}
+function sendform(){
+
+    alert($('#zone_id').val())
+    $('#way_id').val()
+    return false
+    if( ($('#zone_id').val() == $('#way_id').val() ) || ($('#zone_id').val() == 5) ) {
+        $('#order_form').submit();
+    }else{
+        alert(' 您选择的收货地址与运费计算时选择的送货区域不一致!您可以点击“使用其它地址”，手工输入。');
+    }
+}
 </script> 
 <include file="Public:bottom" />

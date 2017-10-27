@@ -36,6 +36,7 @@ class WeAction extends HomeAction {
     // -------------------------------------------------------------------------------------------
     // 初始化
     function _initialize() {
+
         $action=ACTION_NAME;
         $this->wechat_token = 'ZLinkDaigouCMS';
         $this->_server_url = 'http://www.viatang.com/we/';//C('SITE_URL')
@@ -43,7 +44,7 @@ class WeAction extends HomeAction {
             $_SESSION ['WechatState'] = md5 ( uniqid ( rand (), TRUE ) );
         }
 
-        $NeedMember=array('cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
+        $NeedMember=array('cartCommit',"comment",'cartStep4','cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
         if (in_array($action,$NeedMember,true)){
             if( isset($_SESSION ['WechatAuthOpenId'] )|| isset($_REQUEST['openid'])){
                 $openid = isset($_SESSION ['WechatAuthOpenId'] )? $_SESSION ['WechatAuthOpenId'] : $_REQUEST['openid']  ;
@@ -168,38 +169,418 @@ class WeAction extends HomeAction {
         }
         $this->display ();
     }
+
     /*展示待打包商品*/
     public function cartStep2(){
         $this->assign('topContent','打包运送');
         $DAO=M ('ShippingCart');
         $IdAry = $_REQUEST['id'];
         $ids = $this->buildIdstr ( $IdAry );
-        $weight_total = 0;
-        $package_weight = 0;
-        $count = $DAO->where ( "id in ($ids) AND user_id=" . $this->user ['id'] )->count ();
-        $DataList = $DAO->field ( 'title,count,img,total_weight,type' )->where ( "id in ($ids) AND user_id=" . $this->user ['id'] )->select ();
-        $this->assign ( 'DataList', $DataList );
-        $this->assign ( 'count', $count );
-        //计算商品总重量
-        $weight_total = $this->computeProductWeight ( $ids ); //商品重量
-        $package_weight = $weight_total * 0.1; //包装重理
-        $this->assign ( 'weight_total', $weight_total );
-        $this->assign ( 'package_weight', $package_weight );
-        $this->assign ( 'ids', $ids ); //传递打包商品id列表
-        $this->display();
+        if ($ids) {
+            $weight_total = 0;
+            $package_weight = 0;
+            $count = $DAO->where("id in ($ids) AND user_id=" . $this->user ['id'])->count();
+            $DataList = $DAO->field('title,count,img,total_weight,type')->where("id in ($ids) AND user_id=" . $this->user ['id'])->select();
+            $this->assign('DataList', $DataList);
+            $this->assign('count', $count);
+            //计算商品总重量
+            $weight_total = $this->computeProductWeight($ids); //商品重量
+            $package_weight = $weight_total * 0.1; //包装重理
+            $this->assign('weight_total', $weight_total);
+            $this->assign('package_weight', $package_weight);
+            $this->assign('ids', $ids); //传递打包商品id列表
+            $this->display();
+        }else{
+            $this->actionFail();
+        }
 
     }
     /*选择运输方式*/
     public function  cartStep3(){
-            $ids = trim ( $_POST ['ids'] );
-            $countryList = M ( 'DeliverZone' )->where ( 'status = 1' )->order ( 'sort asc' )->select ();
-            //计算商品总重量
-            $package_weight = $this->computeProductWeight ( $ids );
-            $this->assign ( 'PackageWeight', $package_weight * 1.1 );
-            $this->assign ( 'CountryList', $countryList );
-            $this->assign ( 'InsureRate', $this->getInsureRate () );
-            $this->assign ( 'ids', $ids ); //将需打包商品id列表回传
-            $this->display();
+        $this->assign('topContent','选择运输方式');
+        $ids = trim ( $_POST ['ids'] );
+            if($ids) {
+                $countryList = M('DeliverZone')->where('status = 1')->order('sort asc')->select();
+                //计算商品总重量
+                $package_weight = $this->computeProductWeight($ids);
+                $this->assign('PackageWeight', $package_weight * 1.1);
+                $this->assign('CountryList', $countryList);
+                $this->assign('InsureRate', $this->getInsureRate());
+                $this->assign('ids', $ids); //将需打包商品id列表回传
+                $this->display();
+            }else{
+                $this->actionFail();
+            }
+    }
+//    选择收货地址
+    public function cartStep4(){
+        $this->assign('topContent','选择收货地址');
+
+        $ids = trim ( $_POST ['ids'] );
+        if ($ids ) {
+            $wid = trim ( $_POST ['way_id'] ); //送货方式
+            $insureTag = trim ( $_POST ['insure'] );
+
+            $package_weight = floatval ( $this->computeProductWeight ( $ids ) * 1.1 );
+            $product_fee = $this->computeProductFee ( $ids );
+            $EntityFee = $this->doComputeFee ( $wid, $package_weight, $ids, $insureTag );
+            $EntityFee ['productFee'] = $product_fee;
+//            $EntityFee ['discount_fee'] = $_POST['discount_fee'];//抵扣的金额
+//            $EntityFee ['ticket_code'] = trim($_POST['ticket_code']); //优惠券
+            $EntityFee ['totalFee'] = $EntityFee ['totalFee'] - $_POST['discount_fee'];
+            $InsureRate = $this->getInsureRate (); //保险比例
+            $address = M('DeliverAddress')->where ( "id=$wid" )->find ();
+            if ($address && $EntityFee) {
+                $this->assign ( 'serve_cut', 0 );//服务费抵扣
+
+                //以下参数用于提交生成包裹数据和结算时使用
+                $this->assign ( 'ids', $ids ); //回传 需打包商品id列表
+                $this->assign ( 'deliver_id', $wid ); //配送方式编号
+                $this->assign ( 'zone_id', $address ['zone_id'] );
+                $this->assign ( 'country', $address ['cname'] );
+                $this->assign ( 'shipping_way', $address ['shipping_way'] ); //运输方式
+                $this->assign ( 'deliver_area', $address ['ename'] );
+                $this->assign ( 'weight', $package_weight ); //包裹重量，已加上皮
+                $this->assign ( 'serve_rate', $address ['rate'] );
+                $this->assign ( 'insure_rate', $InsureRate );
+                $this->assign ( 'deduction_way', 1 ); //会员级别折扣
+
+                //回传加密的费用字符串
+                import ( 'ORG.Crypt.Des' );
+                $des = new Des ();
+                $feeStr = json_encode ( $EntityFee ); //对结算费用先序列化处理。
+                $feeToen = base64_encode ( $des->encrypt ( $feeStr, C ( 'DES_KEY' ) ) );
+                $this->assign ( 'fee_token', $feeToen );
+
+                //回传加密的运输方式
+                $shippingEntity = array('deliver_id' 		=> $wid,
+                    'zone_id' 			=> $address ['zone_id'],
+                    'shipping_way'	=> urlencode($address ['shipping_way']),
+                    'deliver_area' 	=> $address ['ename']);
+                $shippingStr = json_encode ( $shippingEntity );
+                $shippingToken = base64_encode ( $des->encrypt ( $shippingStr, C ( 'DES_KEY' ) ) );
+                $this->assign('shipping_token',$shippingToken);
+
+                //加载已填写的收货人地址列表
+                $ReceiveList = M ( 'Address' )->where ( 'user_id=' . $this->user ['id'] )->select ();
+                $this->assign ( 'AddressList', $ReceiveList );
+
+                //加载配送区域
+                $countryList =  M ( 'DeliverZone' )->where ( 'status = 1' )->order ( 'sort' )->select ();
+                $this->assign ( 'CountryList', $countryList );
+
+                //加载运单模板
+//                $this->assign ( 'shipping_templete', $this->shipping_tpl[strtolower ( $address ['shipping_way'] )] );
+            } else {
+                $this->actionFail();
+            }
+        }
+        $this->display();
+    }
+//    提交运单
+
+    public function  cartCommit(){
+
+        $ids = trim ( $_POST ['ids'] );
+        $feeToken = trim ( $_POST ['fee_token'] );
+        $shippingToken = trim($_POST['shipping_token']);
+
+        if (empty ($feeToken) || empty($shippingToken)) { $this->actionFail();return; }
+        $feeEntity = $this->DecodeInfo($feeToken);
+        $shippingEntity = $this->DecodeInfo($shippingToken);
+        if(empty($feeEntity) || empty($shippingEntity)){ $this->actionFail() ; return;}
+        $packageWeight = floatval ( trim ( $_POST ['weight'] ) );
+        $packageWeight = round ( $packageWeight, 2 );
+//        var_dump($packageWeight);die;
+
+        if ($this->user && $ids && is_numeric ( $packageWeight ) && ($packageWeight > 0) && $shippingEntity && $feeEntity && ($feeEntity ['totalFee'] > 0)) {
+
+            $deliverId = intval($shippingEntity['deliver_id']);
+            //运输方式不对，或超过限重
+            if ( ($deliverId == 0) || ($packageWeight > $this->getLimitWeight ( $deliverId ) ) ) { $this->actionFail(); return;}
+
+            //余额不够
+            if (! $this->checkFinance ( $this->user ['id'], $feeEntity ['totalFee'] )) { $this->actionFail(); return; }
+            //余额够结算
+            //--------------------------------------------------------------------------------------
+            // 1, 配送信息,送货方式，国家等
+            $_deliverInfo = $this->buildDeliverInfo($this->user,$deliverId, trim ( $_POST ['zone_id'] ), $shippingEntity);
+            if($_deliverInfo == false) { $this->actionFail(); return;}
+
+            // 2, 收货人信息
+            $_address = $this->processAddress( $_POST ['address_id']);
+            if(empty($_address)){ $this->actionFail(); return; }
+
+            //--------------------------------------------------------------------------------------
+            // 3, 费用
+            $_feeInfo = $this->buildFeeInfo($packageWeight, $this->countProduct ( $ids ), $_POST ['serve_rate'], $feeEntity, trim ( $_POST ['note'] ), $_POST ['insure_rate'], $_POST ['serve_cut']);
+            if($_feeInfo == false) {$this->actionFail(); return;}
+
+            //--------------------------------------------------------------------------------------------
+            // 4, 保存打包时的运费价格 ( 用于区别，因调整运输方式价格时的情况 )
+            $_wayPrice = $this->getWayPrice(intval(trim($deliverId)));
+            if($_wayPrice == false){ $this->actionFail(); return;}
+
+            //--------------------------------------------------------------------------------------------
+            // 5, 写入包裹信息
+            $package = array_merge($_deliverInfo,$_address, $_feeInfo,$_wayPrice);
+            $oid =M ('Package')->data ( $package )->add ();
+            //--------------------------------------------------------------------------------------------
+            // 6, 生成包裹信息并进行财务结算
+            if ($oid > 0) {
+                $this->doFinace ( $this->user ['id'], $this->user ['login_name'], $oid, $feeEntity ['totalFee'] );
+
+                //置优惠券已使用标志
+//                $this->processTicket($this->user ['id'],$feeEntity ['ticket_code'] );
+                $this->updateProductStatus ( $ids, $oid ); //更新商品状态
+                $this->actionSuccess('parcel') ;
+            } else {
+                $this->actionFail();
+            }
+        } else {
+            $this->actionFail();
+        }
+    }
+    //记商品变更日志
+    private function writeProductLog($id, $status, $amount, $adminid, $adminm, $remark) {
+        $entity = array('product_id' 		=> $id,
+            'status' 				=> $status,
+            'amount' 			=> $amount,
+            'admin_id' 		=> $adminid,
+            'admin_name' 	=> $adminm,
+            'remark' 			=> $remark,
+            'create_time' 	=> time ());
+        M ( 'ProductLog' )->data ( $entity )->add ();
+    }
+    //从送货车删除
+    private function delfromShippingCar($pid,$type,$uid){
+        $DAO = new Model();
+        $DAO->execute("DELETE FROM shipping_cart WHERE product_id=$pid AND type=$type AND user_id=$uid");
+    }
+    // 更新商品信息
+    private function updateProduct($sql){
+        $DAO = new Model();
+        $DAO->execute($sql);
+    }
+    // 更新商品状态,并写入包裹号,这里的ids是shipping_cart的ids
+    private function updateProductStatus($ids, $pgid) {
+        $DataList = M ('ShippingCart')->where ( "id in ($ids)" )->select ();
+        $now = time();
+        foreach ( $DataList as $item ) {
+            switch ($item ['type']) {
+                case 1 :
+                    $this->updateProduct("UPDATE product SET status=5,package_id=$pgid,last_update=$now WHERE user_id=".$item ['user_id']." AND  id=".$item ['product_id'] );
+                    $this->delfromShippingCar($item ['product_id'], 1, $item ['user_id']);
+                    $this->writeProductLog ( $item ['product_id'], 5, 0, 0, '', L('package_user_submit') ); //记商品日志
+                    break;
+                case 2 :
+                    $this->updateProduct("UPDATE product_agent SET status=6,package_id=$pgid,last_update=$now WHERE user_id=".$item ['user_id']." AND id=".$item ['product_id'] );
+                    $this->delfromShippingCar($item ['product_id'], 2, $item ['user_id']);
+                    break;
+            }
+            $this->updateProduct("INSERT INTO package_product values($pgid,". $item['product_id']. "," . $item['count'] . "," . $item['type'] .")");
+        }
+    }
+    //包裹结算 ,oid 包裹编号
+    private function doFinace($uid, $un, $oid, $total) {
+        $finance = D( 'Finance' )->finace($uid);
+        if ($finance) {
+            $money_befor = $finance ['money'];
+            $reabet_befor = $finance ['rebate'];
+            $money_use = 0;
+            $rebate_use = 0;
+
+            if (($total > 0) && ($finance ['money'] >= $total)) {
+                $finance ['money'] = $finance ['money'] - $total;
+                $money_use = $total;
+            } elseif (($finance ['money'] + $finance ['rebate']) >= $total) {
+                $less = $total - $finance ['money']; //差额
+                $finance ['money'] = 0;
+                $finance ['rebate'] = $finance ['rebate'] - $less;
+                $money_use = $money_befor;
+                $rebate_use = $less;
+            }
+            $finance ['consumption_total'] = $finance ['consumption_total'] + $money_use;
+
+            $money_use = 0 - $money_use;
+            $rebate_use = 0 - $rebate_use;
+            $finance ['last_update'] = time ();
+            D( 'Finance' )->updateInfo($finance); //扣余额
+            $remark = '包裹运输费用'; // . $total.'元,其中扣除现金帐户:'.$money_use.',扣除折扣帐户:'.$rebate_use;
+            $this->writeFinaceLog ( $uid, $un, 0, $oid, $money_use, $money_befor, $reabet_befor, $finance ['point'], $remark, $rebate_use, 301 );
+        }
+    }
+    //记财务变更记录
+    private function writeFinaceLog($uid, $unam, $oid, $pid, $money, $mnybfr, $rbtbfr, $pntbfr, $remark, $reb, $typ) {
+        $entity = array('user_id' 				=> $uid,
+            'user_name' 			=> $unam,
+            'type_id' 				=> $typ, //包裹结算，见business.inc.php定义
+            'pay_id' 				=> 0,
+            'order_id' 				=> $oid, //这里记 订单号：商品号
+            'package_id' 			=> $pid, //对应的包裹编号
+            'product_id' 			=> $pid,
+            'pointlog_id' 			=> 0,
+
+            'chagne_total' 		=> $money,
+            'money' 				=> $money,
+            'money_before' 	=> $mnybfr,
+            'money_after' 		=> $mnybfr + $money, //这里是退单，所以全记为加
+            'rebate' 				=> $reb,
+            'rebate_before' 	=> 0,
+            'rebate_after' 		=> 0,
+            'point' 					=> 0,
+            'point_before' 		=> $pntbfr,
+            'point_after' 			=> $pntbfr,
+
+            'remark' 				=> $remark,
+            'create_time' 		=> time () );
+
+        M ( 'FinanceLog' )->data ( $entity )->add ();
+    }
+    // 取线路价格
+    private function getWayPrice($wid){
+        if($wid && is_numeric($wid)){
+            $data = M('DeliverAddress')->field('start_price,continue_price')->where('id='.$wid)->find();
+            return (!empty($data))?$data:false;
+        }
+        return false;
+    }
+    // 统计送货车商品数量
+    private function countProduct($ids) {
+        return ($ids) ?  M ('ShippingCart')->where ( "id in ($ids)" )->sum ( 'count' ) : 0;
+    }
+    // 包裹费用
+    private function buildFeeInfo($p_weight,$count,$s_rate,$feeEntity,$note,$insure_rate,$serv_cut){
+        if($p_weight && $count && $feeEntity && $insure_rate){
+            return array('weight' 			=> $p_weight,
+                'weight_guss' 		=> $p_weight,
+                'weight_real' 		=> 0,
+                'package_code' 	    => '',
+                'product_num' 		=> $count,
+                'product_fee' 		=> $feeEntity ['productFee'],
+                'shipping_fee' 		=> $feeEntity ['shippingFee'],
+                'serve_rate' 		=> $s_rate,
+                'serve_fee' 		=> $feeEntity ['serviceFee'],
+                'cutom_fee' 		=> $feeEntity ['customFee'],
+                'status' 			=> 1,
+                'custom_note' 		=> safeFilter ( $note ),
+                'remarks' 			=> '',
+                'reason' 			=> '',
+                'insure_rate' 		=> $insure_rate,
+                'insure_fee' 		=> $feeEntity ['insureFee'],
+                'deduction_way' 	=> 1,
+                'deduction_point'   => 0,
+                'serve_cut_fee' 	=> $serv_cut,
+                'total_fee' 		=> $feeEntity ['totalFee'],
+                'rebate_fee' 		=> 0,
+                'use_ticket'		=> (trim($feeEntity ['ticket_code'])=='')?0:1,
+                'code'				=> trim($feeEntity ['ticket_code']),
+//                'ticket_amount'		=> 0.00,
+                'excess_money' 	    => 0,
+                'deliver_company'   => 0,
+                'send_time_guess'   => $this->guessSend (),
+                'send_time' 		=> 0,
+                'create_time' 		=> time (),
+                'last_update' 		=> 0 );
+        }else{
+            return false;
+        }
+    }
+    //估算发送包裹时间
+    private function guessSend() {
+        $send = time ();
+        $now = date ( 'H', $send ); //当前时间 ,小时数
+        $week = date ( 'w', $send );
+
+        switch ($week) {
+            case 1 :
+            case 2 :
+            case 3 :
+                if ($now < 17) {
+                    $send = $send + 86400;
+                } else {
+                    $send = $send + 86400 * 2;
+                }
+                break;
+            case 4 :
+                if ($now < 17) {
+                    $send = $send + 86400;
+                } else {
+                    $send = $send + 86400 * 4; //周一发货
+                }
+                break;
+            case 0 :
+                $send = $send + 86400; //周一发包
+                break;
+            case 5 :
+                $send = $send + 86400 * 3;
+                break;
+            case 6 :
+                $send = $send + 86400 * 2;
+        }
+        return $send;
+    }
+    // 处理收货地址
+    private function processAddress($wid){
+        if ($wid == 0) {
+            $data = array('country' => trim ( $_POST ['country'] ),
+                'province'	=> trim ( $_POST ['province'] ),
+                'city' 		=> trim ( $_POST ['city'] ),
+                'address' 	=> trim ( $_POST ['address'] ),
+                'contact' 	=> trim ( $_POST ['contact'] ),
+                'phone' 	=> trim ( $_POST ['phone'] ),
+                'zip' 			=> trim ( $_POST ['zip'] ) );
+        } else {
+            $address = M ( 'Address' )->where ( "id=$wid" )->find ();
+            if ($address) {
+                $data = array('country' => trim ( $address ['country'] ),
+                    'province' 	=> trim ( $address ['state'] ),
+                    'city' 		=> trim ( $address ['city'] ),
+                    'address' 	=> trim ( $address ['address'] ),
+                    'contact'	=> trim ( $address ['contact'] ),
+                    'phone' 	=> trim ( $address ['phone'] ),
+                    'zip' 			=> trim ( $address ['zip'] ) );
+            }else{
+                $data = array();
+            }
+        }
+        return $data;
+    }
+    // 构造打包时的配送信息
+    private function buildDeliverInfo($user,$did,$zid,$shp){
+        if(empty($did) || empty($zid) || empty($shp) ) return false;
+        return array('user_id' 		=> $user['id'],
+            'user_name' 	=> $user['login_name'],
+            'zone_id' 		=> $zid,
+            'deliver_id' 	=> $did,
+            'deliver_way' => urldecode(trim($shp['shipping_way'])),
+            'deliver_area' => trim($shp['deliver_area']) );
+    }
+    //检查帐户余额是否足够结算
+    //2013.5.12 by stone 只检查现金帐户余额
+    private function checkFinance($uid, $total) {
+        $finance = D( 'Finance' )->finace( $uid );
+        return ($finance && ($finance ['money'] >= $total) )?true:false;
+    }
+    //取得限重
+    private function getLimitWeight($id) {
+        if (!is_numeric ( $id )) { return 2000; }
+        $item =  M('DeliverAddress')->where ( "id=$id" )->find ();
+        return ($item && is_numeric($item ['limit_weight'])) ? $item ['limit_weight'] * 1000 : 2000;
+    }
+    //----------------------------------------------------------------------------------------
+    // 解密前台回传信息
+    private function DecodeInfo($info){
+        try {
+            import ( 'ORG.Crypt.Des' );
+            $des = new Des ();
+            $Token = base64_decode ( $info );
+            $tokenStr = $des->decrypt($Token,C ( 'DES_KEY' ));
+            return  convertJson2Array($tokenStr);
+        } catch ( Exception $e ) {
+            Log::write ( L('package_decode_fail'), Log::ERR );
+            return false;
+        }
     }
     //保险费比例
     private function getInsureRate() {
@@ -246,7 +627,8 @@ class WeAction extends HomeAction {
         $id = trim ( $_POST ['wid'] );
         $weight = trim ( $_POST ['pw'] );
         $ids = trim ( $_POST ['ids'] );
-        $insure = trim ( $_POST ['insure'] ); //是否参加保险
+        $insure = trim ( $_POST ['insure'] );
+        //是否参加保险
         if ($id && $weight && $ids) {
             $data = $this->doComputeFee ( $id, $weight, $ids, $insure );
             if ($data) {
@@ -711,12 +1093,12 @@ class WeAction extends HomeAction {
             $this->actionFail($url,$time);
         }
     }
-    function  actionSuccess($url,$time){
+    function  actionSuccess($url,$time=3){
         $this->assign('jumpUrl',$url);
         $this->assign('second',$time);
         $this->display('success');
     }
-    function  actionFail($url,$time){
+    function  actionFail($url='home',$time=3){
         $this->assign('jumpUrl',$url);
         $this->assign('second',$time);
         $this->display('error');
@@ -779,17 +1161,6 @@ class WeAction extends HomeAction {
 
     // 我的包裹
     public function parcel() {
-//        if(isset($_REQUEST['openid']) || isset($_SESSION ['WechatAuthOpenId']) ){
-//            $openid = isset($_REQUEST['openid'])? $_REQUEST['openid'] : $_SESSION ['WechatAuthOpenId'];
-//        }else{
-//            $this->processOpenid('register.html');
-//        }
-//
-//        $this->user = $this->getUserByWechatOpenId($openid);
-//        $this->assign('user',$this->user);
-//        $this->assign('openid',$openid);
-
-//        if ($this->user) {
         $this->assign('topContent','我的包裹');
         $this->dao = M ( 'Package' );
         $user_id=$this->user['id'];
@@ -804,8 +1175,6 @@ class WeAction extends HomeAction {
             $this->assign ( 'page', trim($page) );
             $this->assign('userId',$user_id);
         }
-//        }
-
         $this->display ();
     }
 
@@ -815,7 +1184,8 @@ class WeAction extends HomeAction {
 //        $user_id=$this->user['id'];
 //        $login_name=$this->user['login_name'];
         if($_SERVER['REQUEST_METHOD']=='POST'){
-            $id=trim($_REQUEST['id']);
+            $id=explode('.',trim($_REQUEST['id']));
+            $id=$id[0];
             $PackageDAO = M('Package');
             $package = $PackageDAO->where("id=$id")->find();
             if($package){
@@ -848,6 +1218,96 @@ class WeAction extends HomeAction {
             $this->display();
         }
     }
+    // 撤销包裹
+    public function cancel() {
+        if ($this->user && isset( $_REQUEST ['id']) ) {
+            $id=explode(".",$_REQUEST['id']);$id=intval($id[0]);
+            $result = $this->updatePackageCancel ( $id, $this->user ['id'] );
+            if ($result) {
+                $this->writePackageLog ( $id, 7, 0, '', '用户撤销包裹' );
+                $this->setProductYrk ( $id );
+                $this->refund ( $id,0 ); //最后退款
+            }
+        }
+        $this->redirect ( 'We/parcel' );
+    }
+    //退指定编号包裹的费用
+    private function refund($id,$reserve_fee=0) {
+        $package = M ('Package')->where ( "id=$id" )->find ();
+        if ($package && ($package ['refund_flag'] == 0)) {
+            $uid = $package ['user_id'];
+            $un = $package ['user_name'];
+            $refund = $package ['total_fee'] - $reserve_fee; //扣除手续费
+            $finance = D( 'Finance' )->finace ( $package ['user_id'] );
+
+            if ($finance) {
+                $money_befor = $finance ['money'];
+                $reabet_befor = $finance ['rebate'];
+                $finance ['money'] = $finance ['money'] + $refund;
+                $finance ['consumption_total'] = $finance ['consumption_total'] - $refund;
+                $finance ['last_update'] = time ();
+
+                //更新帐户余额
+                D( 'Finance' )->where ( 'id=' . $finance ['id'] )->save ( $finance );
+
+                //更新包裹已退款标志
+                $package ['refund_flag'] = 1;
+                M ('Package')->where ( 'id=' . $package ['id'] )->save ( $package );
+
+                $remark = L('package_cancel_return');
+                $this->writeFinaceLog ( $uid, $un, 0, $package ['id'], $refund, $money_befor, $reabet_befor, $finance ['point'], $remark, 0, 302 );
+            }
+        }
+    }
+    //更新商品状态从已打包为已入库
+    private function setProductYrk($pgid) {
+        //代购商品
+        $data ['status'] = 12;
+        $data ['package_id'] = 0;
+        $data ['had_second_count'] = 0;
+        $data ['last_update'] = time ();
+
+        //代收自助购商品
+        $agent ['status'] = 5;
+        $agent ['package_id'] = 0;
+        $agent ['had_second_count'] = 0;
+        $agent ['last_update'] = time ();
+
+        $DAO = M ( 'Product' );
+        $DataList = $DAO->where ( "package_id=$pgid" )->select ();
+        foreach ( $DataList as $item ) {
+            $this->writeProductLog ( $item ['id'], 12, 0, 0, '', L('package_user_cancel') . $pgid );
+        }
+        $DAO->where ( "package_id=$pgid" )->save ( $data );
+
+        M ( 'ProductAgent' )->where ( "package_id=$pgid" )->save ( $agent );
+    }
+    //更新包裹状态为已撤销
+    private function updatePackageCancel($pgid, $uid) {
+        $result = false;
+        if ( $pgid  && $uid) {
+            $package = M ('Package')->where ( "id=$pgid AND user_id=$uid" )->find ();
+            if ($package && ($package ['status'] != 7)) {
+                $package ['status'] = 7;
+                $package ['last_update'] = time ();
+                M ('Package')->where ( "id=$pgid" )->save ( $package );
+                $result = true;
+            }
+        }
+        return $result;
+    }
+    //记包裹变更日志
+    private function writePackageLog($id, $status, $adminid, $admin, $remark) {
+        $entity = array('package_id' 		=> $id,
+            'status' 				=> $status,
+            'admin_id' 		=> $adminid,
+            'admin_name' 	=> $admin,
+            'remark' 			=> $remark,
+            'create_time' 	=> time () );
+        M ( 'PackageLog' )->data ( $entity )->add ();
+    }
+
+
 //    hubing end
     // -------------------------------------------------------------------------------------------
     // 公告详情

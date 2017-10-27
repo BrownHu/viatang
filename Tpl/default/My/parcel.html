@@ -70,16 +70,16 @@
               </td>
               <td align="left" class="parcel_lst_right" style="text-align:center;">
                 <switch name="vo.status">
-                  <case value="1"><a href="#nogo" onclick="cancle({$vo.id});"  class="btn_n2">撤销运单</a></case>
-                  <case value="6"><a href="#nogo" onclick="cancle({$vo.id});"  class="btn_n2">撤销运单</a></case>
-                  <case value="4"><a href="#nogo" onclick="commont({$vo.id});"  class="btn_n2">确认收货</a></case>
+                  <case value="1"><a href="#nogo" onclick="NavJump('cxzy?id='+'{$vo.id}');"  class="btn_n2">撤销运单</a></case>
+                  <case value="6"><a href="#nogo" onclick="NavJump('cxzy?id='+'{$vo.id}');"  class="btn_n2">撤销运单</a></case>
+                  <case value="4"><a href="#nogo" onclick="NavJump('qrsh?id='+'{$vo.id}');"  class="btn_n2">确认收货</a></case>
                   <case value="5">
                   	<eq name="vo.had_review" value="0">
-                    <a href="#nogo" onclick="review({$vo.id});" style="font-size:14px;">评论</a>
+                    <a href="#nogo" onclick="NavJump(('comment?id='+'{$vo.id}'));" style="font-size:14px;">评论</a>
                     <else/>
                     </eq>
                   </case>
-                  <case value="8"><a href="#nogo" onclick="returnWare({$vo.id});"  class="btn_nomal">撤销运单</a></case>
+                  <case value="8"><a href="#nogo" onclick="NavJump('cxzy?id='+'{$vo.id}');"  class="btn_nomal">撤销运单</a></case>
                   <default />  
                     &nbsp;
                 </switch>

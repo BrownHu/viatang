@@ -4,7 +4,8 @@
 		<i class="am-gotop-icon am-icon-chevron-up"></i>
 	</a>
 </div>
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.js"></script>
 <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
 <script>	
 	console.log('script  loading')
@@ -35,5 +36,45 @@
 	function  NavJump(shit){
 		var url="{:U('We/"+shit+"')}";
 		window.location.href=url;
+	}
+	function FormatNumber(srcStr,nAfterDot)
+	{
+		var srcStr,nAfterDot;
+		var resultStr,nTen;
+		srcStr = ""+srcStr+"";
+		strLen = srcStr.length;
+		dotPos = srcStr.indexOf(".",0);
+		if (dotPos == -1)
+		{
+			resultStr = srcStr+".";
+			for (i=0;i<nAfterDot;i++)
+			{
+				resultStr = resultStr+"0";
+			}
+			return resultStr;
+		}
+		else
+		{
+			if ((strLen - dotPos - 1) >= nAfterDot)
+			{
+				nAfter = dotPos + nAfterDot + 1;
+				nTen =1;
+				for(j=0;j<nAfterDot;j++)
+				{
+					nTen = nTen*10;
+				}
+				resultStr = Math.round(parseFloat(srcStr)*nTen)/nTen;
+				return resultStr;
+			}
+			else
+			{
+				resultStr = srcStr;
+				for (i=0;i<(nAfterDot - strLen + dotPos + 1);i++)
+				{
+					resultStr = resultStr+"0";
+				}
+				return resultStr;
+			}
+		}
 	}
 </script>

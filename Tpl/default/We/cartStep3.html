@@ -1,7 +1,9 @@
 <include  file="baseHead" />
 <!--body start -->
+
+
 <div class="am-g  am-margin-top-lg">
-    <form class="am-form am-form-horizontal" action="commitPackage.html" method="post">
+    <form class="am-form am-form-horizontal" action="{:U('We/cartStep4')}" method="post" id="order_form" name="order_form">
         <div class="am-u-sm-9 am-u-sm-offset-3">1、选择配送区域</div>
         <div class="am-form-group am-u-sm-12">
                 <volist name="CountryList" id="vo">
@@ -27,12 +29,7 @@
             </ul>
         </div>
         <!--计算总费用-->
-        <form action="computefee" name="frmfee" id="frmfee" method="post">
-            <input type="hidden" name="wid" id="wid" value="0">
-            <input type="hidden" name="pw" id="pw" value="{$PackageWeight}">
-            <input type="hidden" name="ids" id="ids" value="{$ids}">
-            <input type="hidden" name="insure" id="insure" value="0">
-        </form>
+
         <div class="tixing3" style="text-align:left; line-height:25px;">
             总重量:<span style="font-weight:bold;">{$PackageWeight}</span>g&nbsp;&nbsp;&nbsp;&nbsp;共需支付：
             运费<span style='color:red' id='show_p_shipping_fee'>0</span>
@@ -45,11 +42,11 @@
         </div>
         <div class="am-form-group">
             <div class="am-u-sm-11 am-u-sm-offset-1">
-                <button type="submit" class="am-btn  am-btn-danger am-inline">
+                <button type="button" onclick="window.history.back();" class="am-btn  am-btn-danger am-inline">
                     <i class="am-arrow-left"></i>
                     上一步
                 </button>
-                <button type="reset" class="am-btn am-inline  am-btn-success am-margin-left-sm">
+                <button type="submit" class="am-btn am-inline  am-btn-success am-margin-left-sm">
                     <i class="am-arrow-right"></i>
                     下一步，填写收货地址
                 </button>
@@ -58,66 +55,53 @@
         <input type="hidden" name="ids" id="f_ids" value="{$ids}" />
         <input type="hidden" name="way_id" id="way_id" value="0" />
         <input type="hidden" name="insure" id="f_insure" value="0">
-        <input type="hidden" name="discount_fee" id="f_discount" value="0">
-        <input type="hidden" name="ticket_code" id="ticket_code" value="0">
+        <!--<input type="hidden" name="discount_fee" id="f_discount" value="0">-->
+        <!--<input type="hidden" name="ticket_code" id="ticket_code" value="0">-->
         <input name="limit_weight" type="hidden" id="limit_weight" value="0" />
+    </form>
+    <form action="{:U('We/computefee')}" name="frmfee" id="frmfee" method="post">
+        <input type="hidden" name="wid" id="wid" value="0">
+        <input type="hidden" name="pw" id="pw" value="{$PackageWeight}">
+        <input type="hidden" name="ids" id="ids" value="{$ids}">
+        <input type="hidden" name="insure" id="insure" value="0">
     </form>
 </div>
 <!--body end-->
 </div>
 <include file="footer" />
 <include file='totop' />
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery/Plug-in/jquery.form.js"></script>
+<script type="text/javascript" src="/Public/Js/jQuery/Plug-in/jquery-powerFloat.js"></script>
 <script>
-    function shipping(wid){
-        init_display();
-        debugger;
-        $('#way_id').val(wid);
-        $('#wid').val(wid);
-        debugger;
-        $('#frmfee').submit();
-        debugger;
-    }
-    function complete(result){
-        console.log(result)
-        if (result.status == '1'){
-            $('#show_p_shipping_fee').html(FormatNumber(result.data.shippingFee,2));
-            $('#show_p_serve_fee').html(FormatNumber(result.data.serviceFee,2));
-            $('#show_p_customs_fee').html(FormatNumber(result.data.customFee,2));
-            $('#show_p_insure_fee').html(FormatNumber(result.data.insureFee,2));
-            $('#show_total').html(FormatNumber(result.data.totalFee,2));
-            $('#show_material_fee').html(FormatNumber(result.data.package_material_fee,2));
-        }else{
-            alert(result.info+',请稍后重试，若问题仍然出现，请与客服联系。');
-        }
-    }
-    $('#frmfee').ajaxForm({
-        success: complete,
-        dataType: 'json'
-    });
-
-    function setInsure(val){
-        $('#insure').val(val);
-        $('#f_insure').val(val);
-        var wid = $('#wid').val();
-        shipping(wid);
-    }
-    function setLimitWeight(w){
-        $('#limit_weight').val(w);
-    }
-    function init_display(){
-        $('#show_p_shipping_fee').html('0');$('#show_p_serve_fee').html('0');$('#show_p_serve_cut').html('');	$('#show_p_customs_fee').html('0');$('#show_p_insure_fee').html('0');$('#show_total').html('0');$('#way_id').attr('value','0');	$('#wid').attr('value','0');
-    }
-
-
-
-
-    function show_way_lst(zid,weight){
-        $.get('__URL__/way_lst/zid/'+zid+'/w/'+weight, function(data) {
-            $('#shipping_way_lst').empty().html(data);
-//            alert(data);
+    $(function(){
+        var options = {
+            dataType: 'json',
+            success:  function(result){
+                if (result.status == '1'){
+                    $('#show_p_shipping_fee').html(FormatNumber(result.data.shippingFee,2));
+                    $('#show_p_serve_fee').html(FormatNumber(result.data.serviceFee,2));
+                    $('#show_p_customs_fee').html(FormatNumber(result.data.customFee,2));
+                    $('#show_p_insure_fee').html(FormatNumber(result.data.insureFee,2));
+                    $('#show_total').html(FormatNumber(result.data.totalFee,2));
+                    $('#show_material_fee').html(FormatNumber(result.data.package_material_fee,2));
+                }else{
+                    alert(result.info+',请稍后重试，若问题仍然出现，请与客服联系。');
+                }
+            }
+        };
+        $('#frmfee').submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
         });
-        init_display();
-    }
+    })
 </script>
+<script>
+    function sendform(){if($('#way_id').val() == 0){ alert(' 请勾选送货区域和送货方式后再提交!'); }else {var pWeight = Number($('#pw').val());var lWeight = Number($('#limit_weight').val());if(pWeight > lWeight){alert(' 您的包裹总重量('+pWeight+'g)超过运输方式的限重(' +lWeight+'g)! 为了能顺利地将您的货发出，您需要将货分开打包邮寄。');	}else{ $('#order_form').submit();}}}
+    function setInsure(val){ $('#insure').val(val);$('#f_insure').val(val); var wid = $('#wid').val();shipping(wid);}function setLimitWeight(w){ $('#limit_weight').val(w);}
+    function shipping(wid){	init_display(); $('#way_id').val(wid);$('#wid').val(wid);$('#frmfee').submit();}
+    function init_display(){ $('#show_p_shipping_fee').html('0');$('#show_p_serve_fee').html('0');$('#show_p_serve_cut').html('');	$('#show_p_customs_fee').html('0');$('#show_p_insure_fee').html('0');$('#show_total').html('0');$('#way_id').attr('value','0');	$('#wid').attr('value','0');}
+    function show_way_lst(zid,weight){ $('#shipping_way_lst').empty().html('<tr><td><img src="/Public/Images/ajax-loader.gif">&nbsp;加载中...</td></tr>');$.get('__URL__/way_lst/zid/'+zid+'/w/'+weight, function(data) { $('#shipping_way_lst').empty().html(data);	});	init_display();}function checkDHL(cap){	if(cap =='DHL'){ $('#dhl_tip').show();}else{ $('#dhl_tip').hide();}}
+</script>
+
 </body>
 </html>

@@ -1,4 +1,23 @@
-<inlcude file="baseHead" />
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>唯唐国际转运</title>
+    <meta name="renderer" content="webkit">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
+    <link rel="stylesheet" href="/Public/Css/weApp.css">
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="pet_mian">
+
+
     <div class="am-g user-inf">
         <div class="am-u-lg-12" style="margin-top: 20px;">
             <div class="am-alert am-alert-secondary" data-am-alert style="background: #FFFFFF;">
@@ -18,7 +37,7 @@
                         <td>
                             <div class="pet_grzx_num">
                                 <span style="color: #F37B1D;">￥{$balance|default=0}<i><b>现金余额:</b></i></span>
-                                <span style="color: #F37B1D;" onclick="NavJump('commitPackage')">{$consumption_total|abs="###"}<i><b>消费总额</b></i></span>
+                                <span style="color: #F37B1D;" style="float: right;" onclick="NavJump('commitPackage')">{$consumption_total|abs="###"}<i><b>消费总额</b></i></span>
                             </div>
                         </td>
                     </tr>
@@ -39,16 +58,21 @@
                 <li style="padding: 2px;background-color:#eff1f3;"></li>
 
                 <li onclick="NavJump('recharge')">
-                     余额充值				  	</li>
+                    余额充值				  	</li>
 
                 <li onclick="NavJump('address')">
                     地址管理				  	</li>
 
             </ul>
         </div>
+
     </div>
-<include file="totop" />
+
+    <include file="totop" />
 </div>
+
+<script type="text/javascript">
+</script>
 </body>
 </html>
 
