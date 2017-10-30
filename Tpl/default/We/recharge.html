@@ -1,0 +1,134 @@
+<include file='baseHead' />
+<div class="am-g wtaddress-inf" >
+        <div class=" am-u-sm-12 am-tabs" data-am-tabs>
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+                <li class="am-active"><a href="#paypal">Paypal</a></li>
+                <li><a href="#alipay">支付宝</a></li>
+                <li><a href="#wepay">微信</a></li>
+                <li><a href="#bank">网银</a></li>
+            </ul>
+            <div class="am-tabs-bd am-tabs-bd-ofv">
+                <div class="am-tab-panel am-active" id="paypal">
+                        <div class="u-sm-12">
+                            <br>
+                            <p><strong>Paypal</strong>(http://www.paypal.com)</p>
+                            <p>目前世界最大的第三方支付平台，Ebay旗下公司。支持各种货币，所有币种会自动转换成美元结算。</p>
+                            <p>paypal支持带有下面标识的银行卡</p>
+                            <img src="/Ulowi/Tpl/default/Public/images/paypal_supportcard.png" class="am-img-responsive" alt="">
+                        </div>
+                        <div class="u-sm-12 ">
+                            <a href="http://www.viatang.com/Pay/paypal.shtml"><button type="button" class="am-margin-vertical-xl am-center am-btn am-btn-success am-round">我已了解,前往充值</button></a>
+                        </div>
+                    </div>
+                <div class="am-tab-panel" id="alipay">
+                    <div class="u-sm-12">
+                        <br>
+                        <p><strong>支付宝</strong>(http://www.alipay.com)</p>
+                        <p>阿里巴巴集团旗下，支付宝(中国)网络技术有限公司。支持60多种国内银行卡，支付操作简单便利。</p>
+                    </div>
+                    <div class="u-sm-12 ">
+                        <a href="http://www.viatang.com/Pay/alipay.shtml"><button type="button" class="am-margin-vertical-xl am-center am-btn am-btn-success am-round">我已了解,前往充值</button></a>
+                    </div>
+                </div>
+                <div class="am-tab-panel" id="wepay">
+                    <div class="u-sm-12">
+                        <br>
+                        <p><strong>微信支付</strong>(http://www.wechat.com)</p>
+                        <p>腾讯旗下，支持60多种国内银行卡，支付操作简单便利。</p>
+                    </div>
+                    <form action="{:U('commit')}" method="post">
+                        <input type="hidden" name="payer_uid" value="{$uid|default=0}">
+                        <input type="hidden" name="payer_un"  value="{$un|default=''}">
+                        <input type="hidden" name="alibody" value="{$un|default=Think.session.m_Info.login_name}账户充值费用">
+                    <div class="am-u-sm-12">
+                        <h3>充值金额(¥)</h3>
+                        <label class="am-radio">
+                            <input type="radio"  name="wepayValue" value="50.00" checked >
+                            ￥50.00
+                        </label>
+                        <label class="am-radio">
+                            <input type="radio"  name="wepayValue" value="100.00"  >
+                            ￥100.00
+                        </label>
+
+                        <label class="am-radio">
+                            <input type="radio" name="wepayValue" value="200.00" >
+                            ￥200.00
+                        </label>
+                        <label class="am-radio">
+                            <input type="radio"  name="wepayValue" value="500.00" >
+                            ￥500.00
+                        </label>
+                        <label class="am-radio">
+                            <input type="radio" name="wepayValue" value="1000.00"  >
+                            ￥1000.00
+                        </label>
+                        <label class="am-radio">
+                            <input type="radio"  name="wepayValue" value="2000.00" >
+                            ￥2000.00
+                        </label>
+                        <label class="am-radio">
+                            <input type="radio" name="wepayValue" value="0.00"  id="others">
+                            其他金额：¥
+                            <input type="number" placeholder="输入您的自定义待充值金额"  name="wanted" disabled id="wanted">
+                        </label>
+                            <p style="width: 300px;">实际到账：<strong><span id="valueTip" style="color: red;"></span></strong>&nbsp;元人民币</p>
+                    </div>
+
+                    <div class="am-u-sm-12 ">
+                        <button type="sumbit" class="am-margin-vertical-xl am-center am-btn am-btn-success am-round">立即充值</button>
+                    </div>
+                    </form>
+                </div>
+                <div class="am-tab-panel" id="bank">
+                    <div class="u-sm-12">
+                        <p><strong><span class="am-icon am-icon-gittip">友情提示</span></strong></p>
+                        <p>海外电汇适用于大金额的付款。当地银行可能会有不同手续费比例，您可根据需要选择。</p>
+                        <p><strong>请注意海外汇款需要先兑换成<span style="color:red;">美元</span>再汇款，海外不能直接向中国汇人民币</strong></p>
+                        <p><strong>第一步：您可以往以下银行办理电汇：</strong></p>
+                        <p><strong>中国招商银行</strong></p>
+                        <p>Beneficiary's Bank : China Merchants Bank, H.O. Shenzhen, China.（SWIFT CODE: CMBCCNBS）</p>
+                        <p>(汇入行：中国招商银行及上海分行SWIFT代码)</p>
+                        <p>Beneficiary's a/c no. ：6214 8521 1888 4595</p>
+                        <p>(收款人帐号)</p>
+                       <p>Beneficiary: wang shan hu</p>
+                        <p>(收款人户名)</p>
+                        <p><strong>第二步：在办理完银行汇款后，请您登录唯唐代购，在我的咨询提供您的汇款信息（汇款日期、汇款金额、汇款银行名称、汇款人姓名、汇入行名称），以便工作人员及时准确地将这笔款项加入到您的唯唐代购账户中。</strong></p>
+                    </div>
+                    <div class="u-sm-12 ">
+                        <a href="http://www.viatang.com/Pay/other.shtml"><button type="button" class="am-margin-vertical-xl am-center am-btn am-btn-success am-round">我已了解,前往充值</button></a>
+                    </div>
+                </div>
+            </div>
+            <img  src="/Ulowi/Tpl/default/Public/images/b_pay.gif" class="am-img-responsive am-margin-top-md" alt="唯唐代购 安心支付">
+        </div>
+</div>
+</div>
+<include file="footer" />
+<include file='totop' />
+<script>
+    $(function () {
+        $('span#valueTip').text($("input[type='radio']:checked").val());
+        $(":radio").click(function(){
+            $('button:submit').attr('disabled',false)
+            if($('input:radio:checked').val()=="0.00") {
+                $('input#wanted').attr('disabled',false)
+            }else{
+                $('input#wanted').attr('disabled',true)
+            }
+            $('span#valueTip').text(($(this).val()))
+        });
+        $('input#wanted').bind('change',function(){
+            var wantVal=$(this).val() == null ? 0 :$(this).val();
+            $('span#valueTip').text(FormatNumber(wantVal,2))
+            if($(this).val()<=0){
+                $('button:submit').attr('disabled',true)
+            }else{
+                $('button:submit').attr('disabled',false)
+            }
+        })
+    })
+
+</script>
+</body>
+</html>

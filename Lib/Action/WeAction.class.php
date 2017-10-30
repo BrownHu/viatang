@@ -12,8 +12,9 @@
  * @link       http://www.zline.net.cn/
 +------------------------------------------------------------------------------
  */
-use Com\Wechat;
 import ( 'ORG.Wechat.Wechat' );
+vendor('wepay.WxPayApi'); //微信API
+require_once('WxPayJsApiPayAction.php');
 import ( 'ORG.Wechat.WechatAuth' );
 load ( '@/functions' );
 import ( 'ORG.Util.Page' );
@@ -44,10 +45,11 @@ class WeAction extends HomeAction {
             $_SESSION ['WechatState'] = md5 ( uniqid ( rand (), TRUE ) );
         }
 
-        $NeedMember=array('cartCommit',"comment",'cartStep4','cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
+        $NeedMember=array('commit','recharge','cancel','cartCommit',"comment",'cartStep4','cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
         if (in_array($action,$NeedMember,true)){
             if( isset($_SESSION ['WechatAuthOpenId'] )|| isset($_REQUEST['openid'])){
                 $openid = isset($_SESSION ['WechatAuthOpenId'] )? $_SESSION ['WechatAuthOpenId'] : $_REQUEST['openid']  ;
+                $this->openid=$openid;
                 $this->user=$this->getUserByWechatOpenId($openid);
             }else{
                 $this->processOpenid($action);
@@ -1156,9 +1158,24 @@ class WeAction extends HomeAction {
                 $this->pageJump($flag,"goodM");
                 break;
         }
-
     }
+//补充快递
+    public function updateExpress(){
+        if ($_SERVER['REQUEST_METHOD']=='POST'){
+            $map['shipping_company']=$_REQUEST['shipingCompany'];
+            $map['trace_no']=trim($_REQUEST['wldh']);
+            $flag=M ( 'ProductAgent' )->where("id=$_REQUEST[id]")->save($map);
+            $this->pageJump($flag,"goodM",3);
+        }else{
+            $product_id=$_REQUEST['id'];
+            $this->assign('topContent','补充快递');
+            $list = M('DeliverCompany')->select();
+            $this->assign('list',$list);
+            $this->assign('id',$product_id);
+            $this->display();
 
+        }
+    }
     // 我的包裹
     public function parcel() {
         $this->assign('topContent','我的包裹');
@@ -1222,14 +1239,17 @@ class WeAction extends HomeAction {
     public function cancel() {
         if ($this->user && isset( $_REQUEST ['id']) ) {
             $id=explode(".",$_REQUEST['id']);$id=intval($id[0]);
+            if (!is_numeric($id)){$this->actionFail('parcel');}
             $result = $this->updatePackageCancel ( $id, $this->user ['id'] );
             if ($result) {
                 $this->writePackageLog ( $id, 7, 0, '', '用户撤销包裹' );
                 $this->setProductYrk ( $id );
                 $this->refund ( $id,0 ); //最后退款
+                $this->actionSuccess('parcel');
             }
+        }else{
+                 $this->actionFail();
         }
-        $this->redirect ( 'We/parcel' );
     }
     //退指定编号包裹的费用
     private function refund($id,$reserve_fee=0) {
@@ -1307,7 +1327,49 @@ class WeAction extends HomeAction {
         M ( 'PackageLog' )->data ( $entity )->add ();
     }
 
+//会员充值
+    public function  recharge(){
+        $this->assign('topContent','账户充值');
+        $this->assign('uid',$this->user['id']);
+        $this->assign('un',$this->user['login_name']);
+        $this->display();
+    }
+//    微信支付
+    public function  commit(){
+        $payer_id 	= $_POST['payer_uid'];	//用于对支付结果通知进行个人帐户入帐
+        $payer_un	= $_POST['payer_un'];		//用户名
+        $cz_money= $_REQUEST['wepayValue'] == "0.00" ? $_REQUEST['wanted'] : $_REQUEST['wepayValue'];
+        $total_fee    		=$cz_money * 100;		//订单总金额，显示在支付宝收银台里的“应付总额”里
+        $body         		= $_POST['alibody'];			//订单描述、订单详细、订单备注，显示在支付宝收银台里的“商品描述”里
+        $tools = new WxPayJsApiPayAction();
+        $openId = $this->openid;
+        $out_trade_no 	= $payer_id.date('_YmdHis').'_'.rand(1000,2000);		//唯一订单号匹配
+        $real_fee = $total_fee - ($total_fee * C('WEPAY_FEE'))/100;
+        $real_fee = $real_fee /100;
 
+//②、统一下单
+        $input = new WxPayUnifiedOrder();
+        $input->SetBody($body);
+        $input->SetAttach("test");
+        $input->SetOut_trade_no($out_trade_no);
+        $input->SetTotal_fee($real_fee);
+        $input->SetTime_start(date("YmdHis"));
+        $input->SetTime_expire(date("YmdHis", time() + 600));
+        $input->SetGoods_tag("唯唐充值");
+        $input->SetNotify_url(C('WEPAY_NOTIFY_URL'));
+        $input->SetTrade_type("JSAPI");
+        $input->SetOpenid($openId);
+        $order = WxPayApi::unifiedOrder($input);
+//        $this->printf_info($order);
+        echo json_encode($order);
+    }
+//  打印输出数组信息
+    function printf_info($data)
+    {
+        foreach($data as $key=>$value){
+            echo "<font color='#00ff55;'>$key</font> : $value <br/>";
+        }
+    }
 //    hubing end
     // -------------------------------------------------------------------------------------------
     // 公告详情

@@ -16,13 +16,21 @@
                         <input type="radio" name="order_id" value="{$vo.id}">
                     </if>
                     <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target:'#do-not-say-<php>echo $i;</php>'}">
-                        <span>{$vo.order_bat_id}</span>
+                        <span>批次号：{$vo.order_bat_id}</span>
                         <i class="am-icon-chevron-right"></i>
                     </div>
                     <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det <php>if($i==1){echo 'am-in';}</php>">
                         <div class="am-panel-bd">
                             <blockquote>
-                                <p>单号： <b>{$vo.order_bat_id}</b></p>
+                                <p>快递公司：
+                                    <notempty name="vo.shipping_company">
+                                        {$vo.shipping_company}
+                                        <else/>
+                                        <a href="updateExpress?id={$vo.id}" class="am-btn am-btn-danger am-padding-xs"  class="lnk">补充快递</a>
+                                    </notempty></p>
+                                <notempty name="vo.shipping_company">
+                                    <p>物流单号：{$vo.trace_no}</p>
+                                </notempty>
                                 <p>日期： <b>{$vo.send_time|date="Y-m-d H:s:i",###}</b></p>
                                 <p>备注： <b>{$vo.remark}</b></p>
                                 <p>状态：<b style="color: red;"><switch name="vo.status">
@@ -36,6 +44,7 @@
                                     <case value="10">换货补运费中</case>
                                     <default/>&nbsp;
                                 </switch></b></p>
+
                             </blockquote>
                         </div>
                     </div>

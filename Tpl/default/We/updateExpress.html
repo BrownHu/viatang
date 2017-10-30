@@ -1,0 +1,41 @@
+<include file="baseHead" />
+<form  method="post" action="updateExpress" class="am-form am-form-horizontal">
+    <input type="hidden" value="{$id}" name="id" />
+    <div class="am-g" style="margin-top: 5%;">
+        <div class="am-u-sm-12">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label for="express" class="am-u-sm-4 am-form-label">快递公司:</label>
+                        <div class="am-u-sm-8">
+                            <select data-am-selected="{maxHeight: 300}" name="shipingCompany" id="express">
+                                <volist name="list" id="vo">
+                                    <option value="{$vo.caption}">{$vo.caption}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="wldh" class="am-u-sm-4 am-form-label">物流单号:</label>
+                        <div class="am-u-sm-8">
+                            <input type="text" id="wldh" name="wldh" placeholder="请填写物流提供的单号" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-1" style="background-color:rgba(0,0,0,.8);">
+            <li><!-- 提交快递按钮 -->
+                <div class="am-header-right am-header-nav btn-add" style="text-align: right;padding-right: 5px;">
+                    <button type="submit"  id="commitBtn" class="am-btn am-btn-danger am-radius am-btn-xs" >确认提交</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>
+<include file="totop" />
+</div>
+</body>
+</html>
