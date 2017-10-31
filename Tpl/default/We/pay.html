@@ -1,0 +1,66 @@
+
+<include file='baseHead' />
+<div class="am-g wtaddress-inf" >
+    <div class="am-u-sm-12 am-hide" id="successTip" >
+        <div class="am-g">
+            <div style="text-align: center" class="am-u-sm-6 am-u-sm-centered">
+                <i style="font-size: 100px;color: #85D148;" class="am-icon-check-circle am-success"></i>
+            </div>
+        </div>
+        <div class="am-g">
+            <div style="text-align: center" class="am-u-sm-12 am-u-sm-centered">
+                <span style="color:red;font-weight: bold;">充值成功</span>
+            </div>
+        </div>
+        <button class="am-margin-vertical-xl am-center am-btn am-btn-success am-round"  onclick="NavJump('recharge')">继续充值</button>
+    </div>
+    <div class=" am-u-sm-12 am-hide" id="errorTip">
+        <div class="am-g">
+            <div style="text-align: center" class="am-u-sm-6 am-u-sm-centered">
+                <i style="font-size: 100px;color: red;" class="am-icon-times"></i>
+            </div>
+        </div>
+        <div class="am-g">
+            <div style="text-align: center" class="am-u-sm-12 am-u-sm-centered">
+                <span style="color:red;font-weight: bold;">充值取消，页面刷新可重新充值哦</span>
+            </div>
+        </div>
+        <button class="am-margin-vertical-xl am-center am-btn am-btn-success am-round"  onclick="NavJump('memberInfo')">返回我的中心</button>
+    </div>
+    <img  src="/Ulowi/Tpl/default/Public/images/b_pay.gif" class="am-img-responsive am-margin-top-md" alt="唯唐代购 安心支付">
+</div>
+</div>
+<include file="footer" />
+<include file='totop' />
+<script>
+
+    function onBridgeReady(){
+        var data={$data};
+        WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', data,
+                function(res){
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                        $('div#errorTip').addClass('am-hide');
+                        $('div#successTip').removeClass('am-hide');
+                    }else{
+                        $('div#successTip').addClass('am-hide');
+                        $('div#errorTip').removeClass('am-hide');
+//                        alert(res.err_code+res.err_desc+res.err_msg); // 显示错误信息
+                    }
+                }
+        );
+    }
+
+    if (typeof WeixinJSBridge == "undefined"){
+        if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    }else{
+        onBridgeReady();
+    }
+</script>
+</body>
+</html>

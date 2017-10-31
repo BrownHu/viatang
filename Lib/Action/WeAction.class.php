@@ -24,6 +24,7 @@ class WeAction extends HomeAction {
     protected $wechat_token    = '';
     private   $requestCodeURL  = 'https://open.weixin.qq.com/connect/oauth2/authorize';
     private   $redirect_url    = 'http://vt.daigoucms.cn/we/requestToken/do/';
+    private   $pay_url         =  "http://vt.daigoucms.cn/we/pay?out_trade_no=";
     private   $accesstoken_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=__APPID__&secret=__SECRET__&code=__CODE__&grant_type=authorization_code';
 
     protected $goods;
@@ -45,7 +46,7 @@ class WeAction extends HomeAction {
             $_SESSION ['WechatState'] = md5 ( uniqid ( rand (), TRUE ) );
         }
 
-        $NeedMember=array('commit','recharge','cancel','cartCommit',"comment",'cartStep4','cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
+        $NeedMember=array('vtaddress','commit','recharge','cancel','cartCommit',"comment",'cartStep4','cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
         if (in_array($action,$NeedMember,true)){
             if( isset($_SESSION ['WechatAuthOpenId'] )|| isset($_REQUEST['openid'])){
                 $openid = isset($_SESSION ['WechatAuthOpenId'] )? $_SESSION ['WechatAuthOpenId'] : $_REQUEST['openid']  ;
@@ -293,7 +294,6 @@ class WeAction extends HomeAction {
         if(empty($feeEntity) || empty($shippingEntity)){ $this->actionFail() ; return;}
         $packageWeight = floatval ( trim ( $_POST ['weight'] ) );
         $packageWeight = round ( $packageWeight, 2 );
-//        var_dump($packageWeight);die;
 
         if ($this->user && $ids && is_numeric ( $packageWeight ) && ($packageWeight > 0) && $shippingEntity && $feeEntity && ($feeEntity ['totalFee'] > 0)) {
 
@@ -858,9 +858,7 @@ class WeAction extends HomeAction {
     // 提交包裹清单
     public function commitPackage() {
         if($_SERVER['REQUEST_METHOD']=='POST') {
-//        $user = Session::get ( C ( 'MEMBER_INFO' ) );
             $user=$this->user;
-//            $user = array('id' => 9358, 'login_name' => 'wsh111');
             if ($user) {
                 $product ['user_id'] = $user ['id'];
                 $product ['user_name'] = $user ['login_name'];
@@ -1037,6 +1035,7 @@ class WeAction extends HomeAction {
     // 仓库地址
     public function vtaddress(){
         $this->assign('topContent','唯唐地址');
+        $this->assign('uid',$this->user['id']);
         $this->display();
     }
 
@@ -1334,41 +1333,46 @@ class WeAction extends HomeAction {
         $this->assign('un',$this->user['login_name']);
         $this->display();
     }
-//    微信支付
+//    微信支付 生成订单
     public function  commit(){
-        $payer_id 	= $_POST['payer_uid'];	//用于对支付结果通知进行个人帐户入帐
-        $payer_un	= $_POST['payer_un'];		//用户名
+        $payer_id 	= $_REQUEST['payer_uid'];	//用于对支付结果通知进行个人帐户入帐
+        $payer_un	= $_REQUEST['payer_un'];		//用户名
         $cz_money= $_REQUEST['wepayValue'] == "0.00" ? $_REQUEST['wanted'] : $_REQUEST['wepayValue'];
         $total_fee    		=$cz_money * 100;		//订单总金额，显示在支付宝收银台里的“应付总额”里
-        $body         		= $_POST['alibody'];			//订单描述、订单详细、订单备注，显示在支付宝收银台里的“商品描述”里
-        $tools = new WxPayJsApiPayAction();
+        $body         		= $_REQUEST['alibody'];			//订单描述、订单详细、订单备注，显示在支付宝收银台里的“商品描述”里
         $openId = $this->openid;
         $out_trade_no 	= $payer_id.date('_YmdHis').'_'.rand(1000,2000);		//唯一订单号匹配
-        $real_fee = $total_fee - ($total_fee * C('WEPAY_FEE'))/100;
-        $real_fee = $real_fee /100;
+//        统计真实充值金额和实际入户金额 写跟踪日志  暂时waiting
+//        $real_fee = $total_fee - ($total_fee * C('WEPAY_FEE'))/100;
+//        $real_fee = $real_fee /100;
+//        $totoal_fee_back = $total_fee /100;
+//        writePayTrace($payer_id,$payer_un,$out_trade_no,$real_fee,'pendding','109-微信充值-JSAPI',$totoal_fee_back,'');
+        // 前往支付
+        $url=$this->pay_url.$out_trade_no."&body=".$body."&totalFee=".$total_fee."&openid=".$openId."&payer_id=".$payer_id;
 
-//②、统一下单
-        $input = new WxPayUnifiedOrder();
-        $input->SetBody($body);
-        $input->SetAttach("test");
-        $input->SetOut_trade_no($out_trade_no);
-        $input->SetTotal_fee($real_fee);
-        $input->SetTime_start(date("YmdHis"));
-        $input->SetTime_expire(date("YmdHis", time() + 600));
-        $input->SetGoods_tag("唯唐充值");
-        $input->SetNotify_url(C('WEPAY_NOTIFY_URL'));
-        $input->SetTrade_type("JSAPI");
-        $input->SetOpenid($openId);
-        $order = WxPayApi::unifiedOrder($input);
-//        $this->printf_info($order);
-        echo json_encode($order);
+        header ( "Location:$url" );
+
     }
-//  打印输出数组信息
-    function printf_info($data)
-    {
-        foreach($data as $key=>$value){
-            echo "<font color='#00ff55;'>$key</font> : $value <br/>";
-        }
+//     公众号支付 jsapi
+    public function  pay(){
+
+        $this->assign('topContent','账户充值');
+        // 导入微信支付sdk
+        Vendor('wepay.Weixinpay');
+
+        $wxpay=new \Weixinpay();
+        // 获取jssdk需要用到的数据
+
+        $data=$wxpay->getParameters();
+
+        // 将数据分配到前台页面
+
+        $assign=array(
+
+            'data'=>json_encode($data)
+        );
+        $this->assign($assign);
+        $this->display();
     }
 //    hubing end
     // -------------------------------------------------------------------------------------------
@@ -1412,32 +1416,6 @@ class WeAction extends HomeAction {
 
             }
         }
-
-//			$WechatClient = !empty($this->wechat_token) ? new Wechat ( $this->wechat_token ) : false;
-//			$WechatRequest = ($WechatClient) ? $WechatClient->request () : false;
-//
-//			 if ($WechatRequest && is_array ( $WechatRequest)) {
-//				$_openid = $WechatRequest ['FromUserName'] ;
-//
-//				if (strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_EVENT) {
-//					if (strtoupper ( $WechatRequest['Event'] ) == Wechat::MSG_EVENT_CLICK) {
-//						if ($this->getUserByWechatOpenId ($_openid) != false) {
-//							$content = $this->eventRoute($WechatRequest,$_openid);
-//						} else {
-//							$content = '为了更好地为您服务，请先'
-//									 . '<a href="'. $this->_server_url . 'register.html?oid='.$_openid.'">'
-//									 . '绑定系统帐号哦'
-//									 . '</a>';
-//						}
-//
-//						$WechatClient->replyText ( $content );
-//					}
-//				}elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_TEXT){
-//
-//				}elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_IMAGE){
-//
-//				}
-//		}
 
     }
     /*问题回复*/
