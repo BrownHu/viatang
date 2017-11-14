@@ -6,3 +6,4 @@ demo Page
 http://vt.daigoucms.cn/We/home.html
 
 微信号：viatang-daigou
+微信名称 ： Viatang
