@@ -8,7 +8,8 @@
                 <div class="am-panel am-panel-default waitconfirm-body-inf">
                     <input type="checkbox" name="id[]" value="{$vo.product_id}.{$vo.type}.{$vo.id}">
                     <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target:'#do-not-say-<php>echo $i;</php>'}">
-                        <span>{$vo.product_id}</span>
+                        <span>{$vo.product_id}</span><span style="text-align: right">{$vo.title}</span>
+
                         <i class="am-icon-chevron-right"></i>
                     </div>
                     <div id="do-not-say-{$i}" class="am-panel-collapse am-collapse waitconfirm-body-det <php>if($i==1){echo 'am-in';}</php>">
@@ -34,7 +35,7 @@
                         </div>
                     </div>
                     <div class="am-panel-footer" align="right" style="padding:0;">
-                        <span style="margin-right: 2%;font-size: 14px;">{$vo.title}</span>
+                        <!--<span style="margin-right: 2%;font-size: 14px;">{$vo.title}</span>-->
                     </div>
                 </div>
             </div>

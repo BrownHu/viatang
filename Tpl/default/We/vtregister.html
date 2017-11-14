@@ -1,0 +1,65 @@
+<include file="baseHead" />
+<div class="am-g">
+    <div class="am-u-sm-12 am-margin-top-xl">
+        <form class="am-form am-form-horizontal" action="{:U('We/vtregister')}" method="post" id="rform">
+            <input type="hidden" name="qq_openid" value="{$openid}">
+            <div class="am-form-group">
+                <label for="loginName" class="am-u-sm-3 am-form-label">用户名:</label>
+                <div class="am-u-sm-9">
+                    <input type="text" name="login_name" required id="loginName" placeholder="用户名">
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label for="email" class="am-u-sm-3 am-form-label">邮箱:</label>
+                <div class="am-u-sm-9">
+                    <input type="email" name="email" required  id="email" placeholder="邮箱">
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label for="pass" class="am-u-sm-3 am-form-label">密码:</label>
+                <div class="am-u-sm-9">
+                    <input type="text" name="password" required id="pass" placeholder="密码">
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-offset-3">
+                    <button type="button" onclick="checkForm()" class="am-btn am-btn-danger">立即注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="am-u-sm-12">
+    </div>
+</div>
+</div>
+<include file="totop" />
+<include  file="footer" />
+<script>
+    function checkForm() {
+        var progress = $.AMUI.progress;
+        progress.start();
+        var email = $('#email').val();
+        var  loginName=$('#loginName').val();
+        $.ajax({
+            url:"checkRegisterUSer.html?n="+loginName+"&e="+email,
+            dataType: 'json',
+            success:function(data){
+                if(data==true){
+                    progress.done();
+                    alert('哎呀，您申请的用户名或Email 已被占用,请重试!');
+                    return false;
+                }else {
+                    progress.done();
+                    $('form#rform').submit();
+                }
+            },
+            error:function () {
+                alert('网络环境异常,请稍后重试！')
+            }
+        })
+    }
+</script>
+</body>
+</html>

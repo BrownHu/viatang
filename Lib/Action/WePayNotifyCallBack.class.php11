@@ -60,17 +60,11 @@ class WePayNotifyCallBack extends WxPayNotify {
 		//更新会员帐户余额
 		$total_fee = $total_fee - ($total_fee * C('WEPAY_FEE'))/100;
 		$pay_trace_log = getPayTrace($orderno);
-        //区分扫码支付和jaspi支付  前 109  后 110
-        $premark=$pay_trace_log['remark'];
-        $after=explode("-",$premark);
-        $pay_type=$after[0];
-
-
 		if($pay_trace_log && ($pay_trace_log['result'] == 0) ){
 			updatePayTrace($orderno,1,'completed');	//更新交易过程记录
-			writeFinaceLog($pay_trace_log['user_id'],$pay_trace_log['user_name'],$orderno,$total_fee,$pay_type,'微信充值,微信订单号:'.$trade_no);
+			writeFinaceLog($pay_trace_log['user_id'],$pay_trace_log['user_name'],$orderno,$total_fee,109,'微信充值,微信订单号:'.$trade_no);
 			updateFinance($pay_trace_log['user_id'],$total_fee);	//更新帐户余额
-			writeReplenishingLog($pay_trace_log['user_id'],$pay_trace_log['user_name'],$total_fee,$buyer_emaill,0,'',"$pay_type",'微信充值,微信订单号:'.$trade_no);
+			writeReplenishingLog($pay_trace_log['user_id'],$pay_trace_log['user_name'],$total_fee,$buyer_emaill,0,'','109','微信充值,微信订单号:'.$trade_no);
 		}
 	}
 }

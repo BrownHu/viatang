@@ -70,7 +70,7 @@
                         <label class="am-radio">
                             <input type="radio" name="wepayValue" value="0.00"  id="others">
                             其他金额：¥
-                            <input type="number" placeholder="输入您的自定义待充值金额"  name="wanted" disabled id="wanted">
+                            <input pattern="^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$" placeholder="输入您的自定义待充值金额"  name="wanted" disabled id="wanted">
                         </label>
                             <p style="width: 300px;">实际到账：<strong><span id="valueTip" style="color: red;"></span></strong>&nbsp;元人民币</p>
                     </div>

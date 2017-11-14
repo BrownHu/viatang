@@ -17,6 +17,7 @@ vendor('wepay.WxPayApi'); //微信API
 require_once('WxPayJsApiPayAction.php');
 import ( 'ORG.Wechat.WechatAuth' );
 load ( '@/functions' );
+load ( '@/payutils' );
 import ( 'ORG.Util.Page' );
 class WeAction extends HomeAction {
 //6UmXvxK4rRAbeF4DJlnHrDZmrhBFNTrcRP0vzxZ4hFY  EncodingAESKey
@@ -26,7 +27,7 @@ class WeAction extends HomeAction {
     private   $redirect_url    = 'http://vt.daigoucms.cn/we/requestToken/do/';
     private   $pay_url         =  "http://vt.daigoucms.cn/we/pay?out_trade_no=";
     private   $accesstoken_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=__APPID__&secret=__SECRET__&code=__CODE__&grant_type=authorization_code';
-
+    protected $vturl="http://vt.daigoucms.cn/We/";
     protected $goods;
     protected $express;
     protected $user;
@@ -41,12 +42,12 @@ class WeAction extends HomeAction {
 
         $action=ACTION_NAME;
         $this->wechat_token = 'ZLinkDaigouCMS';
-        $this->_server_url = 'http://www.viatang.com/we/';//C('SITE_URL')
+        $this->_server_url = 'http://vt.daigoucms.cn/We/';//C('SITE_URL')
         if( !isset($_SESSION ['WechatState']) ){
             $_SESSION ['WechatState'] = md5 ( uniqid ( rand (), TRUE ) );
         }
 
-        $NeedMember=array('vtaddress','commit','recharge','cancel','cartCommit',"comment",'cartStep4','cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
+        $NeedMember=array('financeLog','logout','vtaddress','commit','recharge','cancel','cartCommit',"comment",'cartStep4','cartStep2','cart','memberInfo','member','arriveQuery','checkArrive','commitPackage','addtocart','address','goodM','parcel');
         if (in_array($action,$NeedMember,true)){
             if( isset($_SESSION ['WechatAuthOpenId'] )|| isset($_REQUEST['openid'])){
                 $openid = isset($_SESSION ['WechatAuthOpenId'] )? $_SESSION ['WechatAuthOpenId'] : $_REQUEST['openid']  ;
@@ -146,14 +147,12 @@ class WeAction extends HomeAction {
 //hubing start
 //主页
     public function  home(){
-        /*start*/
         $this->assign('headerType',"H");
         $HelpList = M ( 'Help' )->field('id,title')->where ( 'category_id=11' )->limit ( '1,5' )->order ( 'sort asc' )->select ();
         $AnnounceList = M ( 'Announce' )->field('id,title,last_update')->order ( 'last_update desc' )->limit ( '0,4' )->select ();
         $this->assign ( 'AnnounceList', $AnnounceList );
         $this->assign ( 'HelpList', $HelpList );
         $this->display('index');
-        /*end*/
     }
     /*我的送货车*/
     public function  cart(){
@@ -173,6 +172,79 @@ class WeAction extends HomeAction {
         $this->display ();
     }
 
+//    用户注册
+    public function  vtregister(){
+        if($_SERVER['REQUEST_METHOD']=="POST"){
+            $openId=htmlspecialchars($_REQUEST['qq_openid']);
+            $member   =  mysql_escape_string(  htmlspecialchars(remove_xss(trim ( $_POST ['login_name'] ))));
+            $email        =  strtolower(mysql_escape_string(  htmlspecialchars(remove_xss(trim ( $_POST ['email']))) ));
+            $password  =  mysql_escape_string(  htmlspecialchars(remove_xss(trim ( $_POST ['password']))) );
+            $email = strtolower ( $email );
+
+            $clientIp = get_client_ip ();
+            $now = time ();
+            $salt = rand_string(12);
+            $password1 = md5 ( $password );
+            $data ['login_name'] = $member;
+            $data ['password'] = md5($password1.$salt);
+            $data ['salt'] = $salt;
+            $data ['email'] = mysql_escape_string ( htmlspecialchars (trim($email)));
+            $data ['email2'] =  base64_encode(ulowi_encode(strtolower(mysql_escape_string ( htmlspecialchars (trim($email))))));
+            $data ['refer_url'] = '';
+            $data ['refer_domain'] = '';
+            $data ['active_status'] = 1;
+            $data ['status'] = 1;
+            $data ['nick'] = $member;
+            $data ['is_qquser'] = 2;	//这里记为非qq用户
+            $data['qq_openid']=$openId;
+            $data ['reg_ip'] = $clientIp;
+            $data ['last_ip'] = $clientIp;
+            $data ['create_time'] = $now;
+            $data ['last_login'] = $now;
+
+            $uid = M ( 'User' )->data ( $data )->add ();
+
+            if (! empty ( $uid )) {
+                $this->makeFinace ( $uid ); //生成对应财务数据
+                write_point_log ( $uid, $member, 200, 401, L('register_point') );
+
+                if ( intval(C ( 'MANG_NOTIFY_TAG') ) == 1) { //新用户注册时发送邮件通知管理员
+                    $mail_content = $member . ':' . $email;
+                    $this->send_manage_mail ( '新注册会员', $mail_content . ',IP:' . $clientIp );
+                }
+
+               $this->actionSuccess('member');
+            } else {
+                $this->actionFail('member');
+            }
+        }else{
+            $this->assign('topContent','快速注册');
+            $openId=$_REQUEST['myId'];
+            $afterDeal=explode(".",$openId);
+            $this->assign('openid',$afterDeal[0]);
+            $this->display();
+        }
+    }
+    //发送管理员通知
+    private function send_manage_mail($subject, $mail_content) {
+        addToMailQuen(C('NOREPLY_MAIL'),C('SITE_NAME'),C('MANG_NOTIFY_MAIL'),$subject,$mail_content,'');
+    }
+    // 前台ajax验证用户名、邮箱辅助方法
+    private function isExists($uername, $email) {
+        $result = false;
+        if (! empty ( $uername ) && ! empty ( $email )) {
+            $username1 = strtolower ( $uername );
+            $email1 = strtolower ( $email );
+            $count = M ( 'User' )->where ( "login_name='$uername' OR login_name='$username1' OR email='$email' OR email='$email1'" )->count ();
+            $result = (intval($count) > 0)?true:false;
+        }
+        return $result;
+    }
+//  用户登录名、邮箱检测
+    public  function checkRegisterUser(){
+        $flag=$this->isExists($_REQUEST['n'],$_REQUEST['e']);
+        echo   json_encode($flag);
+    }
     /*展示待打包商品*/
     public function cartStep2(){
         $this->assign('topContent','打包运送');
@@ -196,7 +268,26 @@ class WeAction extends HomeAction {
         }else{
             $this->actionFail();
         }
-
+    }
+//    财务记录
+    public function  financeLog(){
+        $this->assign('topContent','财务记录');
+        if ($this->user) {
+            $DAO = M ( 'FinanceLog' );
+            $count = $DAO->where ( "user_id=" . $this->user ['id'] )->count ();
+            if ($count > 0) {
+                $p = new Page ( $count, 20 );
+                $p->setConfig('first','1');
+                $p->setConfig('theme','%upPage% %first%  %linkPage%  %downPage%');
+                $page = $p->show ();
+                $DataList = $DAO->where ( 'user_id=' . $this->user ['id'] )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_time desc' )->select ();
+                $this->assign ( 'DataList', $DataList );
+                $this->assign ( 'page', trim($page) );
+            }
+            $this->display ();
+        } else {
+           $this->actionFail('member');
+        }
     }
     /*选择运输方式*/
     public function  cartStep3(){
@@ -272,8 +363,6 @@ class WeAction extends HomeAction {
                 $countryList =  M ( 'DeliverZone' )->where ( 'status = 1' )->order ( 'sort' )->select ();
                 $this->assign ( 'CountryList', $countryList );
 
-                //加载运单模板
-//                $this->assign ( 'shipping_templete', $this->shipping_tpl[strtolower ( $address ['shipping_way'] )] );
             } else {
                 $this->actionFail();
             }
@@ -1193,7 +1282,18 @@ class WeAction extends HomeAction {
         }
         $this->display ();
     }
-
+//      登出
+    public function  logout(){
+        if($this->user) {
+            $condition['id']=$this->user['id'];
+            $map['is_qquser']=0;
+            $map['qq_openid']="";
+            $flag= M ( "User" )->where ($condition)->save($map);
+            $this->pageJump($flag,'home');
+        }else{
+            $this->actionFail();
+        }
+    }
 
 //     包裹评论
     public function comment(){
@@ -1343,13 +1443,23 @@ class WeAction extends HomeAction {
         $openId = $this->openid;
         $out_trade_no 	= $payer_id.date('_YmdHis').'_'.rand(1000,2000);		//唯一订单号匹配
 //        统计真实充值金额和实际入户金额 写跟踪日志  暂时waiting
-//        $real_fee = $total_fee - ($total_fee * C('WEPAY_FEE'))/100;
-//        $real_fee = $real_fee /100;
-//        $totoal_fee_back = $total_fee /100;
-//        writePayTrace($payer_id,$payer_un,$out_trade_no,$real_fee,'pendding','109-微信充值-JSAPI',$totoal_fee_back,'');
+        $real_fee = $total_fee - ($total_fee * C('WEPAY_FEE'))/100; //扣除手续费
+        $real_fee = $real_fee /100; //真实到账金额
+        $total_fee_log = $total_fee /100; //充值面额
+//        $message=array();
+//        $message[]=$payer_id;
+//        $message[]=$payer_un;
+//        $message[]=$out_trade_no;
+//        $message[]=$real_fee;
+//        $message[]=$total_fee_log;
+//        print_r($message);
+//        echo C('WEPAY_FEE');
+//        die();
+
+
+        writePayTrace($payer_id,$payer_un,$out_trade_no,$real_fee,'pendding','110-微信JSAPI支付',$total_fee_log,'');
         // 前往支付
         $url=$this->pay_url.$out_trade_no."&body=".$body."&totalFee=".$total_fee."&openid=".$openId."&payer_id=".$payer_id;
-
         header ( "Location:$url" );
 
     }
@@ -1398,7 +1508,7 @@ class WeAction extends HomeAction {
                         $content = $this->eventRoute($WechatRequest,$_openid);
                     } else {
                         $content = '为了更好地为您服务，请先'
-//									 . '<a href="'. $this->_server_url . 'register.html?oid='.$_openid.'">'
+//									 . '<a href="'. $this->vturl . '.html?oid='.$_openid.'">'
                             . '绑定系统帐号哦';
 //									 . '</a>';
                     }
@@ -1407,12 +1517,12 @@ class WeAction extends HomeAction {
             }elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_TEXT){
 //				    暂不考虑其他关键字
                 $content=$WechatRequest['Content'];
-                $content= $content== "公众号测试" ? $this->_server_url."home" : "唯唐代购欢迎您";
-                $WechatClient->replyText($content);
+                $replyContent= $content== "公众号测试" ? $this->vturl . "home.html" : "唯唐代购欢迎您";
+                $WechatClient->replyText($replyContent);
 
             }elseif(strtolower ( $WechatRequest ['MsgType'] ) == Wechat::MSG_TYPE_IMAGE){
-                $WechatClient->replyText("viatang");
 
+                $WechatClient->replyText("唯唐代购欢迎您");
 
             }
         }
@@ -1525,7 +1635,7 @@ class WeAction extends HomeAction {
                     $p->setConfig('first','1');
                     $p->setConfig('theme','%upPage% %first%  %linkPage%  %downPage%');
                     $page = $p->show ();
-                    $DataList = $this->dao->where ( 'user_id=' . $this->user ['id'] )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_time desc' )->select ();
+                    $DataList = $this->dao->where ( 'user_id=' . $this->user ['id'] )->limit ( $p->firstRow . ',' . $p->listRows )->order ( 'create_time asc' )->select ();
                     $this->assign ( 'DataList', $DataList );
                     $this->assign ( 'page', trim($page) );
                 }

@@ -1,0 +1,213 @@
+<include file="baseHead" />
+<div class="am-g">
+    <!-- 财务记录列表 -->
+    <volist name="DataList" id="vo">
+        <div class="am-u-sm-12 address-list">
+            <article class="address-box" style="background-color: #FFFFFF;">
+                <div>
+                    <header class="address-box-header">
+                        <p>
+                            <span style=" text-align: left;">余额:&nbsp;&nbsp;{$vo.money_after}</span>
+                            <span style=" display: inline-block; float: right;">时间：{$vo.create_time|date="Y-m-d H:i:s",###}</span>
+                        </p>
+                    </header>
+                    <div class="address-box-main">
+                            <switch name="vo.type_id">
+                                <case value="101">
+                                    <p>收入(¥)：<gt name="vo.money"  value="0">{$vo.money|abs=###|number_format=###,2}<else/>{$vo.rebate|abs=###|number_format=###,2}</gt></p>
+                                    <p>支出(¥):0.00</p>
+                                </case>
+                                <case value="102">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="103">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="104">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="105">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="106">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="107">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="108">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="201">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="202">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="203">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="204">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="301">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="302">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="303">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="304">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="109">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="110">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="305">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="306">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="307">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="308">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="403">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="404">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="405">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="406">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="407">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="408">
+                                    <p>收入(¥):{$vo.rebate}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="501">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="502">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="503">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="504">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="505">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="506">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="507">
+                                    <p>收入(¥):{$vo.money|abs=###|number_format=###,2}</p>
+                                    <p>支出(¥)：0.00</p>
+                                </case>
+                                <case value="508">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                <case value="509">
+                                    <p>收入(¥)：0.00</p>
+                                    <p>支出(¥):-{$vo.money|abs=###|number_format=###,2}</p>
+                                </case>
+                                </switch>
+                        <p>现金余额(¥) / 折扣余额（¥）:  {$vo.money_after}&nbsp;<span style="color: red;">/</span>&nbsp;{$vo.rebate_after}</p>
+                        <p>备注:{$vo.type_id|getSpendType}
+                            <switch name="vo.type_id">
+                                <case value="201">，订单:DD{$Think.session.m_id}-{$vo.order_id}
+                                    <gt name="vo.rebate"  value="0">
+                                        <br>&nbsp;&nbsp;&nbsp;已抵扣服务费：-{$vo.rebate|abs=###|number_format=###,2}
+                                    </gt>
+                                </case>
+                                <case value="202">，商品:P{$vo.product_id}</case>
+                                <case value="301">，运单:YD{$Think.session.m_id}-{$vo.product_id}</case>
+                                <case value="302">，运单:YD{$Think.session.m_id}-{$vo.product_id}</case>
+                                <case value="303">，运单:YD{$Think.session.m_id}-{$vo.product_id}</case>
+                                <case value="306">，详情访问PC端</case>
+                                <case value="307">，运单:YD{$Think.session.m_id}-{$vo.product_id}</case>
+                                <case value="308">，详情访问PC端</case>
+                                <case value="408">，消费{$vo.point}积分，详情访问PC端</case>
+                                <case value="501">，详情访问PC端</case>
+                            </switch>
+                        </p>
+
+                        <hr class="line">
+                    </div>
+                    <footer class="address-box-foot clearfix"  style="float: right;">
+                        <div class="am-comment-actions address_default">
+
+                        </div>
+                    </footer>
+                </div>
+            </article>
+        </div>
+    </volist>
+    <div class="am-u-sm-10 am-u-sm-offset-2  am-u-sm-centered am-margin-bottom-xl">
+        {$page}
+    </div>
+</div>
+<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default" id="public-footer-btn">
+    <ul class="am-navbar-nav am-cf am-avg-sm-3">
+        <li>
+            <div class="am-header-right am-header-nav btn-add">
+                <a href="recharge" class="am-btn am-btn-danger am-radius am-btn-xs">我要充值</a>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- end 删除地址弹出提示框 -->
+<include  file='totop' />
+</div>
+</body>
+</html>

@@ -6,11 +6,16 @@
     <form class="am-form am-form-horizontal" action="{:U('We/cartStep4')}" method="post" id="order_form" name="order_form">
         <div class="am-u-sm-9 am-u-sm-offset-3">1、选择配送区域</div>
         <div class="am-form-group am-u-sm-12">
+            <select id='status' >
                 <volist name="CountryList" id="vo">
                     <label class="am-radio-inline am-u-sm-5 am-u-sm-centered" >
-                        <input required type="radio"  onclick="show_way_lst('{$vo.id}','{$PackageWeight}');" data-am-ucheck  value="{$vo.id}" >{$vo.caption_cn}
+                        <!--<input required type="radio"  onclick="show_way_lst('{$vo.id}','{$PackageWeight}');" data-am-ucheck  value="{$vo.id}" >{$vo.caption_cn}-->
+                        <!--<input required type="radio"  onclick="show_way_lst('{$vo.id}','{$PackageWeight}');" data-am-ucheck  value="{$vo.id}" >{$vo.caption_cn}-->
+                        <option value="{$vo.id}|{$PackageWeight}" >{$vo.caption_cn}</option>
+
                     </label>
                 </volist>
+            </select>
         </div>
 
         <div class="am-u-sm-9 am-u-sm-offset-3">2、选择配送方式</div>
@@ -101,6 +106,12 @@
     function shipping(wid){	init_display(); $('#way_id').val(wid);$('#wid').val(wid);$('#frmfee').submit();}
     function init_display(){ $('#show_p_shipping_fee').html('0');$('#show_p_serve_fee').html('0');$('#show_p_serve_cut').html('');	$('#show_p_customs_fee').html('0');$('#show_p_insure_fee').html('0');$('#show_total').html('0');$('#way_id').attr('value','0');	$('#wid').attr('value','0');}
     function show_way_lst(zid,weight){ $('#shipping_way_lst').empty().html('<tr><td><img src="/Public/Images/ajax-loader.gif">&nbsp;加载中...</td></tr>');$.get('__URL__/way_lst/zid/'+zid+'/w/'+weight, function(data) { $('#shipping_way_lst').empty().html(data);	});	init_display();}function checkDHL(cap){	if(cap =='DHL'){ $('#dhl_tip').show();}else{ $('#dhl_tip').hide();}}
+</script>
+<script>
+    $("select#status").change(function(){
+        var  area= $(this).val().split('|');
+        show_way_lst(area[0],area[1])
+         });
 </script>
 
 </body>

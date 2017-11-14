@@ -16,11 +16,12 @@
                         <blockquote>
                             <p>包裹ID： <b>YD{$userId}-{$vo.id}</b></p>
                             <p>提交时间： <b>{$vo.create_time|date="Y-m-d",###}</b></p>
-                            <p>收货人： <b>{$vo.contact}</b></p>
-
+                            <p>收件地址详情: <b>{$vo.contact}-{$vo.phone}-{$vo.address}-{$vo.city}-{$vo.zip}-{$vo.country}</b> </p>
                             <p>运送方式： <b>{$vo.deliver_way}</b></p>
                             <p>运单号： <b>{$vo.package_code|default=' '}</b></p>
                             <p>返还(￥)： <b><eq name="vo.excess_money" vale="0"><else/>{$vo.excess_money}</eq></b></p>
+                            <p>包裹预估重量：<b>{$vo.weight|number_format=2}g</b></p>
+                            <p>包裹实际重量：<b>{$vo.weight_real|number_format=2}g</b></p>
                             <p>状态：<b style="color: red;"><switch name="vo.status">
                                 <case value="1">等待审核</case>
                                 <case value="2">处理中</case>

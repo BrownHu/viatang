@@ -32,6 +32,7 @@
                                     <p>物流单号：{$vo.trace_no}</p>
                                 </notempty>
                                 <p>日期： <b>{$vo.send_time|date="Y-m-d H:s:i",###}</b></p>
+                                <p>数量：{$vo.count|default=1}</p>
                                 <p>备注： <b>{$vo.remark}</b></p>
                                 <p>状态：<b style="color: red;"><switch name="vo.status">
                                     <case value="0">等待收货</case>
